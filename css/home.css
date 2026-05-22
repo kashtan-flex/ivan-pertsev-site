@@ -1,14 +1,14 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V34
+   IVAN PERTSEV — HOME PAGE — DESKTOP V38
    FILE: css/home.css
 
-   V34:
-   - сохранён текущий удачный blur меню;
-   - исправлен баг цвета ссылок;
-   - цвета закреплены для link / visited / hover / active;
-   - основной текст меню белый;
-   - ссылки аккордеонов #69C9FF;
-   - legal links белый 50%.
+   V38:
+   - исправлена анимация крестика;
+   - убрано обрезание крестика сверху;
+   - крестик, Instagram, Telegram, VK = 27×27px;
+   - сохранён текущий blur меню 18px;
+   - сохранены цвета меню;
+   - сохранены текущие анимации главного экрана.
    ========================================================= */
 
 @font-face{
@@ -180,52 +180,72 @@
   animation-delay:1.66s;
 }
 
+/* =========================================================
+   MENU TOGGLE / CROSS
+
+   ВАЖНО V38:
+   - кнопка 27×27px;
+   - overflow visible, чтобы крестик не обрезался;
+   - линии вращаются из центра;
+   - open-state не даёт скачка.
+   ========================================================= */
+
 .ip-menu-toggle{
   position:absolute;
   top:60px;
   right:100px;
   z-index:50;
-  width:34px;
-  height:22px;
+  width:27px;
+  height:27px;
   padding:0 !important;
   margin:0 !important;
   border:none !important;
   outline:none !important;
   background:transparent !important;
   cursor:pointer;
-  overflow:hidden;
+  overflow:visible;
+  appearance:none;
+  -webkit-appearance:none;
+  box-shadow:none !important;
 }
 
 .ip-menu-toggle::before,
 .ip-menu-toggle::after{
+  content:none !important;
   display:none !important;
 }
 
 .ip-menu-line{
   position:absolute;
   left:0;
-  width:34px;
+  width:27px;
   height:3px;
   border-radius:10px;
   background:#fff;
-  transition:transform .45s ease, top .45s ease;
+  transform-origin:center center;
+  transition:
+    transform .42s cubic-bezier(.19,1,.22,1),
+    top .42s cubic-bezier(.19,1,.22,1);
+  will-change:transform,top;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 
 .ip-menu-line:first-child{
-  top:0;
+  top:7px;
 }
 
 .ip-menu-line:last-child{
-  top:15px;
+  top:18px;
 }
 
 .ip-menu-toggle.is-open .ip-menu-line:first-child{
-  top:7.5px;
+  top:12px;
   transform:rotate(45deg);
 }
 
 .ip-menu-toggle.is-open .ip-menu-line:last-child{
-  top:7.5px;
+  top:12px;
   transform:rotate(-45deg);
 }
 
@@ -250,7 +270,7 @@
 
 /* =========================================================
    MENU GLASS BACKGROUND
-   black 30% + blur 25px
+   black 30% + blur 18px + noise 35%
    ========================================================= */
 
 .ip-menu-panel::before{
@@ -259,15 +279,10 @@
   inset:0;
   z-index:0;
   background:rgba(0,0,0,.30);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
   pointer-events:none;
 }
-
-/* =========================================================
-   MENU NOISE
-   noise 35%, normal blend
-   ========================================================= */
 
 .ip-menu-panel::after{
   content:'';
@@ -297,6 +312,11 @@
   transition-delay:.34s;
 }
 
+/* =========================================================
+   SOCIAL ICONS
+   27×27px
+   ========================================================= */
+
 .ip-menu-socials{
   display:flex;
   gap:10px;
@@ -305,8 +325,8 @@
 
 .ip-social{
   display:block;
-  width:25px;
-  height:25px;
+  width:27px;
+  height:27px;
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
@@ -341,12 +361,6 @@
   flex-direction:column;
   gap:20px;
 }
-
-/* =========================================================
-   MENU COLORS — STABLE FIX
-   Важно: прописаны все состояния ссылок.
-   Это защищает цвет от visited/active стилей браузера и Tilda.
-   ========================================================= */
 
 .ip-menu-link,
 .ip-menu-link:link,
