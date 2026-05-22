@@ -1,56 +1,495 @@
-(function () {
+@font-face {
+  font-family: 'Benzin';
+  src: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/fonts/Benzin-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
-  const DESIGN_WIDTH = 1440;
-  const DESIGN_HEIGHT = 800;
+.t-rec:has(.ip-page-home) {
+  padding: 0 !important;
+}
 
-  const page = document.querySelector('.ip-page-home');
-  const menuButton = document.querySelector('.ip-menu-toggle');
-  const menuPanel = document.querySelector('.ip-menu-panel');
-  const accordions = document.querySelectorAll('.ip-accordion');
+.ip-page-home,
+.ip-page-home * {
+  box-sizing: border-box;
+}
 
-  if (!page) return;
+.ip-page-home a,
+.ip-page-home a:hover,
+.ip-page-home a:visited {
+  color: inherit;
+  text-decoration: none;
+}
 
-  function updateHomeScale() {
-    const scaleX = window.innerWidth / DESIGN_WIDTH;
-    const scaleY = window.innerHeight / DESIGN_HEIGHT;
-    const scale = Math.min(scaleX, scaleY);
+.ip-page-home {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 800px;
+  overflow: hidden;
+  background: #050505;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+}
 
-    page.style.setProperty('--ip-home-scale', scale);
+.ip-home-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1440px;
+  height: 800px;
+  overflow: hidden;
+  transform: translate(-50%, -50%) scale(var(--ip-home-scale, 1));
+  transform-origin: center center;
+}
+
+.ip-home-bg-start,
+.ip-home-bg-final {
+  position: absolute;
+  inset: 0;
+  background-size: 1440px 800px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.ip-home-bg-start {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/bg.webp');
+  animation: ipStartBgFade 2.2s ease forwards;
+}
+
+.ip-home-bg-final {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home-animation-final.webp');
+  opacity: 0;
+  animation: ipFinalBgFade 2.2s ease forwards;
+}
+
+.ip-home-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.04);
+  pointer-events: none;
+}
+
+/* ===== ТЕКСТОВАЯ ГРУППА ===== */
+.ip-home-content {
+  position: absolute;
+  left: 595px;
+  top: 473px;
+  z-index: 5;
+  width: 510px;
+}
+
+/* ===== ЗАГОЛОВОК ===== */
+.ip-home-title {
+  margin: 0;
+  width: 510px;
+  font-family: 'Benzin', Arial, sans-serif;
+  font-size: 88px;
+  line-height: .85;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== МАСКИ СТРОК: ЛОГИКА V15, НО БЕЗ ЛИШНИХ СЛОЕВ ===== */
+.ip-title-line {
+  display: block;
+  width: 510px;
+  overflow: hidden;
+}
+
+.ip-title-line-first {
+  height: 86px;
+}
+
+.ip-title-line-second {
+  height: 96px;
+  margin-top: -10px;
+}
+
+.ip-title-line span {
+  display: block;
+  height: 112px;
+  line-height: .85;
+  opacity: 0;
+  transform: translate3d(0, -110%, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ip-title-line-first span {
+  animation: ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay: .90s;
+}
+
+.ip-title-line-second span {
+  animation: ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay: 1.16s;
+}
+
+/* ===== ПОДЗАГОЛОВОК: БЛИЖЕ К МАКЕТУ, НО БЕЗ ПЕРЕСЕЧЕНИЯ С ХВОСТОМ Р ===== */
+.ip-home-subtitle-wrap {
+  margin-top: 12px;
+  overflow: hidden;
+  padding-top: 3px;
+  padding-bottom: 10px;
+}
+
+.ip-home-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: 0.035em;
+  color: #ffffff;
+}
+
+.ip-subtitle-word,
+.ip-subtitle-dot {
+  opacity: 0;
+  transform: translate3d(0, -120%, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.ip-subtitle-word-one {
+  animation: ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay: 1.42s;
+}
+
+.ip-subtitle-dot {
+  position: relative;
+  top: 1px;
+  width: 4px;
+  height: 4px;
+  flex: 0 0 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation:
+    ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards 1.54s,
+    ipDotBlink 1.4s ease-in-out infinite 2.15s;
+}
+
+.ip-subtitle-word-two {
+  animation: ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay: 1.66s;
+}
+
+/* ===== БУРГЕР ===== */
+.ip-menu-toggle {
+  position: absolute;
+  top: 60px;
+  right: 100px;
+  z-index: 50;
+  width: 34px;
+  height: 18px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+}
+
+.ip-menu-toggle::before,
+.ip-menu-toggle::after {
+  content: none !important;
+  display: none !important;
+}
+
+.ip-menu-line {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 34px;
+  height: 3px;
+  border-radius: 10px;
+  background: #ffffff;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform .45s ease, top .45s ease;
+}
+
+.ip-menu-line:first-child {
+  top: 0;
+}
+
+.ip-menu-line:last-child {
+  top: 15px;
+}
+
+.ip-menu-toggle.is-open .ip-menu-line:first-child {
+  top: 7.5px;
+  transform: rotate(45deg) translateZ(0);
+}
+
+.ip-menu-toggle.is-open .ip-menu-line:last-child {
+  top: 7.5px;
+  transform: rotate(-45deg) translateZ(0);
+}
+
+/* ===== МЕНЮ ===== */
+.ip-menu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  width: 385px;
+  height: 800px;
+  padding: 60px 100px 80px 60px;
+  pointer-events: none;
+}
+
+.ip-menu-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.30);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  clip-path: circle(0% at 100% 0%);
+  transition: clip-path .75s ease;
+}
+
+.ip-menu-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/menu-noise.webp');
+  background-size: cover;
+  opacity: .35;
+  mix-blend-mode: color-burn;
+  clip-path: circle(0% at 100% 0%);
+  transition: clip-path .75s ease;
+}
+
+.ip-menu-panel.is-open {
+  pointer-events: auto;
+}
+
+.ip-menu-panel.is-open::before,
+.ip-menu-panel.is-open::after {
+  clip-path: circle(150% at 100% 0%);
+}
+
+.ip-menu-inner {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+
+.ip-menu-panel.is-open .ip-menu-inner {
+  opacity: 1;
+  transition-delay: .45s;
+}
+
+.ip-menu-socials {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.ip-social {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.ip-social.instagram {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram.svg');
+}
+
+.ip-social.instagram:hover {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram-hover.svg');
+}
+
+.ip-social.telegram {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram.svg');
+}
+
+.ip-social.telegram:hover {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram-hover.svg');
+}
+
+.ip-social.vk {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK.svg');
+}
+
+.ip-social.vk:hover {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
+}
+
+.ip-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ip-menu-link,
+.ip-accordion-button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #ffffff !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  line-height: 90%;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-decoration: none !important;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ip-accordion-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ip-accordion-button::after {
+  content: '';
+  width: 12px;
+  height: 8px;
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.ip-accordion.is-open .ip-accordion-button::after {
+  background-image: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow-open-accordion.svg');
+}
+
+.ip-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s ease;
+}
+
+.ip-accordion.is-open .ip-accordion-content {
+  max-height: 220px;
+}
+
+.ip-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.ip-submenu a {
+  color: #ffffff !important;
+  font-size: 14px;
+  line-height: 120%;
+  opacity: .85;
+}
+
+.ip-menu-legal {
+  position: absolute;
+  left: 60px;
+  right: 100px;
+  bottom: 80px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s ease;
+}
+
+.ip-menu-panel.is-open .ip-menu-legal {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: .55s;
+}
+
+.ip-menu-legal a,
+.ip-menu-legal a:hover,
+.ip-menu-legal a:visited {
+  font-size: 8px !important;
+  line-height: 150% !important;
+  color: rgba(255,255,255,.65) !important;
+  text-decoration: none !important;
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes ipStartBgFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes ipFinalBgFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.015);
   }
 
-  updateHomeScale();
-  window.addEventListener('resize', updateHomeScale);
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-  if (!menuButton || !menuPanel) return;
-
-  function openMenu() {
-    menuButton.classList.add('is-open');
-    menuPanel.classList.add('is-open');
+@keyframes ipTextReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -110%, 0);
   }
 
-  function closeMenu() {
-    menuButton.classList.remove('is-open');
-    menuPanel.classList.remove('is-open');
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes ipSubtitleReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -120%, 0);
   }
 
-  menuButton.addEventListener('click', function () {
-    menuPanel.classList.contains('is-open') ? closeMenu() : openMenu();
-  });
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
 
-  window.addEventListener('scroll', function () {
-    if (menuPanel.classList.contains('is-open')) {
-      closeMenu();
-    }
-  });
+@keyframes ipDotBlink {
+  0% {
+    opacity: 0;
+    transform: scale(.6);
+  }
 
-  accordions.forEach(function (accordion) {
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
 
-    const button = accordion.querySelector('.ip-accordion-button');
+  55% {
+    opacity: .35;
+    transform: scale(.8);
+  }
 
-    button.addEventListener('click', function () {
-      accordion.classList.toggle('is-open');
-    });
-
-  });
-
-})();
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
