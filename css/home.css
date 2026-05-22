@@ -1,14 +1,16 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V38
+   IVAN PERTSEV — HOME PAGE — DESKTOP V39
    FILE: css/home.css
 
-   V38:
+   V39:
    - исправлена анимация крестика;
-   - убрано обрезание крестика сверху;
-   - крестик, Instagram, Telegram, VK = 27×27px;
-   - сохранён текущий blur меню 18px;
-   - сохранены цвета меню;
-   - сохранены текущие анимации главного экрана.
+   - top больше не анимируется;
+   - полоски всегда центрируются через top:50%;
+   - анимируется только transform;
+   - крестик сходится строго по центру;
+   - обрезание крестика убрано;
+   - иконки меню 27×27px;
+   - blur меню сохранён 18px.
    ========================================================= */
 
 @font-face{
@@ -181,13 +183,13 @@
 }
 
 /* =========================================================
-   MENU TOGGLE / CROSS
+   MENU TOGGLE / CROSS — V39
 
-   ВАЖНО V38:
-   - кнопка 27×27px;
-   - overflow visible, чтобы крестик не обрезался;
-   - линии вращаются из центра;
-   - open-state не даёт скачка.
+   Главное изменение:
+   top НЕ анимируется.
+   Обе полоски всегда стоят в центре кнопки.
+   В закрытом состоянии расходятся через translateY.
+   В открытом состоянии только вращаются.
    ========================================================= */
 
 .ip-menu-toggle{
@@ -218,35 +220,32 @@
 .ip-menu-line{
   position:absolute;
   left:0;
+  top:50%;
   width:27px;
   height:3px;
   border-radius:10px;
   background:#fff;
   transform-origin:center center;
-  transition:
-    transform .42s cubic-bezier(.19,1,.22,1),
-    top .42s cubic-bezier(.19,1,.22,1);
-  will-change:transform,top;
+  transition:transform .42s cubic-bezier(.19,1,.22,1);
+  will-change:transform;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
 }
 
 .ip-menu-line:first-child{
-  top:7px;
+  transform:translateY(calc(-50% - 5.5px));
 }
 
 .ip-menu-line:last-child{
-  top:18px;
+  transform:translateY(calc(-50% + 5.5px));
 }
 
 .ip-menu-toggle.is-open .ip-menu-line:first-child{
-  top:12px;
-  transform:rotate(45deg);
+  transform:translateY(-50%) rotate(45deg);
 }
 
 .ip-menu-toggle.is-open .ip-menu-line:last-child{
-  top:12px;
-  transform:rotate(-45deg);
+  transform:translateY(-50%) rotate(-45deg);
 }
 
 .ip-menu-panel{
@@ -267,11 +266,6 @@
   pointer-events:auto;
   transform:translate3d(0,0,0);
 }
-
-/* =========================================================
-   MENU GLASS BACKGROUND
-   black 30% + blur 18px + noise 35%
-   ========================================================= */
 
 .ip-menu-panel::before{
   content:'';
@@ -311,11 +305,6 @@
   transform:translate3d(0,0,0);
   transition-delay:.34s;
 }
-
-/* =========================================================
-   SOCIAL ICONS
-   27×27px
-   ========================================================= */
 
 .ip-menu-socials{
   display:flex;
