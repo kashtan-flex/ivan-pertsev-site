@@ -1,7 +1,20 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V19
+   IVAN PERTSEV — HOME PAGE — DESKTOP V20
    ФАЙЛ: css/home.css
+
+   ИЗМЕНЕНИЯ V20:
+   1. Меню теперь появляется ровной панелью справа.
+   2. Убран круглый край от clip-path: circle().
+   3. Край меню теперь прямой, 90 градусов.
+   4. Фон меню сделан ближе к Figma:
+      - чёрный 30%;
+      - blur 25px;
+      - шум menu-noise.webp;
+      - color-burn;
+      - затемняющий внутренний слой.
+   5. HTML и JS не трогаем.
    ========================================================= */
+
 
 /* =========================================================
    ШРИФТЫ
@@ -19,6 +32,7 @@
   font-display: swap;
 }
 
+
 /* =========================================================
    RESET
    ========================================================= */
@@ -32,6 +46,7 @@
   text-decoration:none;
   color:inherit;
 }
+
 
 /* =========================================================
    ОСНОВНАЯ СТРАНИЦА
@@ -53,8 +68,9 @@
   font-family:'Montserrat', sans-serif;
 }
 
+
 /* =========================================================
-   СЦЕНА
+   СЦЕНА 1440×800
    ========================================================= */
 
 .ip-home-stage{
@@ -75,8 +91,9 @@
   transform-origin:center center;
 }
 
+
 /* =========================================================
-   ФОНЫ
+   ФОНЫ ГЛАВНОГО ЭКРАНА
    ========================================================= */
 
 .ip-home-bg-start,
@@ -90,7 +107,6 @@
 }
 
 .ip-home-bg-start{
-
   background-image:
     url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/bg.webp');
 
@@ -99,7 +115,6 @@
 }
 
 .ip-home-bg-final{
-
   background-image:
     url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home-animation-final.webp');
 
@@ -118,6 +133,7 @@
   pointer-events:none;
 }
 
+
 /* =========================================================
    КОНТЕНТ
    ========================================================= */
@@ -133,6 +149,7 @@
 
   z-index:5;
 }
+
 
 /* =========================================================
    ЗАГОЛОВОК
@@ -151,6 +168,7 @@
 
   color:#ffffff;
 }
+
 
 /* =========================================================
    СТРОКИ ЗАГОЛОВКА
@@ -173,17 +191,17 @@
 /* ===== ПЕРЦЕВ ===== */
 
 .ip-title-line-second{
-
   height:112px;
 
   margin-top:-10px;
 
   /*
-     УВЕЛИЧЕНА ВЫСОТА,
-     ЧТОБЫ ХВОСТ БУКВЫ "Р"
-     НЕ ОБРЕЗАЛСЯ
+     ВАЖНО:
+     Высота увеличена, чтобы хвост буквы "Р"
+     не обрезался во время и после анимации.
   */
 }
+
 
 /* =========================================================
    БУКВЫ
@@ -211,29 +229,30 @@
   -webkit-font-smoothing:antialiased;
 }
 
+
 /* =========================================================
    АНИМАЦИЯ ИВАН
    ========================================================= */
 
 .ip-title-line-first span{
-
   animation:
     ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
 
   animation-delay:.90s;
 }
 
+
 /* =========================================================
    АНИМАЦИЯ ПЕРЦЕВ
    ========================================================= */
 
 .ip-title-line-second span{
-
   animation:
     ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
 
   animation-delay:1.16s;
 }
+
 
 /* =========================================================
    ПОДЗАГОЛОВОК
@@ -245,9 +264,9 @@
   left:0;
 
   /*
-     ОПУЩЕН НИЖЕ НА 15PX,
-     ЧТОБЫ НЕ ПЕРЕКРЫВАТЬ
-     ХВОСТ БУКВЫ "Р"
+     ВАЖНО:
+     Подзаголовок опущен ниже,
+     чтобы не перекрывать хвост буквы "Р".
   */
 
   top:169px;
@@ -257,6 +276,7 @@
   padding-top:2px;
   padding-bottom:6px;
 }
+
 
 /* =========================================================
    ТЕКСТ ПОДЗАГОЛОВКА
@@ -278,13 +298,13 @@
   color:#ffffff;
 }
 
+
 /* =========================================================
    ЭЛЕМЕНТЫ ПОДЗАГОЛОВКА
    ========================================================= */
 
 .ip-subtitle-word,
 .ip-subtitle-dot{
-
   opacity:0;
 
   transform:
@@ -301,7 +321,6 @@
 /* ===== ВЕДУЩИЙ ===== */
 
 .ip-subtitle-word-one{
-
   animation:
     ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
 
@@ -332,12 +351,12 @@
 /* ===== МУЗЫКАНТ ===== */
 
 .ip-subtitle-word-two{
-
   animation:
     ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
 
   animation-delay:1.66s;
 }
+
 
 /* =========================================================
    БУРГЕР
@@ -383,6 +402,7 @@
   display:none !important;
 }
 
+
 /* =========================================================
    ЛИНИИ БУРГЕРА
    ========================================================= */
@@ -419,12 +439,12 @@
   top:15px;
 }
 
+
 /* =========================================================
-   OPEN STATE
+   OPEN STATE BURGER
    ========================================================= */
 
 .ip-menu-toggle.is-open .ip-menu-line:first-child{
-
   top:7.5px;
 
   transform:
@@ -433,7 +453,6 @@
 }
 
 .ip-menu-toggle.is-open .ip-menu-line:last-child{
-
   top:7.5px;
 
   transform:
@@ -441,8 +460,18 @@
     translate3d(0,0,0);
 }
 
+
 /* =========================================================
-   МЕНЮ
+   МЕНЮ — ПАНЕЛЬ
+
+   ВАЖНО V20:
+   Раньше фон раскрывался через clip-path: circle().
+   Из-за этого был округлый край.
+
+   Теперь меню открывается ровной панелью справа:
+   transform: translateX(100%) → translateX(0)
+
+   Край панели — прямой, 90 градусов.
    ========================================================= */
 
 .ip-menu-panel{
@@ -462,8 +491,38 @@
 
   z-index:40;
 
+  overflow:hidden;
+
   pointer-events:none;
+
+  transform:
+    translate3d(100%,0,0);
+
+  transition:
+    transform .72s cubic-bezier(.19,1,.22,1);
+
+  will-change:transform;
+
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
+
+.ip-menu-panel.is-open{
+  pointer-events:auto;
+
+  transform:
+    translate3d(0,0,0);
+}
+
+
+/* =========================================================
+   МЕНЮ — ОСНОВНОЙ GLASS-СЛОЙ
+
+   Figma:
+   - чёрный 30%;
+   - blur 25px;
+   - без круглого края.
+   ========================================================= */
 
 .ip-menu-panel::before{
   content:'';
@@ -471,17 +530,38 @@
   position:absolute;
   inset:0;
 
+  z-index:0;
+
   background:
-    rgba(0,0,0,.30);
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.22) 0%,
+      rgba(0,0,0,.34) 45%,
+      rgba(0,0,0,.42) 100%
+    );
 
   backdrop-filter:blur(25px);
   -webkit-backdrop-filter:blur(25px);
 
-  clip-path:circle(0% at 100% 0%);
+  box-shadow:
+    inset 0 0 120px rgba(0,0,0,.35);
 
-  transition:
-    clip-path .75s ease;
+  pointer-events:none;
 }
+
+
+/* =========================================================
+   МЕНЮ — ШУМ
+
+   Figma:
+   - menu-noise.webp;
+   - color burn;
+   - opacity 35%.
+
+   В браузере color-burn работает иначе, чем в Figma,
+   поэтому слой оставлен мягким и не должен превращать меню
+   в серую плашку.
+   ========================================================= */
 
 .ip-menu-panel::after{
   content:'';
@@ -489,32 +569,27 @@
   position:absolute;
   inset:0;
 
+  z-index:1;
+
   background-image:
     url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/menu-noise.webp');
 
   background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 
   opacity:.35;
 
   mix-blend-mode:color-burn;
 
-  clip-path:circle(0% at 100% 0%);
-
-  transition:
-    clip-path .75s ease;
+  pointer-events:none;
 }
 
-.ip-menu-panel.is-open{
-  pointer-events:auto;
-}
-
-.ip-menu-panel.is-open::before,
-.ip-menu-panel.is-open::after{
-  clip-path:circle(150% at 100% 0%);
-}
 
 /* =========================================================
    ВНУТРЕННОСТЬ МЕНЮ
+
+   Содержимое появляется после появления фона.
    ========================================================= */
 
 .ip-menu-inner{
@@ -524,15 +599,23 @@
 
   opacity:0;
 
+  transform:
+    translate3d(8px,0,0);
+
   transition:
-    opacity .45s ease;
+    opacity .45s ease,
+    transform .45s ease;
 }
 
 .ip-menu-panel.is-open .ip-menu-inner{
   opacity:1;
 
-  transition-delay:.45s;
+  transform:
+    translate3d(0,0,0);
+
+  transition-delay:.34s;
 }
+
 
 /* =========================================================
    СОЦСЕТИ
@@ -581,6 +664,7 @@
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
 }
 
+
 /* =========================================================
    СПИСОК МЕНЮ
    ========================================================= */
@@ -614,6 +698,7 @@
   cursor:pointer;
 }
 
+
 /* =========================================================
    АККОРДЕОН
    ========================================================= */
@@ -640,7 +725,6 @@
 }
 
 .ip-accordion.is-open .ip-accordion-button::after{
-
   background-image:
     url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow-open-accordion.svg');
 }
@@ -657,6 +741,7 @@
 .ip-accordion.is-open .ip-accordion-content{
   max-height:220px;
 }
+
 
 /* =========================================================
    ПОДМЕНЮ
@@ -678,6 +763,7 @@
   opacity:.85;
 }
 
+
 /* =========================================================
    ЮРИДИЧЕСКИЙ ТЕКСТ
    ========================================================= */
@@ -698,14 +784,25 @@
 
   opacity:0;
 
+  transform:
+    translate3d(8px,0,0);
+
   transition:
-    opacity .45s ease;
+    opacity .45s ease,
+    transform .45s ease;
+
+  pointer-events:none;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal{
   opacity:1;
 
-  transition-delay:.55s;
+  transform:
+    translate3d(0,0,0);
+
+  transition-delay:.42s;
+
+  pointer-events:auto;
 }
 
 .ip-menu-legal a{
@@ -716,12 +813,12 @@
     rgba(255,255,255,.65);
 }
 
+
 /* =========================================================
    АНИМАЦИИ
    ========================================================= */
 
 @keyframes ipStartBgFade{
-
   0%{
     opacity:1;
   }
@@ -732,7 +829,6 @@
 }
 
 @keyframes ipFinalBgFade{
-
   0%{
     opacity:0;
     transform:scale(1.015);
@@ -745,7 +841,6 @@
 }
 
 @keyframes ipTextReveal{
-
   0%{
     opacity:0;
 
@@ -762,7 +857,6 @@
 }
 
 @keyframes ipSubtitleReveal{
-
   0%{
     opacity:0;
 
@@ -779,7 +873,6 @@
 }
 
 @keyframes ipDotBlink{
-
   0%{
     opacity:0;
     transform:scale(.6);
