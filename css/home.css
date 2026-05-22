@@ -71,16 +71,15 @@
   pointer-events: none;
 }
 
-/* ===== ТЕКСТОВАЯ ГРУППА ===== */
 .ip-home-content {
   position: absolute;
   left: 595px;
   top: 473px;
   z-index: 5;
   width: 510px;
+  height: 175px;
 }
 
-/* ===== ЗАГОЛОВОК ===== */
 .ip-home-title {
   margin: 0;
   width: 510px;
@@ -91,7 +90,6 @@
   color: #ffffff;
 }
 
-/* ===== МАСКИ СТРОК: ЛОГИКА V15, НО БЕЗ ЛИШНИХ СЛОЕВ ===== */
 .ip-title-line {
   display: block;
   width: 510px;
@@ -129,9 +127,11 @@
   animation-delay: 1.16s;
 }
 
-/* ===== ПОДЗАГОЛОВОК: БЛИЖЕ К МАКЕТУ, НО БЕЗ ПЕРЕСЕЧЕНИЯ С ХВОСТОМ Р ===== */
+/* ===== ПОДЗАГОЛОВОК: ОТДЕЛЬНОЕ ПОЗИЦИОНИРОВАНИЕ, НЕ ЛОМАЕТ МАСКУ ФАМИЛИИ ===== */
 .ip-home-subtitle-wrap {
-  margin-top: 12px;
+  position: absolute;
+  left: 0;
+  top: 143px;
   overflow: hidden;
   padding-top: 3px;
   padding-bottom: 10px;
@@ -180,7 +180,6 @@
   animation-delay: 1.66s;
 }
 
-/* ===== БУРГЕР ===== */
 .ip-menu-toggle {
   position: absolute;
   top: 60px;
@@ -240,7 +239,6 @@
   transform: rotate(-45deg) translateZ(0);
 }
 
-/* ===== МЕНЮ ===== */
 .ip-menu-panel {
   position: absolute;
   top: 0;
@@ -430,7 +428,6 @@
   text-decoration: none !important;
 }
 
-/* ===== АНИМАЦИИ ===== */
 @keyframes ipStartBgFade {
   0% { opacity: 1; }
   100% { opacity: 0; }

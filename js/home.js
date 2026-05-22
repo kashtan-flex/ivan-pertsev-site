@@ -44,13 +44,11 @@
   });
 
   accordions.forEach(function (accordion) {
-
     const button = accordion.querySelector('.ip-accordion-button');
 
     button.addEventListener('click', function () {
       accordion.classList.toggle('is-open');
     });
-
   });
 
 })();
