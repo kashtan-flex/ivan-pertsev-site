@@ -1,12 +1,13 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V24
+   IVAN PERTSEV — HOME PAGE — DESKTOP V25
    FILE: css/home.css
 
-   V24:
-   - меню стало светлее и прозрачнее;
-   - появился эффект матового стекла;
-   - фон главной теперь просвечивает;
-   - noise оставлен мягко;
+   V25:
+   - фон меню стал прозрачнее;
+   - сохранено правое свечение главного фона;
+   - усилен эффект матового стекла;
+   - уменьшена чёрная заливка;
+   - шум стал очень мягким;
    - HTML и JS не трогаем.
    ========================================================= */
 
@@ -251,12 +252,13 @@
 }
 
 /* =========================================================
-   FROSTED GLASS BACKGROUND V24
+   FROSTED GLASS V25
 
    ВАЖНО:
-   Здесь главный эффект матового стекла.
-   Если нужно темнее — увеличивать rgba(0,0,0,.34).
-   Если нужно прозрачнее — уменьшать до .22–.26.
+   Здесь убрали тяжёлую чёрную плашку.
+   Меню теперь пропускает свечение главного фона.
+   Если фон слишком светлый — увеличивать rgba(0,0,0,.28).
+   Если фон слишком тёмный — уменьшать до rgba(0,0,0,.16).
    ========================================================= */
 
 .ip-menu-panel::before{
@@ -267,37 +269,39 @@
 
   background:
     radial-gradient(
-      circle at 78% 8%,
-      rgba(255,255,255,.12) 0%,
-      rgba(255,255,255,.055) 18%,
-      rgba(255,255,255,0) 46%
+      circle at 78% 10%,
+      rgba(255,255,255,.16) 0%,
+      rgba(255,255,255,.07) 22%,
+      rgba(255,255,255,0) 52%
     ),
     linear-gradient(
       180deg,
-      rgba(255,255,255,.045) 0%,
-      rgba(255,255,255,.018) 32%,
-      rgba(0,0,0,.14) 100%
+      rgba(255,255,255,.055) 0%,
+      rgba(255,255,255,.025) 34%,
+      rgba(0,0,0,.10) 100%
     ),
     linear-gradient(
       90deg,
-      rgba(0,0,0,.24) 0%,
-      rgba(0,0,0,.30) 50%,
-      rgba(0,0,0,.34) 100%
+      rgba(0,0,0,.14) 0%,
+      rgba(0,0,0,.20) 48%,
+      rgba(0,0,0,.26) 100%
     );
 
-  backdrop-filter:blur(25px) saturate(95%);
-  -webkit-backdrop-filter:blur(25px) saturate(95%);
+  backdrop-filter:blur(25px) saturate(115%) brightness(1.08);
+  -webkit-backdrop-filter:blur(25px) saturate(115%) brightness(1.08);
 
   box-shadow:
-    inset 0 0 110px rgba(0,0,0,.28),
-    inset 0 0 32px rgba(255,255,255,.035);
+    inset 0 0 90px rgba(0,0,0,.20),
+    inset 0 0 36px rgba(255,255,255,.045);
+
+  pointer-events:none;
 }
 
 /* =========================================================
-   DARK NOISE V24
+   SOFT DARK NOISE V25
 
-   Шум теперь только добавляет фактуру,
-   а не делает меню чёрной плашкой.
+   Шум оставлен только как фактура.
+   Он не должен затемнять меню до чёрной плашки.
    ========================================================= */
 
 .ip-menu-panel::after{
@@ -309,7 +313,7 @@
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  opacity:.10;
+  opacity:.075;
   mix-blend-mode:normal;
   pointer-events:none;
 }
@@ -347,12 +351,24 @@
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram.svg');
 }
 
+.ip-social.instagram:hover{
+  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram-hover.svg');
+}
+
 .ip-social.telegram{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram.svg');
 }
 
+.ip-social.telegram:hover{
+  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram-hover.svg');
+}
+
 .ip-social.vk{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK.svg');
+}
+
+.ip-social.vk:hover{
+  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
 }
 
 .ip-menu-list{
@@ -390,6 +406,10 @@
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow.svg');
   background-size:contain;
   background-repeat:no-repeat;
+}
+
+.ip-accordion.is-open .ip-accordion-button::after{
+  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow-open-accordion.svg');
 }
 
 .ip-accordion-content{
