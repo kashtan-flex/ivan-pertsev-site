@@ -1,16 +1,15 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V39
+   IVAN PERTSEV — HOME PAGE — DESKTOP V40
    FILE: css/home.css
 
-   V39:
-   - исправлена анимация крестика;
-   - top больше не анимируется;
-   - полоски всегда центрируются через top:50%;
-   - анимируется только transform;
-   - крестик сходится строго по центру;
-   - обрезание крестика убрано;
-   - иконки меню 27×27px;
-   - blur меню сохранён 18px.
+   V40:
+   - стрелки аккордеонов 14×23px;
+   - стрелки стоят на расстоянии 100px от правого края;
+   - используется одна иконка arrow.svg;
+   - при открытии стрелка зеркалится по горизонтали;
+   - при открытии стрелка становится opacity 50%;
+   - анимация стрелки плавная;
+   - логика меню и аккордеонов сохранена.
    ========================================================= */
 
 @font-face{
@@ -183,13 +182,7 @@
 }
 
 /* =========================================================
-   MENU TOGGLE / CROSS — V39
-
-   Главное изменение:
-   top НЕ анимируется.
-   Обе полоски всегда стоят в центре кнопки.
-   В закрытом состоянии расходятся через translateY.
-   В открытом состоянии только вращаются.
+   MENU TOGGLE / CROSS
    ========================================================= */
 
 .ip-menu-toggle{
@@ -247,6 +240,10 @@
 .ip-menu-toggle.is-open .ip-menu-line:last-child{
   transform:translateY(-50%) rotate(-45deg);
 }
+
+/* =========================================================
+   MENU PANEL
+   ========================================================= */
 
 .ip-menu-panel{
   position:absolute;
@@ -306,6 +303,10 @@
   transition-delay:.34s;
 }
 
+/* =========================================================
+   SOCIAL ICONS
+   ========================================================= */
+
 .ip-menu-socials{
   display:flex;
   gap:10px;
@@ -345,6 +346,10 @@
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
 }
 
+/* =========================================================
+   MENU LIST
+   ========================================================= */
+
 .ip-menu-list{
   display:flex;
   flex-direction:column;
@@ -382,24 +387,51 @@
   opacity:.75;
 }
 
+/* =========================================================
+   ACCORDION ARROWS — V40
+
+   Размер стрелки: 14×23px.
+   Правая точка: 100px от края сцены, как у крестика.
+   Используем одну иконку arrow.svg.
+   При открытии:
+   - scaleX(-1);
+   - opacity 50%;
+   ========================================================= */
+
 .ip-accordion-button{
+  position:relative;
   width:100%;
+  min-height:23px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-start;
+  padding-right:34px;
 }
 
 .ip-accordion-button::after{
   content:'';
-  width:12px;
-  height:8px;
+  position:absolute;
+  right:0;
+  top:50%;
+  width:14px;
+  height:23px;
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow.svg');
   background-size:contain;
+  background-position:center;
   background-repeat:no-repeat;
+  opacity:1;
+  transform:translateY(-50%) scaleX(1);
+  transform-origin:center center;
+  transition:
+    transform .35s cubic-bezier(.19,1,.22,1),
+    opacity .35s ease;
+  will-change:transform,opacity;
+  pointer-events:none;
 }
 
 .ip-accordion.is-open .ip-accordion-button::after{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow-open-accordion.svg');
+  opacity:.5;
+  transform:translateY(-50%) scaleX(-1);
 }
 
 .ip-accordion-content{
@@ -437,6 +469,10 @@
 .ip-submenu a:hover{
   opacity:.75;
 }
+
+/* =========================================================
+   LEGAL
+   ========================================================= */
 
 .ip-menu-legal{
   position:absolute;
@@ -477,6 +513,10 @@
 .ip-menu-legal a:hover{
   opacity:.75;
 }
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
 
 @keyframes ipStartBgFade{
   0%{opacity:1;}
