@@ -1,15 +1,14 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V40
+   IVAN PERTSEV — HOME PAGE — DESKTOP V41
    FILE: css/home.css
 
-   V40:
-   - стрелки аккордеонов 14×23px;
-   - стрелки стоят на расстоянии 100px от правого края;
-   - используется одна иконка arrow.svg;
-   - при открытии стрелка зеркалится по горизонтали;
-   - при открытии стрелка становится opacity 50%;
-   - анимация стрелки плавная;
-   - логика меню и аккордеонов сохранена.
+   V41:
+   - стрелки аккордеонов сделаны CSS-линиями без SVG;
+   - визуальный размер стрелки ближе к макету;
+   - правая точка стрелок выровнена по кресту: 100px от правого края;
+   - при открытии стрелка плавно меняет направление вверх;
+   - при открытии opacity стрелки 50%;
+   - логика аккордеонов сохранена.
    ========================================================= */
 
 @font-face{
@@ -388,14 +387,14 @@
 }
 
 /* =========================================================
-   ACCORDION ARROWS — V40
+   ACCORDION ARROWS — V41
 
-   Размер стрелки: 14×23px.
-   Правая точка: 100px от края сцены, как у крестика.
-   Используем одну иконку arrow.svg.
-   При открытии:
-   - scaleX(-1);
-   - opacity 50%;
+   ВАЖНО:
+   - стрелка рисуется CSS-линиями;
+   - правый край стрелки = правый край контента меню;
+   - это даёт 100px от правого края сцены;
+   - при открытии меняется направление вверх;
+   - opacity становится 50%.
    ========================================================= */
 
 .ip-accordion-button{
@@ -408,30 +407,45 @@
   padding-right:34px;
 }
 
+.ip-accordion-button::before,
 .ip-accordion-button::after{
   content:'';
   position:absolute;
-  right:0;
   top:50%;
-  width:14px;
-  height:23px;
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow.svg');
-  background-size:contain;
-  background-position:center;
-  background-repeat:no-repeat;
+  width:13px;
+  height:2px;
+  border-radius:10px;
+  background:#fff;
   opacity:1;
-  transform:translateY(-50%) scaleX(1);
+  pointer-events:none;
   transform-origin:center center;
   transition:
     transform .35s cubic-bezier(.19,1,.22,1),
     opacity .35s ease;
   will-change:transform,opacity;
-  pointer-events:none;
+}
+
+/* левая палочка стрелки */
+.ip-accordion-button::before{
+  right:9px;
+  transform:translateY(-50%) rotate(45deg);
+}
+
+/* правая палочка стрелки */
+.ip-accordion-button::after{
+  right:0;
+  transform:translateY(-50%) rotate(-45deg);
+}
+
+/* открытое состояние: стрелка вверх + прозрачность 50% */
+.ip-accordion.is-open .ip-accordion-button::before{
+  opacity:.5;
+  transform:translateY(-50%) rotate(-45deg);
 }
 
 .ip-accordion.is-open .ip-accordion-button::after{
   opacity:.5;
-  transform:translateY(-50%) scaleX(-1);
+  transform:translateY(-50%) rotate(45deg);
 }
 
 .ip-accordion-content{
