@@ -1,14 +1,11 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V26
+   IVAN PERTSEV — HOME PAGE — DESKTOP V27
    FILE: css/home.css
 
-   V26:
-   - заголовок принудительно переведён в ВЕРХНИЙ РЕГИСТР;
-   - фон меню приближен к макету;
-   - убрано лишнее серое/белое свечение;
-   - оставлен эффект тёмного матового стекла;
-   - сохранён blur 25px;
-   - сохранена текущая анимация меню.
+   V27:
+   - подзаголовок поднят на 15px вверх;
+   - анимация текста не изменялась;
+   - остальные настройки сохранены.
    ========================================================= */
 
 @font-face{
@@ -20,9 +17,7 @@
 }
 
 .ip-page-home,
-.ip-page-home *{
-  box-sizing:border-box;
-}
+.ip-page-home *{box-sizing:border-box;}
 
 .ip-page-home a{
   color:inherit;
@@ -87,15 +82,6 @@
   z-index:5;
 }
 
-/* =========================================================
-   ЗАГОЛОВОК
-
-   ВАЖНО:
-   В макете заголовок написан заглавными.
-   HTML не трогаем, чтобы не ломать анимацию.
-   Регистр меняем через text-transform.
-   ========================================================= */
-
 .ip-home-title{
   margin:0;
   width:510px;
@@ -113,9 +99,7 @@
   overflow:hidden;
 }
 
-.ip-title-line-first{
-  height:86px;
-}
+.ip-title-line-first{height:86px;}
 
 .ip-title-line-second{
   height:112px;
@@ -141,10 +125,20 @@
   animation-delay:1.16s;
 }
 
+/* =========================================================
+   SUBTITLE
+
+   ВАЖНО V27:
+   Подзаголовок поднят на 15px вверх.
+   Было: top:169px;
+   Стало: top:154px;
+   Анимация не изменялась.
+   ========================================================= */
+
 .ip-home-subtitle-wrap{
   position:absolute;
   left:0;
-  top:169px;
+  top:154px;
   overflow:hidden;
   padding-bottom:6px;
 }
@@ -206,9 +200,7 @@
 }
 
 .ip-menu-toggle::before,
-.ip-menu-toggle::after{
-  display:none !important;
-}
+.ip-menu-toggle::after{display:none !important;}
 
 .ip-menu-line{
   position:absolute;
@@ -220,13 +212,8 @@
   transition:transform .45s ease, top .45s ease;
 }
 
-.ip-menu-line:first-child{
-  top:0;
-}
-
-.ip-menu-line:last-child{
-  top:15px;
-}
+.ip-menu-line:first-child{top:0;}
+.ip-menu-line:last-child{top:15px;}
 
 .ip-menu-toggle.is-open .ip-menu-line:first-child{
   top:7.5px;
@@ -237,10 +224,6 @@
   top:7.5px;
   transform:rotate(-45deg);
 }
-
-/* =========================================================
-   MENU PANEL
-   ========================================================= */
 
 .ip-menu-panel{
   position:absolute;
@@ -261,24 +244,11 @@
   transform:translate3d(0,0,0);
 }
 
-/* =========================================================
-   MENU BACKGROUND V26
-
-   Цель:
-   приблизить фон к макету:
-   - не серая плашка;
-   - не чёрная дыра;
-   - тёмное матовое стекло;
-   - фон главной должен немного просвечивать;
-   - blur 25px сохраняем.
-   ========================================================= */
-
 .ip-menu-panel::before{
   content:'';
   position:absolute;
   inset:0;
   z-index:0;
-
   background:
     linear-gradient(
       180deg,
@@ -292,23 +262,13 @@
       rgba(0,0,0,.31) 52%,
       rgba(0,0,0,.36) 100%
     );
-
   backdrop-filter:blur(25px) saturate(95%) brightness(.92);
   -webkit-backdrop-filter:blur(25px) saturate(95%) brightness(.92);
-
   box-shadow:
     inset 0 0 110px rgba(0,0,0,.26),
     inset 0 0 28px rgba(255,255,255,.018);
-
   pointer-events:none;
 }
-
-/* =========================================================
-   MENU NOISE V26
-
-   Новый тёмный шум используем как фактуру.
-   Он не должен забивать blur.
-   ========================================================= */
 
 .ip-menu-panel::after{
   content:'';
@@ -424,9 +384,7 @@
   transition:max-height .4s ease;
 }
 
-.ip-accordion.is-open .ip-accordion-content{
-  max-height:220px;
-}
+.ip-accordion.is-open .ip-accordion-content{max-height:220px;}
 
 .ip-submenu{
   display:flex;
@@ -475,59 +433,23 @@
 }
 
 @keyframes ipFinalBgFade{
-  0%{
-    opacity:0;
-    transform:scale(1.015);
-  }
-
-  100%{
-    opacity:1;
-    transform:scale(1);
-  }
+  0%{opacity:0; transform:scale(1.015);}
+  100%{opacity:1; transform:scale(1);}
 }
 
 @keyframes ipTextReveal{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-110%,0);
-  }
-
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
+  0%{opacity:0; transform:translate3d(0,-110%,0);}
+  100%{opacity:1; transform:translate3d(0,0,0);}
 }
 
 @keyframes ipSubtitleReveal{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-120%,0);
-  }
-
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
+  0%{opacity:0; transform:translate3d(0,-120%,0);}
+  100%{opacity:1; transform:translate3d(0,0,0);}
 }
 
 @keyframes ipDotBlink{
-  0%{
-    opacity:0;
-    transform:scale(.6);
-  }
-
-  25%{
-    opacity:1;
-    transform:scale(1);
-  }
-
-  55%{
-    opacity:.35;
-    transform:scale(.8);
-  }
-
-  100%{
-    opacity:1;
-    transform:scale(1);
-  }
+  0%{opacity:0; transform:scale(.6);}
+  25%{opacity:1; transform:scale(1);}
+  55%{opacity:.35; transform:scale(.8);}
+  100%{opacity:1; transform:scale(1);}
 }
