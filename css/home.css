@@ -698,3 +698,35 @@
     transform:scale(1);
   }
 }
+/* =========================================================
+   V30 FIX — FORCE MENU COLORS
+   Этот блок должен быть В САМОМ НИЗУ файла.
+   Он принудительно перебивает старые цвета.
+   ========================================================= */
+
+/* ОСНОВНОЙ ТЕКСТ МЕНЮ — БЕЛЫЙ */
+
+.ip-menu-link,
+.ip-accordion-button{
+  color:#FFFFFF !important;
+}
+
+/* ТЕКСТ ВНУТРИ АККОРДЕОНОВ — ГОЛУБОЙ */
+
+.ip-submenu a{
+  color:#69C9FF !important;
+  opacity:1 !important;
+}
+
+/* ПРАВОВЫЕ ССЫЛКИ — БЕЛЫЙ 50% */
+
+.ip-menu-legal a{
+  color:rgba(255,255,255,.5) !important;
+}
+
+/* HOVER */
+
+.ip-submenu a:hover,
+.ip-menu-legal a:hover{
+  opacity:.75 !important;
+}
