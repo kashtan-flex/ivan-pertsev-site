@@ -1,14 +1,14 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V33
+   IVAN PERTSEV — HOME PAGE — DESKTOP V34
    FILE: css/home.css
 
-   V33:
-   - фон меню: black 30%;
-   - blur 25px;
-   - noise 35%;
-   - mix-blend-mode: normal;
-   - сохранены рабочие цвета меню;
-   - сохранены текущие анимации.
+   V34:
+   - сохранён текущий удачный blur меню;
+   - исправлен баг цвета ссылок;
+   - цвета закреплены для link / visited / hover / active;
+   - основной текст меню белый;
+   - ссылки аккордеонов #69C9FF;
+   - legal links белый 50%.
    ========================================================= */
 
 @font-face{
@@ -249,7 +249,7 @@
 }
 
 /* =========================================================
-   MENU GLASS BACKGROUND — V33
+   MENU GLASS BACKGROUND
    black 30% + blur 25px
    ========================================================= */
 
@@ -265,7 +265,7 @@
 }
 
 /* =========================================================
-   MENU NOISE — V33
+   MENU NOISE
    noise 35%, normal blend
    ========================================================= */
 
@@ -342,12 +342,28 @@
   gap:20px;
 }
 
+/* =========================================================
+   MENU COLORS — STABLE FIX
+   Важно: прописаны все состояния ссылок.
+   Это защищает цвет от visited/active стилей браузера и Tilda.
+   ========================================================= */
+
+.ip-menu-link,
+.ip-menu-link:link,
+.ip-menu-link:visited,
+.ip-menu-link:hover,
+.ip-menu-link:active,
+.ip-accordion-button,
+.ip-accordion-button:hover,
+.ip-accordion-button:active{
+  color:#FFFFFF !important;
+}
+
 .ip-menu-link,
 .ip-accordion-button{
   padding:0;
   border:none;
   background:transparent;
-  color:#FFFFFF;
   font-family:'Montserrat',sans-serif;
   font-size:20px;
   line-height:90%;
@@ -400,10 +416,17 @@
   padding-top:16px;
 }
 
+.ip-submenu a,
+.ip-submenu a:link,
+.ip-submenu a:visited,
+.ip-submenu a:hover,
+.ip-submenu a:active{
+  color:#69C9FF !important;
+}
+
 .ip-submenu a{
   font-size:14px;
   line-height:120%;
-  color:#69C9FF;
   opacity:1;
   transition:opacity .25s ease;
 }
@@ -434,10 +457,17 @@
   pointer-events:auto;
 }
 
+.ip-menu-legal a,
+.ip-menu-legal a:link,
+.ip-menu-legal a:visited,
+.ip-menu-legal a:hover,
+.ip-menu-legal a:active{
+  color:rgba(255,255,255,.5) !important;
+}
+
 .ip-menu-legal a{
   font-size:8px;
   line-height:150%;
-  color:rgba(255,255,255,.5);
   transition:opacity .25s ease;
 }
 
