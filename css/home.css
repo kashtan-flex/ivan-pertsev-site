@@ -1,17 +1,13 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V42
+   IVAN PERTSEV — HOME PAGE — DESKTOP V43
    FILE: css/home.css
 
-   V42:
-   - исправлено выравнивание стрелок аккордеона;
-   - правый край стрелок совпадает с правым краем крестика;
-   - стрелка сделана CSS-линиями без SVG;
-   - размер стрелки визуально ближе к макету: 13×24px;
-   - толщина стрелки 3px;
-   - закрытое состояние: стрелка вниз;
-   - открытое состояние: стрелка вверх + opacity 50%;
-   - анимация плавная;
-   - остальная логика сохранена.
+   V43:
+   - изменена анимация появления пунктов меню;
+   - сначала появляются иконки соцсетей;
+   - затем с задержкой появляются разделы меню;
+   - анимация похожа на заголовок/подзаголовок;
+   - остальные настройки сохранены.
    ========================================================= */
 
 @font-face{
@@ -291,28 +287,26 @@
   pointer-events:none;
 }
 
+/* =========================================================
+   MENU INNER — V43
+   Контейнер больше не анимируется целиком.
+   Теперь отдельно анимируются соцсети и пункты меню.
+   ========================================================= */
+
 .ip-menu-inner{
   position:relative;
   z-index:2;
-  opacity:0;
-  transform:translate3d(8px,0,0);
-  transition:opacity .45s ease, transform .45s ease;
-}
-
-.ip-menu-panel.is-open .ip-menu-inner{
-  opacity:1;
-  transform:translate3d(0,0,0);
-  transition-delay:.34s;
 }
 
 /* =========================================================
-   SOCIAL ICONS
+   SOCIAL ICONS — FIRST REVEAL
    ========================================================= */
 
 .ip-menu-socials{
   display:flex;
   gap:10px;
   margin-bottom:40px;
+  overflow:visible;
 }
 
 .ip-social{
@@ -322,6 +316,25 @@
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
+  opacity:0;
+  transform:translate3d(0,-120%,0);
+  will-change:transform,opacity;
+}
+
+.ip-menu-panel.is-open .ip-social{
+  animation:ipMenuItemReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(1){
+  animation-delay:.34s;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(2){
+  animation-delay:.40s;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(3){
+  animation-delay:.46s;
 }
 
 .ip-social.instagram{
@@ -349,21 +362,48 @@
 }
 
 /* =========================================================
-   MENU LIST
+   MENU LIST — TEXT REVEAL AFTER SOCIALS
    ========================================================= */
 
 .ip-menu-list{
   display:flex;
   flex-direction:column;
   gap:20px;
-
-  /*
-     ВАЖНО:
-     Рабочая ширина меню = 225px.
-     385px ширина панели - 60px левый padding - 100px правый padding.
-     Правый край этой зоны совпадает с крестиком: 100px от края.
-  */
   width:225px;
+}
+
+.ip-menu-list > *{
+  opacity:0;
+  transform:translate3d(0,-120%,0);
+  will-change:transform,opacity;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *{
+  animation:ipMenuItemReveal .52s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
+  animation-delay:.62s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
+  animation-delay:.70s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
+  animation-delay:.78s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
+  animation-delay:.86s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
+  animation-delay:.94s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
+  animation-delay:1.02s;
 }
 
 .ip-menu-link,
@@ -398,15 +438,7 @@
 }
 
 /* =========================================================
-   ACCORDION ARROWS — V42
-
-   Стрелка:
-   - CSS-линиями, без SVG;
-   - общая зона 24×24px;
-   - линии по 14px, толщина 3px;
-   - правый край совпадает с краем крестика;
-   - closed: вниз;
-   - opened: вверх + opacity .5.
+   ACCORDION ARROWS
    ========================================================= */
 
 .ip-accordion{
@@ -441,7 +473,6 @@
   will-change:transform,opacity;
 }
 
-/* закрыто: стрелка вниз */
 .ip-accordion-button::before{
   right:9px;
   transform:translateY(-50%) rotate(45deg);
@@ -452,7 +483,6 @@
   transform:translateY(-50%) rotate(-45deg);
 }
 
-/* открыто: стрелка вверх */
 .ip-accordion.is-open .ip-accordion-button::before{
   opacity:.5;
   transform:translateY(-50%) rotate(-45deg);
@@ -513,15 +543,17 @@
   flex-direction:column;
   gap:2px;
   opacity:0;
-  transform:translate3d(8px,0,0);
-  transition:opacity .45s ease, transform .45s ease;
+  transform:translate3d(0,-80%,0);
+  transition:
+    opacity .45s ease,
+    transform .45s cubic-bezier(.19,1,.22,1);
   pointer-events:none;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal{
   opacity:1;
   transform:translate3d(0,0,0);
-  transition-delay:.42s;
+  transition-delay:1.08s;
   pointer-events:auto;
 }
 
@@ -577,6 +609,18 @@
 }
 
 @keyframes ipSubtitleReveal{
+  0%{
+    opacity:0;
+    transform:translate3d(0,-120%,0);
+  }
+
+  100%{
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes ipMenuItemReveal{
   0%{
     opacity:0;
     transform:translate3d(0,-120%,0);
