@@ -1,14 +1,27 @@
+/* =========================================================
+   IVAN PERTSEV — HOME PAGE — DESKTOP V18 STABLE
+   ФАЙЛ: css/home.css
+   ========================================================= */
+
+/* =========================================================
+   ШРИФТЫ
+   ========================================================= */
+
 @font-face {
   font-family: 'Benzin';
-  src: url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/fonts/Benzin-Bold.woff2') format('woff2');
+
+  src:
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/fonts/Benzin-Bold.woff2')
+    format('woff2');
+
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* =========================
+/* =========================================================
    RESET
-========================= */
+   ========================================================= */
 
 .ip-page-home,
 .ip-page-home *{
@@ -20,15 +33,16 @@
   color:inherit;
 }
 
-/* =========================
+/* =========================================================
    ОСНОВНАЯ СТРАНИЦА
-========================= */
+   ========================================================= */
 
 .ip-page-home{
   position:relative;
 
   width:100%;
   height:100vh;
+
   min-height:800px;
 
   overflow:hidden;
@@ -39,9 +53,9 @@
   font-family:'Montserrat', sans-serif;
 }
 
-/* =========================
+/* =========================================================
    СЦЕНА
-========================= */
+   ========================================================= */
 
 .ip-home-stage{
   position:absolute;
@@ -61,9 +75,9 @@
   transform-origin:center center;
 }
 
-/* =========================
+/* =========================================================
    ФОНЫ
-========================= */
+   ========================================================= */
 
 .ip-home-bg-start,
 .ip-home-bg-final{
@@ -76,14 +90,18 @@
 }
 
 .ip-home-bg-start{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/bg.webp');
+
+  background-image:
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/bg.webp');
 
   animation:
     ipStartBgFade 2.2s ease forwards;
 }
 
 .ip-home-bg-final{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home-animation-final.webp');
+
+  background-image:
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home-animation-final.webp');
 
   opacity:0;
 
@@ -100,9 +118,9 @@
   pointer-events:none;
 }
 
-/* =========================
-   ТЕКСТ
-========================= */
+/* =========================================================
+   КОНТЕНТ
+   ========================================================= */
 
 .ip-home-content{
   position:absolute;
@@ -111,14 +129,14 @@
   top:473px;
 
   width:510px;
-  height:175px;
+  height:190px;
 
   z-index:5;
 }
 
-/* =========================
+/* =========================================================
    ЗАГОЛОВОК
-========================= */
+   ========================================================= */
 
 .ip-home-title{
   margin:0;
@@ -126,6 +144,7 @@
   width:510px;
 
   font-family:'Benzin', Arial, sans-serif;
+
   font-size:88px;
   line-height:.85;
   font-weight:700;
@@ -133,9 +152,9 @@
   color:#ffffff;
 }
 
-/* =========================
-   СТРОКИ
-========================= */
+/* =========================================================
+   СТРОКИ ЗАГОЛОВКА
+   ========================================================= */
 
 .ip-title-line{
   display:block;
@@ -145,18 +164,30 @@
   overflow:hidden;
 }
 
+/* ===== ИВАН ===== */
+
 .ip-title-line-first{
   height:86px;
 }
 
+/* ===== ПЕРЦЕВ ===== */
+
 .ip-title-line-second{
-  height:96px;
+
+  height:110px;
+
   margin-top:-10px;
+
+  /* 
+     УВЕЛИЧИЛИ ВЫСОТУ КОНТЕЙНЕРА,
+     ЧТОБЫ ХВОСТ БУКВЫ "Р"
+     НЕ ОБРЕЗАЛСЯ И НЕ ДЁРГАЛСЯ
+  */
 }
 
-/* =========================
+/* =========================================================
    БУКВЫ
-========================= */
+   ========================================================= */
 
 .ip-title-line span{
   display:block;
@@ -180,43 +211,56 @@
   -webkit-font-smoothing:antialiased;
 }
 
-/* =========================
+/* =========================================================
    АНИМАЦИЯ ИВАН
-========================= */
+   ========================================================= */
 
 .ip-title-line-first span{
+
   animation:
     ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
 
   animation-delay:.90s;
 }
 
-/* =========================
+/* =========================================================
    АНИМАЦИЯ ПЕРЦЕВ
-========================= */
+   ========================================================= */
 
 .ip-title-line-second span{
+
   animation:
     ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
 
   animation-delay:1.16s;
 }
 
-/* =========================
+/* =========================================================
    ПОДЗАГОЛОВОК
-========================= */
+   ========================================================= */
 
 .ip-home-subtitle-wrap{
   position:absolute;
 
   left:0;
-  top:143px;
+
+  /*
+     ОПУСТИЛ НИЖЕ,
+     ЧТОБЫ НЕ ПЕРЕКРЫВАЛ
+     ХВОСТ БУКВЫ "Р"
+  */
+
+  top:154px;
 
   overflow:hidden;
 
-  padding-top:3px;
-  padding-bottom:10px;
+  padding-top:2px;
+  padding-bottom:6px;
 }
+
+/* =========================================================
+   ТЕКСТ ПОДЗАГОЛОВКА
+   ========================================================= */
 
 .ip-home-subtitle{
   display:flex;
@@ -225,20 +269,22 @@
   gap:9px;
 
   font-size:22px;
-  line-height:1.15;
+  line-height:1.1;
+
   font-weight:400;
 
-  letter-spacing:.035em;
+  letter-spacing:.02em;
 
   color:#ffffff;
 }
 
-/* =========================
+/* =========================================================
    ЭЛЕМЕНТЫ ПОДЗАГОЛОВКА
-========================= */
+   ========================================================= */
 
 .ip-subtitle-word,
 .ip-subtitle-dot{
+
   opacity:0;
 
   transform:
@@ -255,6 +301,7 @@
 /* ===== ВЕДУЩИЙ ===== */
 
 .ip-subtitle-word-one{
+
   animation:
     ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
 
@@ -285,15 +332,16 @@
 /* ===== МУЗЫКАНТ ===== */
 
 .ip-subtitle-word-two{
+
   animation:
     ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
 
   animation-delay:1.66s;
 }
 
-/* =========================
+/* =========================================================
    БУРГЕР
-========================= */
+   ========================================================= */
 
 .ip-menu-toggle{
   position:absolute;
@@ -304,15 +352,15 @@
   z-index:50;
 
   width:34px;
-  height:18px;
+  height:22px;
 
-  padding:0;
-  margin:0;
+  padding:0 !important;
+  margin:0 !important;
 
-  border:none;
-  outline:none;
+  border:0 !important;
+  outline:0 !important;
 
-  background:transparent;
+  background:transparent !important;
 
   cursor:pointer;
 
@@ -320,12 +368,36 @@
   -webkit-appearance:none;
 
   overflow:hidden;
+
+  box-shadow:none !important;
+
+  font-size:0;
+  line-height:0;
+
+  color:transparent;
 }
+
+/*
+   УБИРАЕМ СЛУЧАЙНЫЕ
+   ПСЕВДОЭЛЕМЕНТЫ БРАУЗЕРА
+*/
+
+.ip-menu-toggle::before,
+.ip-menu-toggle::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* =========================================================
+   ЛИНИИ БУРГЕРА
+   ========================================================= */
 
 .ip-menu-line{
   position:absolute;
 
   left:0;
+
+  display:block;
 
   width:34px;
   height:3px;
@@ -333,6 +405,11 @@
   border-radius:10px;
 
   background:#ffffff;
+
+  transform:translate3d(0,0,0);
+
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 
   transition:
     transform .45s ease,
@@ -347,19 +424,31 @@
   top:15px;
 }
 
+/* =========================================================
+   OPEN STATE
+   ========================================================= */
+
 .ip-menu-toggle.is-open .ip-menu-line:first-child{
+
   top:7.5px;
-  transform:rotate(45deg);
+
+  transform:
+    rotate(45deg)
+    translate3d(0,0,0);
 }
 
 .ip-menu-toggle.is-open .ip-menu-line:last-child{
+
   top:7.5px;
-  transform:rotate(-45deg);
+
+  transform:
+    rotate(-45deg)
+    translate3d(0,0,0);
 }
 
-/* =========================
-   ПАНЕЛЬ МЕНЮ
-========================= */
+/* =========================================================
+   МЕНЮ
+   ========================================================= */
 
 .ip-menu-panel{
   position:absolute;
@@ -429,9 +518,9 @@
   clip-path:circle(150% at 100% 0%);
 }
 
-/* =========================
+/* =========================================================
    ВНУТРЕННОСТЬ МЕНЮ
-========================= */
+   ========================================================= */
 
 .ip-menu-inner{
   position:relative;
@@ -450,9 +539,9 @@
   transition-delay:.45s;
 }
 
-/* =========================
+/* =========================================================
    СОЦСЕТИ
-========================= */
+   ========================================================= */
 
 .ip-menu-socials{
   display:flex;
@@ -497,9 +586,9 @@
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
 }
 
-/* =========================
+/* =========================================================
    СПИСОК МЕНЮ
-========================= */
+   ========================================================= */
 
 .ip-menu-list{
   display:flex;
@@ -518,6 +607,7 @@
   color:#ffffff;
 
   font-family:'Montserrat', sans-serif;
+
   font-size:20px;
   line-height:90%;
   font-weight:600;
@@ -529,9 +619,9 @@
   cursor:pointer;
 }
 
-/* =========================
+/* =========================================================
    АККОРДЕОН
-========================= */
+   ========================================================= */
 
 .ip-accordion-button{
   width:100%;
@@ -555,6 +645,7 @@
 }
 
 .ip-accordion.is-open .ip-accordion-button::after{
+
   background-image:
     url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow-open-accordion.svg');
 }
@@ -572,9 +663,9 @@
   max-height:220px;
 }
 
-/* =========================
+/* =========================================================
    ПОДМЕНЮ
-========================= */
+   ========================================================= */
 
 .ip-submenu{
   display:flex;
@@ -592,9 +683,9 @@
   opacity:.85;
 }
 
-/* =========================
+/* =========================================================
    ЮРИДИЧЕСКИЙ ТЕКСТ
-========================= */
+   ========================================================= */
 
 .ip-menu-legal{
   position:absolute;
@@ -630,9 +721,9 @@
     rgba(255,255,255,.65);
 }
 
-/* =========================
+/* =========================================================
    АНИМАЦИИ
-========================= */
+   ========================================================= */
 
 @keyframes ipStartBgFade{
 
