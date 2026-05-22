@@ -1,11 +1,11 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V27
-   FILE: css/home.css
+   IVAN PERTSEV — HOME PAGE — DESKTOP V29
 
-   V27:
-   - подзаголовок поднят на 15px вверх;
-   - анимация текста не изменялась;
-   - остальные настройки сохранены.
+   V29:
+   - основной текст меню белый;
+   - ссылки аккордеонов #69C9FF;
+   - legal links белые 50%;
+   - предыдущие анимации сохранены.
    ========================================================= */
 
 @font-face{
@@ -17,7 +17,9 @@
 }
 
 .ip-page-home,
-.ip-page-home *{box-sizing:border-box;}
+.ip-page-home *{
+  box-sizing:border-box;
+}
 
 .ip-page-home a{
   color:inherit;
@@ -42,7 +44,11 @@
   width:1440px;
   height:800px;
   overflow:hidden;
-  transform:translate(-50%,-50%) scale(var(--ip-home-scale,1));
+
+  transform:
+    translate(-50%,-50%)
+    scale(var(--ip-home-scale,1));
+
   transform-origin:center center;
 }
 
@@ -50,6 +56,7 @@
 .ip-home-bg-final{
   position:absolute;
   inset:0;
+
   background-size:1440px 800px;
   background-position:center center;
   background-repeat:no-repeat;
@@ -57,39 +64,52 @@
 
 .ip-home-bg-start{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/bg.webp');
-  animation:ipStartBgFade 2.2s ease forwards;
+
+  animation:
+    ipStartBgFade 2.2s ease forwards;
 }
 
 .ip-home-bg-final{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home-animation-final.webp');
+
   opacity:0;
-  animation:ipFinalBgFade 2.2s ease forwards;
+
+  animation:
+    ipFinalBgFade 2.2s ease forwards;
 }
 
 .ip-home-dark-overlay{
   position:absolute;
   inset:0;
+
   background:rgba(0,0,0,.04);
+
   pointer-events:none;
 }
 
 .ip-home-content{
   position:absolute;
+
   left:595px;
   top:473px;
+
   width:510px;
   height:205px;
+
   z-index:5;
 }
 
 .ip-home-title{
   margin:0;
   width:510px;
+
   font-family:'Benzin',Arial,sans-serif;
   font-size:88px;
   line-height:.85;
   font-weight:700;
+
   color:#fff;
+
   text-transform:uppercase;
 }
 
@@ -99,7 +119,9 @@
   overflow:hidden;
 }
 
-.ip-title-line-first{height:86px;}
+.ip-title-line-first{
+  height:86px;
+}
 
 .ip-title-line-second{
   height:112px;
@@ -108,38 +130,48 @@
 
 .ip-title-line span{
   display:block;
+
   height:112px;
   line-height:.85;
+
   opacity:0;
-  transform:translate3d(0,-110%,0);
-  will-change:transform,opacity;
+
+  transform:
+    translate3d(0,-110%,0);
+
+  will-change:
+    transform,
+    opacity;
 }
 
 .ip-title-line-first span{
-  animation:ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+  animation:
+    ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+
   animation-delay:.9s;
 }
 
 .ip-title-line-second span{
-  animation:ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+  animation:
+    ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+
   animation-delay:1.16s;
 }
 
 /* =========================================================
    SUBTITLE
-
-   ВАЖНО V27:
-   Подзаголовок поднят на 15px вверх.
-   Было: top:169px;
-   Стало: top:154px;
-   Анимация не изменялась.
    ========================================================= */
 
 .ip-home-subtitle-wrap{
   position:absolute;
+
   left:0;
+
+  /* подняли выше */
   top:154px;
+
   overflow:hidden;
+
   padding-bottom:6px;
 }
 
@@ -147,73 +179,111 @@
   display:flex;
   align-items:center;
   gap:9px;
+
   font-size:22px;
   line-height:1.1;
   font-weight:400;
   letter-spacing:.02em;
+
   color:#fff;
 }
 
 .ip-subtitle-word,
 .ip-subtitle-dot{
   opacity:0;
-  transform:translate3d(0,-120%,0);
+
+  transform:
+    translate3d(0,-120%,0);
 }
 
 .ip-subtitle-word-one{
-  animation:ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+  animation:
+    ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+
   animation-delay:1.42s;
 }
 
 .ip-subtitle-dot{
   position:relative;
   top:1px;
+
   width:4px;
   height:4px;
+
   flex:0 0 4px;
+
   border-radius:50%;
+
   background:#fff;
+
   animation:
     ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards 1.54s,
     ipDotBlink 1.4s ease-in-out infinite 2.15s;
 }
 
 .ip-subtitle-word-two{
-  animation:ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+  animation:
+    ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+
   animation-delay:1.66s;
 }
 
+/* =========================================================
+   BURGER
+   ========================================================= */
+
 .ip-menu-toggle{
   position:absolute;
+
   top:60px;
   right:100px;
+
   z-index:50;
+
   width:34px;
   height:22px;
+
   padding:0 !important;
   margin:0 !important;
+
   border:none !important;
   outline:none !important;
+
   background:transparent !important;
+
   cursor:pointer;
+
   overflow:hidden;
 }
 
 .ip-menu-toggle::before,
-.ip-menu-toggle::after{display:none !important;}
+.ip-menu-toggle::after{
+  display:none !important;
+}
 
 .ip-menu-line{
   position:absolute;
   left:0;
+
   width:34px;
   height:3px;
+
   border-radius:10px;
+
   background:#fff;
-  transition:transform .45s ease, top .45s ease;
+
+  transition:
+    transform .45s ease,
+    top .45s ease;
 }
 
-.ip-menu-line:first-child{top:0;}
-.ip-menu-line:last-child{top:15px;}
+.ip-menu-line:first-child{
+  top:0;
+}
+
+.ip-menu-line:last-child{
+  top:15px;
+}
 
 .ip-menu-toggle.is-open .ip-menu-line:first-child{
   top:7.5px;
@@ -225,89 +295,145 @@
   transform:rotate(-45deg);
 }
 
+/* =========================================================
+   MENU PANEL
+   ========================================================= */
+
 .ip-menu-panel{
   position:absolute;
+
   top:0;
   right:0;
+
   width:385px;
   height:800px;
+
   padding:60px 100px 80px 60px;
+
   z-index:40;
+
   overflow:hidden;
+
   pointer-events:none;
-  transform:translate3d(100%,0,0);
-  transition:transform .72s cubic-bezier(.19,1,.22,1);
+
+  transform:
+    translate3d(100%,0,0);
+
+  transition:
+    transform .72s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-menu-panel.is-open{
   pointer-events:auto;
-  transform:translate3d(0,0,0);
+
+  transform:
+    translate3d(0,0,0);
 }
+
+/* =========================================================
+   FROSTED GLASS BACKGROUND
+   ========================================================= */
 
 .ip-menu-panel::before{
   content:'';
+
   position:absolute;
   inset:0;
+
   z-index:0;
+
   background:
     linear-gradient(
       180deg,
-      rgba(255,255,255,.025) 0%,
-      rgba(255,255,255,.012) 28%,
-      rgba(0,0,0,.10) 100%
+      rgba(255,255,255,.045) 0%,
+      rgba(255,255,255,.02) 35%,
+      rgba(0,0,0,.12) 100%
     ),
     linear-gradient(
       90deg,
-      rgba(0,0,0,.26) 0%,
-      rgba(0,0,0,.31) 52%,
-      rgba(0,0,0,.36) 100%
+      rgba(0,0,0,.22) 0%,
+      rgba(0,0,0,.28) 50%,
+      rgba(0,0,0,.34) 100%
     );
-  backdrop-filter:blur(25px) saturate(95%) brightness(.92);
-  -webkit-backdrop-filter:blur(25px) saturate(95%) brightness(.92);
+
+  backdrop-filter:
+    blur(28px)
+    saturate(105%)
+    brightness(.95);
+
+  -webkit-backdrop-filter:
+    blur(28px)
+    saturate(105%)
+    brightness(.95);
+
   box-shadow:
-    inset 0 0 110px rgba(0,0,0,.26),
-    inset 0 0 28px rgba(255,255,255,.018);
+    inset 0 0 120px rgba(0,0,0,.22),
+    inset 0 0 30px rgba(255,255,255,.025);
+
   pointer-events:none;
 }
 
 .ip-menu-panel::after{
   content:'';
+
   position:absolute;
   inset:0;
+
   z-index:1;
+
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/menu-noise.webp');
+
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
+
   opacity:.12;
-  mix-blend-mode:normal;
+
+  mix-blend-mode:screen;
+
   pointer-events:none;
 }
 
 .ip-menu-inner{
   position:relative;
   z-index:2;
+
   opacity:0;
-  transform:translate3d(8px,0,0);
-  transition:opacity .45s ease, transform .45s ease;
+
+  transform:
+    translate3d(8px,0,0);
+
+  transition:
+    opacity .45s ease,
+    transform .45s ease;
 }
 
 .ip-menu-panel.is-open .ip-menu-inner{
   opacity:1;
-  transform:translate3d(0,0,0);
+
+  transform:
+    translate3d(0,0,0);
+
   transition-delay:.34s;
 }
+
+/* =========================================================
+   SOCIALS
+   ========================================================= */
 
 .ip-menu-socials{
   display:flex;
   gap:10px;
+
   margin-bottom:40px;
 }
 
 .ip-social{
   display:block;
+
   width:25px;
   height:25px;
+
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
@@ -337,29 +463,46 @@
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
 }
 
+/* =========================================================
+   MENU LIST
+   ========================================================= */
+
 .ip-menu-list{
   display:flex;
   flex-direction:column;
   gap:20px;
 }
 
+/* =========================================================
+   MAIN MENU TEXT
+   ВСЁ БЕЛОЕ
+   ========================================================= */
+
 .ip-menu-link,
 .ip-accordion-button{
   padding:0;
   border:none;
+
   background:transparent;
-  color:#fff;
+
+  color:#FFFFFF;
+
   font-family:'Montserrat',sans-serif;
   font-size:20px;
   line-height:90%;
   font-weight:600;
   letter-spacing:-0.04em;
+
   text-align:left;
+
   cursor:pointer;
+
+  transition:color .25s ease;
 }
 
 .ip-accordion-button{
   width:100%;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -367,9 +510,12 @@
 
 .ip-accordion-button::after{
   content:'';
+
   width:12px;
   height:8px;
+
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/arrow.svg');
+
   background-size:contain;
   background-repeat:no-repeat;
 }
@@ -381,75 +527,174 @@
 .ip-accordion-content{
   max-height:0;
   overflow:hidden;
+
   transition:max-height .4s ease;
 }
 
-.ip-accordion.is-open .ip-accordion-content{max-height:220px;}
+.ip-accordion.is-open .ip-accordion-content{
+  max-height:220px;
+}
+
+/* =========================================================
+   ACCORDION LINKS
+   BLUE
+   ========================================================= */
 
 .ip-submenu{
   display:flex;
   flex-direction:column;
   gap:12px;
+
   padding-top:16px;
 }
 
 .ip-submenu a{
   font-size:14px;
   line-height:120%;
-  opacity:.85;
+
+  color:#69C9FF;
+
+  opacity:1;
+
+  transition:
+    color .25s ease,
+    opacity .25s ease;
 }
+
+.ip-submenu a:hover{
+  opacity:.75;
+}
+
+/* =========================================================
+   LEGAL LINKS
+   WHITE 50%
+   ========================================================= */
 
 .ip-menu-legal{
   position:absolute;
+
   left:60px;
   right:100px;
   bottom:80px;
+
   z-index:2;
+
   display:flex;
   flex-direction:column;
   gap:2px;
+
   opacity:0;
-  transform:translate3d(8px,0,0);
-  transition:opacity .45s ease, transform .45s ease;
+
+  transform:
+    translate3d(8px,0,0);
+
+  transition:
+    opacity .45s ease,
+    transform .45s ease;
+
   pointer-events:none;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal{
   opacity:1;
-  transform:translate3d(0,0,0);
+
+  transform:
+    translate3d(0,0,0);
+
   transition-delay:.42s;
+
   pointer-events:auto;
 }
 
 .ip-menu-legal a{
   font-size:8px;
   line-height:150%;
-  color:rgba(255,255,255,.65);
+
+  color:rgba(255,255,255,.5);
+
+  transition:opacity .25s ease;
 }
 
+.ip-menu-legal a:hover{
+  opacity:.75;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
 @keyframes ipStartBgFade{
-  0%{opacity:1;}
-  100%{opacity:0;}
+  0%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+  }
 }
 
 @keyframes ipFinalBgFade{
-  0%{opacity:0; transform:scale(1.015);}
-  100%{opacity:1; transform:scale(1);}
+  0%{
+    opacity:0;
+    transform:scale(1.015);
+  }
+
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
 @keyframes ipTextReveal{
-  0%{opacity:0; transform:translate3d(0,-110%,0);}
-  100%{opacity:1; transform:translate3d(0,0,0);}
+  0%{
+    opacity:0;
+
+    transform:
+      translate3d(0,-110%,0);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:
+      translate3d(0,0,0);
+  }
 }
 
 @keyframes ipSubtitleReveal{
-  0%{opacity:0; transform:translate3d(0,-120%,0);}
-  100%{opacity:1; transform:translate3d(0,0,0);}
+  0%{
+    opacity:0;
+
+    transform:
+      translate3d(0,-120%,0);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:
+      translate3d(0,0,0);
+  }
 }
 
 @keyframes ipDotBlink{
-  0%{opacity:0; transform:scale(.6);}
-  25%{opacity:1; transform:scale(1);}
-  55%{opacity:.35; transform:scale(.8);}
-  100%{opacity:1; transform:scale(1);}
+  0%{
+    opacity:0;
+    transform:scale(.6);
+  }
+
+  25%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  55%{
+    opacity:.35;
+    transform:scale(.8);
+  }
+
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
 }
