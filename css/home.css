@@ -1,13 +1,14 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V43
+   IVAN PERTSEV — HOME PAGE — DESKTOP V45
    FILE: css/home.css
 
-   V43:
-   - изменена анимация появления пунктов меню;
-   - сначала появляются иконки соцсетей;
-   - затем с задержкой появляются разделы меню;
-   - анимация похожа на заголовок/подзаголовок;
-   - остальные настройки сохранены.
+   V45:
+   - исправлен hover соцсетей;
+   - убрана подмена background-image на hover;
+   - обычная и hover-иконки теперь лежат в ::before / ::after;
+   - hover работает через opacity;
+   - мигание и дерганье иконок устранено;
+   - остальная логика сохранена.
    ========================================================= */
 
 @font-face{
@@ -287,19 +288,15 @@
   pointer-events:none;
 }
 
-/* =========================================================
-   MENU INNER — V43
-   Контейнер больше не анимируется целиком.
-   Теперь отдельно анимируются соцсети и пункты меню.
-   ========================================================= */
-
 .ip-menu-inner{
   position:relative;
   z-index:2;
 }
 
 /* =========================================================
-   SOCIAL ICONS — FIRST REVEAL
+   SOCIAL ICONS — V45
+   Hover сделан через opacity слоёв.
+   Это убирает мигание background-image.
    ========================================================= */
 
 .ip-menu-socials{
@@ -310,19 +307,51 @@
 }
 
 .ip-social{
+  position:relative;
   display:block;
   width:27px;
   height:27px;
+  opacity:0;
+  transform:translate3d(0,-32px,0);
+  will-change:transform,opacity;
+  background:none !important;
+  overflow:hidden;
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+
+.ip-social::before,
+.ip-social::after{
+  content:'';
+  position:absolute;
+  inset:0;
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
+  transition:opacity .28s ease;
+  will-change:opacity;
+  pointer-events:none;
+}
+
+.ip-social::before{
+  opacity:1;
+}
+
+.ip-social::after{
   opacity:0;
-  transform:translate3d(0,-120%,0);
-  will-change:transform,opacity;
+}
+
+.ip-social:hover::before{
+  opacity:0;
+}
+
+.ip-social:hover::after{
+  opacity:1;
 }
 
 .ip-menu-panel.is-open .ip-social{
-  animation:ipMenuItemReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
 }
 
 .ip-menu-panel.is-open .ip-social:nth-child(1){
@@ -330,39 +359,39 @@
 }
 
 .ip-menu-panel.is-open .ip-social:nth-child(2){
-  animation-delay:.40s;
+  animation-delay:.42s;
 }
 
 .ip-menu-panel.is-open .ip-social:nth-child(3){
-  animation-delay:.46s;
+  animation-delay:.50s;
 }
 
-.ip-social.instagram{
+.ip-social.instagram::before{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram.svg');
 }
 
-.ip-social.instagram:hover{
+.ip-social.instagram::after{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram-hover.svg');
 }
 
-.ip-social.telegram{
+.ip-social.telegram::before{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram.svg');
 }
 
-.ip-social.telegram:hover{
+.ip-social.telegram::after{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram-hover.svg');
 }
 
-.ip-social.vk{
+.ip-social.vk::before{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK.svg');
 }
 
-.ip-social.vk:hover{
+.ip-social.vk::after{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
 }
 
 /* =========================================================
-   MENU LIST — TEXT REVEAL AFTER SOCIALS
+   MENU LIST — TEXT DROP REVEAL
    ========================================================= */
 
 .ip-menu-list{
@@ -374,36 +403,36 @@
 
 .ip-menu-list > *{
   opacity:0;
-  transform:translate3d(0,-120%,0);
+  transform:translate3d(0,-36px,0);
   will-change:transform,opacity;
 }
 
 .ip-menu-panel.is-open .ip-menu-list > *{
-  animation:ipMenuItemReveal .52s cubic-bezier(.19,1,.22,1) forwards;
+  animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) forwards;
 }
 
 .ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
-  animation-delay:.62s;
+  animation-delay:.68s;
 }
 
 .ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
-  animation-delay:.70s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
   animation-delay:.78s;
 }
 
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
+  animation-delay:.88s;
+}
+
 .ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
-  animation-delay:.86s;
+  animation-delay:.98s;
 }
 
 .ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
-  animation-delay:.94s;
+  animation-delay:1.08s;
 }
 
 .ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
-  animation-delay:1.02s;
+  animation-delay:1.18s;
 }
 
 .ip-menu-link,
@@ -543,17 +572,14 @@
   flex-direction:column;
   gap:2px;
   opacity:0;
-  transform:translate3d(0,-80%,0);
-  transition:
-    opacity .45s ease,
-    transform .45s cubic-bezier(.19,1,.22,1);
+  transform:translate3d(0,-32px,0);
+  transition:none;
   pointer-events:none;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal{
-  opacity:1;
-  transform:translate3d(0,0,0);
-  transition-delay:1.08s;
+  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:1.28s;
   pointer-events:auto;
 }
 
@@ -620,10 +646,10 @@
   }
 }
 
-@keyframes ipMenuItemReveal{
+@keyframes ipMenuTextDrop{
   0%{
     opacity:0;
-    transform:translate3d(0,-120%,0);
+    transform:translate3d(0,-36px,0);
   }
 
   100%{
