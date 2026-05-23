@@ -22,100 +22,56 @@
 
   function updateHomeScale() {
 
-    const scaleX =
-      window.innerWidth / DESIGN_WIDTH;
+    const scaleX = window.innerWidth / DESIGN_WIDTH;
+    const scaleY = window.innerHeight / DESIGN_HEIGHT;
 
-    const scaleY =
-      window.innerHeight / DESIGN_HEIGHT;
+    const scale = Math.min(scaleX, scaleY);
 
-    const scale =
-      Math.min(scaleX, scaleY);
-
-    page.style.setProperty(
-      '--ip-home-scale',
-      scale
-    );
+    page.style.setProperty('--ip-home-scale', scale);
 
   }
 
   updateHomeScale();
 
-  window.addEventListener(
-    'resize',
-    updateHomeScale
-  );
+  window.addEventListener('resize', updateHomeScale);
 
   /* =========================
-     ПРОВЕРКА МЕНЮ
+     МЕНЮ
   ========================= */
 
   if (!menuButton || !menuPanel) return;
 
-  /* =========================
-     ОТКРЫТИЕ МЕНЮ
-  ========================= */
-
   function openMenu() {
 
     menuButton.classList.add('is-open');
-
     menuPanel.classList.add('is-open');
 
   }
 
-  /* =========================
-     ЗАКРЫТИЕ МЕНЮ
-  ========================= */
-
   function closeMenu() {
 
     menuButton.classList.remove('is-open');
-
     menuPanel.classList.remove('is-open');
 
   }
 
-  /* =========================
-     КНОПКА МЕНЮ
-  ========================= */
+  menuButton.addEventListener('click', function () {
 
-  menuButton.addEventListener(
-    'click',
-    function () {
-
-      if (
-        menuPanel.classList.contains('is-open')
-      ) {
-
-        closeMenu();
-
-      } else {
-
-        openMenu();
-
-      }
-
+    if (menuPanel.classList.contains('is-open')) {
+      closeMenu();
+    } else {
+      openMenu();
     }
-  );
 
-  /* =========================
-     ЗАКРЫТИЕ ПРИ СКРОЛЛЕ
-  ========================= */
+  });
 
-  window.addEventListener(
-    'scroll',
-    function () {
+  window.addEventListener('scroll', function () {
 
-      if (
-        menuPanel.classList.contains('is-open')
-      ) {
-
-        closeMenu();
-
-      }
-
+    if (menuPanel.classList.contains('is-open')) {
+      closeMenu();
     }
-  );
+
+  });
 
   /* =========================
      АККОРДЕОНЫ
@@ -123,19 +79,82 @@
 
   accordions.forEach(function (accordion) {
 
-    const button =
-      accordion.querySelector(
-        '.ip-accordion-button'
-      );
+    const button = accordion.querySelector('.ip-accordion-button');
+    const content = accordion.querySelector('.ip-accordion-content');
 
-    button.addEventListener(
-      'click',
-      function () {
+    if (!button || !content) return;
+
+    const buttonText = button.textContent.trim().toLowerCase();
+
+    const isContactsAccordion =
+      buttonText.includes('контакты');
+
+    /* =========================
+       ПРОЕКТЫ
+       Оставляем старую логику без изменений
+    ========================= */
+
+    if (!isContactsAccordion) {
+
+      button.addEventListener('click', function () {
 
         accordion.classList.toggle('is-open');
 
+      });
+
+      return;
+
+    }
+
+    /* =========================
+       КОНТАКТЫ
+       Более плавное раскрытие и закрытие
+    ========================= */
+
+    accordion.classList.add('ip-contacts-accordion');
+
+    content.style.maxHeight = '0px';
+    content.style.overflow = 'hidden';
+
+    content.style.transition =
+      'max-height 620ms cubic-bezier(.19,1,.22,1)';
+
+    function openContactsAccordion() {
+
+      accordion.classList.add('is-open');
+
+      content.style.maxHeight = '0px';
+
+      requestAnimationFrame(function () {
+
+        content.style.maxHeight = content.scrollHeight + 'px';
+
+      });
+
+    }
+
+    function closeContactsAccordion() {
+
+      content.style.maxHeight = content.scrollHeight + 'px';
+
+      requestAnimationFrame(function () {
+
+        accordion.classList.remove('is-open');
+        content.style.maxHeight = '0px';
+
+      });
+
+    }
+
+    button.addEventListener('click', function () {
+
+      if (accordion.classList.contains('is-open')) {
+        closeContactsAccordion();
+      } else {
+        openContactsAccordion();
       }
-    );
+
+    });
 
   });
 
