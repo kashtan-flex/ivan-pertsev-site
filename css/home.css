@@ -1,14 +1,9 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V52
+   IVAN PERTSEV — HOME PAGE
    FILE: css/home.css
 
-   V52:
-   - исправлена кликабельность соцсетей;
-   - VK/Telegram/Instagram не перекрываются слоями меню;
-   - home.html не трогаем, если VK-ссылка уже добавлена;
-   - сохранена layered-структура фона;
-   - glow находится под портретом;
-   - меню и анимации сохранены.
+   Desktop production core.
+   Mobile overrides live in css/home-mobile.css.
    ========================================================= */
 
 @font-face{
@@ -17,6 +12,18 @@
   font-weight:700;
   font-style:normal;
   font-display:swap;
+}
+
+html,
+body,
+#allrecords,
+#ip-home-root{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  overflow:hidden !important;
+  background:#050603 !important;
 }
 
 .ip-page-home,
@@ -33,9 +40,9 @@
   position:relative;
   width:100%;
   height:100vh;
-  min-height:800px;
-  overflow:hidden;
-  background:#000;
+  min-height:0;
+  overflow:hidden !important;
+  background:#050603;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
@@ -47,7 +54,7 @@
   width:1440px;
   height:800px;
   overflow:hidden;
-  transform:translate(-50%,-50%) scale(var(--ip-home-scale,1));
+  transform:translate3d(-50%,-50%,0) scale(var(--ip-home-scale,1));
   transform-origin:center center;
 }
 
@@ -73,21 +80,19 @@
 .ip-home-bg-base{
   z-index:1;
   opacity:1;
-  background-image:
-    image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg.webp') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg@2x.webp') 2x
-    );
+  background-image:image-set(
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg.webp') 1x,
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg@2x.webp') 2x
+  );
 }
 
 .ip-home-bg-glow{
   z-index:2;
   opacity:0;
-  background-image:
-    image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow.webp') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow@2x.webp') 2x
-    );
+  background-image:image-set(
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow.webp') 1x,
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow@2x.webp') 2x
+  );
   animation:ipGlowReveal 1.25s ease forwards;
   animation-delay:1.1s;
 }
@@ -95,11 +100,10 @@
 .ip-home-portrait{
   z-index:3;
   opacity:0;
-  background-image:
-    image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait.png') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait@2x.png') 2x
-    );
+  background-image:image-set(
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait.png') 1x,
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait@2x.png') 2x
+  );
   background-position:left bottom;
   background-size:auto 800px;
   transform:translate3d(-10px,0,0) scale(1.01);
@@ -114,6 +118,10 @@
   background:rgba(0,0,0,.04);
   pointer-events:none;
 }
+
+/* =========================================================
+   HERO TEXT
+   ========================================================= */
 
 .ip-home-content{
   position:absolute;
@@ -300,21 +308,22 @@
   transform:translate3d(0,0,0);
 }
 
-.ip-menu-panel::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:0;
-  background:rgba(0,0,0,.30);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-  pointer-events:none;
-}
-
+.ip-menu-panel::before,
 .ip-menu-panel::after{
   content:'';
   position:absolute;
   inset:0;
+  pointer-events:none;
+}
+
+.ip-menu-panel::before{
+  z-index:0;
+  background:rgba(0,0,0,.30);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.ip-menu-panel::after{
   z-index:1;
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/menu-noise.webp');
   background-size:cover;
@@ -322,18 +331,17 @@
   background-repeat:no-repeat;
   opacity:.35;
   mix-blend-mode:normal;
-  pointer-events:none;
 }
-
-/* =========================================================
-   MENU CLICK LAYER FIX — V52
-   ========================================================= */
 
 .ip-menu-inner{
   position:relative;
   z-index:5;
   pointer-events:auto;
 }
+
+/* =========================================================
+   SOCIALS
+   ========================================================= */
 
 .ip-menu-socials{
   position:relative;
@@ -395,9 +403,17 @@
   animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
 }
 
-.ip-menu-panel.is-open .ip-social:nth-child(1){animation-delay:.34s;}
-.ip-menu-panel.is-open .ip-social:nth-child(2){animation-delay:.42s;}
-.ip-menu-panel.is-open .ip-social:nth-child(3){animation-delay:.50s;}
+.ip-menu-panel.is-open .ip-social:nth-child(1){
+  animation-delay:.34s;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(2){
+  animation-delay:.42s;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(3){
+  animation-delay:.50s;
+}
 
 .ip-social.instagram::before{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram.svg');
@@ -447,12 +463,29 @@
   animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) forwards;
 }
 
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){animation-delay:.68s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){animation-delay:.78s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){animation-delay:.88s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){animation-delay:.98s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){animation-delay:1.08s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){animation-delay:1.18s;}
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
+  animation-delay:.68s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
+  animation-delay:.78s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
+  animation-delay:.88s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
+  animation-delay:.98s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
+  animation-delay:1.08s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
+  animation-delay:1.18s;
+}
 
 .ip-menu-link,
 .ip-menu-link:link,
@@ -462,7 +495,7 @@
 .ip-accordion-button,
 .ip-accordion-button:hover,
 .ip-accordion-button:active{
-  color:#FFFFFF !important;
+  color:#fff !important;
 }
 
 .ip-menu-link,
@@ -629,6 +662,7 @@
     opacity:0;
     transform:translate3d(-10px,0,0) scale(1.01);
   }
+
   100%{
     opacity:1;
     transform:translate3d(0,0,0) scale(1);
@@ -636,8 +670,13 @@
 }
 
 @keyframes ipGlowReveal{
-  0%{opacity:0;}
-  100%{opacity:1;}
+  0%{
+    opacity:0;
+  }
+
+  100%{
+    opacity:1;
+  }
 }
 
 @keyframes ipTextReveal{
@@ -645,6 +684,7 @@
     opacity:0;
     transform:translate3d(0,-110%,0);
   }
+
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
@@ -656,6 +696,7 @@
     opacity:0;
     transform:translate3d(0,-120%,0);
   }
+
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
@@ -667,6 +708,7 @@
     opacity:0;
     transform:translate3d(0,-36px,0);
   }
+
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
@@ -674,45 +716,23 @@
 }
 
 @keyframes ipDotBlink{
-  0%{opacity:0; transform:scale(.6);}
-  25%{opacity:1; transform:scale(1);}
-  55%{opacity:.35; transform:scale(.8);}
-  100%{opacity:1; transform:scale(1);}
-}
-/* =========================================================
-   DESKTOP ART-DIRECTION SCALING FIX
-   Desktop: fixed 1440×800 composition, height-based scaling
-   ========================================================= */
-
-@media (min-width: 768px){
-
-  html,
-  body,
-  #allrecords,
-  #ip-home-root{
-    width:100%;
-    height:100%;
-    overflow:hidden !important;
-    background:#050603 !important;
+  0%{
+    opacity:0;
+    transform:scale(.6);
   }
 
-  .ip-page-home{
-    width:100%;
-    height:100vh;
-    min-height:0;
-    overflow:hidden !important;
-    background:#050603;
+  25%{
+    opacity:1;
+    transform:scale(1);
   }
 
-  .ip-home-stage{
-    position:absolute;
-    left:50%;
-    top:50%;
-    width:1440px;
-    height:800px;
-    overflow:hidden;
-    transform:translate3d(-50%,-50%,0) scale(var(--ip-home-scale,1)) !important;
-    transform-origin:center center;
+  55%{
+    opacity:.35;
+    transform:scale(.8);
   }
 
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
 }
