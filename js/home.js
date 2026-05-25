@@ -25,13 +25,19 @@
   }
 
   function updateHomeScale() {
-    const mobile = isMobile();
-    const design = mobile ? DESIGN.mobile : DESIGN.desktop;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
 
-    const scaleX = window.innerWidth / design.width;
-    const scaleY = window.innerHeight / design.height;
+    let scale;
 
-    const scale = mobile ? Math.max(scaleX, scaleY) : scaleY;
+    if (isMobile()) {
+      const scaleX = viewportWidth / DESIGN.mobile.width;
+      const scaleY = viewportHeight / DESIGN.mobile.height;
+
+      scale = Math.max(scaleX, scaleY);
+    } else {
+      scale = viewportHeight / DESIGN.desktop.height;
+    }
 
     page.style.setProperty('--ip-home-scale', scale);
   }
