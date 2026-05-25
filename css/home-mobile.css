@@ -44,15 +44,15 @@
     left:20px;
     top:515px;
     width:365px;
-    height:165px;
+    height:170px;
     overflow:visible;
   }
 
   .ip-home-title{
     width:365px;
-    font-size:66px;
+    font-size:63px;
     line-height:.81;
-    letter-spacing:-0.075em;
+    letter-spacing:0;
   }
 
   .ip-title-line{
@@ -61,18 +61,18 @@
   }
 
   .ip-title-line-first{
-    height:66px;
+    height:68px;
   }
 
   .ip-title-line-second{
-    height:86px;
-    margin-top:-10px;
+    height:88px;
+    margin-top:-14px;
   }
 
   .ip-title-line span{
     display:block;
     width:365px;
-    height:90px;
+    height:96px;
     line-height:.81;
     opacity:0;
     transform:translate3d(0,-34px,0);
@@ -93,9 +93,9 @@
 
   .ip-home-subtitle-wrap{
     left:0;
-    top:113px;
+    top:119px;
     width:215px;
-    height:20px;
+    height:22px;
     overflow:hidden;
   }
 
