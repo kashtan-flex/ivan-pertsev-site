@@ -50,7 +50,7 @@
 
   .ip-home-title{
     width:350px;
-    font-size:58px;
+    font-size:61px;
     line-height:.81;
     letter-spacing:-0.025em;
   }
@@ -61,18 +61,18 @@
   }
 
   .ip-title-line-first{
-    height:55px;
+    height:58px;
   }
 
   .ip-title-line-second{
-    height:74px;
+    height:77px;
     margin-top:-3px;
   }
 
   .ip-title-line span{
     display:block;
     width:350px;
-    height:76px;
+    height:79px;
     line-height:.81;
     opacity:0;
     transform:translate3d(0,-34px,0);
