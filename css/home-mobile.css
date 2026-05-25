@@ -93,20 +93,20 @@
 
   .ip-home-subtitle-wrap{
     left:2px;
-    top:146px;
-    width:255px;
-    height:24px;
+    top:131px;
+    width:215px;
+    height:20px;
     overflow:hidden;
   }
 
   .ip-home-subtitle{
     display:flex;
     align-items:center;
-    gap:8px;
-    font-size:18px;
+    gap:7px;
+    font-size:15px;
     line-height:100%;
     font-weight:400;
-    letter-spacing:.03em;
+    letter-spacing:.025em;
   }
 
   .ip-subtitle-word,
