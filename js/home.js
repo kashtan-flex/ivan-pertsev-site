@@ -9,24 +9,35 @@
 
   if (!menuButton || !menuPanel) return;
 
-  /* =========================
-     АДАПТИВНОЕ МАСШТАБИРОВАНИЕ
-  ========================= */
-  const DESIGN_WIDTH = 1440;
-  const DESIGN_HEIGHT = 800;
+  function getDesignSize() {
+    if (window.innerWidth <= 767) {
+      return {
+        width: 390,
+        height: 700
+      };
+    }
+
+    return {
+      width: 1440,
+      height: 800
+    };
+  }
 
   function updateHomeScale() {
-    const scaleX = window.innerWidth / DESIGN_WIDTH;
-    const scaleY = window.innerHeight / DESIGN_HEIGHT;
+    const design = getDesignSize();
+
+    const scaleX = window.innerWidth / design.width;
+    const scaleY = window.innerHeight / design.height;
+
     const scale = Math.min(scaleX, scaleY);
+
     page.style.setProperty('--ip-home-scale', scale);
   }
+
   updateHomeScale();
+
   window.addEventListener('resize', updateHomeScale);
 
-  /* =========================
-     МЕНЮ
-  ========================= */
   function openMenu() {
     menuButton.classList.add('is-open');
     menuPanel.classList.add('is-open');
@@ -53,9 +64,6 @@
     }
   });
 
-  /* =========================
-     АККОРДЕОНЫ
-  ========================= */
   accordions.forEach(function (accordion) {
     const button = accordion.querySelector('.ip-accordion-button');
     const content = accordion.querySelector('.ip-accordion-content');
@@ -66,18 +74,17 @@
     const isContactsAccordion = buttonText.includes('контакты');
 
     if (!isContactsAccordion) {
-      // обычные аккордеоны (Проекты)
       button.addEventListener('click', function () {
         accordion.classList.toggle('is-open');
       });
+
       return;
     }
 
-    // ==============================
-    // Контакты — отдельные строки
-    // ==============================
-    const lines = Array.from(content.children);
-    lines.forEach(line => {
+    const submenu = content.querySelector('.ip-submenu');
+    const lines = submenu ? Array.from(submenu.children) : [];
+
+    lines.forEach(function (line) {
       line.style.overflow = 'hidden';
       line.style.maxHeight = '0px';
       line.style.transition = 'max-height 620ms cubic-bezier(.19,1,.22,1)';
@@ -85,20 +92,23 @@
 
     function openContactsAccordion() {
       accordion.classList.add('is-open');
-      lines.forEach((line, index) => {
-        requestAnimationFrame(() => {
+
+      lines.forEach(function (line) {
+        requestAnimationFrame(function () {
           line.style.maxHeight = line.scrollHeight + 'px';
         });
       });
     }
 
     function closeContactsAccordion() {
-      lines.forEach((line, index) => {
+      lines.forEach(function (line) {
         line.style.maxHeight = line.scrollHeight + 'px';
-        requestAnimationFrame(() => {
+
+        requestAnimationFrame(function () {
           line.style.maxHeight = '0px';
         });
       });
+
       accordion.classList.remove('is-open');
     }
 
