@@ -1,13 +1,14 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V49
+   IVAN PERTSEV — HOME PAGE — DESKTOP V52
    FILE: css/home.css
 
-   V49:
-   - исправлен порядок слоев главной;
-   - фон без свечения виден сразу;
-   - фон со свечением появляется под портретом;
-   - портрет остается поверх фоновых изображений;
-   - текст и меню остаются поверх всего.
+   V52:
+   - исправлена кликабельность соцсетей;
+   - VK/Telegram/Instagram не перекрываются слоями меню;
+   - home.html не трогаем, если VK-ссылка уже добавлена;
+   - сохранена layered-структура фона;
+   - glow находится под портретом;
+   - меню и анимации сохранены.
    ========================================================= */
 
 @font-face{
@@ -52,13 +53,6 @@
 
 /* =========================================================
    HOME IMAGE LAYERS
-
-   ПРАВИЛЬНЫЙ ПОРЯДОК:
-   1. base background
-   2. glow background
-   3. portrait
-   4. dark overlay
-   5. content/menu
    ========================================================= */
 
 .ip-home-bg-base,
@@ -224,7 +218,7 @@
 }
 
 /* =========================================================
-   MENU TOGGLE / CROSS
+   MENU TOGGLE
    ========================================================= */
 
 .ip-menu-toggle{
@@ -331,24 +325,29 @@
   pointer-events:none;
 }
 
-.ip-menu-inner{
-  position:relative;
-  z-index:2;
-}
-
 /* =========================================================
-   SOCIAL ICONS
+   MENU CLICK LAYER FIX — V52
    ========================================================= */
 
+.ip-menu-inner{
+  position:relative;
+  z-index:5;
+  pointer-events:auto;
+}
+
 .ip-menu-socials{
+  position:relative;
+  z-index:6;
   display:flex;
   gap:10px;
   margin-bottom:40px;
   overflow:visible;
+  pointer-events:auto;
 }
 
 .ip-social{
   position:relative;
+  z-index:7;
   display:block;
   width:27px;
   height:27px;
@@ -360,6 +359,7 @@
   transform-style:preserve-3d;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
+  pointer-events:auto;
 }
 
 .ip-social::before,
@@ -395,17 +395,9 @@
   animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
 }
 
-.ip-menu-panel.is-open .ip-social:nth-child(1){
-  animation-delay:.34s;
-}
-
-.ip-menu-panel.is-open .ip-social:nth-child(2){
-  animation-delay:.42s;
-}
-
-.ip-menu-panel.is-open .ip-social:nth-child(3){
-  animation-delay:.50s;
-}
+.ip-menu-panel.is-open .ip-social:nth-child(1){animation-delay:.34s;}
+.ip-menu-panel.is-open .ip-social:nth-child(2){animation-delay:.42s;}
+.ip-menu-panel.is-open .ip-social:nth-child(3){animation-delay:.50s;}
 
 .ip-social.instagram::before{
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram.svg');
@@ -436,10 +428,13 @@
    ========================================================= */
 
 .ip-menu-list{
+  position:relative;
+  z-index:6;
   display:flex;
   flex-direction:column;
   gap:20px;
   width:225px;
+  pointer-events:auto;
 }
 
 .ip-menu-list > *{
@@ -591,7 +586,7 @@
   left:60px;
   right:100px;
   bottom:80px;
-  z-index:2;
+  z-index:6;
   display:flex;
   flex-direction:column;
   gap:2px;
