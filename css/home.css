@@ -1,6 +1,6 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — V53
-   DESKTOP FINAL + MOBILE START
+   IVAN PERTSEV — HOME PAGE — V55
+   MOBILE TYPOGRAPHY FIX
    ========================================================= */
 
 @font-face{
@@ -43,7 +43,9 @@
   transform-origin:center center;
 }
 
-/* HOME IMAGE LAYERS */
+/* =========================================================
+   HOME IMAGE LAYERS
+   ========================================================= */
 
 .ip-home-bg-base,
 .ip-home-bg-glow,
@@ -102,7 +104,9 @@
   pointer-events:none;
 }
 
-/* HERO TEXT */
+/* =========================================================
+   HERO TEXT
+   ========================================================= */
 
 .ip-home-content{
   position:absolute;
@@ -206,398 +210,9 @@
   animation-delay:1.66s;
 }
 
-/* MENU TOGGLE */
-
-.ip-menu-toggle{
-  position:absolute;
-  top:60px;
-  right:100px;
-  z-index:50;
-  width:27px;
-  height:27px;
-  padding:0 !important;
-  margin:0 !important;
-  border:none !important;
-  outline:none !important;
-  background:transparent !important;
-  cursor:pointer;
-  overflow:visible;
-  appearance:none;
-  -webkit-appearance:none;
-  box-shadow:none !important;
-}
-
-.ip-menu-toggle::before,
-.ip-menu-toggle::after{
-  content:none !important;
-  display:none !important;
-}
-
-.ip-menu-line{
-  position:absolute;
-  left:0;
-  top:50%;
-  width:27px;
-  height:3px;
-  border-radius:10px;
-  background:#fff;
-  transform-origin:center center;
-  transition:transform .42s cubic-bezier(.19,1,.22,1);
-  will-change:transform;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-}
-
-.ip-menu-line:first-child{
-  transform:translateY(calc(-50% - 5.5px));
-}
-
-.ip-menu-line:last-child{
-  transform:translateY(calc(-50% + 5.5px));
-}
-
-.ip-menu-toggle.is-open .ip-menu-line:first-child{
-  transform:translateY(-50%) rotate(45deg);
-}
-
-.ip-menu-toggle.is-open .ip-menu-line:last-child{
-  transform:translateY(-50%) rotate(-45deg);
-}
-
-/* MENU PANEL */
-
-.ip-menu-panel{
-  position:absolute;
-  top:0;
-  right:0;
-  width:385px;
-  height:800px;
-  padding:60px 100px 80px 60px;
-  z-index:40;
-  overflow:hidden;
-  pointer-events:none;
-  transform:translate3d(100%,0,0);
-  transition:transform .72s cubic-bezier(.19,1,.22,1);
-}
-
-.ip-menu-panel.is-open{
-  pointer-events:auto;
-  transform:translate3d(0,0,0);
-}
-
-.ip-menu-panel::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:0;
-  background:rgba(0,0,0,.30);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-  pointer-events:none;
-}
-
-.ip-menu-panel::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/menu-noise.webp');
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  opacity:.35;
-  mix-blend-mode:normal;
-  pointer-events:none;
-}
-
-.ip-menu-inner{
-  position:relative;
-  z-index:5;
-  pointer-events:auto;
-}
-
-/* SOCIALS */
-
-.ip-menu-socials{
-  position:relative;
-  z-index:6;
-  display:flex;
-  gap:10px;
-  margin-bottom:40px;
-  overflow:visible;
-  pointer-events:auto;
-}
-
-.ip-social{
-  position:relative;
-  z-index:7;
-  display:block;
-  width:27px;
-  height:27px;
-  opacity:0;
-  transform:translate3d(0,-32px,0);
-  will-change:transform,opacity;
-  background:none !important;
-  overflow:hidden;
-  transform-style:preserve-3d;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  pointer-events:auto;
-}
-
-.ip-social::before,
-.ip-social::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background-size:contain;
-  background-position:center;
-  background-repeat:no-repeat;
-  transition:opacity .28s ease;
-  will-change:opacity;
-  pointer-events:none;
-}
-
-.ip-social::before{
-  opacity:1;
-}
-
-.ip-social::after{
-  opacity:0;
-}
-
-.ip-social:hover::before{
-  opacity:0;
-}
-
-.ip-social:hover::after{
-  opacity:1;
-}
-
-.ip-menu-panel.is-open .ip-social{
-  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
-}
-
-.ip-menu-panel.is-open .ip-social:nth-child(1){animation-delay:.34s;}
-.ip-menu-panel.is-open .ip-social:nth-child(2){animation-delay:.42s;}
-.ip-menu-panel.is-open .ip-social:nth-child(3){animation-delay:.50s;}
-
-.ip-social.instagram::before{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram.svg');
-}
-
-.ip-social.instagram::after{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram-hover.svg');
-}
-
-.ip-social.telegram::before{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram.svg');
-}
-
-.ip-social.telegram::after{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram-hover.svg');
-}
-
-.ip-social.vk::before{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK.svg');
-}
-
-.ip-social.vk::after{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
-}
-
-/* MENU LIST */
-
-.ip-menu-list{
-  position:relative;
-  z-index:6;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  width:225px;
-  pointer-events:auto;
-}
-
-.ip-menu-list > *{
-  opacity:0;
-  transform:translate3d(0,-36px,0);
-  will-change:transform,opacity;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *{
-  animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) forwards;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){animation-delay:.68s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){animation-delay:.78s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){animation-delay:.88s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){animation-delay:.98s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){animation-delay:1.08s;}
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){animation-delay:1.18s;}
-
-.ip-menu-link,
-.ip-menu-link:link,
-.ip-menu-link:visited,
-.ip-menu-link:hover,
-.ip-menu-link:active,
-.ip-accordion-button,
-.ip-accordion-button:hover,
-.ip-accordion-button:active{
-  color:#FFFFFF !important;
-}
-
-.ip-menu-link,
-.ip-accordion-button{
-  padding:0;
-  border:none;
-  background:transparent;
-  font-family:'Montserrat',sans-serif;
-  font-size:20px;
-  line-height:90%;
-  font-weight:600;
-  letter-spacing:-0.04em;
-  text-align:left;
-  cursor:pointer;
-  transition:opacity .25s ease;
-}
-
-.ip-menu-link:hover,
-.ip-accordion-button:hover{
-  opacity:.75;
-}
-
-/* ACCORDION */
-
-.ip-accordion{
-  width:100%;
-}
-
-.ip-accordion-button{
-  position:relative;
-  width:100%;
-  min-height:24px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  padding-right:34px;
-}
-
-.ip-accordion-button::before,
-.ip-accordion-button::after{
-  content:'';
-  position:absolute;
-  top:50%;
-  width:14px;
-  height:3px;
-  border-radius:10px;
-  background:#fff;
-  opacity:1;
-  pointer-events:none;
-  transform-origin:center center;
-  transition:
-    transform .35s cubic-bezier(.19,1,.22,1),
-    opacity .35s ease;
-  will-change:transform,opacity;
-}
-
-.ip-accordion-button::before{
-  right:9px;
-  transform:translateY(-50%) rotate(45deg);
-}
-
-.ip-accordion-button::after{
-  right:0;
-  transform:translateY(-50%) rotate(-45deg);
-}
-
-.ip-accordion.is-open .ip-accordion-button::before{
-  opacity:.5;
-  transform:translateY(-50%) rotate(-45deg);
-}
-
-.ip-accordion.is-open .ip-accordion-button::after{
-  opacity:.5;
-  transform:translateY(-50%) rotate(45deg);
-}
-
-.ip-accordion-content{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .4s ease;
-}
-
-.ip-accordion.is-open .ip-accordion-content{
-  max-height:220px;
-}
-
-.ip-submenu{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding-top:16px;
-}
-
-.ip-submenu a,
-.ip-submenu a:link,
-.ip-submenu a:visited,
-.ip-submenu a:hover,
-.ip-submenu a:active{
-  color:#69C9FF !important;
-}
-
-.ip-submenu a{
-  font-size:14px;
-  line-height:120%;
-  opacity:1;
-  transition:opacity .25s ease;
-}
-
-.ip-submenu a:hover{
-  opacity:.75;
-}
-
-/* LEGAL */
-
-.ip-menu-legal{
-  position:absolute;
-  left:60px;
-  right:100px;
-  bottom:80px;
-  z-index:6;
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  opacity:0;
-  transform:translate3d(0,-32px,0);
-  transition:none;
-  pointer-events:none;
-}
-
-.ip-menu-panel.is-open .ip-menu-legal{
-  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
-  animation-delay:1.28s;
-  pointer-events:auto;
-}
-
-.ip-menu-legal a,
-.ip-menu-legal a:link,
-.ip-menu-legal a:visited,
-.ip-menu-legal a:hover,
-.ip-menu-legal a:active{
-  color:rgba(255,255,255,.5) !important;
-}
-
-.ip-menu-legal a{
-  font-size:8px;
-  line-height:150%;
-  transition:opacity .25s ease;
-}
-
-.ip-menu-legal a:hover{
-  opacity:.75;
-}
-
-/* MOBILE — 390×700 FIGMA BASE */
+/* =========================================================
+   MOBILE — 390×700 FIGMA BASE
+   ========================================================= */
 
 @media (max-width:767px){
 
@@ -641,20 +256,16 @@
     background-position:center center;
   }
 
-  .ip-home-dark-overlay{
-    background:rgba(0,0,0,.03);
-  }
-
   .ip-home-content{
     left:17px;
-    top:492px;
+    top:490px;
     width:355px;
-    height:165px;
+    height:145px;
   }
 
   .ip-home-title{
     width:355px;
-    font-size:63px;
+    font-size:57px;
     line-height:.82;
   }
 
@@ -663,36 +274,40 @@
   }
 
   .ip-title-line-first{
-    height:56px;
+    height:52px;
   }
 
   .ip-title-line-second{
-    height:76px;
-    margin-top:-4px;
+    height:70px;
+    margin-top:-2px;
   }
 
   .ip-title-line span{
-    height:82px;
+    height:74px;
     line-height:.82;
   }
 
   .ip-home-subtitle-wrap{
-    top:143px;
-    padding-bottom:4px;
+    top:108px;
+    left:1px;
+    padding-bottom:0;
   }
 
   .ip-home-subtitle{
-    gap:7px;
-    font-size:12px;
-    line-height:1.15;
-    letter-spacing:.08em;
+    gap:8px;
+    font-size:15px;
+    line-height:90%;
+    letter-spacing:.05em;
+    align-items:center;
   }
 
   .ip-subtitle-dot{
-    width:3px;
-    height:3px;
-    flex-basis:3px;
+    width:4px;
+    height:4px;
+    flex:0 0 4px;
     top:0;
+    transform:none;
+    align-self:center;
   }
 
   .ip-menu-toggle{
@@ -706,83 +321,11 @@
     width:34px;
     height:3px;
   }
-
-  .ip-menu-line:first-child{
-    transform:translateY(calc(-50% - 5px));
-  }
-
-  .ip-menu-line:last-child{
-    transform:translateY(calc(-50% + 5px));
-  }
-
-  .ip-menu-toggle.is-open .ip-menu-line:first-child{
-    transform:translateY(-50%) rotate(45deg);
-  }
-
-  .ip-menu-toggle.is-open .ip-menu-line:last-child{
-    transform:translateY(-50%) rotate(-45deg);
-  }
-
-  .ip-menu-panel{
-    width:390px;
-    height:700px;
-    padding:40px 20px 45px 40px;
-  }
-
-  .ip-menu-panel::before{
-    background:rgba(0,0,0,.30);
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-  }
-
-  .ip-menu-socials{
-    gap:10px;
-    margin-bottom:53px;
-  }
-
-  .ip-social{
-    width:27px;
-    height:27px;
-  }
-
-  .ip-menu-list{
-    width:330px;
-    gap:20px;
-  }
-
-  .ip-menu-link,
-  .ip-accordion-button{
-    font-size:20px;
-    line-height:90%;
-  }
-
-  .ip-accordion-button{
-    padding-right:34px;
-  }
-
-  .ip-submenu{
-    gap:16px;
-    padding-top:17px;
-  }
-
-  .ip-submenu a{
-    font-size:16px;
-    line-height:120%;
-  }
-
-  .ip-menu-legal{
-    left:40px;
-    right:20px;
-    bottom:45px;
-  }
-
-  .ip-menu-legal a{
-    font-size:8px;
-    line-height:150%;
-  }
 }
 
-/* ANIMATIONS */
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
 
 @keyframes ipPortraitReveal{
   0%{
@@ -815,17 +358,6 @@
   0%{
     opacity:0;
     transform:translate3d(0,-120%,0);
-  }
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
-}
-
-@keyframes ipMenuTextDrop{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-36px,0);
   }
   100%{
     opacity:1;
