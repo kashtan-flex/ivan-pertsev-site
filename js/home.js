@@ -26,9 +26,12 @@
     const scaleX = window.innerWidth / designWidth;
     const scaleY = window.innerHeight / designHeight;
 
-    const scale = isMobile()
-      ? Math.max(scaleX, scaleY)
-      : Math.min(scaleX, scaleY);
+    /*
+      cover-scaling:
+      - desktop: убирает полосы сверху/снизу на MacBook и ноутбуках
+      - mobile: сохраняет заполнение экрана 390×700 без нижнего зазора
+    */
+    const scale = Math.max(scaleX, scaleY);
 
     page.style.setProperty('--ip-home-scale', scale);
   }
