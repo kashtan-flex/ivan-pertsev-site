@@ -42,17 +42,17 @@
 
   .ip-home-content{
     left:20px;
-    top:518px;
+    top:515px;
     width:350px;
-    height:160px;
+    height:165px;
     overflow:visible;
   }
 
   .ip-home-title{
     width:350px;
-    font-size:61px;
+    font-size:66px;
     line-height:.81;
-    letter-spacing:-0.025em;
+    letter-spacing:-0.075em;
   }
 
   .ip-title-line{
@@ -61,18 +61,18 @@
   }
 
   .ip-title-line-first{
-    height:58px;
+    height:60px;
   }
 
   .ip-title-line-second{
-    height:77px;
-    margin-top:-3px;
+    height:78px;
+    margin-top:-4px;
   }
 
   .ip-title-line span{
     display:block;
     width:350px;
-    height:79px;
+    height:82px;
     line-height:.81;
     opacity:0;
     transform:translate3d(0,-34px,0);
@@ -92,8 +92,8 @@
   }
 
   .ip-home-subtitle-wrap{
-    left:2px;
-    top:127px;
+    left:0;
+    top:128px;
     width:215px;
     height:20px;
     overflow:hidden;
@@ -161,6 +161,7 @@
     opacity:0;
     transform:translate3d(0,-34px,0);
   }
+
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
@@ -172,6 +173,7 @@
     opacity:0;
     transform:translate3d(0,-10px,0);
   }
+
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
