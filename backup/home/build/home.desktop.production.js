@@ -1,32 +1,46 @@
 (function () {
-
   const page = document.querySelector('.ip-page-home');
-  if (!page) return;
-
   const menuButton = document.querySelector('.ip-menu-toggle');
   const menuPanel = document.querySelector('.ip-menu-panel');
   const accordions = document.querySelectorAll('.ip-accordion');
 
-  if (!menuButton || !menuPanel) return;
+  if (!page || !menuButton || !menuPanel) return;
 
-  /* =========================
-     АДАПТИВНОЕ МАСШТАБИРОВАНИЕ
-  ========================= */
-  const DESIGN_WIDTH = 1440;
-  const DESIGN_HEIGHT = 800;
+  const DESIGN = {
+    desktop: {
+      width: 1440,
+      height: 800
+    },
+    mobile: {
+      width: 390,
+      height: 700
+    },
+    breakpoint: 767
+  };
+
+  let resizeFrame = null;
+
+  function isMobile() {
+    return window.innerWidth <= DESIGN.breakpoint;
+  }
 
   function updateHomeScale() {
-    const scaleX = window.innerWidth / DESIGN_WIDTH;
-    const scaleY = window.innerHeight / DESIGN_HEIGHT;
-    const scale = Math.min(scaleX, scaleY);
+    const mobile = isMobile();
+    const design = mobile ? DESIGN.mobile : DESIGN.desktop;
+
+    const scaleX = window.innerWidth / design.width;
+    const scaleY = window.innerHeight / design.height;
+
+    const scale = mobile ? Math.max(scaleX, scaleY) : scaleY;
+
     page.style.setProperty('--ip-home-scale', scale);
   }
-  updateHomeScale();
-  window.addEventListener('resize', updateHomeScale);
 
-  /* =========================
-     МЕНЮ
-  ========================= */
+  function requestScaleUpdate() {
+    if (resizeFrame) cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(updateHomeScale);
+  }
+
   function openMenu() {
     menuButton.classList.add('is-open');
     menuPanel.classList.add('is-open');
@@ -39,45 +53,34 @@
     menuPanel.style.pointerEvents = 'none';
   }
 
-  menuButton.addEventListener('click', function () {
+  function toggleMenu() {
     if (menuPanel.classList.contains('is-open')) {
       closeMenu();
     } else {
       openMenu();
     }
-  });
+  }
 
-  window.addEventListener('scroll', function () {
-    if (menuPanel.classList.contains('is-open')) {
-      closeMenu();
-    }
-  });
-
-  /* =========================
-     АККОРДЕОНЫ
-  ========================= */
-  accordions.forEach(function (accordion) {
+  function setupAccordion(accordion) {
     const button = accordion.querySelector('.ip-accordion-button');
     const content = accordion.querySelector('.ip-accordion-content');
 
     if (!button || !content) return;
 
-    const buttonText = button.textContent.trim().toLowerCase();
-    const isContactsAccordion = buttonText.includes('контакты');
+    const isContactsAccordion = button.textContent.trim().toLowerCase().includes('контакты');
 
     if (!isContactsAccordion) {
-      // обычные аккордеоны (Проекты)
       button.addEventListener('click', function () {
         accordion.classList.toggle('is-open');
       });
+
       return;
     }
 
-    // ==============================
-    // Контакты — отдельные строки
-    // ==============================
-    const lines = Array.from(content.children);
-    lines.forEach(line => {
+    const submenu = content.querySelector('.ip-submenu');
+    const lines = submenu ? Array.from(submenu.children) : [];
+
+    lines.forEach(function (line) {
       line.style.overflow = 'hidden';
       line.style.maxHeight = '0px';
       line.style.transition = 'max-height 620ms cubic-bezier(.19,1,.22,1)';
@@ -85,20 +88,23 @@
 
     function openContactsAccordion() {
       accordion.classList.add('is-open');
-      lines.forEach((line, index) => {
-        requestAnimationFrame(() => {
+
+      lines.forEach(function (line) {
+        requestAnimationFrame(function () {
           line.style.maxHeight = line.scrollHeight + 'px';
         });
       });
     }
 
     function closeContactsAccordion() {
-      lines.forEach((line, index) => {
+      lines.forEach(function (line) {
         line.style.maxHeight = line.scrollHeight + 'px';
-        requestAnimationFrame(() => {
+
+        requestAnimationFrame(function () {
           line.style.maxHeight = '0px';
         });
       });
+
       accordion.classList.remove('is-open');
     }
 
@@ -109,6 +115,21 @@
         openContactsAccordion();
       }
     });
+  }
+
+  updateHomeScale();
+
+  window.addEventListener('resize', requestScaleUpdate);
+
+  window.addEventListener('orientationchange', function () {
+    setTimeout(updateHomeScale, 250);
   });
 
+  menuButton.addEventListener('click', toggleMenu);
+
+  window.addEventListener('scroll', function () {
+    if (menuPanel.classList.contains('is-open')) closeMenu();
+  });
+
+  accordions.forEach(setupAccordion);
 })();
