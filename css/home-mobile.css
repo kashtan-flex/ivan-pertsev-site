@@ -154,6 +154,19 @@
     height:700px;
     padding:40px 20px 45px 40px;
   }
+
+  *{
+    -webkit-user-select:auto !important;
+    user-select:auto !important;
+    -webkit-touch-callout:default !important;
+  }
+
+  img,
+  a,
+  button,
+  div{
+    -webkit-user-drag:auto !important;
+  }
 }
 
 @keyframes ipMobileTextRevealSoft{

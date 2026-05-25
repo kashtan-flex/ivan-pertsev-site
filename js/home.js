@@ -9,17 +9,23 @@
 
   if (!menuButton || !menuPanel) return;
 
+  const DESKTOP_WIDTH = 1440;
+  const DESKTOP_HEIGHT = 800;
+
+  const MOBILE_WIDTH = 390;
+  const MOBILE_HEIGHT = 700;
+
   function getDesignSize() {
     if (window.innerWidth <= 767) {
       return {
-        width: 390,
-        height: 700
+        width: MOBILE_WIDTH,
+        height: MOBILE_HEIGHT
       };
     }
 
     return {
-      width: 1440,
-      height: 800
+      width: DESKTOP_WIDTH,
+      height: DESKTOP_HEIGHT
     };
   }
 
@@ -37,6 +43,9 @@
   updateHomeScale();
 
   window.addEventListener('resize', updateHomeScale);
+  window.addEventListener('orientationchange', function () {
+    setTimeout(updateHomeScale, 250);
+  });
 
   function openMenu() {
     menuButton.classList.add('is-open');
