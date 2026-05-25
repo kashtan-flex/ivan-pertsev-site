@@ -212,3 +212,22 @@
   }
 
 }
+/* MOBILE SUBTITLE TIMING PATCH */
+
+@media (max-width: 767px){
+
+  .ip-subtitle-word-one{
+    animation-delay:1.42s;
+  }
+
+  .ip-subtitle-dot{
+    animation:
+      ipMobileSubtitleRevealSoft .28s cubic-bezier(.19,1,.22,1) forwards 1.50s,
+      ipDotBlink 1.4s ease-in-out infinite 1.95s;
+  }
+
+  .ip-subtitle-word-two{
+    animation-delay:1.58s;
+  }
+
+}
