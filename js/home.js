@@ -15,27 +15,20 @@
   const MOBILE_WIDTH = 390;
   const MOBILE_HEIGHT = 700;
 
-  function getDesignSize() {
-    if (window.innerWidth <= 767) {
-      return {
-        width: MOBILE_WIDTH,
-        height: MOBILE_HEIGHT
-      };
-    }
-
-    return {
-      width: DESKTOP_WIDTH,
-      height: DESKTOP_HEIGHT
-    };
+  function isMobile() {
+    return window.innerWidth <= 767;
   }
 
   function updateHomeScale() {
-    const design = getDesignSize();
+    const designWidth = isMobile() ? MOBILE_WIDTH : DESKTOP_WIDTH;
+    const designHeight = isMobile() ? MOBILE_HEIGHT : DESKTOP_HEIGHT;
 
-    const scaleX = window.innerWidth / design.width;
-    const scaleY = window.innerHeight / design.height;
+    const scaleX = window.innerWidth / designWidth;
+    const scaleY = window.innerHeight / designHeight;
 
-    const scale = Math.min(scaleX, scaleY);
+    const scale = isMobile()
+      ? Math.max(scaleX, scaleY)
+      : Math.min(scaleX, scaleY);
 
     page.style.setProperty('--ip-home-scale', scale);
   }
@@ -43,6 +36,7 @@
   updateHomeScale();
 
   window.addEventListener('resize', updateHomeScale);
+
   window.addEventListener('orientationchange', function () {
     setTimeout(updateHomeScale, 250);
   });
