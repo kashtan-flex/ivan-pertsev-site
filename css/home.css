@@ -1,14 +1,13 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — DESKTOP V47
+   IVAN PERTSEV — HOME PAGE — DESKTOP V49
    FILE: css/home.css
 
-   V47:
-   - главная переведена на layered images;
-   - сначала виден фон без свечения;
-   - затем плавно появляется портрет;
-   - затем с задержкой появляется фон со свечением;
-   - используются новые изображения из assets/img/home/;
-   - сохранены меню, hover соцсетей, blur, анимации.
+   V49:
+   - исправлен порядок слоев главной;
+   - фон без свечения виден сразу;
+   - фон со свечением появляется под портретом;
+   - портрет остается поверх фоновых изображений;
+   - текст и меню остаются поверх всего.
    ========================================================= */
 
 @font-face{
@@ -52,12 +51,14 @@
 }
 
 /* =========================================================
-   LAYERED HOME IMAGES — V47
+   HOME IMAGE LAYERS
 
-   Слои:
-   1. ip-home-bg-base     — фон без свечения, виден сразу.
-   2. ip-home-portrait    — портрет, появляется после фона.
-   3. ip-home-bg-glow     — фон со свечением, появляется последним.
+   ПРАВИЛЬНЫЙ ПОРЯДОК:
+   1. base background
+   2. glow background
+   3. portrait
+   4. dark overlay
+   5. content/menu
    ========================================================= */
 
 .ip-home-bg-base,
@@ -85,49 +86,31 @@
     );
 }
 
-/*
-   Портрет.
-   Если портрет был экспортирован из Figma как полный canvas 1440×800 —
-   менять ничего не нужно.
-
-   Если портрет был экспортирован как обрезанный слой,
-   корректировать только:
-   left / top / width / height / background-size.
-*/
-
-.ip-home-portrait{
-  z-index:2;
-  opacity:0;
-  background-image:
-    image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait.png') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait@2x.png') 2x
-    );
-
-  background-position:left bottom;
-  background-size:auto 800px;
-
-  transform:translate3d(-10px,0,0) scale(1.01);
-
-  animation:
-    ipPortraitReveal 1.05s cubic-bezier(.19,1,.22,1) forwards;
-
-  animation-delay:.35s;
-}
-
 .ip-home-bg-glow{
-  z-index:3;
+  z-index:2;
   opacity:0;
   background-image:
     image-set(
       url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow.webp') 1x,
       url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow@2x.webp') 2x
     );
+  animation:ipGlowReveal 1.25s ease forwards;
+  animation-delay:1.1s;
+}
 
-  animation:
-    ipGlowReveal 1.25s ease forwards;
-
-  animation-delay:1.8s;
+.ip-home-portrait{
+  z-index:3;
+  opacity:0;
+  background-image:
+    image-set(
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait.png') 1x,
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait@2x.png') 2x
+    );
+  background-position:left bottom;
+  background-size:auto 800px;
+  transform:translate3d(-10px,0,0) scale(1.01);
+  animation:ipPortraitReveal 1.05s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:.35s;
 }
 
 .ip-home-dark-overlay{
@@ -469,29 +452,12 @@
   animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) forwards;
 }
 
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
-  animation-delay:.68s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
-  animation-delay:.78s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
-  animation-delay:.88s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
-  animation-delay:.98s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
-  animation-delay:1.08s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
-  animation-delay:1.18s;
-}
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){animation-delay:.68s;}
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){animation-delay:.78s;}
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){animation-delay:.88s;}
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){animation-delay:.98s;}
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){animation-delay:1.08s;}
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){animation-delay:1.18s;}
 
 .ip-menu-link,
 .ip-menu-link:link,
@@ -668,7 +634,6 @@
     opacity:0;
     transform:translate3d(-10px,0,0) scale(1.01);
   }
-
   100%{
     opacity:1;
     transform:translate3d(0,0,0) scale(1);
@@ -676,13 +641,8 @@
 }
 
 @keyframes ipGlowReveal{
-  0%{
-    opacity:0;
-  }
-
-  100%{
-    opacity:1;
-  }
+  0%{opacity:0;}
+  100%{opacity:1;}
 }
 
 @keyframes ipTextReveal{
@@ -690,7 +650,6 @@
     opacity:0;
     transform:translate3d(0,-110%,0);
   }
-
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
@@ -702,7 +661,6 @@
     opacity:0;
     transform:translate3d(0,-120%,0);
   }
-
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
@@ -714,7 +672,6 @@
     opacity:0;
     transform:translate3d(0,-36px,0);
   }
-
   100%{
     opacity:1;
     transform:translate3d(0,0,0);
@@ -722,23 +679,8 @@
 }
 
 @keyframes ipDotBlink{
-  0%{
-    opacity:0;
-    transform:scale(.6);
-  }
-
-  25%{
-    opacity:1;
-    transform:scale(1);
-  }
-
-  55%{
-    opacity:.35;
-    transform:scale(.8);
-  }
-
-  100%{
-    opacity:1;
-    transform:scale(1);
-  }
+  0%{opacity:0; transform:scale(.6);}
+  25%{opacity:1; transform:scale(1);}
+  55%{opacity:.35; transform:scale(.8);}
+  100%{opacity:1; transform:scale(1);}
 }
