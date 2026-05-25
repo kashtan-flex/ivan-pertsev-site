@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Rules — Иван Перцев Сайт</title>
+
+  <style>
+    body{
+      margin:0;
+      padding:40px;
+      background:#f6f6f3;
+      color:#111;
+      font-family:Arial,sans-serif;
+      line-height:1.55;
+    }
+
+    main{
+      max-width:980px;
+      margin:0 auto;
+      background:#fff;
+      padding:48px;
+      border-radius:24px;
+    }
+
+    h1,h2,h3{
+      line-height:1.2;
+    }
+
+    h1{
+      margin-top:0;
+      font-size:36px;
+    }
+
+    h2{
+      margin-top:44px;
+      font-size:26px;
+    }
+
+    h3{
+      margin-top:28px;
+      font-size:20px;
+    }
+
+    code,
+    pre{
+      background:#f1f1ee;
+      border-radius:10px;
+    }
+
+    code{
+      padding:2px 6px;
+    }
+
+    pre{
+      padding:16px;
+      overflow:auto;
+    }
+
+    .note{
+      padding:16px 18px;
+      background:#fff7d6;
+      border-left:4px solid #d8a900;
+      border-radius:10px;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+
+<h1>Project Rules — Иван Перцев Сайт</h1>
+
+<p><strong>Назначение документа:</strong> зафиксировать актуальное состояние проекта, правила работы с кодом, структуру файлов, адаптацию desktop/mobile и порядок дальнейшей разработки.</p>
+
+<p><strong>Актуальный статус:</strong> главная страница находится в production build состоянии. Desktop и mobile разделены на отдельные CSS-слои.</p>
+
+<hr>
+
+<h2>1. Текущая архитектура проекта</h2>
+
+<pre><code>assets/
+  fonts/
+  icons/
+  img/
+    home/
+      background/
+      portrait/
+      mobile/
+        background/
+        portrait/
+
+css/
+  home.css
+  home-mobile.css
+
+js/
+  home.js
+
+pages/
+  home/
+    home.html
+
+backup/
+  home/
+    build/
+
+docs/
+  project-rules.html</code></pre>
+
+<h3>Назначение файлов</h3>
+
+<pre><code>home.html        → структура главной страницы
+home.css         → desktop core / общая база
+home-mobile.css  → mobile overrides
+home.js          → масштабирование, меню, аккордеоны</code></pre>
+
+<div class="note">
+  <strong>Важно:</strong> desktop и mobile больше не смешиваются в одном CSS-файле. Все мобильные правки делаются только в <code>home-mobile.css</code>.
+</div>
+
+<hr>
+
+<h2>2. Правила работы с кодом</h2>
+
+<h3>Главное правило</h3>
+
+<p>ChatGPT всегда должен присылать полный готовый файл или готовый patch-блок, который можно вставить целиком в конец файла.</p>
+
+<h3>Запрещено</h3>
+
+<pre><code>Найди строку и замени её</code></pre>
+
+<h3>Разрешено</h3>
+
+<pre><code>Полностью замени css/home-mobile.css на этот код</code></pre>
+
+<p>Исключение: patch допускается только если он целиком вставляется в конец файла и не требует ручного поиска.</p>
+
+<hr>
+
+<h2>3. Версионирование в Tilda</h2>
+
+<p>В Tilda все внешние файлы подключаются через <code>?v=</code>, чтобы сбрасывать кэш.</p>
+
+<h3>Текущая логика версий</h3>
+
+<pre><code>home.css?v=64
+home.html?v=64
+home.js?v=65
+home-mobile.css?v=25</code></pre>
+
+<h3>Правило обновления</h3>
+
+<pre><code>Изменили home.css        → повышаем home.css?v=
+Изменили home-mobile.css → повышаем home-mobile.css?v=
+Изменили home.html       → повышаем home.html?v=
+Изменили home.js         → повышаем home.js?v=</code></pre>
+
+<p>Если нужно привести desktop core к единому значению, можно синхронизировать:</p>
+
+<pre><code>home.css
+home.html
+home.js</code></pre>
+
+<p>Mobile version можно вести отдельно.</p>
+
+<hr>
+
+<h2>4. Актуальный код Tilda</h2>
+
+<pre><code>&lt;style&gt;
+  html,
+  body,
+  #allrecords,
+  #ip-home-root{
+    background:#050603 !important;
+    margin:0;
+    padding:0;
+  }
+
+  #ip-home-root{
+    min-height:100vh;
+    overflow:hidden;
+  }
+&lt;/style&gt;
+
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+
+&lt;link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"&gt;
+
+&lt;link rel="stylesheet" href="https://kashtan-flex.github.io/ivan-pertsev-site/css/home.css?v=64"&gt;
+&lt;link rel="stylesheet" href="https://kashtan-flex.github.io/ivan-pertsev-site/css/home-mobile.css?v=25"&gt;
+
+&lt;div id="ip-home-root"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  document.documentElement.style.background = '#050603';
+  document.body.style.background = '#050603';
+
+  fetch('https://kashtan-flex.github.io/ivan-pertsev-site/pages/home/home.html?v=64')
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(html) {
+      document.getElementById('ip-home-root').innerHTML = html;
+
+      var script = document.createElement('script');
+      script.src = 'https://kashtan-flex.github.io/ivan-pertsev-site/js/home.js?v=65';
+      document.body.appendChild(script);
+    });
+&lt;/script&gt;</code></pre>
+
+<hr>
+
+<h2>5. Главная страница: layered image system</h2>
+
+<p>Главная работает на слоях:</p>
+
+<pre><code>1. .ip-home-bg-base      → фон без свечения
+2. .ip-home-bg-glow      → фон со свечением
+3. .ip-home-portrait     → портрет
+4. .ip-home-dark-overlay → лёгкое затемнение
+5. .ip-home-content      → текст
+6. .ip-menu-panel        → меню</code></pre>
+
+<h3>Desktop assets</h3>
+
+<pre><code>assets/img/home/background/
+  home-bg.webp
+  home-bg@2x.webp
+  home-bg-glow.webp
+  home-bg-glow@2x.webp
+
+assets/img/home/portrait/
+  home-portrait.png
+  home-portrait@2x.png</code></pre>
+
+<h3>Mobile assets</h3>
+
+<pre><code>assets/img/home/mobile/background/
+  home-mobile-bg.webp
+  home-mobile-bg@2x.webp
+  home-mobile-bg-glow.webp
+  home-mobile-bg-glow@2x.webp
+
+assets/img/home/mobile/portrait/
+  home-mobile-portrait.png
+  home-mobile-portrait@2x.png</code></pre>
+
+<hr>
+
+<h2>6. Desktop адаптация</h2>
+
+<h3>Базовый макет</h3>
+
+<pre><code>1440×800</code></pre>
+
+<h3>Текущая логика desktop</h3>
+
+<p>Desktop масштабируется по высоте:</p>
+
+<pre><code>scale = viewportHeight / 800</code></pre>
+
+<p>Это значит:</p>
+
+<ul>
+  <li>экран всегда заполнен по вертикали;</li>
+  <li>чёрные полосы сверху и снизу не появляются;</li>
+  <li>композиция остаётся фиксированной как в макете;</li>
+  <li>по горизонтали могут слегка обрезаться края;</li>
+  <li>контентная зона сохраняет art-direction.</li>
+</ul>
+
+<h3>Почему так сделано</h3>
+
+<p>Главная страница — cinematic/art-directed hero. Для неё важнее сохранить композицию, чем показывать весь фон целиком на любых пропорциях экрана.</p>
+
+<h3>Поведение на разных экранах</h3>
+
+<pre><code>16:9    → почти полное совпадение с макетом
+16:10   → заполняет высоту, края могут слегка обрезаться
+21:9    → допустимо большее обрезание краёв
+32:9    → нестандартный случай, допускается сильный crop</code></pre>
+
+<h3>Важно</h3>
+
+<p>Desktop не должен масштабироваться через contain. Иначе появляются полосы сверху/снизу и ломается композиция.</p>
+
+<hr>
+
+<h2>7. Mobile адаптация</h2>
+
+<h3>Базовый макет</h3>
+
+<pre><code>390×700</code></pre>
+
+<h3>Текущая логика mobile</h3>
+
+<p>Mobile масштабируется как cover:</p>
+
+<pre><code>scaleX = viewportWidth / 390
+scaleY = viewportHeight / 700
+scale = Math.max(scaleX, scaleY)</code></pre>
+
+<p>Это значит:</p>
+
+<ul>
+  <li>мобильный макет всегда заполняет экран;</li>
+  <li>не должно быть нижнего пустого пространства;</li>
+  <li>не должно быть вертикального скролла;</li>
+  <li>композиция остаётся как в макете 390×700;</li>
+  <li>на разных смартфонах возможен небольшой crop по краям.</li>
+</ul>
+
+<h3>Mobile viewport</h3>
+
+<p>В mobile используется:</p>
+
+<pre><code>height:100dvh;
+min-height:100dvh;</code></pre>
+
+<p>Это нужно для Android Chrome, Safari iOS и мобильных браузеров, где обычный <code>100vh</code> может давать нижний зазор.</p>
+
+<hr>
+
+<h2>8. Typography rules</h2>
+
+<h3>Desktop title</h3>
+
+<pre><code>font-family: Benzin
+font-size: 88px
+line-height: .85</code></pre>
+
+<h3>Mobile title</h3>
+
+<pre><code>font-family: Benzin
+font-size: 62px
+line-height: .81
+letter-spacing: 0</code></pre>
+
+<h3>Mobile typography issues</h3>
+
+<p>На Android и iOS кастомный шрифт Benzin может рендериться иначе, чем в desktop DevTools. Поэтому для mobile увеличены высоты строк и добавлен запас:</p>
+
+<pre><code>.ip-title-line-first  → height:74px
+.ip-title-line-second → height:96px
+.ip-title-line span   → height:104px; padding-top:8px</code></pre>
+
+<p>Это защищает текст от обрезания сверху и справа.</p>
+
+<hr>
+
+<h2>9. Анимации</h2>
+
+<h3>Порядок появления главной</h3>
+
+<pre><code>1. background base
+2. portrait
+3. background glow
+4. title first line
+5. title second line
+6. subtitle</code></pre>
+
+<h3>Desktop animation</h3>
+
+<p>Desktop использует:</p>
+
+<pre><code>ipTextReveal
+ipSubtitleReveal
+ipPortraitReveal
+ipGlowReveal</code></pre>
+
+<h3>Mobile animation</h3>
+
+<p>Mobile использует отдельные keyframes:</p>
+
+<pre><code>ipMobileTextRevealSoft
+ipMobileSubtitleRevealSoft</code></pre>
+
+<p>Это сделано, чтобы избежать дёрганий текста на Android/Safari.</p>
+
+<h3>Safari compatibility</h3>
+
+<p>Для стабильности используются:</p>
+
+<pre><code>transform: translate3d()
+opacity
+will-change
+backface-visibility
+-webkit-backface-visibility</code></pre>
+
+<p>Не использовать для основных анимаций:</p>
+
+<pre><code>filter animation
+clip-path animation
+mask animation
+background-image swap</code></pre>
+
+<hr>
+
+<h2>10. Menu rules</h2>
+
+<h3>Desktop menu</h3>
+
+<pre><code>width:385px
+height:800px
+padding:60px 100px 80px 60px</code></pre>
+
+<h3>Mobile menu</h3>
+
+<pre><code>width:390px
+height:700px
+padding:40px 22px 45px 40px</code></pre>
+
+<h3>Menu background</h3>
+
+<pre><code>background: rgba(0,0,0,.30)
+blur: 18px desktop
+blur: 25px mobile
+noise overlay: 35%</code></pre>
+
+<h3>Icons</h3>
+
+<pre><code>Desktop icons: 27×27px
+Mobile icons: 27×27px</code></pre>
+
+<h3>Mobile icon hover</h3>
+
+<p>На mobile hover-иконки отключены:</p>
+
+<pre><code>.ip-social::after{
+  display:none;
+}</code></pre>
+
+<p>Это нужно, чтобы убрать дергание hover-state на мобильных браузерах.</p>
+
+<h3>Accordion arrows</h3>
+
+<p>Стрелки реализованы через pseudo-elements:</p>
+
+<pre><code>.ip-accordion-button::before
+.ip-accordion-button::after</code></pre>
+
+<p>На mobile стрелки стоят ближе к правому краю меню.</p>
+
+<h3>Правовые ссылки</h3>
+
+<p>На mobile правовые ссылки выровнены с пунктами меню:</p>
+
+<pre><code>left:40px;
+right:22px;</code></pre>
+
+<hr>
+
+<h2>11. Links</h2>
+
+<h3>Social links</h3>
+
+<pre><code>Instagram:
+https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1
+
+Telegram:
+https://t.me/ivan_pertsev
+
+VK:
+https://vk.com/ivan_pertsev</code></pre>
+
+<h3>Важно по Telegram</h3>
+
+<p>Не использовать ссылку с <code>@</code> внутри URL:</p>
+
+<pre><code>Плохо:
+https://t.me/@ivan_pertsev
+
+Правильно:
+https://t.me/ivan_pertsev</code></pre>
+
+<hr>
+
+<h2>12. Hover rules</h2>
+
+<p>Hover для desktop соцсетей работает через opacity двух слоёв:</p>
+
+<pre><code>::before → обычная иконка
+::after  → hover-иконка</code></pre>
+
+<p>Не делать hover через замену <code>background-image</code>, потому что это вызывает мигание в Safari и на Retina.</p>
+
+<hr>
+
+<h2>13. Pointer-events rules</h2>
+
+<h3>Overlay layers</h3>
+
+<pre><code>pointer-events:none;</code></pre>
+
+<h3>Interactive elements</h3>
+
+<pre><code>pointer-events:auto;</code></pre>
+
+<p>Это критично для кликабельности:</p>
+
+<ul>
+  <li>Instagram;</li>
+  <li>Telegram;</li>
+  <li>VK;</li>
+  <li>аккордеонов;</li>
+  <li>правовых ссылок.</li>
+</ul>
+
+<hr>
+
+<h2>14. Backup rules</h2>
+
+<h3>Production backup structure</h3>
+
+<pre><code>backup/home/build/
+  home.desktop.production.html
+  home.desktop.production.css
+  home.desktop.production.js
+  home.mobile.production.css</code></pre>
+
+<h3>Что копировать</h3>
+
+<pre><code>pages/home/home.html
+→ backup/home/build/home.desktop.production.html
+
+css/home.css
+→ backup/home/build/home.desktop.production.css
+
+js/home.js
+→ backup/home/build/home.desktop.production.js
+
+css/home-mobile.css
+→ backup/home/build/home.mobile.production.css</code></pre>
+
+<h3>Commit для production backup</h3>
+
+<pre><code>Create production build backup for home page</code></pre>
+
+<hr>
+
+<h2>15. GitHub workflow</h2>
+
+<p>После каждого изменения:</p>
+
+<pre><code>1. commit
+2. push
+3. update ?v= in Tilda
+4. publish
+5. hard reload / incognito test</code></pre>
+
+<h3>Commit naming examples</h3>
+
+<pre><code>Optimize home desktop CSS
+Optimize mobile home CSS
+Optimize home JS
+Optimize home HTML structure
+Restore stable mobile cover scaling
+Fix desktop height based scaling
+Create production build backup for home page</code></pre>
+
+<hr>
+
+<h2>16. Testing checklist</h2>
+
+<h3>Desktop</h3>
+
+<pre><code>1440×800
+1920×1080
+1366×768
+MacBook Air 13
+MacBook Pro 14/16
+Yandex Browser
+Chrome
+Safari</code></pre>
+
+<h3>Mobile</h3>
+
+<pre><code>390×700
+390×844
+375×812
+393×852
+414×896
+Android Chrome
+Samsung Internet
+iPhone Safari</code></pre>
+
+<h3>Что проверять</h3>
+
+<ul>
+  <li>нет скролла;</li>
+  <li>нет нижнего пустого пространства;</li>
+  <li>текст не обрезается;</li>
+  <li>меню открывается;</li>
+  <li>аккордеоны работают;</li>
+  <li>Telegram открывает аккаунт;</li>
+  <li>VK открывает аккаунт;</li>
+  <li>фон со свечением появляется под портретом;</li>
+  <li>анимация не дёргается;</li>
+  <li>desktop не ломается от mobile-правок.</li>
+</ul>
+
+<hr>
+
+<h2>17. Что нельзя делать</h2>
+
+<ul>
+  <li>Не смешивать mobile CSS обратно в <code>home.css</code>.</li>
+  <li>Не менять desktop при правках mobile без отдельной команды.</li>
+  <li>Не менять mobile при правках desktop без отдельной команды.</li>
+  <li>Не использовать <code>find and replace</code> в ответах ChatGPT.</li>
+  <li>Не генерировать изображения, если пользователь просит править код.</li>
+  <li>Не менять рабочие версии целиком, если проблема решается patch-ом.</li>
+</ul>
+
+<hr>
+
+<h2>18. Следующие этапы</h2>
+
+<pre><code>1. Проверить production build после оптимизации.
+2. Создать backup/home/build.
+3. Перейти к следующим страницам:
+   - Биография
+   - Свадьба
+   - Корпоратив
+   - День рождения
+   - Выпускной
+   - Музыкальное шоу
+   - Сотрудничество
+4. Подключить реальные ссылки меню.
+5. Подготовить формы и правовые страницы.
+6. Провести финальную SEO/performance оптимизацию.</code></pre>
+
+<hr>
+
+<h2>19. Важное резюме для нового чата</h2>
+
+<p>Проект — сайт Ивана Перцева на Tilda + GitHub Pages. Главная страница реализована кодом через T123/fetch. Desktop и mobile разделены:</p>
+
+<pre><code>home.css        → desktop core
+home-mobile.css → mobile overrides
+home.js         → scale/menu/accordion logic
+home.html       → structure</code></pre>
+
+<p>Desktop использует fixed composition 1440×800 и масштабируется по высоте. Mobile использует fixed composition 390×700 и масштабируется как cover. Главная работает на layered images: base background, glow background, portrait, overlay, content/menu.</p>
+
+<p>Главное правило работы: присылать только полный готовый код файла или целиком готовый patch в конец файла. Не предлагать ручные замены строк. Не генерировать изображения при задачах по коду.</p>
+
+</main>
+</body>
+</html>
