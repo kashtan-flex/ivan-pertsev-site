@@ -212,22 +212,22 @@
   }
 
 }
-/* MOBILE SUBTITLE TIMING PATCH */
+/* MOBILE SUBTITLE TIMING PATCH V2 */
 
 @media (max-width: 767px){
 
   .ip-subtitle-word-one{
-    animation-delay:1.42s;
+    animation-delay:1.32s;
   }
 
   .ip-subtitle-dot{
     animation:
-      ipMobileSubtitleRevealSoft .28s cubic-bezier(.19,1,.22,1) forwards 1.50s,
-      ipDotBlink 1.4s ease-in-out infinite 1.95s;
+      ipMobileSubtitleRevealSoft .26s cubic-bezier(.19,1,.22,1) forwards 1.40s,
+      ipDotBlink 1.4s ease-in-out infinite 1.79s;
   }
 
   .ip-subtitle-word-two{
-    animation-delay:1.58s;
+    animation-delay:1.48s;
   }
 
 }
