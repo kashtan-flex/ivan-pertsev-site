@@ -1,65 +1,45 @@
 (function () {
-
   const page = document.querySelector('.ip-page-home');
-  if (!page) return;
-
   const menuButton = document.querySelector('.ip-menu-toggle');
   const menuPanel = document.querySelector('.ip-menu-panel');
   const accordions = document.querySelectorAll('.ip-accordion');
 
-  if (!menuButton || !menuPanel) return;
+  if (!page || !menuButton || !menuPanel) return;
 
-  const DESKTOP_WIDTH = 1440;
-  const DESKTOP_HEIGHT = 800;
-
-  const MOBILE_WIDTH = 390;
-  const MOBILE_HEIGHT = 700;
+  const DESIGN = {
+    desktop: {
+      width: 1440,
+      height: 800
+    },
+    mobile: {
+      width: 390,
+      height: 700
+    },
+    breakpoint: 767
+  };
 
   let resizeFrame = null;
 
   function isMobile() {
-    return window.innerWidth <= 767;
-  }
-
-  function getViewportSize() {
-    return {
-      width: window.innerWidth,
-      height: window.innerHeight
-    };
+    return window.innerWidth <= DESIGN.breakpoint;
   }
 
   function updateHomeScale() {
-    const viewport = getViewportSize();
+    const mobile = isMobile();
+    const design = mobile ? DESIGN.mobile : DESIGN.desktop;
 
-    let scale;
+    const scaleX = window.innerWidth / design.width;
+    const scaleY = window.innerHeight / design.height;
 
-    if (isMobile()) {
-      const scaleX = viewport.width / MOBILE_WIDTH;
-      const scaleY = viewport.height / MOBILE_HEIGHT;
-
-      scale = Math.max(scaleX, scaleY);
-    } else {
-      scale = viewport.height / DESKTOP_HEIGHT;
-    }
+    const scale = mobile ? Math.max(scaleX, scaleY) : scaleY;
 
     page.style.setProperty('--ip-home-scale', scale);
   }
 
   function requestScaleUpdate() {
-    if (resizeFrame) {
-      cancelAnimationFrame(resizeFrame);
-    }
-
+    if (resizeFrame) cancelAnimationFrame(resizeFrame);
     resizeFrame = requestAnimationFrame(updateHomeScale);
   }
-
-  updateHomeScale();
-
-  window.addEventListener('resize', requestScaleUpdate);
-
-  window.addEventListener('orientationchange', function () {
-    setTimeout(updateHomeScale, 250);
-  });
 
   function openMenu() {
     menuButton.classList.add('is-open');
@@ -73,28 +53,21 @@
     menuPanel.style.pointerEvents = 'none';
   }
 
-  menuButton.addEventListener('click', function () {
+  function toggleMenu() {
     if (menuPanel.classList.contains('is-open')) {
       closeMenu();
     } else {
       openMenu();
     }
-  });
+  }
 
-  window.addEventListener('scroll', function () {
-    if (menuPanel.classList.contains('is-open')) {
-      closeMenu();
-    }
-  });
-
-  accordions.forEach(function (accordion) {
+  function setupAccordion(accordion) {
     const button = accordion.querySelector('.ip-accordion-button');
     const content = accordion.querySelector('.ip-accordion-content');
 
     if (!button || !content) return;
 
-    const buttonText = button.textContent.trim().toLowerCase();
-    const isContactsAccordion = buttonText.includes('контакты');
+    const isContactsAccordion = button.textContent.trim().toLowerCase().includes('контакты');
 
     if (!isContactsAccordion) {
       button.addEventListener('click', function () {
@@ -142,6 +115,21 @@
         openContactsAccordion();
       }
     });
+  }
+
+  updateHomeScale();
+
+  window.addEventListener('resize', requestScaleUpdate);
+
+  window.addEventListener('orientationchange', function () {
+    setTimeout(updateHomeScale, 250);
   });
 
+  menuButton.addEventListener('click', toggleMenu);
+
+  window.addEventListener('scroll', function () {
+    if (menuPanel.classList.contains('is-open')) closeMenu();
+  });
+
+  accordions.forEach(setupAccordion);
 })();
