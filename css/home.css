@@ -1,11 +1,6 @@
 /* =========================================================
-<<<<<<< HEAD
    IVAN PERTSEV — HOME PAGE — V56
    DESKTOP FINAL + MOBILE TYPOGRAPHY / ANIMATION FIX
-=======
-   IVAN PERTSEV — HOME PAGE — V55
-   MOBILE TYPOGRAPHY FIX
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
    ========================================================= */
 
 @font-face{
@@ -48,13 +43,6 @@
   transform-origin:center center;
 }
 
-<<<<<<< HEAD
-=======
-/* =========================================================
-   HOME IMAGE LAYERS
-   ========================================================= */
-
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
 .ip-home-bg-base,
 .ip-home-bg-glow,
 .ip-home-portrait{
@@ -112,13 +100,6 @@
   pointer-events:none;
 }
 
-<<<<<<< HEAD
-=======
-/* =========================================================
-   HERO TEXT
-   ========================================================= */
-
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
 .ip-home-content{
   position:absolute;
   left:595px;
@@ -224,11 +205,8 @@
   animation-delay:1.66s;
 }
 
-/* =========================================================
-   MOBILE — 390×700 FIGMA BASE
-   ========================================================= */
+/* MENU TOGGLE */
 
-<<<<<<< HEAD
 .ip-menu-toggle{
   position:absolute;
   top:60px;
@@ -336,6 +314,8 @@
   z-index:5;
   pointer-events:auto;
 }
+
+/* SOCIALS */
 
 .ip-menu-socials{
   position:relative;
@@ -485,6 +465,8 @@
   opacity:.75;
 }
 
+/* ACCORDION */
+
 .ip-accordion{
   width:100%;
 }
@@ -573,6 +555,8 @@
   opacity:.75;
 }
 
+/* LEGAL */
+
 .ip-menu-legal{
   position:absolute;
   left:60px;
@@ -608,12 +592,14 @@
   transition:opacity .25s ease;
 }
 
+.ip-menu-legal a:hover{
+  opacity:.75;
+}
+
 /* =========================================================
    MOBILE — 390×700 FIGMA BASE — V56
    ========================================================= */
 
-=======
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
 @media (max-width:767px){
 
   .ip-page-home{
@@ -656,146 +642,107 @@
     background-position:center center;
   }
 
+  .ip-home-dark-overlay{
+    background:rgba(0,0,0,.03);
+  }
+
   .ip-home-content{
     left:17px;
-<<<<<<< HEAD
-    top:500px;
-    width:365px;
-    height:132px;
+    top:486px;
+    width:360px;
+    height:150px;
     overflow:visible;
-=======
-    top:490px;
-    width:355px;
-    height:145px;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
   }
 
   .ip-home-title{
-<<<<<<< HEAD
-    width:365px;
-    font-size:54px;
-=======
-    width:355px;
-    font-size:57px;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
+    width:360px;
+    font-size:51px;
     line-height:.82;
-    letter-spacing:-0.02em;
+    letter-spacing:-0.015em;
   }
 
   .ip-title-line{
-    width:365px;
+    width:360px;
     overflow:hidden;
   }
 
   .ip-title-line-first{
-<<<<<<< HEAD
-    height:50px;
-=======
-    height:52px;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
+    height:48px;
   }
 
   .ip-title-line-second{
-<<<<<<< HEAD
-    height:66px;
-    margin-top:-2px;
-=======
-    height:70px;
-    margin-top:-2px;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
+    height:63px;
+    margin-top:-1px;
   }
 
   .ip-title-line span{
-<<<<<<< HEAD
-    height:70px;
-=======
-    height:74px;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
+    height:66px;
     line-height:.82;
-    transform:translate3d(0,-72px,0);
+    opacity:0;
+    transform:translate3d(0,-46px,0);
+    will-change:transform,opacity;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
   }
 
   .ip-title-line-first span{
-    animation:ipMobileTextReveal .54s cubic-bezier(.19,1,.22,1) forwards;
+    animation:ipMobileTextRevealSoft .48s cubic-bezier(.19,1,.22,1) forwards;
     animation-delay:.9s;
   }
 
   .ip-title-line-second span{
-    animation:ipMobileTextReveal .54s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.14s;
+    animation:ipMobileTextRevealSoft .48s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.12s;
   }
 
   .ip-home-subtitle-wrap{
-<<<<<<< HEAD
     left:0;
-    top:119px;
-    width:230px;
-    height:18px;
+    top:112px;
+    width:250px;
+    height:22px;
     overflow:hidden;
     padding-bottom:0;
-=======
-    top:108px;
-    left:1px;
-    padding-bottom:0;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
   }
 
   .ip-home-subtitle{
-<<<<<<< HEAD
     display:flex;
     align-items:center;
     gap:8px;
-    font-size:15px;
-    line-height:90%;
+    font-size:18px;
+    line-height:100%;
     font-weight:400;
-    letter-spacing:.05em;
+    letter-spacing:.03em;
     color:#fff;
-=======
-    gap:8px;
-    font-size:15px;
-    line-height:90%;
-    letter-spacing:.05em;
-    align-items:center;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
   }
 
   .ip-subtitle-word,
   .ip-subtitle-dot{
-<<<<<<< HEAD
-    transform:translate3d(0,-22px,0);
+    opacity:0;
+    transform:translate3d(0,-14px,0);
+    will-change:transform,opacity;
   }
 
   .ip-subtitle-word-one{
-    animation:ipMobileSubtitleReveal .42s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.38s;
+    animation:ipMobileSubtitleRevealSoft .36s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.34s;
   }
 
   .ip-subtitle-dot{
     position:relative;
-=======
-    width:4px;
-    height:4px;
-    flex:0 0 4px;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
     top:0;
-<<<<<<< HEAD
     width:4px;
     height:4px;
     flex:0 0 4px;
     align-self:center;
     margin-top:1px;
     animation:
-      ipMobileSubtitleReveal .42s cubic-bezier(.19,1,.22,1) forwards 1.50s,
-      ipDotBlink 1.4s ease-in-out infinite 2.1s;
-=======
-    transform:none;
-    align-self:center;
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
+      ipMobileSubtitleRevealSoft .36s cubic-bezier(.19,1,.22,1) forwards 1.46s,
+      ipDotBlink 1.4s ease-in-out infinite 2s;
   }
 
   .ip-subtitle-word-two{
-    animation:ipMobileSubtitleReveal .42s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.62s;
+    animation:ipMobileSubtitleRevealSoft .36s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.58s;
   }
 
   .ip-menu-toggle{
@@ -809,11 +756,74 @@
     width:34px;
     height:3px;
   }
+
+  .ip-menu-line:first-child{
+    transform:translateY(calc(-50% - 5px));
+  }
+
+  .ip-menu-line:last-child{
+    transform:translateY(calc(-50% + 5px));
+  }
+
+  .ip-menu-toggle.is-open .ip-menu-line:first-child{
+    transform:translateY(-50%) rotate(45deg);
+  }
+
+  .ip-menu-toggle.is-open .ip-menu-line:last-child{
+    transform:translateY(-50%) rotate(-45deg);
+  }
+
+  .ip-menu-panel{
+    width:390px;
+    height:700px;
+    padding:40px 20px 45px 40px;
+  }
+
+  .ip-menu-panel::before{
+    background:rgba(0,0,0,.30);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+  }
+
+  .ip-menu-socials{
+    gap:10px;
+    margin-bottom:53px;
+  }
+
+  .ip-social{
+    width:27px;
+    height:27px;
+  }
+
+  .ip-menu-list{
+    width:330px;
+    gap:20px;
+  }
+
+  .ip-menu-link,
+  .ip-accordion-button{
+    font-size:20px;
+    line-height:90%;
+  }
+
+  .ip-submenu{
+    gap:16px;
+    padding-top:17px;
+  }
+
+  .ip-submenu a{
+    font-size:16px;
+    line-height:120%;
+  }
+
+  .ip-menu-legal{
+    left:40px;
+    right:20px;
+    bottom:45px;
+  }
 }
 
-/* =========================================================
-   ANIMATIONS
-   ========================================================= */
+/* ANIMATIONS */
 
 @keyframes ipPortraitReveal{
   0%{
@@ -842,10 +852,10 @@
   }
 }
 
-@keyframes ipMobileTextReveal{
+@keyframes ipMobileTextRevealSoft{
   0%{
     opacity:0;
-    transform:translate3d(0,-72px,0);
+    transform:translate3d(0,-46px,0);
   }
   100%{
     opacity:1;
@@ -864,11 +874,10 @@
   }
 }
 
-<<<<<<< HEAD
-@keyframes ipMobileSubtitleReveal{
+@keyframes ipMobileSubtitleRevealSoft{
   0%{
     opacity:0;
-    transform:translate3d(0,-22px,0);
+    transform:translate3d(0,-14px,0);
   }
   100%{
     opacity:1;
@@ -887,8 +896,6 @@
   }
 }
 
-=======
->>>>>>> 431e92f3dbd07148ad9b887f10d8cd6fdde49c15
 @keyframes ipDotBlink{
   0%{opacity:0; transform:scale(.6);}
   25%{opacity:1; transform:scale(1);}
