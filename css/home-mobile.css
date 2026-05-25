@@ -42,17 +42,17 @@
 
   .ip-home-content{
     left:20px;
-    top:525px;
+    top:540px;
     width:350px;
-    height:165px;
+    height:170px;
     overflow:visible;
   }
 
   .ip-home-title{
     width:350px;
-    font-size:62px;
-    line-height:.82;
-    letter-spacing:-0.02em;
+    font-size:66px;
+    line-height:.81;
+    letter-spacing:-0.025em;
   }
 
   .ip-title-line{
@@ -61,38 +61,40 @@
   }
 
   .ip-title-line-first{
-    height:58px;
+    height:61px;
   }
 
   .ip-title-line-second{
-    height:78px;
-    margin-top:-3px;
+    height:84px;
+    margin-top:-4px;
   }
 
   .ip-title-line span{
-    height:80px;
-    line-height:.82;
+    display:block;
+    width:350px;
+    height:86px;
+    line-height:.81;
     opacity:0;
-    transform:translate3d(0,-38px,0);
+    transform:translate3d(0,-36px,0);
     will-change:transform,opacity;
     backface-visibility:hidden;
     -webkit-backface-visibility:hidden;
   }
 
   .ip-title-line-first span{
-    animation:ipMobileTextRevealSoft .44s cubic-bezier(.19,1,.22,1) forwards;
+    animation:ipMobileTextRevealSoft .42s cubic-bezier(.19,1,.22,1) forwards;
     animation-delay:.9s;
   }
 
   .ip-title-line-second span{
-    animation:ipMobileTextRevealSoft .44s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.08s;
+    animation:ipMobileTextRevealSoft .42s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.06s;
   }
 
   .ip-home-subtitle-wrap{
     left:2px;
-    top:136px;
-    width:250px;
+    top:146px;
+    width:255px;
     height:24px;
     overflow:hidden;
   }
@@ -114,8 +116,8 @@
   }
 
   .ip-subtitle-word-one{
-    animation:ipMobileSubtitleRevealSoft .32s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.24s;
+    animation:ipMobileSubtitleRevealSoft .3s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.18s;
   }
 
   .ip-subtitle-dot{
@@ -126,13 +128,13 @@
     flex:0 0 4px;
     margin-top:1px;
     animation:
-      ipMobileSubtitleRevealSoft .32s cubic-bezier(.19,1,.22,1) forwards 1.34s,
-      ipDotBlink 1.4s ease-in-out infinite 1.9s;
+      ipMobileSubtitleRevealSoft .3s cubic-bezier(.19,1,.22,1) forwards 1.28s,
+      ipDotBlink 1.4s ease-in-out infinite 1.85s;
   }
 
   .ip-subtitle-word-two{
-    animation:ipMobileSubtitleRevealSoft .32s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.44s;
+    animation:ipMobileSubtitleRevealSoft .3s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.38s;
   }
 
   .ip-menu-toggle{
@@ -157,7 +159,7 @@
 @keyframes ipMobileTextRevealSoft{
   0%{
     opacity:0;
-    transform:translate3d(0,-38px,0);
+    transform:translate3d(0,-36px,0);
   }
   100%{
     opacity:1;
