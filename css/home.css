@@ -1,6 +1,14 @@
 /* =========================================================
-   IVAN PERTSEV — HOME PAGE — V56
-   DESKTOP FINAL + MOBILE TYPOGRAPHY / ANIMATION FIX
+   IVAN PERTSEV — HOME PAGE — DESKTOP V52
+   FILE: css/home.css
+
+   V52:
+   - исправлена кликабельность соцсетей;
+   - VK/Telegram/Instagram не перекрываются слоями меню;
+   - home.html не трогаем, если VK-ссылка уже добавлена;
+   - сохранена layered-структура фона;
+   - glow находится под портретом;
+   - меню и анимации сохранены.
    ========================================================= */
 
 @font-face{
@@ -27,7 +35,7 @@
   height:100vh;
   min-height:800px;
   overflow:hidden;
-  background:#050603;
+  background:#000;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
@@ -42,6 +50,10 @@
   transform:translate(-50%,-50%) scale(var(--ip-home-scale,1));
   transform-origin:center center;
 }
+
+/* =========================================================
+   HOME IMAGE LAYERS
+   ========================================================= */
 
 .ip-home-bg-base,
 .ip-home-bg-glow,
@@ -61,19 +73,21 @@
 .ip-home-bg-base{
   z-index:1;
   opacity:1;
-  background-image:image-set(
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg.webp') 1x,
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg@2x.webp') 2x
-  );
+  background-image:
+    image-set(
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg.webp') 1x,
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg@2x.webp') 2x
+    );
 }
 
 .ip-home-bg-glow{
   z-index:2;
   opacity:0;
-  background-image:image-set(
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow.webp') 1x,
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow@2x.webp') 2x
-  );
+  background-image:
+    image-set(
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow.webp') 1x,
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow@2x.webp') 2x
+    );
   animation:ipGlowReveal 1.25s ease forwards;
   animation-delay:1.1s;
 }
@@ -81,10 +95,11 @@
 .ip-home-portrait{
   z-index:3;
   opacity:0;
-  background-image:image-set(
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait.png') 1x,
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait@2x.png') 2x
-  );
+  background-image:
+    image-set(
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait.png') 1x,
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait@2x.png') 2x
+    );
   background-position:left bottom;
   background-size:auto 800px;
   transform:translate3d(-10px,0,0) scale(1.01);
@@ -142,8 +157,6 @@
   opacity:0;
   transform:translate3d(0,-110%,0);
   will-change:transform,opacity;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
 }
 
 .ip-title-line-first span{
@@ -179,7 +192,6 @@
 .ip-subtitle-dot{
   opacity:0;
   transform:translate3d(0,-120%,0);
-  will-change:transform,opacity;
 }
 
 .ip-subtitle-word-one{
@@ -205,7 +217,9 @@
   animation-delay:1.66s;
 }
 
-/* MENU TOGGLE */
+/* =========================================================
+   MENU TOGGLE
+   ========================================================= */
 
 .ip-menu-toggle{
   position:absolute;
@@ -263,7 +277,9 @@
   transform:translateY(-50%) rotate(-45deg);
 }
 
-/* MENU PANEL */
+/* =========================================================
+   MENU PANEL
+   ========================================================= */
 
 .ip-menu-panel{
   position:absolute;
@@ -309,13 +325,15 @@
   pointer-events:none;
 }
 
+/* =========================================================
+   MENU CLICK LAYER FIX — V52
+   ========================================================= */
+
 .ip-menu-inner{
   position:relative;
   z-index:5;
   pointer-events:auto;
 }
-
-/* SOCIALS */
 
 .ip-menu-socials{
   position:relative;
@@ -405,7 +423,9 @@
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
 }
 
-/* MENU LIST */
+/* =========================================================
+   MENU LIST
+   ========================================================= */
 
 .ip-menu-list{
   position:relative;
@@ -465,7 +485,9 @@
   opacity:.75;
 }
 
-/* ACCORDION */
+/* =========================================================
+   ACCORDION
+   ========================================================= */
 
 .ip-accordion{
   width:100%;
@@ -555,7 +577,9 @@
   opacity:.75;
 }
 
-/* LEGAL */
+/* =========================================================
+   LEGAL
+   ========================================================= */
 
 .ip-menu-legal{
   position:absolute;
@@ -597,233 +621,8 @@
 }
 
 /* =========================================================
-   MOBILE — 390×700 FIGMA BASE — V56
+   ANIMATIONS
    ========================================================= */
-
-@media (max-width:767px){
-
-  .ip-page-home{
-    height:100svh;
-    min-height:100svh;
-    background:#050603;
-  }
-
-  .ip-home-stage{
-    width:390px;
-    height:700px;
-  }
-
-  .ip-home-bg-base,
-  .ip-home-bg-glow{
-    background-size:390px 700px;
-    background-position:center center;
-  }
-
-  .ip-home-bg-base{
-    background-image:image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg.webp') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg@2x.webp') 2x
-    );
-  }
-
-  .ip-home-bg-glow{
-    background-image:image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg-glow.webp') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg-glow@2x.webp') 2x
-    );
-  }
-
-  .ip-home-portrait{
-    background-image:image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/portrait/home-mobile-portrait.png') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/portrait/home-mobile-portrait@2x.png') 2x
-    );
-    background-size:390px 700px;
-    background-position:center center;
-  }
-
-  .ip-home-dark-overlay{
-    background:rgba(0,0,0,.03);
-  }
-
-  .ip-home-content{
-    left:17px;
-    top:486px;
-    width:360px;
-    height:150px;
-    overflow:visible;
-  }
-
-  .ip-home-title{
-    width:360px;
-    font-size:51px;
-    line-height:.82;
-    letter-spacing:-0.015em;
-  }
-
-  .ip-title-line{
-    width:360px;
-    overflow:hidden;
-  }
-
-  .ip-title-line-first{
-    height:48px;
-  }
-
-  .ip-title-line-second{
-    height:63px;
-    margin-top:-1px;
-  }
-
-  .ip-title-line span{
-    height:66px;
-    line-height:.82;
-    opacity:0;
-    transform:translate3d(0,-46px,0);
-    will-change:transform,opacity;
-    backface-visibility:hidden;
-    -webkit-backface-visibility:hidden;
-  }
-
-  .ip-title-line-first span{
-    animation:ipMobileTextRevealSoft .48s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:.9s;
-  }
-
-  .ip-title-line-second span{
-    animation:ipMobileTextRevealSoft .48s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.12s;
-  }
-
-  .ip-home-subtitle-wrap{
-    left:0;
-    top:112px;
-    width:250px;
-    height:22px;
-    overflow:hidden;
-    padding-bottom:0;
-  }
-
-  .ip-home-subtitle{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:18px;
-    line-height:100%;
-    font-weight:400;
-    letter-spacing:.03em;
-    color:#fff;
-  }
-
-  .ip-subtitle-word,
-  .ip-subtitle-dot{
-    opacity:0;
-    transform:translate3d(0,-14px,0);
-    will-change:transform,opacity;
-  }
-
-  .ip-subtitle-word-one{
-    animation:ipMobileSubtitleRevealSoft .36s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.34s;
-  }
-
-  .ip-subtitle-dot{
-    position:relative;
-    top:0;
-    width:4px;
-    height:4px;
-    flex:0 0 4px;
-    align-self:center;
-    margin-top:1px;
-    animation:
-      ipMobileSubtitleRevealSoft .36s cubic-bezier(.19,1,.22,1) forwards 1.46s,
-      ipDotBlink 1.4s ease-in-out infinite 2s;
-  }
-
-  .ip-subtitle-word-two{
-    animation:ipMobileSubtitleRevealSoft .36s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.58s;
-  }
-
-  .ip-menu-toggle{
-    top:40px;
-    right:20px;
-    width:34px;
-    height:20px;
-  }
-
-  .ip-menu-line{
-    width:34px;
-    height:3px;
-  }
-
-  .ip-menu-line:first-child{
-    transform:translateY(calc(-50% - 5px));
-  }
-
-  .ip-menu-line:last-child{
-    transform:translateY(calc(-50% + 5px));
-  }
-
-  .ip-menu-toggle.is-open .ip-menu-line:first-child{
-    transform:translateY(-50%) rotate(45deg);
-  }
-
-  .ip-menu-toggle.is-open .ip-menu-line:last-child{
-    transform:translateY(-50%) rotate(-45deg);
-  }
-
-  .ip-menu-panel{
-    width:390px;
-    height:700px;
-    padding:40px 20px 45px 40px;
-  }
-
-  .ip-menu-panel::before{
-    background:rgba(0,0,0,.30);
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-  }
-
-  .ip-menu-socials{
-    gap:10px;
-    margin-bottom:53px;
-  }
-
-  .ip-social{
-    width:27px;
-    height:27px;
-  }
-
-  .ip-menu-list{
-    width:330px;
-    gap:20px;
-  }
-
-  .ip-menu-link,
-  .ip-accordion-button{
-    font-size:20px;
-    line-height:90%;
-  }
-
-  .ip-submenu{
-    gap:16px;
-    padding-top:17px;
-  }
-
-  .ip-submenu a{
-    font-size:16px;
-    line-height:120%;
-  }
-
-  .ip-menu-legal{
-    left:40px;
-    right:20px;
-    bottom:45px;
-  }
-}
-
-/* ANIMATIONS */
 
 @keyframes ipPortraitReveal{
   0%{
@@ -852,32 +651,10 @@
   }
 }
 
-@keyframes ipMobileTextRevealSoft{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-46px,0);
-  }
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
-}
-
 @keyframes ipSubtitleReveal{
   0%{
     opacity:0;
     transform:translate3d(0,-120%,0);
-  }
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
-}
-
-@keyframes ipMobileSubtitleRevealSoft{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-14px,0);
   }
   100%{
     opacity:1;
