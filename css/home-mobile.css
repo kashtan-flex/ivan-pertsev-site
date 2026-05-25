@@ -48,15 +48,19 @@
     overflow:visible;
   }
 
+  .ip-home-title,
+  .ip-title-line,
+  .ip-title-line span{
+    width:360px;
+  }
+
   .ip-home-title{
-    width:352px;
     font-size:62px;
     line-height:.81;
     letter-spacing:0;
   }
 
   .ip-title-line{
-    width:352px;
     overflow:hidden;
   }
 
@@ -71,7 +75,6 @@
 
   .ip-title-line span{
     display:block;
-    width:352px;
     height:104px;
     line-height:.81;
     padding-top:8px;
@@ -118,8 +121,8 @@
   }
 
   .ip-subtitle-word-one{
-    animation:ipMobileSubtitleRevealSoft .3s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.7s;
+    animation:ipMobileSubtitleRevealSoft .26s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.32s;
   }
 
   .ip-subtitle-dot{
@@ -130,13 +133,13 @@
     flex:0 0 4px;
     margin-top:1px;
     animation:
-      ipMobileSubtitleRevealSoft .3s cubic-bezier(.19,1,.22,1) forwards 1.82s,
-      ipDotBlink 1.4s ease-in-out infinite 2.35s;
+      ipMobileSubtitleRevealSoft .26s cubic-bezier(.19,1,.22,1) forwards 1.40s,
+      ipDotBlink 1.4s ease-in-out infinite 1.82s;
   }
 
   .ip-subtitle-word-two{
-    animation:ipMobileSubtitleRevealSoft .3s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay:1.94s;
+    animation:ipMobileSubtitleRevealSoft .26s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay:1.48s;
   }
 
   .ip-menu-toggle{
@@ -154,7 +157,40 @@
   .ip-menu-panel{
     width:390px;
     height:700px;
-    padding:40px 20px 45px 40px;
+    padding:40px 22px 45px 40px;
+  }
+
+  .ip-menu-socials{
+    margin-bottom:55px;
+  }
+
+  .ip-social::after{
+    display:none;
+  }
+
+  .ip-social:hover::before{
+    opacity:1;
+  }
+
+  .ip-social:hover::after{
+    opacity:0;
+  }
+
+  .ip-menu-list{
+    width:328px;
+  }
+
+  .ip-accordion-button::before{
+    right:9px;
+  }
+
+  .ip-accordion-button::after{
+    right:0;
+  }
+
+  .ip-menu-legal{
+    left:40px;
+    right:22px;
   }
 }
 
@@ -180,54 +216,4 @@
     opacity:1;
     transform:translate3d(0,0,0);
   }
-}
-/* MOBILE TITLE RIGHT CLIPPING FIX */
-
-@media (max-width: 767px){
-
-  .ip-home-title,
-  .ip-title-line,
-  .ip-title-line span{
-    width:360px;
-  }
-
-}
-/* MOBILE SCROLL FIX */
-
-@media (max-width: 767px){
-
-  html,
-  body{
-    overflow:hidden;
-    overscroll-behavior:none;
-    touch-action:pan-x pan-y;
-  }
-
-  .ip-page-home{
-    overflow:hidden;
-  }
-
-  #ip-home-root{
-    overflow:hidden;
-  }
-
-}
-/* MOBILE SUBTITLE TIMING PATCH V2 */
-
-@media (max-width: 767px){
-
-  .ip-subtitle-word-one{
-    animation-delay:1.32s;
-  }
-
-  .ip-subtitle-dot{
-    animation:
-      ipMobileSubtitleRevealSoft .26s cubic-bezier(.19,1,.22,1) forwards 1.40s,
-      ipDotBlink 1.4s ease-in-out infinite 1.79s;
-  }
-
-  .ip-subtitle-word-two{
-    animation-delay:1.48s;
-  }
-
 }
