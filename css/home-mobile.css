@@ -181,3 +181,14 @@
     transform:translate3d(0,0,0);
   }
 }
+/* MOBILE TITLE RIGHT CLIPPING FIX */
+
+@media (max-width: 767px){
+
+  .ip-home-title,
+  .ip-title-line,
+  .ip-title-line span{
+    width:356px;
+  }
+
+}
