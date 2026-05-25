@@ -15,33 +15,47 @@
   const MOBILE_WIDTH = 390;
   const MOBILE_HEIGHT = 700;
 
+  let resizeFrame = null;
+
   function isMobile() {
     return window.innerWidth <= 767;
   }
 
+  function getViewportSize() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+  }
+
   function updateHomeScale() {
-    const scaleX = window.innerWidth / (isMobile() ? MOBILE_WIDTH : DESKTOP_WIDTH);
-    const scaleY = window.innerHeight / (isMobile() ? MOBILE_HEIGHT : DESKTOP_HEIGHT);
+    const viewport = getViewportSize();
 
-    /*
-      Desktop:
-      - всегда заполняем экран по высоте;
-      - по ширине края могут немного обрезаться;
-      - макет 1440×800 сохраняет одинаковую композицию.
+    let scale;
 
-      Mobile:
-      - используем cover, чтобы не было пустого низа.
-    */
-    const scale = isMobile()
-      ? Math.max(scaleX, scaleY)
-      : scaleY;
+    if (isMobile()) {
+      const scaleX = viewport.width / MOBILE_WIDTH;
+      const scaleY = viewport.height / MOBILE_HEIGHT;
+
+      scale = Math.max(scaleX, scaleY);
+    } else {
+      scale = viewport.height / DESKTOP_HEIGHT;
+    }
 
     page.style.setProperty('--ip-home-scale', scale);
   }
 
+  function requestScaleUpdate() {
+    if (resizeFrame) {
+      cancelAnimationFrame(resizeFrame);
+    }
+
+    resizeFrame = requestAnimationFrame(updateHomeScale);
+  }
+
   updateHomeScale();
 
-  window.addEventListener('resize', updateHomeScale);
+  window.addEventListener('resize', requestScaleUpdate);
 
   window.addEventListener('orientationchange', function () {
     setTimeout(updateHomeScale, 250);

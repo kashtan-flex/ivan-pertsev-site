@@ -679,3 +679,40 @@
   55%{opacity:.35; transform:scale(.8);}
   100%{opacity:1; transform:scale(1);}
 }
+/* =========================================================
+   DESKTOP ART-DIRECTION SCALING FIX
+   Desktop: fixed 1440×800 composition, height-based scaling
+   ========================================================= */
+
+@media (min-width: 768px){
+
+  html,
+  body,
+  #allrecords,
+  #ip-home-root{
+    width:100%;
+    height:100%;
+    overflow:hidden !important;
+    background:#050603 !important;
+  }
+
+  .ip-page-home{
+    width:100%;
+    height:100vh;
+    min-height:0;
+    overflow:hidden !important;
+    background:#050603;
+  }
+
+  .ip-home-stage{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:1440px;
+    height:800px;
+    overflow:hidden;
+    transform:translate3d(-50%,-50%,0) scale(var(--ip-home-scale,1)) !important;
+    transform-origin:center center;
+  }
+
+}
