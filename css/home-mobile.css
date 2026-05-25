@@ -43,36 +43,36 @@
   .ip-home-content{
     left:20px;
     top:515px;
-    width:350px;
+    width:365px;
     height:165px;
     overflow:visible;
   }
 
   .ip-home-title{
-    width:350px;
+    width:365px;
     font-size:66px;
     line-height:.81;
     letter-spacing:-0.075em;
   }
 
   .ip-title-line{
-    width:350px;
+    width:365px;
     overflow:hidden;
   }
 
   .ip-title-line-first{
-    height:60px;
+    height:66px;
   }
 
   .ip-title-line-second{
-    height:78px;
-    margin-top:-4px;
+    height:86px;
+    margin-top:-10px;
   }
 
   .ip-title-line span{
     display:block;
-    width:350px;
-    height:82px;
+    width:365px;
+    height:90px;
     line-height:.81;
     opacity:0;
     transform:translate3d(0,-34px,0);
@@ -93,7 +93,7 @@
 
   .ip-home-subtitle-wrap{
     left:0;
-    top:128px;
+    top:113px;
     width:215px;
     height:20px;
     overflow:hidden;
