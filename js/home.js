@@ -20,18 +20,21 @@
   }
 
   function updateHomeScale() {
-    const designWidth = isMobile() ? MOBILE_WIDTH : DESKTOP_WIDTH;
-    const designHeight = isMobile() ? MOBILE_HEIGHT : DESKTOP_HEIGHT;
-
-    const scaleX = window.innerWidth / designWidth;
-    const scaleY = window.innerHeight / designHeight;
+    const scaleX = window.innerWidth / (isMobile() ? MOBILE_WIDTH : DESKTOP_WIDTH);
+    const scaleY = window.innerHeight / (isMobile() ? MOBILE_HEIGHT : DESKTOP_HEIGHT);
 
     /*
-      cover-scaling:
-      - desktop: убирает полосы сверху/снизу на MacBook и ноутбуках
-      - mobile: сохраняет заполнение экрана 390×700 без нижнего зазора
+      Desktop:
+      - всегда заполняем экран по высоте;
+      - по ширине края могут немного обрезаться;
+      - макет 1440×800 сохраняет одинаковую композицию.
+
+      Mobile:
+      - используем cover, чтобы не было пустого низа.
     */
-    const scale = Math.max(scaleX, scaleY);
+    const scale = isMobile()
+      ? Math.max(scaleX, scaleY)
+      : scaleY;
 
     page.style.setProperty('--ip-home-scale', scale);
   }
