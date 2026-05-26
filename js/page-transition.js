@@ -2,13 +2,14 @@
 ==================================================
 PAGE TRANSITION JS
 
-Версия: page-transition-007
+Версия: page-transition-008
 
 ИЗМЕНЕНИЯ:
-- переход между страницами ускорен
-- уменьшена задержка на чёрном экране
-- fade-in новой страницы запускается быстрее
-- ожидание ассетов сокращено, чтобы не было ощущения подвисания
+- transition доведён до финального cinematic dip-to-black
+- EXIT_DURATION установлен на 190ms
+- ENTER_DURATION установлен на 230ms
+- MAX_ASSET_WAIT уменьшен до 90ms
+- убрано ощущение зависания на чёрном экране
 - сохранена обработка browser back/forward
 - сохранён переход через чёрный экран без blur
 - меню не изменялось
@@ -18,9 +19,9 @@ PAGE TRANSITION JS
 (function(){
   'use strict';
 
-  var EXIT_DURATION = 230;
-  var ENTER_DURATION = 300;
-  var MAX_ASSET_WAIT = 180;
+  var EXIT_DURATION = 190;
+  var ENTER_DURATION = 230;
+  var MAX_ASSET_WAIT = 90;
 
   var overlay = null;
   var isTransitioning = false;
