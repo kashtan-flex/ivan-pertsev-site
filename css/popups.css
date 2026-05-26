@@ -1,15 +1,16 @@
 /* =========================================================
    POPUPS CSS
 
-   Версия: popups-017
+   Версия: popups-018
 
    ИЗМЕНЕНИЯ:
-   - восстановлена стабильная версия popups-016
-   - блок согласия выровнен по центру относительно полей ввода
-   - убрано подчёркивание у ссылки "Политикой обработки персональных данных"
-   - цвет ссылки #69C9FF сохранён
+   - добавлена плавная анимация появления попапа из центра
+   - карточка появляется через лёгкое увеличение scale(.94) → scale(1)
+   - фон плавно затемняется и блюрится
+   - убрано резкое появление карточки
+   - сохранено выравнивание блока согласия по центру полей
+   - убрано подчёркивание ссылки политики
    - сохранены размеры полей 294×60
-   - сохранены blur, inner shadow и локальный фон попапа
    ========================================================= */
 
 html.ip-popup-lock,
@@ -48,13 +49,13 @@ body.ip-popup-lock{
   position:absolute;
   inset:0;
   z-index:1;
-  background:rgba(0,0,0,.12);
+  background:rgba(0,0,0,0);
   backdrop-filter:blur(0);
   -webkit-backdrop-filter:blur(0);
   transition:
-    background .85s cubic-bezier(.19,1,.22,1),
-    backdrop-filter .85s cubic-bezier(.19,1,.22,1),
-    -webkit-backdrop-filter .85s cubic-bezier(.19,1,.22,1);
+    background .9s cubic-bezier(.19,1,.22,1),
+    backdrop-filter .9s cubic-bezier(.19,1,.22,1),
+    -webkit-backdrop-filter .9s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-popup.is-open .ip-popup-backdrop{
@@ -75,6 +76,18 @@ body.ip-popup-lock{
   background-size:cover;
   background-position:center;
   box-shadow:0 30px 90px rgba(0,0,0,.45);
+  opacity:0;
+  transform:scale(.94);
+  transform-origin:center center;
+  transition:
+    opacity .78s cubic-bezier(.19,1,.22,1),
+    transform .78s cubic-bezier(.19,1,.22,1);
+  will-change:opacity,transform;
+}
+
+.ip-popup.is-open .ip-popup-card{
+  opacity:1;
+  transform:scale(1);
 }
 
 .ip-popup-form{
