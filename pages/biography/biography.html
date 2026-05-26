@@ -2,14 +2,14 @@
 ==================================================
 BIOGRAPHY HTML
 
-Версия: biography-html-002
+Версия: biography-html-003
 
 ИЗМЕНЕНИЯ:
-- удалено отдельное меню ip-biography-menu
-- подключена HTML-структура меню как на главной странице
-- сохранена ширина меню 518px через biography.css
-- сохранена карусель Ken Burns + fade
-- popup приведён к общей структуре главной страницы
+- обновлён awards-блок
+- строки «Лучший свадебный ведущий» и «Топ 100 лучших» выделены через strong
+- вторые строки awards вынесены в отдельные span
+- меню оставлено без изменений
+- popup оставлен без изменений
 ==================================================
 -->
 
@@ -44,21 +44,33 @@ BIOGRAPHY HTML
         </ul>
 
         <div class="ip-biography-awards" aria-label="Награды и факты">
+
           <div class="ip-biography-award ip-biography-award-wedding">
-            <img src="./assets/img/biography/icons/biography-wedding-awards.svg" alt="Wedding Awards" class="ip-biography-award-logo">
-            <p class="ip-biography-award-text">
-              Лучший свадебный ведущий<br>
-              ПФО Wedding Awards
+            <img
+              src="./assets/img/biography/icons/biography-wedding-awards.svg"
+              alt="Wedding Awards"
+              class="ip-biography-award-logo"
+            >
+
+            <p class="ip-biography-award-text ip-biography-award-text-wedding">
+              <strong>Лучший свадебный ведущий</strong>
+              <span>ПФО Wedding Awards</span>
             </p>
           </div>
 
           <div class="ip-biography-award ip-biography-award-top">
-            <img src="./assets/img/biography/icons/biography-top100.svg" alt="Top 100" class="ip-biography-award-icon">
-            <p class="ip-biography-award-text">
-              Top 100 лучших<br>
-              ведущих России
+            <img
+              src="./assets/img/biography/icons/biography-top100.svg"
+              alt="Top 100"
+              class="ip-biography-award-icon"
+            >
+
+            <p class="ip-biography-award-text ip-biography-award-text-top">
+              <strong>Топ 100 лучших</strong>
+              <span>ведущих России</span>
             </p>
           </div>
+
         </div>
 
       </div>

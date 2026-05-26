@@ -1,15 +1,15 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-007
+   Версия: biography-css-010
 
    ИЗМЕНЕНИЯ:
-   - типографика страницы «Биография» приведена ближе к Figma-макету
-   - уточнены размеры, line-height и letter-spacing заголовка, подзаголовка, списка, awards и цитаты
-   - уточнены отступы и позиции текстовых блоков
-   - сохранено текущее финальное меню без изменений
-   - сохранена ширина меню 518px только на странице «Биография»
-   - сохранена карусель Ken Burns + fade
+   - awards-блок приведён ближе к референсу из макета
+   - строки awards выстроены в аккуратные две строки
+   - верхние строки awards выделены без чрезмерного увеличения блока
+   - подпись «Иван Перцев» получила увеличенное межбуквенное расстояние
+   - меню не изменялось
+   - сохранены текущие адаптации и масштабирование
    ========================================================= */
 
 .ip-biography,
@@ -131,7 +131,7 @@
   bottom:-1px;
   display:flex;
   align-items:center;
-  width:640px;
+  width:760px;
 }
 
 .ip-biography-award{
@@ -146,7 +146,7 @@
 
 .ip-biography-award-top{
   gap:30px;
-  margin-left:80px;
+  margin-left:74px;
 }
 
 .ip-biography-award-logo{
@@ -165,10 +165,42 @@
   margin:0;
   color:#fff;
   font-size:14px;
+  line-height:1.08;
+  font-weight:400;
+  letter-spacing:-.04em;
+  opacity:.70;
+}
+
+.ip-biography-award-text strong,
+.ip-biography-award-text span{
+  display:block;
+}
+
+.ip-biography-award-text strong{
+  margin:0 0 1px;
+  color:#fff;
+  font-size:14px;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:-.04em;
+  opacity:1;
+}
+
+.ip-biography-award-text span{
+  color:#fff;
+  font-size:14px;
   line-height:1;
   font-weight:400;
   letter-spacing:-.04em;
   opacity:.70;
+}
+
+.ip-biography-award-text-wedding{
+  width:210px;
+}
+
+.ip-biography-award-text-top{
+  width:114px;
 }
 
 .ip-biography-right{
@@ -251,7 +283,7 @@
   font-style:normal;
   font-weight:700;
   text-align:right;
-  letter-spacing:0;
+  letter-spacing:.05em;
 }
 
 /* =========================================================
@@ -356,104 +388,4 @@
 
 .ip-biography .ip-accordion-button::after{
   right:0;
-}
-
-.ip-biography .ip-menu-list > *,
-.ip-biography .ip-menu-socials .ip-social,
-.ip-biography .ip-menu-legal{
-  visibility:hidden;
-  opacity:0;
-  pointer-events:none;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *,
-.ip-biography .ip-menu-panel.is-open .ip-menu-socials .ip-social,
-.ip-biography .ip-menu-panel.is-open .ip-menu-legal{
-  pointer-events:auto;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-social{
-  animation:ipBiographyMenuTextDrop .52s cubic-bezier(.19,1,.22,1) both;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-social:nth-child(1){
-  animation-delay:.34s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-social:nth-child(2){
-  animation-delay:.42s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-social:nth-child(3){
-  animation-delay:.50s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *{
-  animation:ipBiographyMenuTextDrop .56s cubic-bezier(.19,1,.22,1) both;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
-  animation-delay:.68s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
-  animation-delay:.78s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
-  animation-delay:.88s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
-  animation-delay:.98s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
-  animation-delay:1.08s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
-  animation-delay:1.18s;
-}
-
-.ip-biography .ip-menu-panel.is-open .ip-menu-legal{
-  animation:ipBiographyMenuTextDrop .52s cubic-bezier(.19,1,.22,1) both;
-  animation-delay:1.28s;
-}
-
-.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-list > *,
-.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-socials .ip-social,
-.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-legal{
-  visibility:hidden !important;
-  opacity:0 !important;
-  pointer-events:none !important;
-  transform:translate3d(0,-36px,0) !important;
-  animation:none !important;
-}
-
-.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-link:hover,
-.ip-biography .ip-menu-panel:not(.is-open) .ip-accordion-button:hover,
-.ip-biography .ip-menu-panel:not(.is-open) .ip-submenu a:hover{
-  visibility:hidden !important;
-  opacity:0 !important;
-}
-
-@keyframes ipBiographyMenuTextDrop{
-  0%{
-    visibility:hidden;
-    opacity:0;
-    transform:translate3d(0,-36px,0);
-  }
-
-  1%{
-    visibility:visible;
-    opacity:0;
-    transform:translate3d(0,-36px,0);
-  }
-
-  100%{
-    visibility:visible;
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
 }
