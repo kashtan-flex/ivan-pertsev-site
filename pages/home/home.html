@@ -174,3 +174,36 @@
   </div>
 
 </div>
+<!-- Main popup form -->
+<div class="ip-popup" data-popup="main" aria-hidden="true">
+  <div class="ip-popup-backdrop" data-popup-close></div>
+
+  <div class="ip-popup-card" role="dialog" aria-modal="true" aria-label="Форма связи">
+    <form class="ip-popup-form">
+      <div class="ip-popup-heading">
+        <div class="ip-popup-name">Иван Перцев</div>
+        <div class="ip-popup-text">
+          <strong>Заполните форму,</strong>
+          <span>и в ближайшее время<br>я с Вами свяжусь.</span>
+        </div>
+      </div>
+
+      <div class="ip-popup-fields">
+        <input type="text" name="name" placeholder="Имя">
+        <input type="tel" name="phone" placeholder="Телефон">
+        <input type="text" name="date" placeholder="Дата">
+      </div>
+
+      <label class="ip-popup-policy">
+        <input type="checkbox" checked>
+        <span class="ip-popup-checkbox"></span>
+        <span>
+          Согласен(а) на обработку данных в соответствии<br>
+          с <a href="/privacy" target="_blank">Политикой обработки персональных данных.</a>
+        </span>
+      </label>
+
+      <button class="ip-popup-submit" type="submit">Отправить</button>
+    </form>
+  </div>
+</div>

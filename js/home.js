@@ -3,6 +3,7 @@
   const menuButton = document.querySelector('.ip-menu-toggle');
   const menuPanel = document.querySelector('.ip-menu-panel');
   const accordions = document.querySelectorAll('.ip-accordion');
+  const mainPopup = document.querySelector('[data-popup="main"]');
 
   if (!page || !menuButton || !menuPanel) return;
 
@@ -70,6 +71,61 @@
     }
   }
 
+  function openMainPopup() {
+    if (!mainPopup) return;
+
+    closeMenu();
+
+    mainPopup.classList.add('is-open');
+    mainPopup.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('ip-popup-lock');
+    document.body.classList.add('ip-popup-lock');
+  }
+
+  function closeMainPopup() {
+    if (!mainPopup) return;
+
+    mainPopup.classList.remove('is-open');
+    mainPopup.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('ip-popup-lock');
+    document.body.classList.remove('ip-popup-lock');
+  }
+
+  function setupPopupTriggers() {
+    document.addEventListener('click', function (event) {
+      const target = event.target.closest('a, button, [data-popup-open], [data-popup-close]');
+
+      if (!target) return;
+
+      if (target.hasAttribute('data-popup-close')) {
+        event.preventDefault();
+        closeMainPopup();
+        return;
+      }
+
+      const text = target.textContent.trim().toLowerCase();
+
+      if (text === 'другое' || text === 'написать') {
+        event.preventDefault();
+        openMainPopup();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeMainPopup();
+    });
+
+    if (mainPopup) {
+      const form = mainPopup.querySelector('.ip-popup-form');
+
+      if (form) {
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+        });
+      }
+    }
+  }
+
   function setupAccordion(accordion) {
     const button = accordion.querySelector('.ip-accordion-button');
     const content = accordion.querySelector('.ip-accordion-content');
@@ -127,6 +183,7 @@
   }
 
   updateHomeScale();
+  setupPopupTriggers();
 
   window.addEventListener('resize', requestScaleUpdate);
 
