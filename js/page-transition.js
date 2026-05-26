@@ -2,22 +2,28 @@
 ==================================================
 PAGE TRANSITION JS
 
-Версия: page-transition-001
+Версия: page-transition-003
 
 ИЗМЕНЕНИЯ:
-- добавлен cinematic fade переход между локальными страницами
-- переход работает для ссылок на .html
+- переход переделан в короткий монтажный dip to black
+- затемнение перед уходом ускорено до 340ms
+- проявление новой страницы сделано мягче через enter-state
+- исправлена стабильность перехода с главной на биографию и обратно
 - внешние ссылки, телефон и popup-триггеры не перехватываются
+- меню не изменялось
 ==================================================
 */
 
 (function(){
   'use strict';
 
-  var TRANSITION_DURATION = 760;
+  var EXIT_DURATION = 360;
+  var ENTER_DURATION = 480;
+  var overlay = null;
+  var isTransitioning = false;
 
   function createOverlay(){
-    var overlay = document.querySelector('.ip-page-transition');
+    overlay = document.querySelector('.ip-page-transition');
 
     if(overlay){
       return overlay;
@@ -25,16 +31,17 @@ PAGE TRANSITION JS
 
     overlay = document.createElement('div');
     overlay.className = 'ip-page-transition is-enter';
-
     document.body.appendChild(overlay);
 
     window.requestAnimationFrame(function(){
-      overlay.classList.add('is-ready');
+      window.requestAnimationFrame(function(){
+        overlay.classList.add('is-ready');
 
-      window.setTimeout(function(){
-        overlay.classList.remove('is-enter');
-        overlay.classList.remove('is-ready');
-      }, TRANSITION_DURATION);
+        window.setTimeout(function(){
+          overlay.classList.remove('is-enter');
+          overlay.classList.remove('is-ready');
+        }, ENTER_DURATION);
+      });
     });
 
     return overlay;
@@ -42,6 +49,10 @@ PAGE TRANSITION JS
 
   function isModifiedClick(event){
     return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0;
+  }
+
+  function isSamePage(url){
+    return window.location.href.split('#')[0] === url.split('#')[0];
   }
 
   function shouldSkipLink(link){
@@ -83,18 +94,24 @@ PAGE TRANSITION JS
   }
 
   function goToPage(url){
-    var overlay = createOverlay();
+    if(isTransitioning || isSamePage(url)){
+      return;
+    }
 
-    overlay.classList.remove('is-enter');
-    overlay.classList.remove('is-ready');
+    isTransitioning = true;
+
+    var transitionOverlay = createOverlay();
+
+    transitionOverlay.classList.remove('is-enter');
+    transitionOverlay.classList.remove('is-ready');
 
     window.requestAnimationFrame(function(){
-      overlay.classList.add('is-active');
+      transitionOverlay.classList.add('is-active');
     });
 
     window.setTimeout(function(){
       window.location.href = url;
-    }, TRANSITION_DURATION);
+    }, EXIT_DURATION);
   }
 
   function bindLinks(){
@@ -106,9 +123,8 @@ PAGE TRANSITION JS
       }
 
       event.preventDefault();
-
       goToPage(link.href);
-    });
+    }, true);
   }
 
   function init(){
