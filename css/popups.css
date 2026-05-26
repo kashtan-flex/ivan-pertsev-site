@@ -1,16 +1,15 @@
 /* =========================================================
    POPUPS CSS
 
-   Версия: popups-012
+   Версия: popups-013
 
    ИЗМЕНЕНИЯ:
-   - исправлено растягивание полей из-за padding: добавлен border-box
-   - текстовый блок выровнен ближе к макету
-   - поля ввода приведены к размеру 294×60
-   - у полей ввода убрана белая обводка
-   - оставлены blur и inner shadow в полях
-   - чекбокс и текст согласия выровнены аккуратнее
-   - кнопка сохранена 294×57 с hover: прозрачная → белая
+   - исправлен перенос строки "и в ближайшее время"
+   - исправлен перенос строки policy текста
+   - выровнен текстовый блок попапа
+   - сохранены размеры полей 294×60
+   - убрана белая обводка у input
+   - оставлены blur + inner shadow
    ========================================================= */
 
 html.ip-popup-lock,
@@ -76,9 +75,6 @@ body.ip-popup-lock{
   background-size:cover;
   background-position:center;
   box-shadow:0 30px 90px rgba(0,0,0,.45);
-  filter:none !important;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
 }
 
 .ip-popup-form{
@@ -92,13 +88,13 @@ body.ip-popup-lock{
   position:absolute;
   left:486px;
   top:30px;
-  width:175px;
+  width:205px;
   margin:0;
   text-align:center;
 }
 
 .ip-popup-name{
-  margin:0 0 21px;
+  margin:0 0 20px;
   font-family:'Benzin',Arial,sans-serif;
   font-size:20px;
   line-height:.9;
@@ -106,10 +102,10 @@ body.ip-popup-lock{
 }
 
 .ip-popup-text{
-  width:169px;
+  width:205px;
   margin:0 auto;
   font-size:16px;
-  line-height:1.05;
+  line-height:1.08;
   font-weight:400;
 }
 
@@ -126,11 +122,9 @@ body.ip-popup-lock{
   flex-direction:column;
   gap:10px;
   width:294px;
-  margin:0;
 }
 
 .ip-popup-fields input{
-  display:block;
   width:294px;
   height:60px;
   padding:0 35px;
@@ -157,15 +151,14 @@ body.ip-popup-lock{
   position:absolute;
   left:439px;
   top:364px;
-  width:269px;
+  width:320px;
   min-height:31px;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:10px;
-  margin:0;
   color:#fff;
   font-size:10px;
-  line-height:1.5;
+  line-height:1.45;
   letter-spacing:-.01em;
   cursor:pointer;
 }
@@ -178,6 +171,7 @@ body.ip-popup-lock{
 
 .ip-popup-checkbox{
   position:relative;
+  top:2px;
   width:15px;
   height:15px;
   flex:0 0 15px;
@@ -197,7 +191,17 @@ body.ip-popup-lock{
   transform:rotate(45deg);
 }
 
+.ip-popup-policy-text{
+  display:flex;
+  flex-direction:column;
+}
+
+.ip-popup-policy-line{
+  white-space:nowrap;
+}
+
 .ip-popup-policy a{
+  display:inline-block;
   color:#69C9FF !important;
 }
 
@@ -273,16 +277,13 @@ body.ip-popup-lock{
   .ip-popup-fields input{
     width:294px;
     height:57px;
-    padding:0 35px;
     border-radius:9px;
-    font-size:14px;
   }
 
   .ip-popup-policy{
     left:42px;
     top:408px;
     width:269px;
-    min-height:31px;
   }
 
   .ip-popup-submit{

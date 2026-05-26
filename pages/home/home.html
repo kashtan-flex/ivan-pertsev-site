@@ -1,3 +1,14 @@
+<!--
+  Версия: home-html-068
+
+  ИЗМЕНЕНИЯ:
+  - обновлена разметка основного попапа
+  - фраза "и в ближайшее время" вынесена в одну строку
+  - текст согласия разделён на управляемые строки
+  - добавлены классы ip-popup-policy-text и ip-popup-policy-line
+  - сохранены триггеры открытия попапа: Другое и Написать
+-->
+
 <div class="ip-page-home">
 
   <div class="ip-home-stage">
@@ -103,7 +114,8 @@
 
         <div class="ip-popup-text">
           <strong>Заполните форму,</strong>
-          <span>и в ближайшее время<br>я с Вами свяжусь.</span>
+          <span>и в ближайшее время</span>
+          <span>я с Вами свяжусь.</span>
         </div>
       </div>
 
@@ -117,9 +129,9 @@
         <input type="checkbox" checked>
         <span class="ip-popup-checkbox"></span>
 
-        <span>
-          Согласен(а) на обработку данных в соответствии<br>
-          с <a href="#" target="_blank">Политикой обработки персональных данных.</a>
+        <span class="ip-popup-policy-text">
+          <span class="ip-popup-policy-line">Согласен(а) на обработку данных в соответствии</span>
+          <a href="#" target="_blank">с Политикой обработки персональных данных.</a>
         </span>
       </label>
 
