@@ -736,3 +736,28 @@ body,
     transform:scale(1);
   }
 }
+/* ===== Safari desktop title clipping fix ===== */
+
+@supports (-webkit-hyphens:none){
+
+  .ip-title-line{
+    overflow:visible;
+  }
+
+  .ip-title-line span{
+    transform:translate3d(0,-106%,0);
+  }
+
+  @keyframes ipTextReveal{
+    0%{
+      opacity:0;
+      transform:translate3d(0,-106%,0);
+    }
+
+    100%{
+      opacity:1;
+      transform:translate3d(0,0,0);
+    }
+  }
+
+}
