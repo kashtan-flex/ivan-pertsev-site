@@ -8,14 +8,8 @@
   if (!page || !menuButton || !menuPanel) return;
 
   const DESIGN = {
-    desktop: {
-      width: 1440,
-      height: 800
-    },
-    mobile: {
-      width: 390,
-      height: 700
-    },
+    desktop: { width: 1440, height: 800 },
+    mobile: { width: 390, height: 700 },
     breakpoint: 767
   };
 
@@ -28,19 +22,18 @@
   function updateHomeScale() {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-
     let scale;
 
     if (isMobile()) {
-      const scaleX = viewportWidth / DESIGN.mobile.width;
-      const scaleY = viewportHeight / DESIGN.mobile.height;
-
-      scale = Math.max(scaleX, scaleY);
+      scale = Math.max(
+        viewportWidth / DESIGN.mobile.width,
+        viewportHeight / DESIGN.mobile.height
+      );
     } else {
-      const scaleX = viewportWidth / DESIGN.desktop.width;
-      const scaleY = viewportHeight / DESIGN.desktop.height;
-
-      scale = Math.min(scaleX, scaleY);
+      scale = Math.min(
+        viewportWidth / DESIGN.desktop.width,
+        viewportHeight / DESIGN.desktop.height
+      );
     }
 
     page.style.setProperty('--ip-home-scale', scale);
@@ -64,18 +57,13 @@
   }
 
   function toggleMenu() {
-    if (menuPanel.classList.contains('is-open')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    menuPanel.classList.contains('is-open') ? closeMenu() : openMenu();
   }
 
   function openMainPopup() {
     if (!mainPopup) return;
 
     closeMenu();
-
     mainPopup.classList.add('is-open');
     mainPopup.setAttribute('aria-hidden', 'false');
     document.documentElement.classList.add('ip-popup-lock');
@@ -93,7 +81,7 @@
 
   function setupPopupTriggers() {
     document.addEventListener('click', function (event) {
-      const target = event.target.closest('a, button, [data-popup-open], [data-popup-close]');
+      const target = event.target.closest('a, button, [data-popup-close]');
 
       if (!target) return;
 
@@ -174,11 +162,9 @@
     }
 
     button.addEventListener('click', function () {
-      if (accordion.classList.contains('is-open')) {
-        closeContactsAccordion();
-      } else {
-        openContactsAccordion();
-      }
+      accordion.classList.contains('is-open')
+        ? closeContactsAccordion()
+        : openContactsAccordion();
     });
   }
 

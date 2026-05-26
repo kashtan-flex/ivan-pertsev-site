@@ -1,0 +1,168 @@
+/* =========================================================
+   IVAN PERTSEV — POPUPS
+   FILE: css/popups.css
+   ========================================================= */
+
+html.ip-popup-lock,
+body.ip-popup-lock{
+  overflow:hidden !important;
+}
+
+.ip-popup{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .35s ease, visibility .35s ease;
+}
+
+.ip-popup.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.ip-popup-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.ip-popup-card{
+  position:relative;
+  width:790px;
+  height:530px;
+  overflow:hidden;
+  border-radius:12px;
+  background-image:
+    linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,.42)),
+    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 30px 90px rgba(0,0,0,.5);
+}
+
+.ip-popup-form{
+  position:absolute;
+  top:34px;
+  right:69px;
+  width:332px;
+  z-index:2;
+  color:#fff;
+  font-family:'Montserrat',sans-serif;
+}
+
+.ip-popup-heading{
+  margin-bottom:22px;
+  text-align:center;
+}
+
+.ip-popup-name{
+  margin-bottom:28px;
+  font-family:'Benzin',Arial,sans-serif;
+  font-size:24px;
+  line-height:1;
+  font-weight:700;
+}
+
+.ip-popup-text{
+  font-size:16px;
+  line-height:1.2;
+}
+
+.ip-popup-text strong,
+.ip-popup-text span{
+  display:block;
+}
+
+.ip-popup-fields{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:28px;
+}
+
+.ip-popup-fields input{
+  width:100%;
+  height:60px;
+  padding:0 34px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:4px;
+  outline:none;
+  background:rgba(0,0,0,.42);
+  color:#fff;
+  font-family:'Montserrat',sans-serif;
+  font-size:16px;
+}
+
+.ip-popup-fields input::placeholder{
+  color:rgba(255,255,255,.5);
+}
+
+.ip-popup-policy{
+  display:flex;
+  gap:12px;
+  margin-bottom:34px;
+  color:#fff;
+  font-size:10px;
+  line-height:1.35;
+  cursor:pointer;
+}
+
+.ip-popup-policy input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.ip-popup-checkbox{
+  position:relative;
+  width:22px;
+  height:22px;
+  flex:0 0 22px;
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:6px;
+}
+
+.ip-popup-policy input:checked + .ip-popup-checkbox::after{
+  content:'';
+  position:absolute;
+  left:7px;
+  top:3px;
+  width:6px;
+  height:11px;
+  border-right:1.5px solid #fff;
+  border-bottom:1.5px solid #fff;
+  transform:rotate(45deg);
+}
+
+.ip-popup-policy a{
+  color:#69C9FF;
+}
+
+.ip-popup-submit{
+  width:100%;
+  height:58px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:8px;
+  background:transparent;
+  color:#fff;
+  font-family:'Montserrat',sans-serif;
+  font-size:18px;
+  font-weight:500;
+  cursor:pointer;
+  transition:background .28s ease, color .28s ease, border-color .28s ease;
+}
+
+.ip-popup-submit:hover{
+  background:#fff;
+  color:#111;
+  border-color:#fff;
+}
