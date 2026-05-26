@@ -2,13 +2,13 @@
    IVAN PERTSEV — HOME PAGE
    FILE: css/home.css
 
-   Версия: home-073
+   Версия: home-074
 
    ИЗМЕНЕНИЯ:
-   - восстановлена полная desktop-версия home.css
-   - возвращены исходные позиции текста, меню и анимаций
-   - удалён старый блок MAIN POPUP FORM из home.css
-   - исправлены локальные пути к шрифтам, фонам, портрету и иконкам
+   - исправлен локальный путь к menu-noise.webp
+   - устранена ошибка 404 в мобильной версии
+   - сохранена полная desktop-версия home.css
+   - сохранены исходные позиции текста, меню и анимаций
    - сохранена чистая структура: попап живёт отдельно в css/popups.css
    ========================================================= */
 
@@ -315,7 +315,7 @@ body,
 
 .ip-menu-panel::after{
   z-index:1;
-  background-image:url('../assets/img/popups/menu-noise.webp');
+  background-image:url('../assets/img/home/popups/menu-noise.webp');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
