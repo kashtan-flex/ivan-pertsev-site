@@ -1,3 +1,13 @@
+/*
+  Версия: home-js-071
+
+  ИЗМЕНЕНИЯ:
+  - добавлена маска даты ДД.ММ.ГГГГ для поля name="date"
+  - поле даты работает как обычное текстовое поле без системного календаря
+  - сохранена логика меню, аккордеонов и открытия попапа
+  - сохранена блокировка скролла при открытом попапе
+*/
+
 (function () {
   const page = document.querySelector('.ip-page-home');
   const menuButton = document.querySelector('.ip-menu-toggle');
@@ -77,6 +87,49 @@
     mainPopup.setAttribute('aria-hidden', 'true');
     document.documentElement.classList.remove('ip-popup-lock');
     document.body.classList.remove('ip-popup-lock');
+  }
+
+  function formatDateValue(value) {
+    const digits = value.replace(/\D/g, '').slice(0, 8);
+    const parts = [];
+
+    if (digits.length > 0) {
+      parts.push(digits.slice(0, 2));
+    }
+
+    if (digits.length > 2) {
+      parts.push(digits.slice(2, 4));
+    }
+
+    if (digits.length > 4) {
+      parts.push(digits.slice(4, 8));
+    }
+
+    return parts.join('.');
+  }
+
+  function setupDateMask() {
+    if (!mainPopup) return;
+
+    const dateInput = mainPopup.querySelector('input[name="date"]');
+
+    if (!dateInput) return;
+
+    dateInput.setAttribute('placeholder', 'Дата');
+    dateInput.setAttribute('inputmode', 'numeric');
+    dateInput.setAttribute('maxlength', '10');
+    dateInput.setAttribute('autocomplete', 'off');
+
+    dateInput.addEventListener('input', function () {
+      dateInput.value = formatDateValue(dateInput.value);
+    });
+
+    dateInput.addEventListener('paste', function (event) {
+      event.preventDefault();
+
+      const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+      dateInput.value = formatDateValue(pastedText);
+    });
   }
 
   function setupPopupTriggers() {
@@ -170,6 +223,7 @@
 
   updateHomeScale();
   setupPopupTriggers();
+  setupDateMask();
 
   window.addEventListener('resize', requestScaleUpdate);
 

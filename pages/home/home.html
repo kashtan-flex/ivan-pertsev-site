@@ -1,12 +1,13 @@
 <!--
-  Версия: home-html-068
+  Версия: home-html-070
 
   ИЗМЕНЕНИЯ:
-  - обновлена разметка основного попапа
-  - фраза "и в ближайшее время" вынесена в одну строку
-  - текст согласия разделён на управляемые строки
-  - добавлены классы ip-popup-policy-text и ip-popup-policy-line
-  - сохранены триггеры открытия попапа: Другое и Написать
+  - поле даты переведено с type="date" на type="text"
+  - добавлена подготовка под маску даты ДД.ММ.ГГГГ
+  - в поле даты возвращён текст "Дата"
+  - все поля формы сделаны обязательными
+  - буква "с" в политике отделена от ссылки для белого цвета
+  - сохранены триггеры попапа: Другое и Написать
 -->
 
 <div class="ip-page-home">
@@ -107,7 +108,7 @@
   <div class="ip-popup-backdrop" data-popup-close></div>
 
   <div class="ip-popup-card" role="dialog" aria-modal="true" aria-label="Форма связи">
-    <form class="ip-popup-form">
+    <form class="ip-popup-form" data-form-email="ya@ivanpertsev.ru">
 
       <div class="ip-popup-heading">
         <div class="ip-popup-name">Иван Перцев</div>
@@ -120,18 +121,21 @@
       </div>
 
       <div class="ip-popup-fields">
-        <input type="text" name="name" placeholder="Имя">
-        <input type="tel" name="phone" placeholder="Телефон">
-        <input type="text" name="date" placeholder="Дата">
+        <input type="text" name="name" placeholder="Имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <input type="text" name="date" placeholder="Дата" inputmode="numeric" maxlength="10" autocomplete="off" required>
       </div>
 
       <label class="ip-popup-policy">
-        <input type="checkbox" checked>
+        <input type="checkbox" checked required>
         <span class="ip-popup-checkbox"></span>
 
         <span class="ip-popup-policy-text">
           <span class="ip-popup-policy-line">Согласен(а) на обработку данных в соответствии</span>
-          <a href="#" target="_blank">с Политикой обработки персональных данных.</a>
+          <span class="ip-popup-policy-link-line">
+            <span class="ip-popup-policy-preposition">с</span>
+            <a href="#" target="_blank">Политикой обработки персональных данных.</a>
+          </span>
         </span>
       </label>
 

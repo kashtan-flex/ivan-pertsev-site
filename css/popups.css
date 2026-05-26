@@ -1,15 +1,17 @@
 /* =========================================================
    POPUPS CSS
 
-   Версия: popups-013
+   Версия: popups-015
 
    ИЗМЕНЕНИЯ:
-   - исправлен перенос строки "и в ближайшее время"
-   - исправлен перенос строки policy текста
-   - выровнен текстовый блок попапа
+   - заголовок и подзаголовок отцентрованы относительно полей формы
+   - поле даты больше не использует системный календарь
+   - в поле даты отображается placeholder "Дата"
+   - уменьшена галочка внутри чекбокса
+   - буква "с" в политике сделана белой
+   - ссылка политики оставлена цветом #69C9FF
    - сохранены размеры полей 294×60
-   - убрана белая обводка у input
-   - оставлены blur + inner shadow
+   - у полей нет белой обводки, оставлены blur и inner shadow
    ========================================================= */
 
 html.ip-popup-lock,
@@ -86,9 +88,9 @@ body.ip-popup-lock{
 
 .ip-popup-heading{
   position:absolute;
-  left:486px;
+  left:426px;
   top:30px;
-  width:205px;
+  width:294px;
   margin:0;
   text-align:center;
 }
@@ -102,11 +104,12 @@ body.ip-popup-lock{
 }
 
 .ip-popup-text{
-  width:205px;
+  width:294px;
   margin:0 auto;
   font-size:16px;
   line-height:1.08;
   font-weight:400;
+  text-align:center;
 }
 
 .ip-popup-text strong,
@@ -182,12 +185,12 @@ body.ip-popup-lock{
 .ip-popup-policy input:checked + .ip-popup-checkbox::after{
   content:'';
   position:absolute;
-  left:4px;
-  top:1px;
-  width:5px;
-  height:8px;
-  border-right:1.4px solid #fff;
-  border-bottom:1.4px solid #fff;
+  left:5px;
+  top:2px;
+  width:3px;
+  height:6px;
+  border-right:1.2px solid #fff;
+  border-bottom:1.2px solid #fff;
   transform:rotate(45deg);
 }
 
@@ -198,6 +201,17 @@ body.ip-popup-lock{
 
 .ip-popup-policy-line{
   white-space:nowrap;
+}
+
+.ip-popup-policy-link-line{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  white-space:nowrap;
+}
+
+.ip-popup-policy-preposition{
+  color:#fff;
 }
 
 .ip-popup-policy a{
@@ -250,10 +264,10 @@ body.ip-popup-lock{
   }
 
   .ip-popup-heading{
-    left:50%;
+    left:28px;
     top:68px;
-    width:235px;
-    transform:translateX(-50%);
+    width:294px;
+    transform:none;
   }
 
   .ip-popup-name{
@@ -262,7 +276,7 @@ body.ip-popup-lock{
   }
 
   .ip-popup-text{
-    width:235px;
+    width:294px;
     font-size:18px;
     line-height:1.18;
   }
