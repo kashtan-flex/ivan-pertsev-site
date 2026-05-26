@@ -761,33 +761,3 @@ body,
   }
 
 }
-/* =========================================================
-   DESKTOP 16:10 ADAPTATION
-   MacBook / 1440×900 composition.
-   Text animation is not changed.
-   ========================================================= */
-
-@media (min-width:768px){
-
-  .ip-page-home.is-desktop-16-10 .ip-home-stage{
-    height:900px;
-  }
-
-  .ip-page-home.is-desktop-16-10 .ip-home-bg-base,
-  .ip-page-home.is-desktop-16-10 .ip-home-bg-glow{
-    background-size:1440px 900px;
-  }
-
-  .ip-page-home.is-desktop-16-10 .ip-home-portrait{
-    background-size:auto 900px;
-  }
-
-  .ip-page-home.is-desktop-16-10 .ip-home-content{
-    top:545px;
-  }
-
-  .ip-page-home.is-desktop-16-10 .ip-menu-panel{
-    height:900px;
-  }
-
-}
