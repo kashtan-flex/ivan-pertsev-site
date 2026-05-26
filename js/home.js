@@ -7,9 +7,13 @@
   if (!page || !menuButton || !menuPanel) return;
 
   const DESIGN = {
-    desktop: {
+    desktopDefault: {
       width: 1440,
       height: 800
+    },
+    desktopMac: {
+      width: 1440,
+      height: 900
     },
     mobile: {
       width: 390,
@@ -24,11 +28,23 @@
     return window.innerWidth <= DESIGN.breakpoint;
   }
 
+  function getDesktopDesign() {
+    const ratio = window.innerWidth / window.innerHeight;
+
+    if (ratio >= 1.5 && ratio <= 1.7) {
+      return DESIGN.desktopMac;
+    }
+
+    return DESIGN.desktopDefault;
+  }
+
   function updateHomeScale() {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
     let scale;
+
+    page.classList.remove('is-desktop-16-10');
 
     if (isMobile()) {
       const scaleX = viewportWidth / DESIGN.mobile.width;
@@ -36,10 +52,13 @@
 
       scale = Math.max(scaleX, scaleY);
     } else {
-      const scaleX = viewportWidth / DESIGN.desktop.width;
-      const scaleY = viewportHeight / DESIGN.desktop.height;
+      const desktopDesign = getDesktopDesign();
 
-      scale = Math.min(scaleX, scaleY);
+      if (desktopDesign.height === 900) {
+        page.classList.add('is-desktop-16-10');
+      }
+
+      scale = viewportHeight / desktopDesign.height;
     }
 
     page.style.setProperty('--ip-home-scale', scale);
