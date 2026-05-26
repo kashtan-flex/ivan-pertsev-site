@@ -40,22 +40,22 @@
 
   .ip-home-bg-base{
     background-image:image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg.webp') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg@2x.webp') 2x
+      url('..assets/img/home/mobile/background/home-mobile-bg.webp') 1x,
+      url('..assets/img/home/mobile/background/home-mobile-bg@2x.webp') 2x
     );
   }
 
   .ip-home-bg-glow{
     background-image:image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg-glow.webp') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/background/home-mobile-bg-glow@2x.webp') 2x
+      url('..assets/img/home/mobile/background/home-mobile-bg-glow.webp') 1x,
+      url('..assets/img/home/mobile/background/home-mobile-bg-glow@2x.webp') 2x
     );
   }
 
   .ip-home-portrait{
     background-image:image-set(
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/portrait/home-mobile-portrait.png') 1x,
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/mobile/portrait/home-mobile-portrait@2x.png') 2x
+      url('..assets/img/home/mobile/portrait/home-mobile-portrait.png') 1x,
+      url('..assets/img/home/mobile/portrait/home-mobile-portrait@2x.png') 2x
     );
   }
 

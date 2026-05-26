@@ -68,7 +68,7 @@ body.ip-popup-lock{
   overflow:hidden;
   border-radius:12px;
   background-color:#101311;
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
+  background-image:url('..assets/img/popups/popup-main-bg.webp');
   background-size:cover;
   background-position:center;
   box-shadow:0 30px 90px rgba(0,0,0,.45);
@@ -235,7 +235,7 @@ body.ip-popup-lock{
     border-radius:12px;
     background-image:
       linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
+      url('..assets/img/popups/popup-main-bg.webp');
     background-size:cover;
     background-position:center;
   }

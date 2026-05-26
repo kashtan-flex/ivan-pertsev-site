@@ -8,7 +8,7 @@
 
 @font-face{
   font-family:'Benzin';
-  src:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/fonts/Benzin-Bold.woff2') format('woff2');
+  src:url('..assets/fonts/Benzin-Bold.woff2') format('woff2');
   font-weight:700;
   font-style:normal;
   font-display:swap;
@@ -81,8 +81,8 @@ body,
   z-index:1;
   opacity:1;
   background-image:image-set(
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg.webp') 1x,
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg@2x.webp') 2x
+    url('..assets/img/home/background/home-bg.webp') 1x,
+    url('..assets/img/home/background/home-bg@2x.webp') 2x
   );
 }
 
@@ -90,8 +90,8 @@ body,
   z-index:2;
   opacity:0;
   background-image:image-set(
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow.webp') 1x,
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/background/home-bg-glow@2x.webp') 2x
+    url('..assets/img/home/background/home-bg-glow.webp') 1x,
+    url('..assets/img/home/background/home-bg-glow@2x.webp') 2x
   );
   animation:ipGlowReveal 1.25s ease forwards;
   animation-delay:1.1s;
@@ -101,8 +101,8 @@ body,
   z-index:3;
   opacity:0;
   background-image:image-set(
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait.png') 1x,
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/home/portrait/home-portrait@2x.png') 2x
+    url('..assets/img/home/portrait/home-portrait.png') 1x,
+    url('..assets/img/home/portrait/home-portrait@2x.png') 2x
   );
   background-position:left bottom;
   background-size:auto 800px;
@@ -325,7 +325,7 @@ body,
 
 .ip-menu-panel::after{
   z-index:1;
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/menu-noise.webp');
+  background-image:url('..assets/img/menu-noise.webp');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
@@ -416,27 +416,27 @@ body,
 }
 
 .ip-social.instagram::before{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram.svg');
+  background-image:url('..assets/icons/Instagram.svg');
 }
 
 .ip-social.instagram::after{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Instagram-hover.svg');
+  background-image:url('..assets/icons/Instagram-hover.svg');
 }
 
 .ip-social.telegram::before{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram.svg');
+  background-image:url('..assets/icons/Telegram.svg');
 }
 
 .ip-social.telegram::after{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/Telegram-hover.svg');
+  background-image:url('..assets/icons/Telegram-hover.svg');
 }
 
 .ip-social.vk::before{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK.svg');
+  background-image:url('..assets/icons/VK.svg');
 }
 
 .ip-social.vk::after{
-  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/icons/VK-hover.svg');
+  background-image:url('..assets/icons/VK-hover.svg');
 }
 
 /* =========================================================
@@ -802,7 +802,7 @@ body,
   overflow:hidden;
   background-image:
     linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
+    url('..assets/img/popups/popup-main-bg.webp');
   background-size:cover;
   background-position:center;
   box-shadow:0 28px 90px rgba(0,0,0,.45);
