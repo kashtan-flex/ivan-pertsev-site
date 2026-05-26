@@ -1,17 +1,15 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-006
+   Версия: biography-css-007
 
    ИЗМЕНЕНИЯ:
-   - меню страницы «Биография» приведено ближе к эталону главной страницы
-   - убрано чрезмерное увеличение шрифтов в меню
-   - основные пункты меню настроены на 20px
-   - подпункты меню настроены на 16px
+   - типографика страницы «Биография» приведена ближе к Figma-макету
+   - уточнены размеры, line-height и letter-spacing заголовка, подзаголовка, списка, awards и цитаты
+   - уточнены отступы и позиции текстовых блоков
+   - сохранено текущее финальное меню без изменений
    - сохранена ширина меню 518px только на странице «Биография»
-   - стрелки accordion вынесены к правому краю меню
-   - сохранено скрытие пунктов меню до запуска анимации
-   - сохранена тень burger-иконки на светлых слайдах
+   - сохранена карусель Ken Burns + fade
    ========================================================= */
 
 .ip-biography,
@@ -65,9 +63,9 @@
 .ip-biography-left{
   position:absolute;
   left:100px;
-  top:54px;
+  top:55px;
   z-index:3;
-  width:770px;
+  width:760px;
   height:690px;
 }
 
@@ -81,40 +79,40 @@
   color:#fff;
   font-family:'Montserrat',Arial,sans-serif;
   font-size:40px;
-  line-height:1;
-  font-weight:700;
-  letter-spacing:-.045em;
+  line-height:.95;
+  font-weight:600;
+  letter-spacing:-.03em;
 }
 
 .ip-biography-subtitle{
-  width:655px;
-  margin:17px 0 0;
+  width:547px;
+  margin:20px 0 0;
   color:#fff;
-  font-size:17px;
-  line-height:1.05;
+  font-size:18px;
+  line-height:1;
   font-weight:400;
-  letter-spacing:-.035em;
+  letter-spacing:-.04em;
 }
 
 .ip-biography-list{
   position:absolute;
-  left:72px;
-  top:224px;
-  width:640px;
+  left:60px;
+  top:250px;
+  width:658px;
   margin:0;
   padding:0;
   list-style:none;
   color:#fff;
-  font-size:21px;
-  line-height:1.22;
+  font-size:20px;
+  line-height:1.30;
   font-weight:400;
-  letter-spacing:-.035em;
+  letter-spacing:-.03em;
 }
 
 .ip-biography-list li{
   position:relative;
   margin:0;
-  padding:0 0 2px 19px;
+  padding:0 0 0 20px;
 }
 
 .ip-biography-list li::before{
@@ -123,7 +121,7 @@
   left:0;
   top:0;
   color:#fff;
-  font-size:17px;
+  font-size:16px;
   line-height:1.35;
 }
 
@@ -133,8 +131,7 @@
   bottom:-1px;
   display:flex;
   align-items:center;
-  gap:44px;
-  width:780px;
+  width:640px;
 }
 
 .ip-biography-award{
@@ -144,16 +141,17 @@
 }
 
 .ip-biography-award-wedding{
-  gap:26px;
+  gap:30px;
 }
 
 .ip-biography-award-top{
-  gap:28px;
+  gap:30px;
+  margin-left:80px;
 }
 
 .ip-biography-award-logo{
   display:block;
-  width:271px;
+  width:267px;
   height:auto;
 }
 
@@ -166,11 +164,11 @@
 .ip-biography-award-text{
   margin:0;
   color:#fff;
-  font-size:13px;
-  line-height:1.03;
-  font-weight:500;
+  font-size:14px;
+  line-height:1;
+  font-weight:400;
   letter-spacing:-.04em;
-  opacity:.82;
+  opacity:.70;
 }
 
 .ip-biography-right{
@@ -224,10 +222,10 @@
 
 .ip-biography-quote{
   position:absolute;
-  left:96px;
-  bottom:59px;
+  left:97px;
+  bottom:88px;
   z-index:5;
-  width:330px;
+  width:321px;
   margin:0;
   padding:0;
   color:#fff;
@@ -236,24 +234,24 @@
 
 .ip-biography-quote p{
   margin:0;
-  font-size:15px;
-  line-height:1.37;
+  font-size:16px;
+  line-height:1.40;
   font-weight:400;
-  letter-spacing:-.035em;
+  letter-spacing:-.03em;
 }
 
 .ip-biography-quote cite{
   display:block;
-  margin-top:22px;
+  margin-top:18px;
   padding-right:2px;
   color:#fff;
   font-family:'Benzin',Arial,sans-serif;
-  font-size:9px;
-  line-height:1;
+  font-size:10px;
+  line-height:.9;
   font-style:normal;
   font-weight:700;
   text-align:right;
-  letter-spacing:-.04em;
+  letter-spacing:0;
 }
 
 /* =========================================================
