@@ -2,8 +2,15 @@
    IVAN PERTSEV — HOME PAGE
    FILE: css/home-mobile.css
 
-   Mobile production overrides.
-   Desktop core lives in css/home.css.
+   Версия: home-mobile-026
+
+   ИЗМЕНЕНИЯ:
+   - восстановлена мобильная production-композиция 390×700
+   - исправлены локальные пути к mobile background
+   - исправлены локальные пути к mobile portrait
+   - сохранена cover-логика масштабирования через home.js
+   - сохранена мягкая мобильная анимация текста
+   - сохранены настройки мобильного меню
    ========================================================= */
 
 @media (max-width:767px){
@@ -40,22 +47,22 @@
 
   .ip-home-bg-base{
     background-image:image-set(
-      url('..assets/img/home/mobile/background/home-mobile-bg.webp') 1x,
-      url('..assets/img/home/mobile/background/home-mobile-bg@2x.webp') 2x
+      url('../assets/img/home/mobile/background/home-mobile-bg.webp') 1x,
+      url('../assets/img/home/mobile/background/home-mobile-bg@2x.webp') 2x
     );
   }
 
   .ip-home-bg-glow{
     background-image:image-set(
-      url('..assets/img/home/mobile/background/home-mobile-bg-glow.webp') 1x,
-      url('..assets/img/home/mobile/background/home-mobile-bg-glow@2x.webp') 2x
+      url('../assets/img/home/mobile/background/home-mobile-bg-glow.webp') 1x,
+      url('../assets/img/home/mobile/background/home-mobile-bg-glow@2x.webp') 2x
     );
   }
 
   .ip-home-portrait{
     background-image:image-set(
-      url('..assets/img/home/mobile/portrait/home-mobile-portrait.png') 1x,
-      url('..assets/img/home/mobile/portrait/home-mobile-portrait@2x.png') 2x
+      url('../assets/img/home/mobile/portrait/home-mobile-portrait.png') 1x,
+      url('../assets/img/home/mobile/portrait/home-mobile-portrait@2x.png') 2x
     );
   }
 
