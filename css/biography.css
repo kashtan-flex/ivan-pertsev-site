@@ -1,17 +1,14 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-002
+   Версия: biography-css-004
 
    ИЗМЕНЕНИЯ:
-   - сохранена desktop-версия страницы «Биография»
-   - масштабирование работает через js/biography.js как на главной
-   - страница использует общее меню главной страницы
-   - меню на странице «Биография» расширено до 518px
-   - добавлена тень на burger-иконку для читаемости на светлых фото
-   - убрано подчеркивание ссылок меню
-   - исправлено преждевременное появление пункта «Биография»
-   - стрелки accordion вынесены на один уровень с крестиком: 100px от правого края меню
+   - увеличен размер submenu до 24px
+   - submenu визуально приведён ближе к макету
+   - увеличена ширина menu-list до 388px
+   - сохранена hierarchy основных разделов и подразделов
+   - сохранены fixes скрытия menu items до анимации
    ========================================================= */
 
 .ip-biography,
@@ -272,26 +269,112 @@
 .ip-biography .ip-menu-link:link,
 .ip-biography .ip-menu-link:visited,
 .ip-biography .ip-menu-link:hover,
-.ip-biography .ip-menu-link:active,
+.ip-biography .ip-menu-link:active{
+  text-decoration:none !important;
+}
+
 .ip-biography .ip-submenu a,
 .ip-biography .ip-submenu a:link,
 .ip-biography .ip-submenu a:visited,
 .ip-biography .ip-submenu a:hover,
 .ip-biography .ip-submenu a:active{
+  font-size:24px;
+  line-height:1.12;
+  font-weight:400;
+  letter-spacing:-.045em;
   text-decoration:none !important;
 }
 
-.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-list > *{
-  opacity:0 !important;
-  transform:translate3d(0,-36px,0);
+.ip-biography .ip-menu-list{
+  width:388px;
+}
+
+.ip-biography .ip-menu-list > *,
+.ip-biography .ip-menu-socials .ip-social,
+.ip-biography .ip-menu-legal{
+  visibility:hidden;
+  opacity:0;
+  pointer-events:none;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *,
+.ip-biography .ip-menu-panel.is-open .ip-menu-socials .ip-social,
+.ip-biography .ip-menu-panel.is-open .ip-menu-legal{
+  pointer-events:auto;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-social{
+  animation:ipBiographyMenuTextDrop .52s cubic-bezier(.19,1,.22,1) both;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-social:nth-child(1){
+  animation-delay:.34s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-social:nth-child(2){
+  animation-delay:.42s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-social:nth-child(3){
+  animation-delay:.50s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *{
+  animation:ipBiographyMenuTextDrop .56s cubic-bezier(.19,1,.22,1) both;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
+  animation-delay:.68s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
+  animation-delay:.78s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
+  animation-delay:.88s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
+  animation-delay:.98s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
+  animation-delay:1.08s;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
+  animation-delay:1.18s;
 }
 
 .ip-biography .ip-menu-panel.is-open .ip-menu-link[href="./biography-preview.html"]{
-  opacity:.62;
+  animation-name:ipBiographyMenuTextDropActive;
 }
 
-.ip-biography .ip-menu-list{
-  width:358px;
+.ip-biography .ip-menu-panel.is-open .ip-menu-legal{
+  animation:ipBiographyMenuTextDropMuted .52s cubic-bezier(.19,1,.22,1) both;
+  animation-delay:1.28s;
+}
+
+.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-list > *,
+.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-socials .ip-social,
+.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-legal{
+  visibility:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+  transform:translate3d(0,-36px,0) !important;
+  animation:none !important;
+}
+
+.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-link:hover,
+.ip-biography .ip-menu-panel:not(.is-open) .ip-accordion-button:hover,
+.ip-biography .ip-menu-panel:not(.is-open) .ip-submenu a:hover{
+  visibility:hidden !important;
+  opacity:0 !important;
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:hover{
+  text-decoration:none !important;
 }
 
 .ip-biography .ip-accordion-button{
@@ -304,4 +387,64 @@
 
 .ip-biography .ip-accordion-button::after{
   right:0;
+}
+
+@keyframes ipBiographyMenuTextDrop{
+  0%{
+    visibility:hidden;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  1%{
+    visibility:visible;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  100%{
+    visibility:visible;
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes ipBiographyMenuTextDropActive{
+  0%{
+    visibility:hidden;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  1%{
+    visibility:visible;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  100%{
+    visibility:visible;
+    opacity:.62;
+    transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes ipBiographyMenuTextDropMuted{
+  0%{
+    visibility:hidden;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  1%{
+    visibility:visible;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  100%{
+    visibility:visible;
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
 }
