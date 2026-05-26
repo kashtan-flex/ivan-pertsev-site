@@ -59,28 +59,28 @@ body.ip-popup-lock{
 
 .ip-popup-form{
   position:absolute;
-  top:6.42%;
-  right:8.73%;
-  width:37.22%;
+  top:34px;
+  right:69px;
+  width:332px;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
 
 .ip-popup-heading{
-  margin-bottom:4.15%;
+  margin-bottom:22px;
   text-align:center;
 }
 
 .ip-popup-name{
-  margin-bottom:5.28%;
+  margin-bottom:28px;
   font-family:'Benzin',Arial,sans-serif;
-  font-size:clamp(14px, 1.67vw, 24px);
+  font-size:24px;
   line-height:1;
   font-weight:700;
 }
 
 .ip-popup-text{
-  font-size:clamp(10px, 1.11vw, 16px);
+  font-size:16px;
   line-height:1.2;
 }
 
@@ -92,8 +92,8 @@ body.ip-popup-lock{
 .ip-popup-fields{
   display:flex;
   flex-direction:column;
-  gap:2.26%;
-  margin-bottom:5.28%;
+  gap:12px;
+  margin-bottom:28px;
 }
 
 .ip-popup-fields input{
@@ -124,7 +124,7 @@ body.ip-popup-lock{
   justify-content:center;
   gap:12px;
   width:100%;
-  margin-bottom:6.42%;
+  margin-bottom:34px;
   color:#fff;
   font-size:10px;
   line-height:1.35;
