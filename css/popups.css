@@ -1,15 +1,14 @@
 /* =========================================================
    POPUPS CSS
 
-   Версия: popups-020
+   Версия: popups-021
 
    ИЗМЕНЕНИЯ:
-   - поля формы переведены на black glass style
-   - opacity фона полей: 20%
-   - blur уменьшен с 20px до 7px
-   - focus-state стал мягче
-   - сохранена cinematic popup animation
-   - сохранён плавный backdrop blur
+   - увеличено межбуквенное расстояние имени Иван Перцев на 0.5px
+   - чекбокс согласия поднят и выровнен по верхней строке текста
+   - анимация открытия разделена на два этапа: сначала мягкий blur фона, затем появление popup-card
+   - сохранён black glass style полей формы
+   - сохранена адаптивная mobile-версия popup
    ========================================================= */
 
 html.ip-popup-lock,
@@ -52,9 +51,9 @@ body.ip-popup-lock{
   backdrop-filter:blur(0);
   -webkit-backdrop-filter:blur(0);
   transition:
-    background .95s cubic-bezier(.19,1,.22,1),
-    backdrop-filter .95s cubic-bezier(.19,1,.22,1),
-    -webkit-backdrop-filter .95s cubic-bezier(.19,1,.22,1);
+    background 1.05s cubic-bezier(.19,1,.22,1),
+    backdrop-filter 1.05s cubic-bezier(.19,1,.22,1),
+    -webkit-backdrop-filter 1.05s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-popup.is-open .ip-popup-backdrop{
@@ -79,11 +78,11 @@ body.ip-popup-lock{
     0 8px 28px rgba(0,0,0,.35),
     inset 0 0 0 1px rgba(255,255,255,.045);
   opacity:0;
-  transform:translate3d(0,10px,0) scale(.94);
+  transform:translate3d(0,12px,0) scale(.94);
   transform-origin:center center;
   transition:
-    opacity .88s cubic-bezier(.19,1,.22,1) .12s,
-    transform .88s cubic-bezier(.19,1,.22,1) .12s;
+    opacity .72s cubic-bezier(.19,1,.22,1),
+    transform .72s cubic-bezier(.19,1,.22,1);
   will-change:opacity,transform;
 }
 
@@ -111,6 +110,9 @@ body.ip-popup-lock{
 .ip-popup.is-open .ip-popup-card{
   opacity:1;
   transform:translate3d(0,0,0) scale(1);
+  transition:
+    opacity .82s cubic-bezier(.19,1,.22,1) .64s,
+    transform .82s cubic-bezier(.19,1,.22,1) .64s;
 }
 
 .ip-popup-form{
@@ -136,6 +138,7 @@ body.ip-popup-lock{
   font-size:20px;
   line-height:.9;
   font-weight:700;
+  letter-spacing:.5px;
 }
 
 .ip-popup-text{
@@ -208,11 +211,11 @@ body.ip-popup-lock{
 .ip-popup-policy{
   position:absolute;
   left:426px;
-  top:364px;
+  top:360px;
   width:294px;
   min-height:31px;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
   gap:10px;
   color:#fff;
@@ -233,6 +236,7 @@ body.ip-popup-lock{
   width:15px;
   height:15px;
   flex:0 0 15px;
+  margin-top:0;
   border:1px solid #fff;
   border-radius:4px;
 }
@@ -330,6 +334,7 @@ body.ip-popup-lock{
   .ip-popup-name{
     margin-bottom:24px;
     font-size:20px;
+    letter-spacing:.5px;
   }
 
   .ip-popup-text{
@@ -353,8 +358,9 @@ body.ip-popup-lock{
 
   .ip-popup-policy{
     left:28px;
-    top:408px;
+    top:404px;
     width:294px;
+    align-items:flex-start;
   }
 
   .ip-popup-submit{
