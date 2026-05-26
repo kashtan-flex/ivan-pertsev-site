@@ -736,38 +736,21 @@ body,
     transform:scale(1);
   }
 }
-/* ===== MacOS / Safari desktop text fix ===== */
+/* ===== Safari / MacOS desktop text clipping fix ===== */
 
-.ip-home-title{
-  overflow: visible;
-}
+@supports (-webkit-touch-callout: none) {
 
-.ip-title-line{
-  overflow: visible;
-}
+  .ip-home-title{
+    overflow: visible;
+  }
 
-.ip-title-line span{
-  display:flex;
-  align-items:flex-start;
+  .ip-title-line{
+    overflow: visible;
+  }
 
-  padding-top:12px;
+  .ip-title-line span{
+    padding-top:4px;
+    overflow:visible;
+  }
 
-  line-height:.92;
-
-  overflow:visible;
-
-  -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
-}
-
-/* first line */
-
-.ip-title-line-first{
-  height:108px;
-}
-
-/* second line */
-
-.ip-title-line-second{
-  height:108px;
 }
