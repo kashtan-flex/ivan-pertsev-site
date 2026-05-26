@@ -1,16 +1,15 @@
 /* =========================================================
    POPUPS CSS
 
-   Версия: popups-018
+   Версия: popups-020
 
    ИЗМЕНЕНИЯ:
-   - добавлена плавная анимация появления попапа из центра
-   - карточка появляется через лёгкое увеличение scale(.94) → scale(1)
-   - фон плавно затемняется и блюрится
-   - убрано резкое появление карточки
-   - сохранено выравнивание блока согласия по центру полей
-   - убрано подчёркивание ссылки политики
-   - сохранены размеры полей 294×60
+   - поля формы переведены на black glass style
+   - opacity фона полей: 20%
+   - blur уменьшен с 20px до 7px
+   - focus-state стал мягче
+   - сохранена cinematic popup animation
+   - сохранён плавный backdrop blur
    ========================================================= */
 
 html.ip-popup-lock,
@@ -35,8 +34,8 @@ body.ip-popup-lock{
   visibility:hidden;
   pointer-events:none;
   transition:
-    opacity .65s cubic-bezier(.19,1,.22,1),
-    visibility .65s cubic-bezier(.19,1,.22,1);
+    opacity .72s cubic-bezier(.19,1,.22,1),
+    visibility .72s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-popup.is-open{
@@ -53,15 +52,15 @@ body.ip-popup-lock{
   backdrop-filter:blur(0);
   -webkit-backdrop-filter:blur(0);
   transition:
-    background .9s cubic-bezier(.19,1,.22,1),
-    backdrop-filter .9s cubic-bezier(.19,1,.22,1),
-    -webkit-backdrop-filter .9s cubic-bezier(.19,1,.22,1);
+    background .95s cubic-bezier(.19,1,.22,1),
+    backdrop-filter .95s cubic-bezier(.19,1,.22,1),
+    -webkit-backdrop-filter .95s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-popup.is-open .ip-popup-backdrop{
-  background:rgba(0,0,0,.50);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+  background:rgba(0,0,0,.62);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }
 
 .ip-popup-card{
@@ -75,24 +74,49 @@ body.ip-popup-lock{
   background-image:url('../assets/img/popups/popup-main-bg.webp');
   background-size:cover;
   background-position:center;
-  box-shadow:0 30px 90px rgba(0,0,0,.45);
+  box-shadow:
+    0 34px 110px rgba(0,0,0,.58),
+    0 8px 28px rgba(0,0,0,.35),
+    inset 0 0 0 1px rgba(255,255,255,.045);
   opacity:0;
-  transform:scale(.94);
+  transform:translate3d(0,10px,0) scale(.94);
   transform-origin:center center;
   transition:
-    opacity .78s cubic-bezier(.19,1,.22,1),
-    transform .78s cubic-bezier(.19,1,.22,1);
+    opacity .88s cubic-bezier(.19,1,.22,1) .12s,
+    transform .88s cubic-bezier(.19,1,.22,1) .12s;
   will-change:opacity,transform;
+}
+
+.ip-popup-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:
+    radial-gradient(
+      circle at 82% 38%,
+      rgba(255,255,255,.105) 0%,
+      rgba(255,255,255,.045) 25%,
+      rgba(255,255,255,0) 52%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,.08) 46%,
+      rgba(0,0,0,.24) 100%
+    );
+  pointer-events:none;
 }
 
 .ip-popup.is-open .ip-popup-card{
   opacity:1;
-  transform:scale(1);
+  transform:translate3d(0,0,0) scale(1);
 }
 
 .ip-popup-form{
   position:absolute;
   inset:0;
+  z-index:2;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
@@ -145,16 +169,36 @@ body.ip-popup-lock{
   border:0;
   border-radius:5px;
   outline:none;
-  background:rgba(0,0,0,.20);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+
+  background:rgba(0,0,0,.35);
+
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+
   box-shadow:
-    inset -1px -1px 1px rgba(255,255,255,.15),
-    inset 1px 1px 1px rgba(0,0,0,.25);
+    inset -1px -1px 1px rgba(255,255,255,.12),
+    inset 1px 1px 1px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 10px 24px rgba(0,0,0,.16);
+
   color:#fff;
   font-family:'Montserrat',sans-serif;
   font-size:14px;
   line-height:1;
+
+  transition:
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+.ip-popup-fields input:focus{
+  background:rgba(0,0,0,.24);
+
+  box-shadow:
+    inset -1px -1px 1px rgba(255,255,255,.16),
+    inset 1px 1px 1px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 12px 28px rgba(0,0,0,.18);
 }
 
 .ip-popup-fields input::placeholder{
