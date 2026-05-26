@@ -14,8 +14,8 @@ body.ip-popup-lock{
   visibility:hidden;
   pointer-events:none;
   transition:
-    opacity .55s cubic-bezier(.19,1,.22,1),
-    visibility .55s cubic-bezier(.19,1,.22,1);
+    opacity .65s cubic-bezier(.19,1,.22,1),
+    visibility .65s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-popup.is-open{
@@ -28,58 +28,59 @@ body.ip-popup-lock{
   position:absolute;
   inset:0;
   z-index:1;
-  background:rgba(0,0,0,.42);
+  background:rgba(0,0,0,.12);
   backdrop-filter:blur(0);
   -webkit-backdrop-filter:blur(0);
   transition:
-    background .75s cubic-bezier(.19,1,.22,1),
-    backdrop-filter .75s cubic-bezier(.19,1,.22,1),
-    -webkit-backdrop-filter .75s cubic-bezier(.19,1,.22,1);
+    background .85s cubic-bezier(.19,1,.22,1),
+    backdrop-filter .85s cubic-bezier(.19,1,.22,1),
+    -webkit-backdrop-filter .85s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-popup.is-open .ip-popup-backdrop{
-  background:rgba(0,0,0,.58);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  background:rgba(0,0,0,.50);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 }
 
 .ip-popup-card{
   position:relative;
   z-index:2;
-  width:min(790px, calc(100vw - 48px));
+  width:min(790px, calc(100vw - 48px), calc((100vh - 48px) * 1.490566));
   aspect-ratio:790 / 530;
   overflow:hidden;
   border-radius:12px;
+  background-color:#101311;
   background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
   background-size:cover;
   background-position:center;
-  box-shadow:0 30px 90px rgba(0,0,0,.5);
+  box-shadow:0 30px 90px rgba(0,0,0,.45);
 }
 
 .ip-popup-form{
   position:absolute;
-  top:34px;
-  right:69px;
-  width:332px;
+  top:6.42%;
+  right:8.73%;
+  width:37.22%;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
 
 .ip-popup-heading{
-  margin-bottom:22px;
+  margin-bottom:4.15%;
   text-align:center;
 }
 
 .ip-popup-name{
-  margin-bottom:28px;
+  margin-bottom:5.28%;
   font-family:'Benzin',Arial,sans-serif;
-  font-size:24px;
+  font-size:clamp(14px, 1.67vw, 24px);
   line-height:1;
   font-weight:700;
 }
 
 .ip-popup-text{
-  font-size:16px;
+  font-size:clamp(10px, 1.11vw, 16px);
   line-height:1.2;
 }
 
@@ -91,8 +92,8 @@ body.ip-popup-lock{
 .ip-popup-fields{
   display:flex;
   flex-direction:column;
-  gap:12px;
-  margin-bottom:28px;
+  gap:2.26%;
+  margin-bottom:5.28%;
 }
 
 .ip-popup-fields input{
@@ -102,7 +103,7 @@ body.ip-popup-lock{
   border:1px solid rgba(255,255,255,.16);
   border-radius:8px;
   outline:none;
-  background:rgba(0,0,0,.22);
+  background:rgba(0,0,0,.30);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   box-shadow:
@@ -123,7 +124,7 @@ body.ip-popup-lock{
   justify-content:center;
   gap:12px;
   width:100%;
-  margin-bottom:34px;
+  margin-bottom:6.42%;
   color:#fff;
   font-size:10px;
   line-height:1.35;
@@ -186,50 +187,26 @@ body.ip-popup-lock{
 
 @media (max-width:900px){
 
-  .ip-popup-card{
-    width:calc(100vw - 32px);
-  }
-
-  .ip-popup-form{
-    top:6.4%;
-    right:8.7%;
-    width:42%;
-  }
-
-  .ip-popup-name{
-    margin-bottom:5.3%;
-    font-size:clamp(14px, 3vw, 24px);
-  }
-
-  .ip-popup-text{
-    font-size:clamp(10px, 2vw, 16px);
-  }
-
-  .ip-popup-fields{
-    gap:clamp(6px, 1.5vw, 12px);
-    margin-bottom:clamp(12px, 3vw, 28px);
-  }
-
   .ip-popup-fields input{
-    height:clamp(34px, 7.5vw, 60px);
-    padding:0 clamp(16px, 4vw, 34px);
-    font-size:clamp(10px, 2vw, 16px);
+    height:clamp(34px, 7.59vw, 60px);
+    padding:0 clamp(16px, 4.3vw, 34px);
+    font-size:clamp(10px, 2.02vw, 16px);
   }
 
   .ip-popup-policy{
-    gap:clamp(6px, 1.5vw, 12px);
-    margin-bottom:clamp(12px, 3vw, 34px);
-    font-size:clamp(6px, 1.3vw, 10px);
+    gap:clamp(6px, 1.52vw, 12px);
+    font-size:clamp(6px, 1.26vw, 10px);
   }
 
   .ip-popup-checkbox{
-    width:clamp(14px, 2.8vw, 22px);
-    height:clamp(14px, 2.8vw, 22px);
-    flex-basis:clamp(14px, 2.8vw, 22px);
+    width:clamp(14px, 2.78vw, 22px);
+    height:clamp(14px, 2.78vw, 22px);
+    flex-basis:clamp(14px, 2.78vw, 22px);
   }
 
   .ip-popup-submit{
-    height:clamp(34px, 7.4vw, 58px);
-    font-size:clamp(11px, 2.2vw, 18px);
+    height:clamp(34px, 7.34vw, 58px);
+    font-size:clamp(11px, 2.28vw, 18px);
   }
+
 }
