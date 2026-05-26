@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--
-    Версия: preview-001
+    Версия: preview-002
 
     ИЗМЕНЕНИЯ:
-    - добавлен локальный preview-файл для разработки без GitHub Pages
-    - подключены локальные CSS-файлы проекта
-    - HTML главной страницы загружается из локального pages/home/home.html
-    - JS главной страницы загружается локально после вставки HTML
+    - добавлено подключение отдельного файла css/popups-mobile.css
+    - сохранён правильный порядок CSS: сначала desktop/base, затем mobile overrides
+    - popups-mobile.css подключён ниже popups.css
+    - сохранена локальная загрузка home.html и home.js
   -->
 
   <title>Preview — Иван Перцев</title>
@@ -40,6 +40,7 @@
   <link rel="stylesheet" href="./css/home.css">
   <link rel="stylesheet" href="./css/home-mobile.css">
   <link rel="stylesheet" href="./css/popups.css">
+  <link rel="stylesheet" href="./css/popups-mobile.css">
 </head>
 
 <body>
@@ -48,10 +49,10 @@
 
   <script>
     fetch('./pages/home/home.html')
-      .then(function(response) {
+      .then(function(response){
         return response.text();
       })
-      .then(function(html) {
+      .then(function(html){
         document.getElementById('ip-home-root').innerHTML = html;
 
         var script = document.createElement('script');
