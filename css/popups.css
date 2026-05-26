@@ -1,8 +1,3 @@
-/* =========================================================
-   IVAN PERTSEV — POPUPS
-   FILE: css/popups.css
-   ========================================================= */
-
 html.ip-popup-lock,
 body.ip-popup-lock{
   overflow:hidden !important;
@@ -18,9 +13,8 @@ body.ip-popup-lock{
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transition:
-    opacity .35s ease,
-    visibility .35s ease;
+  isolation:isolate;
+  transition:opacity .35s ease, visibility .35s ease;
 }
 
 .ip-popup.is-open{
@@ -56,13 +50,11 @@ body.ip-popup-lock{
   top:36px;
   right:73px;
   width:588px;
-  z-index:2;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
 
 .ip-popup-heading{
-  width:100%;
   margin-bottom:24px;
   text-align:center;
 }
@@ -78,7 +70,6 @@ body.ip-popup-lock{
 .ip-popup-text{
   font-size:22px;
   line-height:1.18;
-  font-weight:400;
 }
 
 .ip-popup-text strong,
@@ -90,7 +81,6 @@ body.ip-popup-lock{
   display:flex;
   flex-direction:column;
   gap:20px;
-  width:588px;
   margin-bottom:28px;
 }
 
@@ -110,7 +100,6 @@ body.ip-popup-lock{
   color:#fff;
   font-family:'Montserrat',sans-serif;
   font-size:22px;
-  line-height:1;
 }
 
 .ip-popup-fields input::placeholder{
@@ -118,11 +107,11 @@ body.ip-popup-lock{
 }
 
 .ip-popup-policy{
-  width:588px;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:18px;
+  width:588px;
   margin-bottom:34px;
   color:#fff;
   font-size:13px;
@@ -170,13 +159,9 @@ body.ip-popup-lock{
   color:#fff;
   font-family:'Montserrat',sans-serif;
   font-size:22px;
-  line-height:1;
   font-weight:500;
   cursor:pointer;
-  transition:
-    background .28s ease,
-    color .28s ease,
-    border-color .28s ease;
+  transition:background .28s ease, color .28s ease, border-color .28s ease;
 }
 
 .ip-popup-submit:hover{
