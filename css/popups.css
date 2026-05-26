@@ -18,7 +18,9 @@ body.ip-popup-lock{
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transition:opacity .35s ease, visibility .35s ease;
+  transition:
+    opacity .35s ease,
+    visibility .35s ease;
 }
 
 .ip-popup.is-open{
@@ -30,20 +32,20 @@ body.ip-popup-lock{
 .ip-popup-backdrop{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.45);
+  z-index:1;
+  background:rgba(0,0,0,.42);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
 }
 
 .ip-popup-card{
   position:relative;
-  width:790px;
-  height:530px;
+  z-index:2;
+  width:1077px;
+  height:724px;
   overflow:hidden;
-  border-radius:12px;
-  background-image:
-    linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,.42)),
-    url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
+  border-radius:20px;
+  background-image:url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
   background-size:cover;
   background-position:center;
   box-shadow:0 30px 90px rgba(0,0,0,.5);
@@ -51,21 +53,22 @@ body.ip-popup-lock{
 
 .ip-popup-form{
   position:absolute;
-  top:34px;
-  right:69px;
-  width:332px;
+  top:36px;
+  right:73px;
+  width:588px;
   z-index:2;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
 
 .ip-popup-heading{
-  margin-bottom:22px;
+  width:100%;
+  margin-bottom:24px;
   text-align:center;
 }
 
 .ip-popup-name{
-  margin-bottom:28px;
+  margin-bottom:36px;
   font-family:'Benzin',Arial,sans-serif;
   font-size:24px;
   line-height:1;
@@ -73,8 +76,9 @@ body.ip-popup-lock{
 }
 
 .ip-popup-text{
-  font-size:16px;
-  line-height:1.2;
+  font-size:22px;
+  line-height:1.18;
+  font-weight:400;
 }
 
 .ip-popup-text strong,
@@ -85,33 +89,43 @@ body.ip-popup-lock{
 .ip-popup-fields{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:20px;
+  width:588px;
   margin-bottom:28px;
 }
 
 .ip-popup-fields input{
-  width:100%;
-  height:60px;
-  padding:0 34px;
+  width:588px;
+  height:120px;
+  padding:0 56px;
   border:1px solid rgba(255,255,255,.16);
-  border-radius:4px;
+  border-radius:20px;
   outline:none;
-  background:rgba(0,0,0,.42);
+  background:rgba(0,0,0,.22);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:
+    inset -2px -2px 2px rgba(255,255,255,.15),
+    inset 2px 2px 2px rgba(0,0,0,.25);
   color:#fff;
   font-family:'Montserrat',sans-serif;
-  font-size:16px;
+  font-size:22px;
+  line-height:1;
 }
 
 .ip-popup-fields input::placeholder{
-  color:rgba(255,255,255,.5);
+  color:rgba(255,255,255,.52);
 }
 
 .ip-popup-policy{
+  width:588px;
   display:flex;
-  gap:12px;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
   margin-bottom:34px;
   color:#fff;
-  font-size:10px;
+  font-size:13px;
   line-height:1.35;
   cursor:pointer;
 }
@@ -124,41 +138,45 @@ body.ip-popup-lock{
 
 .ip-popup-checkbox{
   position:relative;
-  width:22px;
-  height:22px;
-  flex:0 0 22px;
-  border:1px solid rgba(255,255,255,.85);
-  border-radius:6px;
+  width:26px;
+  height:26px;
+  flex:0 0 26px;
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:7px;
 }
 
 .ip-popup-policy input:checked + .ip-popup-checkbox::after{
   content:'';
   position:absolute;
-  left:7px;
-  top:3px;
-  width:6px;
-  height:11px;
-  border-right:1.5px solid #fff;
-  border-bottom:1.5px solid #fff;
+  left:8px;
+  top:4px;
+  width:7px;
+  height:13px;
+  border-right:1.6px solid #fff;
+  border-bottom:1.6px solid #fff;
   transform:rotate(45deg);
 }
 
 .ip-popup-policy a{
-  color:#69C9FF;
+  color:#69C9FF !important;
 }
 
 .ip-popup-submit{
-  width:100%;
-  height:58px;
+  width:588px;
+  height:114px;
   border:1px solid rgba(255,255,255,.55);
-  border-radius:8px;
+  border-radius:20px;
   background:transparent;
   color:#fff;
   font-family:'Montserrat',sans-serif;
-  font-size:18px;
+  font-size:22px;
+  line-height:1;
   font-weight:500;
   cursor:pointer;
-  transition:background .28s ease, color .28s ease, border-color .28s ease;
+  transition:
+    background .28s ease,
+    color .28s ease,
+    border-color .28s ease;
 }
 
 .ip-popup-submit:hover{
