@@ -1,17 +1,17 @@
 /* =========================================================
    POPUPS CSS
 
-   Версия: popups-015
+   Версия: popups-017
 
    ИЗМЕНЕНИЯ:
-   - заголовок и подзаголовок отцентрованы относительно полей формы
-   - поле даты больше не использует системный календарь
-   - в поле даты отображается placeholder "Дата"
-   - уменьшена галочка внутри чекбокса
-   - буква "с" в политике сделана белой
-   - ссылка политики оставлена цветом #69C9FF
-   - сохранены размеры полей 294×60
-   - у полей нет белой обводки, оставлены blur и inner shadow
+   - попап приведён к desktop-макету
+   - выровнен текстовый блок
+   - поля формы приведены к макету
+   - убраны белые бордеры у полей
+   - добавлены мягкие тени
+   - улучшен checkbox block
+   - checkbox и текст выровнены по центру формы
+   - дата подготовлена под JS маску
    ========================================================= */
 
 html.ip-popup-lock,
@@ -19,22 +19,21 @@ body.ip-popup-lock{
   overflow:hidden !important;
 }
 
-.ip-popup,
-.ip-popup *{
-  box-sizing:border-box;
-}
-
 .ip-popup{
   position:fixed;
   inset:0;
   z-index:9999;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   padding:24px;
+
   opacity:0;
   visibility:hidden;
   pointer-events:none;
+
   transition:
     opacity .65s cubic-bezier(.19,1,.22,1),
     visibility .65s cubic-bezier(.19,1,.22,1);
@@ -50,9 +49,12 @@ body.ip-popup-lock{
   position:absolute;
   inset:0;
   z-index:1;
+
   background:rgba(0,0,0,.12);
+
   backdrop-filter:blur(0);
   -webkit-backdrop-filter:blur(0);
+
   transition:
     background .85s cubic-bezier(.19,1,.22,1),
     backdrop-filter .85s cubic-bezier(.19,1,.22,1),
@@ -60,7 +62,8 @@ body.ip-popup-lock{
 }
 
 .ip-popup.is-open .ip-popup-backdrop{
-  background:rgba(0,0,0,.50);
+  background:rgba(0,0,0,.58);
+
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
 }
@@ -68,243 +71,324 @@ body.ip-popup-lock{
 .ip-popup-card{
   position:relative;
   z-index:2;
-  width:min(790px, calc(100vw - 48px), calc((100vh - 48px) * 1.490566));
-  aspect-ratio:790 / 530;
+
+  width:790px;
+  height:530px;
+
+  border-radius:18px;
+
   overflow:hidden;
-  border-radius:12px;
-  background-color:#101311;
-  background-image:url('../assets/img/popups/popup-main-bg.webp');
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,6,3,.08) 0%,
+      rgba(5,6,3,.22) 44%,
+      rgba(5,6,3,.48) 100%
+    ),
+    url('../assets/img/popups/popup-main-bg.webp');
+
   background-size:cover;
   background-position:center;
-  box-shadow:0 30px 90px rgba(0,0,0,.45);
+
+  box-shadow:
+    0 24px 90px rgba(0,0,0,.45),
+    inset 0 0 0 1px rgba(255,255,255,.06);
+
+  transform:translate3d(0,40px,0) scale(.96);
+
+  opacity:0;
+
+  transition:
+    transform .85s cubic-bezier(.19,1,.22,1),
+    opacity .85s cubic-bezier(.19,1,.22,1);
+}
+
+.ip-popup.is-open .ip-popup-card{
+  transform:translate3d(0,0,0) scale(1);
+  opacity:1;
 }
 
 .ip-popup-form{
-  position:absolute;
-  inset:0;
-  color:#fff;
-  font-family:'Montserrat',sans-serif;
+  position:relative;
+
+  width:100%;
+  height:100%;
+
+  padding:52px 68px 54px 424px;
+
+  box-sizing:border-box;
 }
 
 .ip-popup-heading{
-  position:absolute;
-  left:426px;
-  top:30px;
-  width:294px;
-  margin:0;
+  width:296px;
+
+  margin:0 auto 26px;
+
   text-align:center;
 }
 
 .ip-popup-name{
-  margin:0 0 20px;
-  font-family:'Benzin',Arial,sans-serif;
-  font-size:20px;
-  line-height:.9;
-  font-weight:700;
+  font-family:'Benzin',sans-serif;
+  font-size:24px;
+  line-height:100%;
+  color:#fff;
+
+  margin-bottom:18px;
 }
 
 .ip-popup-text{
-  width:294px;
-  margin:0 auto;
-  font-size:16px;
-  line-height:1.08;
-  font-weight:400;
-  text-align:center;
+  color:#fff;
 }
 
-.ip-popup-text strong,
+.ip-popup-text strong{
+  display:block;
+
+  font-size:18px;
+  font-weight:700;
+  line-height:1.1;
+
+  margin-bottom:4px;
+}
+
 .ip-popup-text span{
   display:block;
+
+  font-size:16px;
+  line-height:1.1;
+
+  opacity:.96;
 }
 
 .ip-popup-fields{
-  position:absolute;
-  left:426px;
-  top:144px;
   display:flex;
   flex-direction:column;
-  gap:10px;
-  width:294px;
+  gap:12px;
+
+  width:296px;
+
+  margin:0 auto;
 }
 
 .ip-popup-fields input{
-  width:294px;
+  width:100%;
   height:60px;
-  padding:0 35px;
-  border:0;
-  border-radius:5px;
+
+  padding:0 34px;
+
+  border:none;
   outline:none;
-  background:rgba(0,0,0,.20);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.035) 0%,
+      rgba(255,255,255,.015) 100%
+    );
+
   box-shadow:
-    inset -1px -1px 1px rgba(255,255,255,.15),
-    inset 1px 1px 1px rgba(0,0,0,.25);
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    inset 0 8px 24px rgba(255,255,255,.015),
+    0 12px 40px rgba(0,0,0,.22);
+
   color:#fff;
+
+  font-size:16px;
   font-family:'Montserrat',sans-serif;
-  font-size:14px;
-  line-height:1;
+
+  transition:
+    background .35s ease,
+    box-shadow .35s ease;
 }
 
 .ip-popup-fields input::placeholder{
-  color:#8C8B8B;
+  color:rgba(255,255,255,.48);
+}
+
+.ip-popup-fields input:focus{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.055) 0%,
+      rgba(255,255,255,.025) 100%
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.12),
+    0 16px 44px rgba(0,0,0,.28);
 }
 
 .ip-popup-policy{
-  position:absolute;
-  left:439px;
-  top:364px;
-  width:320px;
-  min-height:31px;
   display:flex;
-  align-items:flex-start;
+  align-items:center;
+  justify-content:center;
   gap:10px;
-  color:#fff;
-  font-size:10px;
-  line-height:1.45;
-  letter-spacing:-.01em;
-  cursor:pointer;
+
+  width:296px;
+
+  margin:18px auto 0;
+
+  text-align:left;
 }
 
 .ip-popup-policy input{
-  position:absolute;
-  opacity:0;
-  pointer-events:none;
+  display:none;
 }
 
 .ip-popup-checkbox{
   position:relative;
-  top:2px;
-  width:15px;
-  height:15px;
-  flex:0 0 15px;
-  border:1px solid #fff;
+
+  width:16px;
+  height:16px;
+
+  flex:0 0 16px;
+
   border-radius:4px;
+
+  box-sizing:border-box;
+
+  border:1px solid rgba(255,255,255,.92);
+
+  background:transparent;
 }
 
-.ip-popup-policy input:checked + .ip-popup-checkbox::after{
+.ip-popup-checkbox::after{
   content:'';
+
   position:absolute;
-  left:5px;
-  top:2px;
-  width:3px;
-  height:6px;
-  border-right:1.2px solid #fff;
-  border-bottom:1.2px solid #fff;
+
+  left:4px;
+  top:1px;
+
+  width:4px;
+  height:8px;
+
+  border-right:1.5px solid #fff;
+  border-bottom:1.5px solid #fff;
+
   transform:rotate(45deg);
+
+  opacity:1;
 }
 
-.ip-popup-policy-text{
-  display:flex;
-  flex-direction:column;
+.ip-popup-policy > span:last-child{
+  display:block;
+  width:100%;
 }
 
-.ip-popup-policy-line{
-  white-space:nowrap;
-}
+.ip-popup-policy span{
+  font-size:11px;
+  line-height:1.35;
 
-.ip-popup-policy-link-line{
-  display:flex;
-  align-items:center;
-  gap:3px;
-  white-space:nowrap;
-}
-
-.ip-popup-policy-preposition{
-  color:#fff;
+  color:rgba(255,255,255,.94);
 }
 
 .ip-popup-policy a{
-  display:inline-block;
-  color:#69C9FF !important;
+  color:#ffffff;
+  text-decoration:underline;
 }
 
 .ip-popup-submit{
-  position:absolute;
-  left:426px;
-  top:425px;
-  width:294px;
-  height:57px;
-  border:1px solid rgba(255,255,255,.30);
-  border-radius:9px;
-  background:transparent;
+  width:296px;
+  height:58px;
+
+  margin:26px auto 0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  border:1px solid rgba(255,255,255,.24);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.02) 0%,
+      rgba(255,255,255,.01) 100%
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 18px 44px rgba(0,0,0,.28);
+
   color:#fff;
+
+  font-size:18px;
+  font-weight:600;
   font-family:'Montserrat',sans-serif;
-  font-size:16px;
-  line-height:1;
-  font-weight:500;
+
   cursor:pointer;
+
   transition:
-    background .28s ease,
-    color .28s ease,
-    border-color .28s ease;
+    transform .35s ease,
+    background .35s ease,
+    border-color .35s ease;
 }
 
 .ip-popup-submit:hover{
-  background:#fff;
-  color:#111;
-  border-color:#fff;
+  transform:translateY(-2px);
+
+  border-color:rgba(255,255,255,.42);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.05) 0%,
+      rgba(255,255,255,.02) 100%
+    );
 }
 
 @media (max-width:767px){
 
   .ip-popup{
-    padding:20px;
+    padding:16px;
   }
 
   .ip-popup-card{
-    width:min(350px, calc(100vw - 40px), calc((100vh - 40px) * .535));
-    aspect-ratio:350 / 654;
-    border-radius:12px;
-    background-image:
-      linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-      url('../assets/img/popups/popup-main-bg.webp');
-    background-size:cover;
+    width:100%;
+    max-width:390px;
+    height:auto;
+
+    min-height:640px;
+
+    border-radius:18px;
+
     background-position:center;
   }
 
-  .ip-popup-heading{
-    left:28px;
-    top:68px;
-    width:294px;
-    transform:none;
+  .ip-popup-form{
+    padding:38px 24px 32px;
+  }
+
+  .ip-popup-heading,
+  .ip-popup-fields,
+  .ip-popup-policy,
+  .ip-popup-submit{
+    width:100%;
   }
 
   .ip-popup-name{
-    margin-bottom:24px;
-    font-size:20px;
+    font-size:22px;
   }
 
-  .ip-popup-text{
-    width:294px;
-    font-size:18px;
-    line-height:1.18;
+  .ip-popup-text strong{
+    font-size:17px;
   }
 
-  .ip-popup-fields{
-    left:28px;
-    top:184px;
-    width:294px;
-    gap:10px;
+  .ip-popup-text span{
+    font-size:15px;
   }
 
   .ip-popup-fields input{
-    width:294px;
-    height:57px;
-    border-radius:9px;
-  }
-
-  .ip-popup-policy{
-    left:42px;
-    top:408px;
-    width:269px;
+    height:58px;
+    padding:0 24px;
   }
 
   .ip-popup-submit{
-    left:28px;
-    top:465px;
-    width:294px;
-    height:57px;
+    height:56px;
   }
-
 }
