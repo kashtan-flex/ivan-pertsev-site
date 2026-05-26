@@ -1,654 +1,732 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Rules — Иван Перцев Сайт</title>
+/* =========================================================
+   IVAN PERTSEV — HOME PAGE
+   FILE: css/home.css
 
-  <style>
-    body{
-      margin:0;
-      padding:40px;
-      background:#f6f6f3;
-      color:#111;
-      font-family:Arial,sans-serif;
-      line-height:1.55;
-    }
+   Версия: home-073
 
-    main{
-      max-width:980px;
-      margin:0 auto;
-      background:#fff;
-      padding:48px;
-      border-radius:24px;
-    }
+   ИЗМЕНЕНИЯ:
+   - восстановлена полная desktop-версия home.css
+   - возвращены исходные позиции текста, меню и анимаций
+   - удалён старый блок MAIN POPUP FORM из home.css
+   - исправлены локальные пути к шрифтам, фонам, портрету и иконкам
+   - сохранена чистая структура: попап живёт отдельно в css/popups.css
+   ========================================================= */
 
-    h1,h2,h3{
-      line-height:1.2;
-    }
+@font-face{
+  font-family:'Benzin';
+  src:url('../assets/fonts/Benzin-Bold.woff2') format('woff2');
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
 
-    h1{
-      margin-top:0;
-      font-size:36px;
-    }
+html,
+body,
+#allrecords,
+#ip-home-root{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  overflow:hidden !important;
+  background:#050603 !important;
+}
 
-    h2{
-      margin-top:44px;
-      font-size:26px;
-    }
+.ip-page-home,
+.ip-page-home *{
+  box-sizing:border-box;
+}
 
-    h3{
-      margin-top:28px;
-      font-size:20px;
-    }
+.ip-page-home a{
+  color:inherit;
+  text-decoration:none;
+}
 
-    code,
-    pre{
-      background:#f1f1ee;
-      border-radius:10px;
-    }
+.ip-page-home{
+  position:relative;
+  width:100%;
+  height:100vh;
+  min-height:0;
+  overflow:hidden !important;
+  background:#050603;
+  color:#fff;
+  font-family:'Montserrat',sans-serif;
+}
 
-    code{
-      padding:2px 6px;
-    }
+.ip-home-stage{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:1440px;
+  height:800px;
+  overflow:hidden;
+  transform:translate3d(-50%,-50%,0) scale(var(--ip-home-scale,1));
+  transform-origin:center center;
+}
 
-    pre{
-      padding:16px;
-      overflow:auto;
-    }
+.ip-home-bg-base,
+.ip-home-bg-glow,
+.ip-home-portrait{
+  position:absolute;
+  inset:0;
+  background-repeat:no-repeat;
+  pointer-events:none;
+}
 
-    .note{
-      padding:16px 18px;
-      background:#fff7d6;
-      border-left:4px solid #d8a900;
-      border-radius:10px;
-    }
-  </style>
-</head>
+.ip-home-bg-base,
+.ip-home-bg-glow{
+  background-size:1440px 800px;
+  background-position:center center;
+}
 
-<body>
-<main>
+.ip-home-bg-base{
+  z-index:1;
+  opacity:1;
+  background-image:image-set(
+    url('../assets/img/home/background/home-bg.webp') 1x,
+    url('../assets/img/home/background/home-bg@2x.webp') 2x
+  );
+}
 
-<h1>Project Rules — Иван Перцев Сайт</h1>
+.ip-home-bg-glow{
+  z-index:2;
+  opacity:0;
+  background-image:image-set(
+    url('../assets/img/home/background/home-bg-glow.webp') 1x,
+    url('../assets/img/home/background/home-bg-glow@2x.webp') 2x
+  );
+  animation:ipGlowReveal 1.25s ease forwards;
+  animation-delay:1.1s;
+}
 
-<p><strong>Назначение документа:</strong> зафиксировать актуальное состояние проекта, правила работы с кодом, структуру файлов, адаптацию desktop/mobile и порядок дальнейшей разработки.</p>
+.ip-home-portrait{
+  z-index:3;
+  opacity:0;
+  background-image:image-set(
+    url('../assets/img/home/portrait/home-portrait.png') 1x,
+    url('../assets/img/home/portrait/home-portrait@2x.png') 2x
+  );
+  background-position:left bottom;
+  background-size:auto 800px;
+  transform:translate3d(-10px,0,0) scale(1.01);
+  animation:ipPortraitReveal 1.05s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:.35s;
+}
 
-<p><strong>Актуальный статус:</strong> главная страница находится в production build состоянии. Desktop и mobile разделены на отдельные CSS-слои.</p>
+.ip-home-dark-overlay{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  background:rgba(0,0,0,.04);
+  pointer-events:none;
+}
 
-<hr>
+.ip-home-content{
+  position:absolute;
+  left:595px;
+  top:473px;
+  width:510px;
+  height:205px;
+  z-index:5;
+}
 
-<h2>1. Текущая архитектура проекта</h2>
+.ip-home-title{
+  margin:0;
+  width:510px;
+  font-family:'Benzin',Arial,sans-serif;
+  font-size:88px;
+  line-height:.85;
+  font-weight:700;
+  color:#fff;
+  text-transform:uppercase;
+}
 
-<pre><code>assets/
-  fonts/
-  icons/
-  img/
-    home/
-      background/
-      portrait/
-      mobile/
-        background/
-        portrait/
+.ip-title-line{
+  display:block;
+  width:510px;
+  overflow:hidden;
+}
 
-css/
-  home.css
-  home-mobile.css
+.ip-title-line-first{
+  height:86px;
+}
 
-js/
-  home.js
+.ip-title-line-second{
+  height:112px;
+  margin-top:-10px;
+}
 
-pages/
-  home/
-    home.html
+.ip-title-line span{
+  display:block;
+  height:112px;
+  line-height:.85;
+  opacity:0;
+  transform:translate3d(0,-110%,0);
+  will-change:transform,opacity;
+}
 
-backup/
-  home/
-    build/
+.ip-title-line-first span{
+  animation:ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:.9s;
+}
 
-docs/
-  project-rules.html</code></pre>
+.ip-title-line-second span{
+  animation:ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:1.16s;
+}
 
-<h3>Назначение файлов</h3>
+.ip-home-subtitle-wrap{
+  position:absolute;
+  left:0;
+  top:154px;
+  overflow:hidden;
+  padding-bottom:6px;
+}
 
-<pre><code>home.html        → структура главной страницы
-home.css         → desktop core / общая база
-home-mobile.css  → mobile overrides
-home.js          → масштабирование, меню, аккордеоны</code></pre>
+.ip-home-subtitle{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:22px;
+  line-height:1.1;
+  font-weight:400;
+  letter-spacing:.02em;
+  color:#fff;
+}
 
-<div class="note">
-  <strong>Важно:</strong> desktop и mobile больше не смешиваются в одном CSS-файле. Все мобильные правки делаются только в <code>home-mobile.css</code>.
-</div>
+.ip-subtitle-word,
+.ip-subtitle-dot{
+  opacity:0;
+  transform:translate3d(0,-120%,0);
+}
 
-<hr>
+.ip-subtitle-word-one{
+  animation:ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:1.42s;
+}
 
-<h2>2. Правила работы с кодом</h2>
+.ip-subtitle-dot{
+  position:relative;
+  top:1px;
+  width:4px;
+  height:4px;
+  flex:0 0 4px;
+  border-radius:50%;
+  background:#fff;
+  animation:
+    ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards 1.54s,
+    ipDotBlink 1.4s ease-in-out infinite 2.15s;
+}
 
-<h3>Главное правило</h3>
+.ip-subtitle-word-two{
+  animation:ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:1.66s;
+}
 
-<p>ChatGPT всегда должен присылать полный готовый файл или готовый patch-блок, который можно вставить целиком в конец файла.</p>
+.ip-menu-toggle{
+  position:absolute;
+  top:60px;
+  right:100px;
+  z-index:50;
+  width:27px;
+  height:27px;
+  padding:0 !important;
+  margin:0 !important;
+  border:none !important;
+  outline:none !important;
+  background:transparent !important;
+  cursor:pointer;
+  overflow:visible;
+  appearance:none;
+  -webkit-appearance:none;
+  box-shadow:none !important;
+}
 
-<h3>Запрещено</h3>
+.ip-menu-toggle::before,
+.ip-menu-toggle::after{
+  content:none !important;
+  display:none !important;
+}
 
-<pre><code>Найди строку и замени её</code></pre>
+.ip-menu-line{
+  position:absolute;
+  left:0;
+  top:50%;
+  width:27px;
+  height:3px;
+  border-radius:10px;
+  background:#fff;
+  transform-origin:center center;
+  transition:transform .42s cubic-bezier(.19,1,.22,1);
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
 
-<h3>Разрешено</h3>
+.ip-menu-line:first-child{
+  transform:translateY(calc(-50% - 5.5px));
+}
 
-<pre><code>Полностью замени css/home-mobile.css на этот код</code></pre>
+.ip-menu-line:last-child{
+  transform:translateY(calc(-50% + 5.5px));
+}
 
-<p>Исключение: patch допускается только если он целиком вставляется в конец файла и не требует ручного поиска.</p>
+.ip-menu-toggle.is-open .ip-menu-line:first-child{
+  transform:translateY(-50%) rotate(45deg);
+}
 
-<hr>
+.ip-menu-toggle.is-open .ip-menu-line:last-child{
+  transform:translateY(-50%) rotate(-45deg);
+}
 
-<h2>3. Версионирование в Tilda</h2>
+.ip-menu-panel{
+  position:absolute;
+  top:0;
+  right:0;
+  width:385px;
+  height:800px;
+  padding:60px 100px 80px 60px;
+  z-index:40;
+  overflow:hidden;
+  pointer-events:none;
+  transform:translate3d(100%,0,0);
+  transition:transform .72s cubic-bezier(.19,1,.22,1);
+}
 
-<p>В Tilda все внешние файлы подключаются через <code>?v=</code>, чтобы сбрасывать кэш.</p>
+.ip-menu-panel.is-open{
+  pointer-events:auto;
+  transform:translate3d(0,0,0);
+}
 
-<h3>Текущая логика версий</h3>
+.ip-menu-panel::before,
+.ip-menu-panel::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
 
-<pre><code>home.css?v=64
-home.html?v=64
-home.js?v=65
-home-mobile.css?v=25</code></pre>
+.ip-menu-panel::before{
+  z-index:0;
+  background:rgba(0,0,0,.30);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
 
-<h3>Правило обновления</h3>
+.ip-menu-panel::after{
+  z-index:1;
+  background-image:url('../assets/img/popups/menu-noise.webp');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:.35;
+  mix-blend-mode:normal;
+}
 
-<pre><code>Изменили home.css        → повышаем home.css?v=
-Изменили home-mobile.css → повышаем home-mobile.css?v=
-Изменили home.html       → повышаем home.html?v=
-Изменили home.js         → повышаем home.js?v=</code></pre>
+.ip-menu-inner{
+  position:relative;
+  z-index:5;
+  pointer-events:auto;
+}
 
-<p>Если нужно привести desktop core к единому значению, можно синхронизировать:</p>
+.ip-menu-socials{
+  position:relative;
+  z-index:6;
+  display:flex;
+  gap:10px;
+  margin-bottom:40px;
+  overflow:visible;
+  pointer-events:auto;
+}
 
-<pre><code>home.css
-home.html
-home.js</code></pre>
+.ip-social{
+  position:relative;
+  z-index:7;
+  display:block;
+  width:27px;
+  height:27px;
+  opacity:0;
+  transform:translate3d(0,-32px,0);
+  will-change:transform,opacity;
+  background:none !important;
+  overflow:hidden;
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  pointer-events:auto;
+}
 
-<p>Mobile version можно вести отдельно.</p>
+.ip-social::before,
+.ip-social::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:opacity .28s ease;
+  will-change:opacity;
+  pointer-events:none;
+}
 
-<hr>
+.ip-social::before{
+  opacity:1;
+}
 
-<h2>4. Актуальный код Tilda</h2>
+.ip-social::after{
+  opacity:0;
+}
 
-<pre><code>&lt;style&gt;
-  html,
-  body,
-  #allrecords,
-  #ip-home-root{
-    background:#050603 !important;
-    margin:0;
-    padding:0;
+.ip-social:hover::before{
+  opacity:0;
+}
+
+.ip-social:hover::after{
+  opacity:1;
+}
+
+.ip-menu-panel.is-open .ip-social{
+  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(1){
+  animation-delay:.34s;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(2){
+  animation-delay:.42s;
+}
+
+.ip-menu-panel.is-open .ip-social:nth-child(3){
+  animation-delay:.50s;
+}
+
+.ip-social.instagram::before{
+  background-image:url('../assets/icons/Instagram.svg');
+}
+
+.ip-social.instagram::after{
+  background-image:url('../assets/icons/Instagram-hover.svg');
+}
+
+.ip-social.telegram::before{
+  background-image:url('../assets/icons/Telegram.svg');
+}
+
+.ip-social.telegram::after{
+  background-image:url('../assets/icons/Telegram-hover.svg');
+}
+
+.ip-social.vk::before{
+  background-image:url('../assets/icons/VK.svg');
+}
+
+.ip-social.vk::after{
+  background-image:url('../assets/icons/VK-hover.svg');
+}
+
+.ip-menu-list{
+  position:relative;
+  z-index:6;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  width:225px;
+  pointer-events:auto;
+}
+
+.ip-menu-list > *{
+  opacity:0;
+  transform:translate3d(0,-36px,0);
+  will-change:transform,opacity;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *{
+  animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
+  animation-delay:.68s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
+  animation-delay:.78s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
+  animation-delay:.88s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
+  animation-delay:.98s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
+  animation-delay:1.08s;
+}
+
+.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
+  animation-delay:1.18s;
+}
+
+.ip-menu-link,
+.ip-menu-link:link,
+.ip-menu-link:visited,
+.ip-menu-link:hover,
+.ip-menu-link:active,
+.ip-accordion-button,
+.ip-accordion-button:hover,
+.ip-accordion-button:active{
+  color:#fff !important;
+}
+
+.ip-menu-link,
+.ip-accordion-button{
+  padding:0;
+  border:none;
+  background:transparent;
+  font-family:'Montserrat',sans-serif;
+  font-size:20px;
+  line-height:90%;
+  font-weight:600;
+  letter-spacing:-0.04em;
+  text-align:left;
+  cursor:pointer;
+  transition:opacity .25s ease;
+}
+
+.ip-menu-link:hover,
+.ip-accordion-button:hover{
+  opacity:.75;
+}
+
+.ip-accordion{
+  width:100%;
+}
+
+.ip-accordion-button{
+  position:relative;
+  width:100%;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding-right:34px;
+}
+
+.ip-accordion-button::before,
+.ip-accordion-button::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  width:14px;
+  height:3px;
+  border-radius:10px;
+  background:#fff;
+  opacity:1;
+  pointer-events:none;
+  transform-origin:center center;
+  transition:
+    transform .35s cubic-bezier(.19,1,.22,1),
+    opacity .35s ease;
+  will-change:transform,opacity;
+}
+
+.ip-accordion-button::before{
+  right:9px;
+  transform:translateY(-50%) rotate(45deg);
+}
+
+.ip-accordion-button::after{
+  right:0;
+  transform:translateY(-50%) rotate(-45deg);
+}
+
+.ip-accordion.is-open .ip-accordion-button::before{
+  opacity:.5;
+  transform:translateY(-50%) rotate(-45deg);
+}
+
+.ip-accordion.is-open .ip-accordion-button::after{
+  opacity:.5;
+  transform:translateY(-50%) rotate(45deg);
+}
+
+.ip-accordion-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+
+.ip-accordion.is-open .ip-accordion-content{
+  max-height:220px;
+}
+
+.ip-submenu{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding-top:16px;
+}
+
+.ip-submenu a,
+.ip-submenu a:link,
+.ip-submenu a:visited,
+.ip-submenu a:hover,
+.ip-submenu a:active{
+  color:#69C9FF !important;
+}
+
+.ip-submenu a{
+  font-size:14px;
+  line-height:120%;
+  opacity:1;
+  transition:opacity .25s ease;
+}
+
+.ip-submenu a:hover{
+  opacity:.75;
+}
+
+.ip-menu-legal{
+  position:absolute;
+  left:60px;
+  right:100px;
+  bottom:80px;
+  z-index:6;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  opacity:0;
+  transform:translate3d(0,-32px,0);
+  transition:none;
+  pointer-events:none;
+}
+
+.ip-menu-panel.is-open .ip-menu-legal{
+  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay:1.28s;
+  pointer-events:auto;
+}
+
+.ip-menu-legal a,
+.ip-menu-legal a:link,
+.ip-menu-legal a:visited,
+.ip-menu-legal a:hover,
+.ip-menu-legal a:active{
+  color:rgba(255,255,255,.5) !important;
+}
+
+.ip-menu-legal a{
+  font-size:8px;
+  line-height:150%;
+  transition:opacity .25s ease;
+}
+
+.ip-menu-legal a:hover{
+  opacity:.75;
+}
+
+@keyframes ipPortraitReveal{
+  0%{
+    opacity:0;
+    transform:translate3d(-10px,0,0) scale(1.01);
   }
 
-  #ip-home-root{
-    min-height:100vh;
-    overflow:hidden;
+  100%{
+    opacity:1;
+    transform:translate3d(0,0,0) scale(1);
   }
-&lt;/style&gt;
-
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-
-&lt;link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"&gt;
-
-&lt;link rel="stylesheet" href="https://kashtan-flex.github.io/ivan-pertsev-site/css/home.css?v=64"&gt;
-&lt;link rel="stylesheet" href="https://kashtan-flex.github.io/ivan-pertsev-site/css/home-mobile.css?v=25"&gt;
-
-&lt;div id="ip-home-root"&gt;&lt;/div&gt;
-
-&lt;script&gt;
-  document.documentElement.style.background = '#050603';
-  document.body.style.background = '#050603';
-
-  fetch('https://kashtan-flex.github.io/ivan-pertsev-site/pages/home/home.html?v=64')
-    .then(function(response) {
-      return response.text();
-    })
-    .then(function(html) {
-      document.getElementById('ip-home-root').innerHTML = html;
-
-      var script = document.createElement('script');
-      script.src = 'https://kashtan-flex.github.io/ivan-pertsev-site/js/home.js?v=65';
-      document.body.appendChild(script);
-    });
-&lt;/script&gt;</code></pre>
-
-<hr>
-
-<h2>5. Главная страница: layered image system</h2>
-
-<p>Главная работает на слоях:</p>
-
-<pre><code>1. .ip-home-bg-base      → фон без свечения
-2. .ip-home-bg-glow      → фон со свечением
-3. .ip-home-portrait     → портрет
-4. .ip-home-dark-overlay → лёгкое затемнение
-5. .ip-home-content      → текст
-6. .ip-menu-panel        → меню</code></pre>
-
-<h3>Desktop assets</h3>
-
-<pre><code>assets/img/home/background/
-  home-bg.webp
-  home-bg@2x.webp
-  home-bg-glow.webp
-  home-bg-glow@2x.webp
-
-assets/img/home/portrait/
-  home-portrait.png
-  home-portrait@2x.png</code></pre>
-
-<h3>Mobile assets</h3>
-
-<pre><code>assets/img/home/mobile/background/
-  home-mobile-bg.webp
-  home-mobile-bg@2x.webp
-  home-mobile-bg-glow.webp
-  home-mobile-bg-glow@2x.webp
-
-assets/img/home/mobile/portrait/
-  home-mobile-portrait.png
-  home-mobile-portrait@2x.png</code></pre>
-
-<hr>
-
-<h2>6. Desktop адаптация</h2>
-
-<h3>Базовый макет</h3>
-
-<pre><code>1440×800</code></pre>
-
-<h3>Текущая логика desktop</h3>
-
-<p>Desktop масштабируется по высоте:</p>
-
-<pre><code>scale = viewportHeight / 800</code></pre>
-
-<p>Это значит:</p>
-
-<ul>
-  <li>экран всегда заполнен по вертикали;</li>
-  <li>чёрные полосы сверху и снизу не появляются;</li>
-  <li>композиция остаётся фиксированной как в макете;</li>
-  <li>по горизонтали могут слегка обрезаться края;</li>
-  <li>контентная зона сохраняет art-direction.</li>
-</ul>
-
-<h3>Почему так сделано</h3>
-
-<p>Главная страница — cinematic/art-directed hero. Для неё важнее сохранить композицию, чем показывать весь фон целиком на любых пропорциях экрана.</p>
-
-<h3>Поведение на разных экранах</h3>
-
-<pre><code>16:9    → почти полное совпадение с макетом
-16:10   → заполняет высоту, края могут слегка обрезаться
-21:9    → допустимо большее обрезание краёв
-32:9    → нестандартный случай, допускается сильный crop</code></pre>
-
-<h3>Важно</h3>
-
-<p>Desktop не должен масштабироваться через contain. Иначе появляются полосы сверху/снизу и ломается композиция.</p>
-
-<hr>
-
-<h2>7. Mobile адаптация</h2>
-
-<h3>Базовый макет</h3>
-
-<pre><code>390×700</code></pre>
-
-<h3>Текущая логика mobile</h3>
-
-<p>Mobile масштабируется как cover:</p>
-
-<pre><code>scaleX = viewportWidth / 390
-scaleY = viewportHeight / 700
-scale = Math.max(scaleX, scaleY)</code></pre>
-
-<p>Это значит:</p>
-
-<ul>
-  <li>мобильный макет всегда заполняет экран;</li>
-  <li>не должно быть нижнего пустого пространства;</li>
-  <li>не должно быть вертикального скролла;</li>
-  <li>композиция остаётся как в макете 390×700;</li>
-  <li>на разных смартфонах возможен небольшой crop по краям.</li>
-</ul>
-
-<h3>Mobile viewport</h3>
-
-<p>В mobile используется:</p>
-
-<pre><code>height:100dvh;
-min-height:100dvh;</code></pre>
-
-<p>Это нужно для Android Chrome, Safari iOS и мобильных браузеров, где обычный <code>100vh</code> может давать нижний зазор.</p>
-
-<hr>
-
-<h2>8. Typography rules</h2>
-
-<h3>Desktop title</h3>
-
-<pre><code>font-family: Benzin
-font-size: 88px
-line-height: .85</code></pre>
-
-<h3>Mobile title</h3>
-
-<pre><code>font-family: Benzin
-font-size: 62px
-line-height: .81
-letter-spacing: 0</code></pre>
-
-<h3>Mobile typography issues</h3>
-
-<p>На Android и iOS кастомный шрифт Benzin может рендериться иначе, чем в desktop DevTools. Поэтому для mobile увеличены высоты строк и добавлен запас:</p>
-
-<pre><code>.ip-title-line-first  → height:74px
-.ip-title-line-second → height:96px
-.ip-title-line span   → height:104px; padding-top:8px</code></pre>
-
-<p>Это защищает текст от обрезания сверху и справа.</p>
-
-<hr>
-
-<h2>9. Анимации</h2>
-
-<h3>Порядок появления главной</h3>
-
-<pre><code>1. background base
-2. portrait
-3. background glow
-4. title first line
-5. title second line
-6. subtitle</code></pre>
-
-<h3>Desktop animation</h3>
-
-<p>Desktop использует:</p>
-
-<pre><code>ipTextReveal
-ipSubtitleReveal
-ipPortraitReveal
-ipGlowReveal</code></pre>
-
-<h3>Mobile animation</h3>
-
-<p>Mobile использует отдельные keyframes:</p>
-
-<pre><code>ipMobileTextRevealSoft
-ipMobileSubtitleRevealSoft</code></pre>
-
-<p>Это сделано, чтобы избежать дёрганий текста на Android/Safari.</p>
-
-<h3>Safari compatibility</h3>
-
-<p>Для стабильности используются:</p>
-
-<pre><code>transform: translate3d()
-opacity
-will-change
-backface-visibility
--webkit-backface-visibility</code></pre>
-
-<p>Не использовать для основных анимаций:</p>
-
-<pre><code>filter animation
-clip-path animation
-mask animation
-background-image swap</code></pre>
-
-<hr>
-
-<h2>10. Menu rules</h2>
-
-<h3>Desktop menu</h3>
-
-<pre><code>width:385px
-height:800px
-padding:60px 100px 80px 60px</code></pre>
-
-<h3>Mobile menu</h3>
-
-<pre><code>width:390px
-height:700px
-padding:40px 22px 45px 40px</code></pre>
-
-<h3>Menu background</h3>
-
-<pre><code>background: rgba(0,0,0,.30)
-blur: 18px desktop
-blur: 25px mobile
-noise overlay: 35%</code></pre>
-
-<h3>Icons</h3>
-
-<pre><code>Desktop icons: 27×27px
-Mobile icons: 27×27px</code></pre>
-
-<h3>Mobile icon hover</h3>
-
-<p>На mobile hover-иконки отключены:</p>
-
-<pre><code>.ip-social::after{
-  display:none;
-}</code></pre>
-
-<p>Это нужно, чтобы убрать дергание hover-state на мобильных браузерах.</p>
-
-<h3>Accordion arrows</h3>
-
-<p>Стрелки реализованы через pseudo-elements:</p>
-
-<pre><code>.ip-accordion-button::before
-.ip-accordion-button::after</code></pre>
-
-<p>На mobile стрелки стоят ближе к правому краю меню.</p>
-
-<h3>Правовые ссылки</h3>
-
-<p>На mobile правовые ссылки выровнены с пунктами меню:</p>
-
-<pre><code>left:40px;
-right:22px;</code></pre>
-
-<hr>
-
-<h2>11. Links</h2>
-
-<h3>Social links</h3>
-
-<pre><code>Instagram:
-https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1
-
-Telegram:
-https://t.me/ivan_pertsev
-
-VK:
-https://vk.com/ivan_pertsev</code></pre>
-
-<h3>Важно по Telegram</h3>
-
-<p>Не использовать ссылку с <code>@</code> внутри URL:</p>
-
-<pre><code>Плохо:
-https://t.me/@ivan_pertsev
-
-Правильно:
-https://t.me/ivan_pertsev</code></pre>
-
-<hr>
-
-<h2>12. Hover rules</h2>
-
-<p>Hover для desktop соцсетей работает через opacity двух слоёв:</p>
-
-<pre><code>::before → обычная иконка
-::after  → hover-иконка</code></pre>
-
-<p>Не делать hover через замену <code>background-image</code>, потому что это вызывает мигание в Safari и на Retina.</p>
-
-<hr>
-
-<h2>13. Pointer-events rules</h2>
-
-<h3>Overlay layers</h3>
-
-<pre><code>pointer-events:none;</code></pre>
-
-<h3>Interactive elements</h3>
-
-<pre><code>pointer-events:auto;</code></pre>
-
-<p>Это критично для кликабельности:</p>
-
-<ul>
-  <li>Instagram;</li>
-  <li>Telegram;</li>
-  <li>VK;</li>
-  <li>аккордеонов;</li>
-  <li>правовых ссылок.</li>
-</ul>
-
-<hr>
-
-<h2>14. Backup rules</h2>
-
-<h3>Production backup structure</h3>
-
-<pre><code>backup/home/build/
-  home.desktop.production.html
-  home.desktop.production.css
-  home.desktop.production.js
-  home.mobile.production.css</code></pre>
-
-<h3>Что копировать</h3>
-
-<pre><code>pages/home/home.html
-→ backup/home/build/home.desktop.production.html
-
-css/home.css
-→ backup/home/build/home.desktop.production.css
-
-js/home.js
-→ backup/home/build/home.desktop.production.js
-
-css/home-mobile.css
-→ backup/home/build/home.mobile.production.css</code></pre>
-
-<h3>Commit для production backup</h3>
-
-<pre><code>Create production build backup for home page</code></pre>
-
-<hr>
-
-<h2>15. GitHub workflow</h2>
-
-<p>После каждого изменения:</p>
-
-<pre><code>1. commit
-2. push
-3. update ?v= in Tilda
-4. publish
-5. hard reload / incognito test</code></pre>
-
-<h3>Commit naming examples</h3>
-
-<pre><code>Optimize home desktop CSS
-Optimize mobile home CSS
-Optimize home JS
-Optimize home HTML structure
-Restore stable mobile cover scaling
-Fix desktop height based scaling
-Create production build backup for home page</code></pre>
-
-<hr>
-
-<h2>16. Testing checklist</h2>
-
-<h3>Desktop</h3>
-
-<pre><code>1440×800
-1920×1080
-1366×768
-MacBook Air 13
-MacBook Pro 14/16
-Yandex Browser
-Chrome
-Safari</code></pre>
-
-<h3>Mobile</h3>
-
-<pre><code>390×700
-390×844
-375×812
-393×852
-414×896
-Android Chrome
-Samsung Internet
-iPhone Safari</code></pre>
-
-<h3>Что проверять</h3>
-
-<ul>
-  <li>нет скролла;</li>
-  <li>нет нижнего пустого пространства;</li>
-  <li>текст не обрезается;</li>
-  <li>меню открывается;</li>
-  <li>аккордеоны работают;</li>
-  <li>Telegram открывает аккаунт;</li>
-  <li>VK открывает аккаунт;</li>
-  <li>фон со свечением появляется под портретом;</li>
-  <li>анимация не дёргается;</li>
-  <li>desktop не ломается от mobile-правок.</li>
-</ul>
-
-<hr>
-
-<h2>17. Что нельзя делать</h2>
-
-<ul>
-  <li>Не смешивать mobile CSS обратно в <code>home.css</code>.</li>
-  <li>Не менять desktop при правках mobile без отдельной команды.</li>
-  <li>Не менять mobile при правках desktop без отдельной команды.</li>
-  <li>Не использовать <code>find and replace</code> в ответах ChatGPT.</li>
-  <li>Не генерировать изображения, если пользователь просит править код.</li>
-  <li>Не менять рабочие версии целиком, если проблема решается patch-ом.</li>
-</ul>
-
-<hr>
-
-<h2>18. Следующие этапы</h2>
-
-<pre><code>1. Проверить production build после оптимизации.
-2. Создать backup/home/build.
-3. Перейти к следующим страницам:
-   - Биография
-   - Свадьба
-   - Корпоратив
-   - День рождения
-   - Выпускной
-   - Музыкальное шоу
-   - Сотрудничество
-4. Подключить реальные ссылки меню.
-5. Подготовить формы и правовые страницы.
-6. Провести финальную SEO/performance оптимизацию.</code></pre>
-
-<hr>
-
-<h2>19. Важное резюме для нового чата</h2>
-
-<p>Проект — сайт Ивана Перцева на Tilda + GitHub Pages. Главная страница реализована кодом через T123/fetch. Desktop и mobile разделены:</p>
-
-<pre><code>home.css        → desktop core
-home-mobile.css → mobile overrides
-home.js         → scale/menu/accordion logic
-home.html       → structure</code></pre>
-
-<p>Desktop использует fixed composition 1440×800 и масштабируется по высоте. Mobile использует fixed composition 390×700 и масштабируется как cover. Главная работает на layered images: base background, glow background, portrait, overlay, content/menu.</p>
-
-<p>Главное правило работы: присылать только полный готовый код файла или целиком готовый patch в конец файла. Не предлагать ручные замены строк. Не генерировать изображения при задачах по коду.</p>
-
-</main>
-</body>
-</html>
+}
+
+@keyframes ipGlowReveal{
+  0%{
+    opacity:0;
+  }
+
+  100%{
+    opacity:1;
+  }
+}
+
+@keyframes ipTextReveal{
+  0%{
+    opacity:0;
+    transform:translate3d(0,-110%,0);
+  }
+
+  100%{
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes ipSubtitleReveal{
+  0%{
+    opacity:0;
+    transform:translate3d(0,-120%,0);
+  }
+
+  100%{
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes ipMenuTextDrop{
+  0%{
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  100%{
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes ipDotBlink{
+  0%{
+    opacity:0;
+    transform:scale(.6);
+  }
+
+  25%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  55%{
+    opacity:.35;
+    transform:scale(.8);
+  }
+
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@supports (-webkit-hyphens:none){
+
+  .ip-title-line{
+    overflow:visible;
+  }
+
+  .ip-title-line span{
+    transform:translate3d(0,-106%,0);
+  }
+
+  @keyframes ipTextReveal{
+    0%{
+      opacity:0;
+      transform:translate3d(0,-106%,0);
+    }
+
+    100%{
+      opacity:1;
+      transform:translate3d(0,0,0);
+    }
+  }
+
+}
