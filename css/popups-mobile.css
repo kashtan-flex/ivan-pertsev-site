@@ -1,13 +1,15 @@
 /* =========================================================
    POPUPS MOBILE CSS
 
-   Версия: popups-mobile-001
+   Версия: popups-mobile-002
 
    ИЗМЕНЕНИЯ:
    - mobile-логика popup вынесена в отдельный файл
    - подключено отдельное mobile-изображение popup-mobile-bg.webp
+   - кнопка отправки в mobile сразу залита белым цветом
+   - текст mobile-кнопки сделан тёмным
+   - добавлен мягкий active-state при нажатии на кнопку
    - сохранена mobile-композиция popup 350×654
-   - сохранены mobile-позиции заголовка, полей, согласия и кнопки
    ========================================================= */
 
 @media (max-width:767px){
@@ -72,6 +74,27 @@
     top:465px;
     width:294px;
     height:57px;
+    background:#fff;
+    color:#111;
+    border-color:#fff;
+    transform:translate3d(0,0,0) scale(1);
+    transition:
+      transform .18s cubic-bezier(.19,1,.22,1),
+      background .28s ease,
+      color .28s ease,
+      border-color .28s ease;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+
+  .ip-popup-submit:hover{
+    background:#fff;
+    color:#111;
+    border-color:#fff;
+  }
+
+  .ip-popup-submit:active{
+    transform:translate3d(0,1px,0) scale(.975);
   }
 
 }
