@@ -1,732 +1,624 @@
-/* =========================================================
-   IVAN PERTSEV — HOME PAGE
-   FILE: css/home.css
-
-   Версия: home-073
-
-   ИЗМЕНЕНИЯ:
-   - восстановлена полная desktop-версия home.css
-   - возвращены исходные позиции текста, меню и анимаций
-   - удалён старый блок MAIN POPUP FORM из home.css
-   - исправлены локальные пути к шрифтам, фонам, портрету и иконкам
-   - сохранена чистая структура: попап живёт отдельно в css/popups.css
-   ========================================================= */
-
-@font-face{
-  font-family:'Benzin';
-  src:url('../assets/fonts/Benzin-Bold.woff2') format('woff2');
-  font-weight:700;
-  font-style:normal;
-  font-display:swap;
-}
-
-html,
-body,
-#allrecords,
-#ip-home-root{
-  width:100%;
-  height:100%;
-  margin:0;
-  padding:0;
-  overflow:hidden !important;
-  background:#050603 !important;
-}
-
-.ip-page-home,
-.ip-page-home *{
-  box-sizing:border-box;
-}
-
-.ip-page-home a{
-  color:inherit;
-  text-decoration:none;
-}
-
-.ip-page-home{
-  position:relative;
-  width:100%;
-  height:100vh;
-  min-height:0;
-  overflow:hidden !important;
-  background:#050603;
-  color:#fff;
-  font-family:'Montserrat',sans-serif;
-}
-
-.ip-home-stage{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:1440px;
-  height:800px;
-  overflow:hidden;
-  transform:translate3d(-50%,-50%,0) scale(var(--ip-home-scale,1));
-  transform-origin:center center;
-}
-
-.ip-home-bg-base,
-.ip-home-bg-glow,
-.ip-home-portrait{
-  position:absolute;
-  inset:0;
-  background-repeat:no-repeat;
-  pointer-events:none;
-}
-
-.ip-home-bg-base,
-.ip-home-bg-glow{
-  background-size:1440px 800px;
-  background-position:center center;
-}
-
-.ip-home-bg-base{
-  z-index:1;
-  opacity:1;
-  background-image:image-set(
-    url('../assets/img/home/background/home-bg.webp') 1x,
-    url('../assets/img/home/background/home-bg@2x.webp') 2x
-  );
-}
-
-.ip-home-bg-glow{
-  z-index:2;
-  opacity:0;
-  background-image:image-set(
-    url('../assets/img/home/background/home-bg-glow.webp') 1x,
-    url('../assets/img/home/background/home-bg-glow@2x.webp') 2x
-  );
-  animation:ipGlowReveal 1.25s ease forwards;
-  animation-delay:1.1s;
-}
-
-.ip-home-portrait{
-  z-index:3;
-  opacity:0;
-  background-image:image-set(
-    url('../assets/img/home/portrait/home-portrait.png') 1x,
-    url('../assets/img/home/portrait/home-portrait@2x.png') 2x
-  );
-  background-position:left bottom;
-  background-size:auto 800px;
-  transform:translate3d(-10px,0,0) scale(1.01);
-  animation:ipPortraitReveal 1.05s cubic-bezier(.19,1,.22,1) forwards;
-  animation-delay:.35s;
-}
-
-.ip-home-dark-overlay{
-  position:absolute;
-  inset:0;
-  z-index:4;
-  background:rgba(0,0,0,.04);
-  pointer-events:none;
-}
-
-.ip-home-content{
-  position:absolute;
-  left:595px;
-  top:473px;
-  width:510px;
-  height:205px;
-  z-index:5;
-}
-
-.ip-home-title{
-  margin:0;
-  width:510px;
-  font-family:'Benzin',Arial,sans-serif;
-  font-size:88px;
-  line-height:.85;
-  font-weight:700;
-  color:#fff;
-  text-transform:uppercase;
-}
-
-.ip-title-line{
-  display:block;
-  width:510px;
-  overflow:hidden;
-}
-
-.ip-title-line-first{
-  height:86px;
-}
-
-.ip-title-line-second{
-  height:112px;
-  margin-top:-10px;
-}
-
-.ip-title-line span{
-  display:block;
-  height:112px;
-  line-height:.85;
-  opacity:0;
-  transform:translate3d(0,-110%,0);
-  will-change:transform,opacity;
-}
-
-.ip-title-line-first span{
-  animation:ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
-  animation-delay:.9s;
-}
-
-.ip-title-line-second span{
-  animation:ipTextReveal .58s cubic-bezier(.19,1,.22,1) forwards;
-  animation-delay:1.16s;
-}
-
-.ip-home-subtitle-wrap{
-  position:absolute;
-  left:0;
-  top:154px;
-  overflow:hidden;
-  padding-bottom:6px;
-}
-
-.ip-home-subtitle{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:22px;
-  line-height:1.1;
-  font-weight:400;
-  letter-spacing:.02em;
-  color:#fff;
-}
-
-.ip-subtitle-word,
-.ip-subtitle-dot{
-  opacity:0;
-  transform:translate3d(0,-120%,0);
-}
-
-.ip-subtitle-word-one{
-  animation:ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
-  animation-delay:1.42s;
-}
-
-.ip-subtitle-dot{
-  position:relative;
-  top:1px;
-  width:4px;
-  height:4px;
-  flex:0 0 4px;
-  border-radius:50%;
-  background:#fff;
-  animation:
-    ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards 1.54s,
-    ipDotBlink 1.4s ease-in-out infinite 2.15s;
-}
-
-.ip-subtitle-word-two{
-  animation:ipSubtitleReveal .48s cubic-bezier(.19,1,.22,1) forwards;
-  animation-delay:1.66s;
-}
-
-.ip-menu-toggle{
-  position:absolute;
-  top:60px;
-  right:100px;
-  z-index:50;
-  width:27px;
-  height:27px;
-  padding:0 !important;
-  margin:0 !important;
-  border:none !important;
-  outline:none !important;
-  background:transparent !important;
-  cursor:pointer;
-  overflow:visible;
-  appearance:none;
-  -webkit-appearance:none;
-  box-shadow:none !important;
-}
-
-.ip-menu-toggle::before,
-.ip-menu-toggle::after{
-  content:none !important;
-  display:none !important;
-}
-
-.ip-menu-line{
-  position:absolute;
-  left:0;
-  top:50%;
-  width:27px;
-  height:3px;
-  border-radius:10px;
-  background:#fff;
-  transform-origin:center center;
-  transition:transform .42s cubic-bezier(.19,1,.22,1);
-  will-change:transform;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-}
-
-.ip-menu-line:first-child{
-  transform:translateY(calc(-50% - 5.5px));
-}
-
-.ip-menu-line:last-child{
-  transform:translateY(calc(-50% + 5.5px));
-}
-
-.ip-menu-toggle.is-open .ip-menu-line:first-child{
-  transform:translateY(-50%) rotate(45deg);
-}
-
-.ip-menu-toggle.is-open .ip-menu-line:last-child{
-  transform:translateY(-50%) rotate(-45deg);
-}
-
-.ip-menu-panel{
-  position:absolute;
-  top:0;
-  right:0;
-  width:385px;
-  height:800px;
-  padding:60px 100px 80px 60px;
-  z-index:40;
-  overflow:hidden;
-  pointer-events:none;
-  transform:translate3d(100%,0,0);
-  transition:transform .72s cubic-bezier(.19,1,.22,1);
-}
-
-.ip-menu-panel.is-open{
-  pointer-events:auto;
-  transform:translate3d(0,0,0);
-}
-
-.ip-menu-panel::before,
-.ip-menu-panel::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-}
-
-.ip-menu-panel::before{
-  z-index:0;
-  background:rgba(0,0,0,.30);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-}
-
-.ip-menu-panel::after{
-  z-index:1;
-  background-image:url('../assets/img/popups/menu-noise.webp');
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  opacity:.35;
-  mix-blend-mode:normal;
-}
-
-.ip-menu-inner{
-  position:relative;
-  z-index:5;
-  pointer-events:auto;
-}
-
-.ip-menu-socials{
-  position:relative;
-  z-index:6;
-  display:flex;
-  gap:10px;
-  margin-bottom:40px;
-  overflow:visible;
-  pointer-events:auto;
-}
-
-.ip-social{
-  position:relative;
-  z-index:7;
-  display:block;
-  width:27px;
-  height:27px;
-  opacity:0;
-  transform:translate3d(0,-32px,0);
-  will-change:transform,opacity;
-  background:none !important;
-  overflow:hidden;
-  transform-style:preserve-3d;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  pointer-events:auto;
-}
-
-.ip-social::before,
-.ip-social::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background-size:contain;
-  background-position:center;
-  background-repeat:no-repeat;
-  transition:opacity .28s ease;
-  will-change:opacity;
-  pointer-events:none;
-}
-
-.ip-social::before{
-  opacity:1;
-}
-
-.ip-social::after{
-  opacity:0;
-}
-
-.ip-social:hover::before{
-  opacity:0;
-}
-
-.ip-social:hover::after{
-  opacity:1;
-}
-
-.ip-menu-panel.is-open .ip-social{
-  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
-}
-
-.ip-menu-panel.is-open .ip-social:nth-child(1){
-  animation-delay:.34s;
-}
-
-.ip-menu-panel.is-open .ip-social:nth-child(2){
-  animation-delay:.42s;
-}
-
-.ip-menu-panel.is-open .ip-social:nth-child(3){
-  animation-delay:.50s;
-}
-
-.ip-social.instagram::before{
-  background-image:url('../assets/icons/Instagram.svg');
-}
-
-.ip-social.instagram::after{
-  background-image:url('../assets/icons/Instagram-hover.svg');
-}
-
-.ip-social.telegram::before{
-  background-image:url('../assets/icons/Telegram.svg');
-}
-
-.ip-social.telegram::after{
-  background-image:url('../assets/icons/Telegram-hover.svg');
-}
-
-.ip-social.vk::before{
-  background-image:url('../assets/icons/VK.svg');
-}
-
-.ip-social.vk::after{
-  background-image:url('../assets/icons/VK-hover.svg');
-}
-
-.ip-menu-list{
-  position:relative;
-  z-index:6;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  width:225px;
-  pointer-events:auto;
-}
-
-.ip-menu-list > *{
-  opacity:0;
-  transform:translate3d(0,-36px,0);
-  will-change:transform,opacity;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *{
-  animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) forwards;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
-  animation-delay:.68s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(2){
-  animation-delay:.78s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(3){
-  animation-delay:.88s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(4){
-  animation-delay:.98s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(5){
-  animation-delay:1.08s;
-}
-
-.ip-menu-panel.is-open .ip-menu-list > *:nth-child(6){
-  animation-delay:1.18s;
-}
-
-.ip-menu-link,
-.ip-menu-link:link,
-.ip-menu-link:visited,
-.ip-menu-link:hover,
-.ip-menu-link:active,
-.ip-accordion-button,
-.ip-accordion-button:hover,
-.ip-accordion-button:active{
-  color:#fff !important;
-}
-
-.ip-menu-link,
-.ip-accordion-button{
-  padding:0;
-  border:none;
-  background:transparent;
-  font-family:'Montserrat',sans-serif;
-  font-size:20px;
-  line-height:90%;
-  font-weight:600;
-  letter-spacing:-0.04em;
-  text-align:left;
-  cursor:pointer;
-  transition:opacity .25s ease;
-}
-
-.ip-menu-link:hover,
-.ip-accordion-button:hover{
-  opacity:.75;
-}
-
-.ip-accordion{
-  width:100%;
-}
-
-.ip-accordion-button{
-  position:relative;
-  width:100%;
-  min-height:24px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  padding-right:34px;
-}
-
-.ip-accordion-button::before,
-.ip-accordion-button::after{
-  content:'';
-  position:absolute;
-  top:50%;
-  width:14px;
-  height:3px;
-  border-radius:10px;
-  background:#fff;
-  opacity:1;
-  pointer-events:none;
-  transform-origin:center center;
-  transition:
-    transform .35s cubic-bezier(.19,1,.22,1),
-    opacity .35s ease;
-  will-change:transform,opacity;
-}
-
-.ip-accordion-button::before{
-  right:9px;
-  transform:translateY(-50%) rotate(45deg);
-}
-
-.ip-accordion-button::after{
-  right:0;
-  transform:translateY(-50%) rotate(-45deg);
-}
-
-.ip-accordion.is-open .ip-accordion-button::before{
-  opacity:.5;
-  transform:translateY(-50%) rotate(-45deg);
-}
-
-.ip-accordion.is-open .ip-accordion-button::after{
-  opacity:.5;
-  transform:translateY(-50%) rotate(45deg);
-}
-
-.ip-accordion-content{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .4s ease;
-}
-
-.ip-accordion.is-open .ip-accordion-content{
-  max-height:220px;
-}
-
-.ip-submenu{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding-top:16px;
-}
-
-.ip-submenu a,
-.ip-submenu a:link,
-.ip-submenu a:visited,
-.ip-submenu a:hover,
-.ip-submenu a:active{
-  color:#69C9FF !important;
-}
-
-.ip-submenu a{
-  font-size:14px;
-  line-height:120%;
-  opacity:1;
-  transition:opacity .25s ease;
-}
-
-.ip-submenu a:hover{
-  opacity:.75;
-}
-
-.ip-menu-legal{
-  position:absolute;
-  left:60px;
-  right:100px;
-  bottom:80px;
-  z-index:6;
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  opacity:0;
-  transform:translate3d(0,-32px,0);
-  transition:none;
-  pointer-events:none;
-}
-
-.ip-menu-panel.is-open .ip-menu-legal{
-  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
-  animation-delay:1.28s;
-  pointer-events:auto;
-}
-
-.ip-menu-legal a,
-.ip-menu-legal a:link,
-.ip-menu-legal a:visited,
-.ip-menu-legal a:hover,
-.ip-menu-legal a:active{
-  color:rgba(255,255,255,.5) !important;
-}
-
-.ip-menu-legal a{
-  font-size:8px;
-  line-height:150%;
-  transition:opacity .25s ease;
-}
-
-.ip-menu-legal a:hover{
-  opacity:.75;
-}
-
-@keyframes ipPortraitReveal{
-  0%{
-    opacity:0;
-    transform:translate3d(-10px,0,0) scale(1.01);
-  }
-
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0) scale(1);
-  }
-}
-
-@keyframes ipGlowReveal{
-  0%{
-    opacity:0;
-  }
-
-  100%{
-    opacity:1;
-  }
-}
-
-@keyframes ipTextReveal{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-110%,0);
-  }
-
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
-}
-
-@keyframes ipSubtitleReveal{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-120%,0);
-  }
-
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
-}
-
-@keyframes ipMenuTextDrop{
-  0%{
-    opacity:0;
-    transform:translate3d(0,-36px,0);
-  }
-
-  100%{
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
-}
-
-@keyframes ipDotBlink{
-  0%{
-    opacity:0;
-    transform:scale(.6);
-  }
-
-  25%{
-    opacity:1;
-    transform:scale(1);
-  }
-
-  55%{
-    opacity:.35;
-    transform:scale(.8);
-  }
-
-  100%{
-    opacity:1;
-    transform:scale(1);
-  }
-}
-
-@supports (-webkit-hyphens:none){
-
-  .ip-title-line{
-    overflow:visible;
-  }
-
-  .ip-title-line span{
-    transform:translate3d(0,-106%,0);
-  }
-
-  @keyframes ipTextReveal{
-    0%{
-      opacity:0;
-      transform:translate3d(0,-106%,0);
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Rules — Иван Перцев Сайт</title>
+
+  <style>
+    body{
+      margin:0;
+      padding:40px;
+      background:#f5f5f2;
+      color:#111;
+      font-family:Arial,sans-serif;
+      line-height:1.6;
     }
 
-    100%{
-      opacity:1;
-      transform:translate3d(0,0,0);
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:24px;
+      padding:56px;
     }
-  }
 
-}
+    h1,h2,h3{
+      line-height:1.2;
+    }
+
+    h1{
+      margin-top:0;
+      font-size:42px;
+    }
+
+    h2{
+      margin-top:56px;
+      font-size:30px;
+    }
+
+    h3{
+      margin-top:32px;
+      font-size:22px;
+    }
+
+    pre,
+    code{
+      background:#f1f1ee;
+      border-radius:12px;
+    }
+
+    code{
+      padding:2px 6px;
+    }
+
+    pre{
+      padding:18px;
+      overflow:auto;
+    }
+
+    .note{
+      margin-top:24px;
+      padding:18px 22px;
+      background:#fff7d9;
+      border-left:4px solid #d7a600;
+      border-radius:14px;
+    }
+
+    hr{
+      margin:56px 0;
+      border:none;
+      border-top:1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+<main>
+
+<h1>Project Rules — Иван Перцев Сайт</h1>
+
+<p>
+Главный документ проекта. Фиксирует:
+</p>
+
+<ul>
+  <li>актуальную архитектуру сайта;</li>
+  <li>правила разработки;</li>
+  <li>локальный workflow;</li>
+  <li>структуру файлов;</li>
+  <li>desktop/mobile логику;</li>
+  <li>правила работы ChatGPT с кодом.</li>
+</ul>
+
+<div class="note">
+  <strong>ТЕКУЩИЙ РЕЖИМ РАЗРАБОТКИ:</strong><br>
+  Основная разработка теперь ведётся локально через VS Code + localhost.<br>
+  GitHub и Tilda используются только для:
+  <ul>
+    <li>backup;</li>
+    <li>commit history;</li>
+    <li>production deploy;</li>
+    <li>публикации готовых stable build.</li>
+  </ul>
+</div>
+
+<hr>
+
+<h2>1. Текущая структура проекта</h2>
+
+<pre><code>ivan-pertsev-site/
+
+assets/
+  fonts/
+  icons/
+  img/
+    home/
+      background/
+      portrait/
+      mobile/
+        background/
+        portrait/
+      popups/
+
+backup/
+  home/
+    production/
+
+css/
+  home.css
+  home-mobile.css
+  popups.css
+
+docs/
+  project-rules.html
+
+js/
+  home.js
+
+pages/
+  home/
+    home.html
+
+preview.html
+README.md</code></pre>
+
+<hr>
+
+<h2>2. Главный workflow проекта</h2>
+
+<h3>Основная разработка</h3>
+
+<pre><code>VS Code
+↓
+localhost:8000
+↓
+живой просмотр в браузере
+↓
+исправления
+↓
+commit
+↓
+push
+↓
+production deploy</code></pre>
+
+<h3>Локальный запуск</h3>
+
+<pre><code>python -m http.server 8000</code></pre>
+
+<h3>Локальная ссылка</h3>
+
+<pre><code>http://localhost:8000/preview.html</code></pre>
+
+<div class="note">
+  Теперь localhost — это главная production-like среда проверки.<br>
+  Не GitHub Pages.<br>
+  Не Tilda preview.
+</div>
+
+<hr>
+
+<h2>3. Preview architecture</h2>
+
+<h3>preview.html</h3>
+
+<p>
+preview.html — главный локальный entry-point.
+</p>
+
+<p>
+Он:
+</p>
+
+<ul>
+  <li>подключает CSS;</li>
+  <li>загружает pages/home/home.html;</li>
+  <li>подключает home.js;</li>
+  <li>работает как production sandbox.</li>
+</ul>
+
+<h3>ВАЖНО</h3>
+
+<p>
+Все пути внутри localhost должны быть только относительными.
+</p>
+
+<h3>ПРАВИЛЬНО</h3>
+
+<pre><code>../assets/
+./js/
+./css/</code></pre>
+
+<h3>НЕПРАВИЛЬНО</h3>
+
+<pre><code>https://kashtan-flex.github.io/...</code></pre>
+
+<div class="note">
+  В локальной разработке запрещено использовать GitHub URLs внутри CSS/HTML/JS.
+</div>
+
+<hr>
+
+<h2>4. Правила работы ChatGPT</h2>
+
+<h3>Главное правило</h3>
+
+<p>
+ChatGPT всегда присылает:
+</p>
+
+<ul>
+  <li>полный готовый файл;</li>
+  <li>или полный готовый блок.</li>
+</ul>
+
+<h3>Запрещено</h3>
+
+<pre><code>Найди строку и замени...</code></pre>
+
+<pre><code>Нажми Replace All...</code></pre>
+
+<pre><code>Вручную исправь 14 мест...</code></pre>
+
+<h3>Разрешено</h3>
+
+<pre><code>Полностью замени css/home.css этим кодом</code></pre>
+
+<h3>Patch policy</h3>
+
+<p>
+Patch допускается только если:
+</p>
+
+<ul>
+  <li>его можно вставить целиком;</li>
+  <li>без ручного поиска;</li>
+  <li>без ручной замены строк.</li>
+</ul>
+
+<div class="note">
+  Никаких ручных replace workflow больше быть не должно.
+</div>
+
+<hr>
+
+<h2>5. Правила файлов</h2>
+
+<h3>Каждый файл обязан содержать:</h3>
+
+<pre><code>Версия
+ИЗМЕНЕНИЯ</code></pre>
+
+<h3>Пример</h3>
+
+<pre><code>/*
+==================================================
+HOME CSS
+
+Версия: home-071
+
+ИЗМЕНЕНИЯ:
+- исправлены локальные пути
+- восстановлено меню
+- восстановлен portrait layer
+- восстановлены glow animation
+==================================================
+*/</code></pre>
+
+<hr>
+
+<h2>6. Desktop architecture</h2>
+
+<h3>Desktop base</h3>
+
+<pre><code>1440×800</code></pre>
+
+<h3>Desktop logic</h3>
+
+<p>
+Desktop масштабируется по высоте:
+</p>
+
+<pre><code>scale = viewportHeight / 800</code></pre>
+
+<h3>ВАЖНО</h3>
+
+<ul>
+  <li>desktop НЕ работает через contain;</li>
+  <li>desktop НЕ должен показывать полосы сверху/снизу;</li>
+  <li>разрешён controlled crop по краям;</li>
+  <li>композиция должна сохранять cinematic framing.</li>
+</ul>
+
+<hr>
+
+<h2>7. Mobile architecture</h2>
+
+<h3>Mobile base</h3>
+
+<pre><code>390×700</code></pre>
+
+<h3>Mobile logic</h3>
+
+<pre><code>scaleX = viewportWidth / 390
+scaleY = viewportHeight / 700
+scale = Math.max(scaleX, scaleY)</code></pre>
+
+<h3>ВАЖНО</h3>
+
+<ul>
+  <li>mobile всегда должен заполнять экран;</li>
+  <li>никаких нижних пустот;</li>
+  <li>никакого вертикального скролла;</li>
+  <li>mobile CSS хранится отдельно.</li>
+</ul>
+
+<h3>Разделение CSS</h3>
+
+<pre><code>home.css
+→ desktop core
+
+home-mobile.css
+→ mobile overrides</code></pre>
+
+<hr>
+
+<h2>8. Главная страница</h2>
+
+<h3>Layer structure</h3>
+
+<pre><code>1. background base
+2. background glow
+3. portrait
+4. dark overlay
+5. content
+6. menu
+7. popup</code></pre>
+
+<h3>Desktop assets</h3>
+
+<pre><code>assets/img/home/background/
+assets/img/home/portrait/</code></pre>
+
+<h3>Mobile assets</h3>
+
+<pre><code>assets/img/home/mobile/background/
+assets/img/home/mobile/portrait/</code></pre>
+
+<h3>Popup assets</h3>
+
+<pre><code>assets/img/home/popups/</code></pre>
+
+<hr>
+
+<h2>9. Typography</h2>
+
+<h3>Главный шрифт</h3>
+
+<pre><code>Benzin</code></pre>
+
+<h3>Подключение шрифтов</h3>
+
+<p>
+Только локально:
+</p>
+
+<pre><code>../assets/fonts/Benzin-Bold.woff2</code></pre>
+
+<h3>Запрещено</h3>
+
+<pre><code>https://...</code></pre>
+
+<hr>
+
+<h2>10. Menu rules</h2>
+
+<h3>Desktop menu</h3>
+
+<pre><code>width:385px</code></pre>
+
+<h3>Menu behavior</h3>
+
+<ul>
+  <li>открытие справа;</li>
+  <li>blur background;</li>
+  <li>noise overlay;</li>
+  <li>соцсети появляются после фона;</li>
+  <li>закрытие по крестику;</li>
+  <li>закрытие по scroll.</li>
+</ul>
+
+<h3>Accordion</h3>
+
+<p>
+Проекты и контакты работают как accordion.
+</p>
+
+<hr>
+
+<h2>11. Popups</h2>
+
+<h3>Popup file</h3>
+
+<pre><code>css/popups.css</code></pre>
+
+<h3>Popup rules</h3>
+
+<ul>
+  <li>popup не должен ломать desktop stage;</li>
+  <li>blur только на backdrop;</li>
+  <li>не blur на card;</li>
+  <li>масштабирование popup отдельно;</li>
+  <li>mobile popup отдельный.</li>
+</ul>
+
+<hr>
+
+<h2>12. Animation rules</h2>
+
+<h3>Desktop animation order</h3>
+
+<pre><code>base
+↓
+portrait
+↓
+glow
+↓
+title
+↓
+subtitle
+↓
+menu</code></pre>
+
+<h3>Разрешено</h3>
+
+<pre><code>opacity
+translate3d
+transform
+scale</code></pre>
+
+<h3>Запрещено</h3>
+
+<pre><code>clip-path animation
+background-image animation
+filter animation</code></pre>
+
+<hr>
+
+<h2>13. Git workflow</h2>
+
+<h3>После каждого stable update</h3>
+
+<pre><code>git add .
+git commit -m "..."
+git push</code></pre>
+
+<h3>Commit style</h3>
+
+<pre><code>Restore local asset pipeline
+Fix desktop scaling
+Restore portrait animation
+Refactor popup layout
+Separate mobile overrides
+Optimize localhost workflow</code></pre>
+
+<h3>ВАЖНО</h3>
+
+<p>
+Не использовать:
+</p>
+
+<pre><code>fix
+fix2
+newfix
+finalfix</code></pre>
+
+<hr>
+
+<h2>14. Backup policy</h2>
+
+<h3>Backup location</h3>
+
+<pre><code>backup/home/production/</code></pre>
+
+<h3>Backup files</h3>
+
+<pre><code>home.production.html
+home.production.css
+home.production.mobile.css
+home.production.js</code></pre>
+
+<h3>Когда делать backup</h3>
+
+<ul>
+  <li>перед большим рефакторингом;</li>
+  <li>перед animation rewrite;</li>
+  <li>перед menu rewrite;</li>
+  <li>перед popup rewrite;</li>
+  <li>перед production deploy.</li>
+</ul>
+
+<hr>
+
+<h2>15. Текущий статус проекта</h2>
+
+<h3>Сейчас реализовано</h3>
+
+<ul>
+  <li>локальный VS Code workflow;</li>
+  <li>localhost preview;</li>
+  <li>разделение desktop/mobile;</li>
+  <li>layered hero system;</li>
+  <li>popup system;</li>
+  <li>accordion menu;</li>
+  <li>cinematic scaling system.</li>
+</ul>
+
+<h3>Текущая проблема</h3>
+
+<p>
+Во время перехода с GitHub URLs на localhost-relative paths был частично сломан:
+</p>
+
+<ul>
+  <li>portrait layer;</li>
+  <li>menu;</li>
+  <li>glow animation;</li>
+  <li>desktop composition.</li>
+</ul>
+
+<h3>Текущая задача</h3>
+
+<pre><code>Полностью восстановить localhost build
+до состояния production build из Tilda.</code></pre>
+
+<hr>
+
+<h2>16. Что запрещено делать</h2>
+
+<ul>
+  <li>Не смешивать mobile обратно в home.css.</li>
+  <li>Не использовать GitHub URLs локально.</li>
+  <li>Не делать ручные replace workflow.</li>
+  <li>Не ломать desktop при mobile правках.</li>
+  <li>Не ломать mobile при desktop правках.</li>
+  <li>Не генерировать изображения для code-задач.</li>
+  <li>Не делать patch поверх patch поверх patch.</li>
+</ul>
+
+<hr>
+
+<h2>17. Следующие этапы</h2>
+
+<pre><code>1. Восстановить localhost build
+2. Проверить portrait layers
+3. Проверить menu
+4. Проверить popup
+5. Проверить desktop scaling
+6. Проверить mobile scaling
+7. Создать stable backup
+8. Перейти к следующим страницам</code></pre>
+
+<hr>
+
+<h2>18. Краткое резюме для нового чата</h2>
+
+<p>
+Проект — cinematic сайт Ивана Перцева.
+</p>
+
+<p>
+Основной workflow:
+</p>
+
+<pre><code>VS Code
++
+localhost:8000
++
+локальные assets
++
+GitHub только как backup/deploy</code></pre>
+
+<p>
+Главная страница использует:
+</p>
+
+<pre><code>layered image system
+fixed desktop composition
+mobile cover scaling
+separate mobile CSS
+cinematic animation system</code></pre>
+
+<p>
+Главное правило:
+</p>
+
+<pre><code>ChatGPT всегда присылает полный готовый код файла.
+Без ручных replace workflow.</code></pre>
+
+</main>
+
+</body>
+</html>
