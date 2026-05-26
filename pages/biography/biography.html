@@ -2,16 +2,14 @@
 ==================================================
 BIOGRAPHY HTML
 
-Версия: biography-html-001
+Версия: biography-html-002
 
 ИЗМЕНЕНИЯ:
-- создана desktop-страница «Биография»
-- добавлена левая текстовая зона
-- добавлена правая зона с carousel
-- добавлены блоки Wedding Awards и Top 100
-- добавлена цитата поверх правой зоны
-- добавлено меню шириной 518px
-- добавлена popup-разметка для кнопок «Другое» и «Написать»
+- удалено отдельное меню ip-biography-menu
+- подключена HTML-структура меню как на главной странице
+- сохранена ширина меню 518px через biography.css
+- сохранена карусель Ken Burns + fade
+- popup приведён к общей структуре главной страницы
 ==================================================
 -->
 
@@ -103,57 +101,63 @@ BIOGRAPHY HTML
 
       </aside>
 
-      <button class="ip-biography-burger" type="button" aria-label="Открыть меню" data-biography-menu-open>
-        <span></span>
-        <span></span>
+      <button class="ip-menu-toggle" type="button" aria-label="Открыть меню">
+        <span class="ip-menu-line"></span>
+        <span class="ip-menu-line"></span>
       </button>
 
-      <nav class="ip-biography-menu" aria-label="Основное меню" data-biography-menu>
-        <div class="ip-biography-menu-bg" aria-hidden="true"></div>
+      <nav class="ip-menu-panel" aria-label="Главное меню">
 
-        <button class="ip-biography-menu-close" type="button" aria-label="Закрыть меню" data-biography-menu-close>
-          <span></span>
-          <span></span>
-        </button>
+        <div class="ip-menu-inner">
 
-        <div class="ip-biography-menu-inner">
-
-          <div class="ip-biography-menu-socials" aria-label="Социальные сети">
-            <a href="https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://t.me/@ivan_pertsev" target="_blank" rel="noopener">Telegram</a>
-            <a href="#" target="_blank" rel="noopener">VK</a>
+          <div class="ip-menu-socials">
+            <a class="ip-social instagram" href="https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1" target="_blank" rel="noopener noreferrer" aria-label="Instagram"></a>
+            <a class="ip-social telegram" href="https://t.me/ivan_pertsev" target="_blank" rel="noopener noreferrer" aria-label="Telegram"></a>
+            <a class="ip-social vk" href="https://vk.com/ivan_pertsev" target="_blank" rel="noopener noreferrer" aria-label="VK"></a>
           </div>
 
-          <ul class="ip-biography-menu-list">
-            <li><a href="./preview.html">Главная</a></li>
-            <li><a href="./preview.html" aria-current="page">Биография</a></li>
+          <div class="ip-menu-list">
 
-            <li class="ip-biography-menu-group">
-              <button type="button" data-biography-accordion>Проекты</button>
+            <a class="ip-menu-link" href="./preview.html">Главная</a>
+            <a class="ip-menu-link" href="./biography-preview.html">Биография</a>
 
-              <ul class="ip-biography-submenu">
-                <li><a href="#">Свадьба</a></li>
-                <li><a href="#">Корпоратив</a></li>
-                <li><a href="#">День рождение</a></li>
-                <li><a href="#">Выпускной</a></li>
-                <li><button type="button" data-biography-popup-open>Другое</button></li>
-              </ul>
-            </li>
+            <div class="ip-accordion">
+              <button class="ip-accordion-button" type="button">Проекты</button>
 
-            <li><a href="#">Музыкальное шоу</a></li>
-            <li><a href="#">Сотрудничество</a></li>
+              <div class="ip-accordion-content">
+                <div class="ip-submenu">
+                  <a href="#">Свадьба</a>
+                  <a href="#">Корпоратив</a>
+                  <a href="#">День рождение</a>
+                  <a href="#">Выпускной</a>
+                  <a href="#" data-popup-open="main">Другое</a>
+                </div>
+              </div>
+            </div>
 
-            <li class="ip-biography-menu-group">
-              <button type="button" data-biography-accordion>Контакты</button>
+            <a class="ip-menu-link" href="#">Музыкальное шоу</a>
+            <a class="ip-menu-link" href="#">Сотрудничество</a>
 
-              <ul class="ip-biography-submenu">
-                <li><a href="tel:+79200127624">+7 920 012 76 24</a></li>
-                <li><button type="button" data-biography-popup-open>Написать</button></li>
-              </ul>
-            </li>
-          </ul>
+            <div class="ip-accordion">
+              <button class="ip-accordion-button" type="button">Контакты</button>
+
+              <div class="ip-accordion-content">
+                <div class="ip-submenu">
+                  <a href="tel:+79200127624">+7 920 012 76 24</a>
+                  <a href="#" data-popup-open="main">Написать</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
 
         </div>
+
+        <div class="ip-menu-legal">
+          <a href="#">Политика обработки персональных данных</a>
+          <a href="#">Согласие на обработку персональных данных</a>
+        </div>
+
       </nav>
 
     </div>
@@ -162,37 +166,37 @@ BIOGRAPHY HTML
 
 </section>
 
-<div class="ip-popup" data-ip-popup aria-hidden="true">
-  <div class="ip-popup-backdrop" data-ip-popup-close></div>
+<div class="ip-popup" data-popup="main" aria-hidden="true">
+  <div class="ip-popup-backdrop" data-popup-close></div>
 
-  <div class="ip-popup-card" role="dialog" aria-modal="true" aria-label="Форма обратной связи">
-    <form class="ip-popup-form">
+  <div class="ip-popup-card" role="dialog" aria-modal="true" aria-label="Форма связи">
+    <form class="ip-popup-form" data-form-email="ya@ivanpertsev.ru">
 
       <div class="ip-popup-heading">
-        <p class="ip-popup-name">Иван Перцев</p>
+        <div class="ip-popup-name">Иван Перцев</div>
 
-        <p class="ip-popup-text">
-          <strong>Заполните форму</strong>
-          <span>и я скоро свяжусь с вами</span>
-        </p>
+        <div class="ip-popup-text">
+          <strong>Заполните форму,</strong>
+          <span>и в ближайшее время</span>
+          <span>я с Вами свяжусь.</span>
+        </div>
       </div>
 
       <div class="ip-popup-fields">
-        <input type="text" name="name" placeholder="Ваше имя" autocomplete="name">
-        <input type="tel" name="phone" placeholder="Телефон" autocomplete="tel">
-        <input type="text" name="date" placeholder="Дата мероприятия">
+        <input type="text" name="name" placeholder="Имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <input type="text" name="date" placeholder="Дата" inputmode="numeric" maxlength="10" autocomplete="off" required>
       </div>
 
       <label class="ip-popup-policy">
-        <input type="checkbox" name="policy" required checked>
-
-        <span class="ip-popup-checkbox" aria-hidden="true"></span>
+        <input type="checkbox" checked required>
+        <span class="ip-popup-checkbox"></span>
 
         <span class="ip-popup-policy-text">
-          <span class="ip-popup-policy-line">Вы согласны на обработку данных</span>
+          <span class="ip-popup-policy-line">Согласен(а) на обработку данных в соответствии</span>
           <span class="ip-popup-policy-link-line">
-            <span class="ip-popup-policy-preposition">и</span>
-            <a href="#">политику конфиденциальности</a>
+            <span class="ip-popup-policy-preposition">с</span>
+            <a href="#" target="_blank">Политикой обработки персональных данных.</a>
           </span>
         </span>
       </label>

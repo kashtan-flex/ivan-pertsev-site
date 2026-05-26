@@ -2,14 +2,15 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-001
+Версия: biography-js-002
 
 ИЗМЕНЕНИЯ:
-- добавлено масштабирование desktop-сцены 1440×800 по высоте
-- добавлена автоматическая карусель Ken Burns + fade
-- добавлена логика открытия и закрытия меню
-- добавлена accordion-логика для пунктов «Проекты» и «Контакты»
-- добавлена логика открытия popup из меню
+- удалена отдельная логика ip-biography-menu
+- добавлена логика общего меню как на главной странице
+- сохранено масштабирование desktop-сцены 1440×800
+- сохранена автоматическая карусель Ken Burns + fade
+- сохранена accordion-логика
+- сохранена popup-логика через data-popup-open="main"
 ==================================================
 */
 
@@ -24,14 +25,13 @@ BIOGRAPHY JS
   var page = document.querySelector('[data-biography-page]');
   var slides = Array.prototype.slice.call(document.querySelectorAll('.ip-biography-slide'));
 
-  var menu = document.querySelector('[data-biography-menu]');
-  var menuOpenButton = document.querySelector('[data-biography-menu-open]');
-  var menuCloseButton = document.querySelector('[data-biography-menu-close]');
-  var accordionButtons = Array.prototype.slice.call(document.querySelectorAll('[data-biography-accordion]'));
+  var menuToggle = document.querySelector('.ip-menu-toggle');
+  var menuPanel = document.querySelector('.ip-menu-panel');
+  var accordions = Array.prototype.slice.call(document.querySelectorAll('.ip-accordion'));
 
-  var popup = document.querySelector('[data-ip-popup]');
-  var popupOpenButtons = Array.prototype.slice.call(document.querySelectorAll('[data-biography-popup-open]'));
-  var popupCloseButtons = Array.prototype.slice.call(document.querySelectorAll('[data-ip-popup-close]'));
+  var popupOpenLinks = Array.prototype.slice.call(document.querySelectorAll('[data-popup-open]'));
+  var popupCloseButtons = Array.prototype.slice.call(document.querySelectorAll('[data-popup-close]'));
+  var popups = Array.prototype.slice.call(document.querySelectorAll('[data-popup]'));
 
   var currentSlideIndex = 0;
   var carouselTimer = null;
@@ -44,14 +44,14 @@ BIOGRAPHY JS
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
 
-    var scaleByHeight = viewportHeight / DESIGN_HEIGHT;
-    var scaledWidth = DESIGN_WIDTH * scaleByHeight;
+    var scale = viewportHeight / DESIGN_HEIGHT;
+    var scaledWidth = DESIGN_WIDTH * scale;
 
     if(scaledWidth < viewportWidth){
-      scaleByHeight = viewportWidth / DESIGN_WIDTH;
+      scale = viewportWidth / DESIGN_WIDTH;
     }
 
-    document.documentElement.style.setProperty('--biography-scale', scaleByHeight.toFixed(5));
+    document.documentElement.style.setProperty('--biography-scale', scale.toFixed(5));
   }
 
   function startCarousel(){
@@ -64,7 +64,7 @@ BIOGRAPHY JS
     carouselTimer = window.setInterval(function(){
       slides[currentSlideIndex].classList.remove('is-active');
 
-      currentSlideIndex = currentSlideIndex + 1;
+      currentSlideIndex += 1;
 
       if(currentSlideIndex >= slides.length){
         currentSlideIndex = 0;
@@ -82,59 +82,82 @@ BIOGRAPHY JS
   }
 
   function openMenu(){
-    if(!menu){
+    if(!menuToggle || !menuPanel){
       return;
     }
 
-    menu.classList.add('is-open');
+    menuToggle.classList.add('is-open');
+    menuPanel.classList.add('is-open');
   }
 
   function closeMenu(){
-    if(!menu){
+    if(!menuToggle || !menuPanel){
       return;
     }
 
-    menu.classList.remove('is-open');
+    menuToggle.classList.remove('is-open');
+    menuPanel.classList.remove('is-open');
+
+    accordions.forEach(function(accordion){
+      accordion.classList.remove('is-open');
+    });
   }
 
-  function toggleAccordion(button){
-    var group = button.closest('.ip-biography-menu-group');
-
-    if(!group){
+  function toggleMenu(){
+    if(!menuPanel){
       return;
     }
 
-    group.classList.toggle('is-open');
+    if(menuPanel.classList.contains('is-open')){
+      closeMenu();
+      return;
+    }
+
+    openMenu();
   }
 
-  function openPopup(){
-    if(!popup){
+  function toggleAccordion(accordion){
+    accordion.classList.toggle('is-open');
+  }
+
+  function openPopup(name){
+    var targetPopup = document.querySelector('[data-popup="' + name + '"]');
+
+    if(!targetPopup){
       return;
     }
 
-    popup.classList.add('is-open');
-    popup.setAttribute('aria-hidden', 'false');
+    targetPopup.classList.add('is-open');
+    targetPopup.setAttribute('aria-hidden', 'false');
+
     document.documentElement.classList.add('ip-popup-lock');
     document.body.classList.add('ip-popup-lock');
 
     closeMenu();
   }
 
-  function closePopup(){
+  function closePopup(popup){
     if(!popup){
       return;
     }
 
     popup.classList.remove('is-open');
     popup.setAttribute('aria-hidden', 'true');
+
     document.documentElement.classList.remove('ip-popup-lock');
     document.body.classList.remove('ip-popup-lock');
+  }
+
+  function closeAllPopups(){
+    popups.forEach(function(popup){
+      closePopup(popup);
+    });
   }
 
   function onKeydown(event){
     if(event.key === 'Escape'){
       closeMenu();
-      closePopup();
+      closeAllPopups();
     }
   }
 
@@ -143,26 +166,34 @@ BIOGRAPHY JS
     window.addEventListener('orientationchange', setScale);
     document.addEventListener('keydown', onKeydown);
 
-    if(menuOpenButton){
-      menuOpenButton.addEventListener('click', openMenu);
+    if(menuToggle){
+      menuToggle.addEventListener('click', toggleMenu);
     }
 
-    if(menuCloseButton){
-      menuCloseButton.addEventListener('click', closeMenu);
-    }
+    accordions.forEach(function(accordion){
+      var button = accordion.querySelector('.ip-accordion-button');
 
-    accordionButtons.forEach(function(button){
+      if(!button){
+        return;
+      }
+
       button.addEventListener('click', function(){
-        toggleAccordion(button);
+        toggleAccordion(accordion);
       });
     });
 
-    popupOpenButtons.forEach(function(button){
-      button.addEventListener('click', openPopup);
+    popupOpenLinks.forEach(function(link){
+      link.addEventListener('click', function(event){
+        event.preventDefault();
+        openPopup(link.getAttribute('data-popup-open'));
+      });
     });
 
     popupCloseButtons.forEach(function(button){
-      button.addEventListener('click', closePopup);
+      button.addEventListener('click', function(){
+        var popup = button.closest('[data-popup]');
+        closePopup(popup);
+      });
     });
   }
 
