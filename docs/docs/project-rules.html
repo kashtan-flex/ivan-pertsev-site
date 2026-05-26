@@ -65,6 +65,22 @@
       border-radius:14px;
     }
 
+    .danger{
+      margin-top:24px;
+      padding:18px 22px;
+      background:#ffe8e8;
+      border-left:4px solid #d90000;
+      border-radius:14px;
+    }
+
+    .success{
+      margin-top:24px;
+      padding:18px 22px;
+      background:#e9f8ec;
+      border-left:4px solid #2c9b44;
+      border-radius:14px;
+    }
+
     hr{
       margin:56px 0;
       border:none;
@@ -80,21 +96,14 @@
 <h1>Project Rules — Иван Перцев Сайт</h1>
 
 <p>
-Главный документ проекта. Фиксирует:
+Главный документ проекта. Фиксирует актуальную архитектуру сайта, правила разработки,
+локальный workflow, структуру файлов, desktop/mobile логику, правила работы ChatGPT с кодом,
+финальные решения по меню, popup, странице «Биография» и переходам между страницами.
 </p>
-
-<ul>
-  <li>актуальную архитектуру сайта;</li>
-  <li>правила разработки;</li>
-  <li>локальный workflow;</li>
-  <li>структуру файлов;</li>
-  <li>desktop/mobile логику;</li>
-  <li>правила работы ChatGPT с кодом.</li>
-</ul>
 
 <div class="note">
   <strong>ТЕКУЩИЙ РЕЖИМ РАЗРАБОТКИ:</strong><br>
-  Основная разработка теперь ведётся локально через VS Code + localhost.<br>
+  Основная разработка ведётся локально через VS Code + localhost.<br>
   GitHub и Tilda используются только для:
   <ul>
     <li>backup;</li>
@@ -102,6 +111,19 @@
     <li>production deploy;</li>
     <li>публикации готовых stable build.</li>
   </ul>
+</div>
+
+<div class="danger">
+  <strong>КРИТИЧЕСКОЕ ПРАВИЛО:</strong><br>
+  ChatGPT всегда присылает полный готовый код файла. Нельзя давать сокращённые версии,
+  фрагменты с пометкой «остальное без изменений», patch поверх patch, инструкции
+  «найди и замени», «замени этот блок», если пользователь прямо не попросил фрагмент.
+</div>
+
+<div class="success">
+  <strong>ФИНАЛЬНОЕ РЕШЕНИЕ:</strong><br>
+  Меню на главной странице и на странице «Биография» утверждено как эталонное.
+  Без прямого запроса пользователя меню больше не изменять вообще.
 </div>
 
 <hr>
@@ -112,15 +134,50 @@
 
 assets/
   fonts/
+    Benzin-Bold.woff2
+
   icons/
+    Instagram.svg
+    Instagram-hover.svg
+    Telegram.svg
+    Telegram-hover.svg
+    VK.svg
+    VK-hover.svg
+
   img/
     home/
       background/
+        home-bg.webp
+        home-bg@2x.webp
+        home-bg-glow.webp
+        home-bg-glow@2x.webp
       portrait/
+        home-portrait.png
+        home-portrait@2x.png
       mobile/
         background/
         portrait/
       popups/
+        menu-noise.webp
+
+    biography/
+      background/
+        biography-bg.webp
+      carousel/
+        biography-slide-01.webp
+        biography-slide-02.webp
+        biography-slide-03.webp
+        biography-slide-04.webp
+        biography-slide-05.webp
+        biography-slide-06.webp
+      icons/
+        biography-wedding-awards.svg
+        biography-top100.svg
+      mobile/
+
+    popups/
+      popup-main-bg.webp
+      popup-mobile-bg.webp
 
 backup/
   home/
@@ -129,19 +186,28 @@ backup/
 css/
   home.css
   home-mobile.css
+  biography.css
   popups.css
+  popups-mobile.css
+  page-transition.css
 
 docs/
   project-rules.html
 
 js/
   home.js
+  biography.js
+  page-transition.js
 
 pages/
   home/
     home.html
 
+  biography/
+    biography.html
+
 preview.html
+biography-preview.html
 README.md</code></pre>
 
 <hr>
@@ -168,14 +234,17 @@ production deploy</code></pre>
 
 <pre><code>python -m http.server 8000</code></pre>
 
-<h3>Локальная ссылка</h3>
+<h3>Главная страница локально</h3>
 
 <pre><code>http://localhost:8000/preview.html</code></pre>
 
+<h3>Страница «Биография» локально</h3>
+
+<pre><code>http://localhost:8000/biography-preview.html</code></pre>
+
 <div class="note">
-  Теперь localhost — это главная production-like среда проверки.<br>
-  Не GitHub Pages.<br>
-  Не Tilda preview.
+  localhost — главная production-like среда проверки.
+  Не GitHub Pages. Не Tilda preview.
 </div>
 
 <hr>
@@ -185,7 +254,7 @@ production deploy</code></pre>
 <h3>preview.html</h3>
 
 <p>
-preview.html — главный локальный entry-point.
+preview.html — локальный entry-point главной страницы.
 </p>
 
 <p>
@@ -193,11 +262,49 @@ preview.html — главный локальный entry-point.
 </p>
 
 <ul>
-  <li>подключает CSS;</li>
-  <li>загружает pages/home/home.html;</li>
-  <li>подключает home.js;</li>
-  <li>работает как production sandbox.</li>
+  <li>подключает home.css;</li>
+  <li>подключает home-mobile.css;</li>
+  <li>подключает popups.css;</li>
+  <li>подключает popups-mobile.css;</li>
+  <li>подключает page-transition.css;</li>
+  <li>загружает pages/home/home.html через fetch;</li>
+  <li>после вставки HTML подключает home.js;</li>
+  <li>после home.js подключает page-transition.js;</li>
+  <li>работает как production sandbox главной страницы.</li>
 </ul>
+
+<h3>biography-preview.html</h3>
+
+<p>
+biography-preview.html — локальный entry-point страницы «Биография».
+</p>
+
+<p>
+Он:
+</p>
+
+<ul>
+  <li>подключает home.css, потому что меню переиспользует систему главной страницы;</li>
+  <li>подключает biography.css поверх home.css;</li>
+  <li>подключает popups.css;</li>
+  <li>подключает popups-mobile.css;</li>
+  <li>подключает page-transition.css;</li>
+  <li>загружает pages/biography/biography.html через fetch;</li>
+  <li>после вставки HTML подключает biography.js;</li>
+  <li>после biography.js подключает page-transition.js.</li>
+</ul>
+
+<h3>Статичный transition overlay</h3>
+
+<p>
+В preview.html и biography-preview.html должен быть заранее размещён overlay:
+</p>
+
+<pre><code>&lt;div class="ip-page-transition is-enter" aria-hidden="true"&gt;&lt;/div&gt;</code></pre>
+
+<p>
+Он нужен, чтобы новая страница не успевала дёрнуться до запуска transition JS.
+</p>
 
 <h3>ВАЖНО</h3>
 
@@ -209,7 +316,8 @@ preview.html — главный локальный entry-point.
 
 <pre><code>../assets/
 ./js/
-./css/</code></pre>
+./css/
+./pages/</code></pre>
 
 <h3>НЕПРАВИЛЬНО</h3>
 
@@ -231,10 +339,11 @@ ChatGPT всегда присылает:
 
 <ul>
   <li>полный готовый файл;</li>
-  <li>или полный готовый блок.</li>
+  <li>или полный готовый блок только если пользователь прямо попросил блок;</li>
+  <li>коммит в конце, если правка относится к проекту.</li>
 </ul>
 
-<h3>Запрещено</h3>
+<h3>Строго запрещено</h3>
 
 <pre><code>Найди строку и замени...</code></pre>
 
@@ -242,50 +351,65 @@ ChatGPT всегда присылает:
 
 <pre><code>Вручную исправь 14 мест...</code></pre>
 
+<pre><code>Остальной код без изменений...</code></pre>
+
+<pre><code>Вставь этот маленький patch...</code></pre>
+
 <h3>Разрешено</h3>
 
 <pre><code>Полностью замени css/home.css этим кодом</code></pre>
 
+<pre><code>Полностью замени js/page-transition.js этим кодом</code></pre>
+
 <h3>Patch policy</h3>
 
 <p>
-Patch допускается только если:
+Patch допускается только если пользователь явно просит точечный фрагмент.
+По умолчанию — только полный готовый файл.
 </p>
 
-<ul>
-  <li>его можно вставить целиком;</li>
-  <li>без ручного поиска;</li>
-  <li>без ручной замены строк.</li>
-</ul>
-
-<div class="note">
-  Никаких ручных replace workflow больше быть не должно.
+<div class="danger">
+  Никаких ручных replace workflow. Никаких сокращений. Никаких «фрагмент ниже».
+  Пользователь требует чистые полные файлы.
 </div>
 
 <hr>
 
 <h2>5. Правила файлов</h2>
 
-<h3>Каждый файл обязан содержать:</h3>
+<h3>Каждый HTML/CSS/JS файл обязан содержать:</h3>
 
 <pre><code>Версия
 ИЗМЕНЕНИЯ</code></pre>
 
-<h3>Пример</h3>
+<h3>Пример CSS</h3>
 
 <pre><code>/*
 ==================================================
 HOME CSS
 
-Версия: home-071
+Версия: home-075
 
 ИЗМЕНЕНИЯ:
-- исправлены локальные пути
-- восстановлено меню
-- восстановлен portrait layer
-- восстановлены glow animation
+- версия основана на стабильном home-074
+- меню главной приведено к поведению меню страницы «Биография»
+- исправлено преждевременное появление пунктов меню при hover до анимации
 ==================================================
 */</code></pre>
+
+<h3>Пример HTML</h3>
+
+<pre><code>&lt;!--
+==================================================
+BIOGRAPHY HTML
+
+Версия: biography-html-002
+
+ИЗМЕНЕНИЯ:
+- удалено отдельное меню ip-biography-menu
+- подключена HTML-структура меню как на главной странице
+==================================================
+--&gt;</code></pre>
 
 <hr>
 
@@ -309,8 +433,25 @@ Desktop масштабируется по высоте:
   <li>desktop НЕ работает через contain;</li>
   <li>desktop НЕ должен показывать полосы сверху/снизу;</li>
   <li>разрешён controlled crop по краям;</li>
-  <li>композиция должна сохранять cinematic framing.</li>
+  <li>композиция должна сохранять cinematic framing;</li>
+  <li>главная и биография используют одну логику масштабирования по высоте.</li>
 </ul>
+
+<h3>Главная</h3>
+
+<pre><code>.ip-home-stage{
+  width:1440px;
+  height:800px;
+  transform:translate3d(-50%,-50%,0) scale(var(--ip-home-scale,1));
+}</code></pre>
+
+<h3>Биография</h3>
+
+<pre><code>.ip-biography-stage{
+  width:1440px;
+  height:800px;
+  transform:translate3d(-50%,-50%,0) scale(var(--biography-scale,1));
+}</code></pre>
 
 <hr>
 
@@ -332,7 +473,9 @@ scale = Math.max(scaleX, scaleY)</code></pre>
   <li>mobile всегда должен заполнять экран;</li>
   <li>никаких нижних пустот;</li>
   <li>никакого вертикального скролла;</li>
-  <li>mobile CSS хранится отдельно.</li>
+  <li>mobile CSS хранится отдельно;</li>
+  <li>mobile не смешивать обратно в desktop CSS;</li>
+  <li>сначала доводить desktop, потом делать mobile.</li>
 </ul>
 
 <h3>Разделение CSS</h3>
@@ -341,7 +484,19 @@ scale = Math.max(scaleX, scaleY)</code></pre>
 → desktop core
 
 home-mobile.css
-→ mobile overrides</code></pre>
+→ mobile overrides
+
+biography.css
+→ desktop biography
+
+future biography-mobile.css
+→ mobile biography overrides
+
+popups.css
+→ desktop popup
+
+popups-mobile.css
+→ mobile popup overrides</code></pre>
 
 <hr>
 
@@ -355,7 +510,8 @@ home-mobile.css
 4. dark overlay
 5. content
 6. menu
-7. popup</code></pre>
+7. popup
+8. page transition overlay</code></pre>
 
 <h3>Desktop assets</h3>
 
@@ -367,19 +523,127 @@ assets/img/home/portrait/</code></pre>
 <pre><code>assets/img/home/mobile/background/
 assets/img/home/mobile/portrait/</code></pre>
 
-<h3>Popup assets</h3>
+<h3>Popup/menu assets</h3>
 
-<pre><code>assets/img/home/popups/</code></pre>
+<pre><code>assets/img/home/popups/menu-noise.webp
+assets/img/popups/popup-main-bg.webp
+assets/img/popups/popup-mobile-bg.webp</code></pre>
+
+<h3>Главная страница сейчас</h3>
+
+<ul>
+  <li>Главная страница работает через preview.html.</li>
+  <li>Меню утверждено как финальное.</li>
+  <li>Popup работает отдельно через popups.css и popups-mobile.css.</li>
+  <li>Page transition подключён отдельно через page-transition.css и page-transition.js.</li>
+</ul>
 
 <hr>
 
-<h2>9. Typography</h2>
+<h2>9. Страница «Биография» / «Обо мне»</h2>
 
-<h3>Главный шрифт</h3>
+<h3>Название в меню</h3>
+
+<pre><code>Биография</code></pre>
+
+<h3>Заголовок на странице</h3>
+
+<pre><code>Обо мне</code></pre>
+
+<h3>Desktop base</h3>
+
+<pre><code>1440×800</code></pre>
+
+<h3>Структура страницы</h3>
+
+<pre><code>Левая часть:
+- заголовок «Обо мне»
+- подзаголовок
+- список фактов
+- awards/footer блок
+
+Правая часть:
+- автоматическая fullscreen-карусель
+- quote
+- меню поверх фото</code></pre>
+
+<h3>Контент</h3>
+
+<pre><code>Заголовок:
+Обо мне
+
+Подзаголовок:
+Более 10 лет создаю атмосферу незабываемых событий:
+от камерных свадеб до масштабных корпоративных форумов.
+
+Основной текст:
+- Эмпатичный перфекционист с творческим почерком
+- Играю на гитаре ручной работы "C.F. Martin & Co", которая является неотъемлемой частью моего шоу (караоке, фристайл)
+- Прокачиваю разговорный английский
+- В сезон передвигаюсь на своем "Harley Davidson"
+- После плотного рабочего графика перезагружаюсь в "PS5 Pro"
+- Отпуск провожу в путешествиях с женой и двумя сыновьями, оставляя нашего скоттиш-страйта дома за главного
+- На постоянной основе занимаюсь фитнесом
+- Перевез всю семью из Нижнего Новгорода в Москву
+
+Цитата:
+— География моих проектов охватывает
+всю Россию и ряд зарубежных стран.
+
+Подпись:
+Иван Перцев
+
+Факты:
+Лучший свадебный ведущий ПФО Wedding Awards
+Top 100 лучших ведущих России</code></pre>
+
+<h3>Assets</h3>
+
+<pre><code>assets/img/biography/background/biography-bg.webp
+
+assets/img/biography/carousel/biography-slide-01.webp
+assets/img/biography/carousel/biography-slide-02.webp
+assets/img/biography/carousel/biography-slide-03.webp
+assets/img/biography/carousel/biography-slide-04.webp
+assets/img/biography/carousel/biography-slide-05.webp
+assets/img/biography/carousel/biography-slide-06.webp
+
+assets/img/biography/icons/biography-wedding-awards.svg
+assets/img/biography/icons/biography-top100.svg</code></pre>
+
+<h3>Карусель</h3>
+
+<ul>
+  <li>Используется Ken Burns + fade.</li>
+  <li>Слайды автоматически сменяются.</li>
+  <li>Overlay на фото не нужен, потому что изображения уже подготовлены с нужным визуальным затемнением.</li>
+</ul>
+
+<h3>ВАЖНО по меню на биографии</h3>
+
+<ul>
+  <li>Страница «Биография» использует меню главной страницы.</li>
+  <li>Не использовать отдельную систему ip-biography-menu.</li>
+  <li>HTML меню должен использовать классы ip-menu-toggle, ip-menu-panel, ip-accordion.</li>
+  <li>home.css подключается на biography-preview.html ради общего меню.</li>
+  <li>biography.css содержит только scoped overrides для страницы биографии.</li>
+  <li>Ширина меню на биографии — 518px.</li>
+  <li>Ширина меню на главной — 385px.</li>
+</ul>
+
+<hr>
+
+<h2>10. Typography</h2>
+
+<h3>Главный акцентный шрифт</h3>
 
 <pre><code>Benzin</code></pre>
 
-<h3>Подключение шрифтов</h3>
+<h3>Основной шрифт</h3>
+
+<pre><code>Montserrat</code></pre>
+
+<h3>Подключение Benzin</h3>
 
 <p>
 Только локально:
@@ -391,13 +655,41 @@ assets/img/home/mobile/portrait/</code></pre>
 
 <pre><code>https://...</code></pre>
 
+<h3>Меню typography — финальный эталон</h3>
+
+<pre><code>Основные пункты меню:
+font-size:20px
+line-height:90%
+font-weight:600
+letter-spacing:-0.04em
+
+Подпункты:
+font-size:16px
+line-height:120%
+font-weight:400
+letter-spacing:-0.025em
+
+Legal:
+font-size:8px
+line-height:150%</code></pre>
+
 <hr>
 
-<h2>10. Menu rules</h2>
+<h2>11. Menu rules — ФИНАЛЬНО</h2>
 
-<h3>Desktop menu</h3>
+<div class="danger">
+  <strong>МЕНЮ УТВЕРЖДЕНО КАК ФИНАЛЬНОЕ.</strong><br>
+  Больше не менять меню без прямого запроса пользователя.
+  Это относится к главной и странице «Биография».
+</div>
+
+<h3>Desktop menu — главная</h3>
 
 <pre><code>width:385px</code></pre>
+
+<h3>Desktop menu — биография</h3>
+
+<pre><code>width:518px</code></pre>
 
 <h3>Menu behavior</h3>
 
@@ -406,23 +698,99 @@ assets/img/home/mobile/portrait/</code></pre>
   <li>blur background;</li>
   <li>noise overlay;</li>
   <li>соцсети появляются после фона;</li>
+  <li>пункты меню появляются поочередно сверху вниз;</li>
+  <li>до старта своей анимации пункты меню не должны быть видны;</li>
+  <li>до старта своей анимации пункты меню не должны проявляться при hover;</li>
   <li>закрытие по крестику;</li>
-  <li>закрытие по scroll.</li>
+  <li>закрытие по scroll на главной, если это уже реализовано в home.js;</li>
+  <li>accordion для «Проекты» и «Контакты».</li>
 </ul>
+
+<h3>Финальный багфикс меню</h3>
+
+<p>
+Пункты меню до старта анимации должны быть скрыты через:
+</p>
+
+<pre><code>visibility:hidden;
+opacity:0;
+pointer-events:none;</code></pre>
+
+<p>
+В keyframes нужно вернуть visibility:
+</p>
+
+<pre><code>@keyframes ipMenuTextDrop{
+  0%{
+    visibility:hidden;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  1%{
+    visibility:visible;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  100%{
+    visibility:visible;
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+}</code></pre>
 
 <h3>Accordion</h3>
 
 <p>
-Проекты и контакты работают как accordion.
+Проекты и Контакты работают как accordion.
 </p>
+
+<h3>Ссылки меню</h3>
+
+<pre><code>Главная → ./preview.html
+Биография → ./biography-preview.html</code></pre>
+
+<h3>Пункты меню</h3>
+
+<pre><code>Главная
+Биография
+Проекты
+  Свадьба
+  Корпоратив
+  День рождение
+  Выпускной
+  Другое
+Музыкальное шоу
+Сотрудничество
+Контакты
+  +7 920 012 76 24
+  Написать</code></pre>
+
+<h3>Соцсети</h3>
+
+<pre><code>Instagram:
+https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1
+
+Telegram:
+https://t.me/ivan_pertsev
+
+VK:
+https://vk.com/ivan_pertsev</code></pre>
 
 <hr>
 
-<h2>11. Popups</h2>
+<h2>12. Popups</h2>
 
-<h3>Popup file</h3>
+<h3>Popup files</h3>
 
-<pre><code>css/popups.css</code></pre>
+<pre><code>css/popups.css
+css/popups-mobile.css</code></pre>
+
+<h3>Popup assets</h3>
+
+<pre><code>assets/img/popups/popup-main-bg.webp
+assets/img/popups/popup-mobile-bg.webp</code></pre>
 
 <h3>Popup rules</h3>
 
@@ -431,14 +799,114 @@ assets/img/home/mobile/portrait/</code></pre>
   <li>blur только на backdrop;</li>
   <li>не blur на card;</li>
   <li>масштабирование popup отдельно;</li>
-  <li>mobile popup отдельный.</li>
+  <li>mobile popup отдельный;</li>
+  <li>desktop и mobile popup CSS разделены;</li>
+  <li>на mobile используется отдельное изображение popup-mobile-bg.webp;</li>
+  <li>на mobile кнопка отправки сразу белая с тёмным текстом;</li>
+  <li>на mobile у кнопки есть мягкий active-state через scale.</li>
 </ul>
+
+<h3>Popup animation</h3>
+
+<p>
+При клике на «Другое» или «Написать»:
+</p>
+
+<pre><code>1. Сначала плавно затемняется/блюрится фон popup-backdrop.
+2. Только потом появляется popup-card.</code></pre>
+
+<h3>Popup typography</h3>
+
+<ul>
+  <li>Имя «Иван Перцев» имеет letter-spacing:0.5px.</li>
+  <li>Чекбокс согласия выровнен по верхней строке текста.</li>
+</ul>
+
+<h3>Mobile popup image</h3>
+
+<p>
+Размер макета mobile popup:
+</p>
+
+<pre><code>350×620</code></pre>
+
+<p>
+Для Retina загружать:
+</p>
+
+<pre><code>700×1240 px
+format: webp</code></pre>
 
 <hr>
 
-<h2>12. Animation rules</h2>
+<h2>13. Page transitions</h2>
 
-<h3>Desktop animation order</h3>
+<h3>Files</h3>
+
+<pre><code>css/page-transition.css
+js/page-transition.js</code></pre>
+
+<h3>Текущий выбранный стиль</h3>
+
+<pre><code>Короткий монтажный переход через чёрный экран.
+Без blur.</code></pre>
+
+<h3>Логика</h3>
+
+<pre><code>1. Пользователь кликает по ссылке на другую html-страницу.
+2. Страница быстро затемняется в чёрный экран.
+3. Выполняется переход на новую страницу.
+4. Новая страница проявляется из чёрного экрана.</code></pre>
+
+<h3>ВАЖНО</h3>
+
+<ul>
+  <li>Blur в page transition не использовать.</li>
+  <li>Переход должен работать с главной на биографию и обратно.</li>
+  <li>Переход должен работать при browser back/forward.</li>
+  <li>Для browser back/forward обработать pageshow и bfcache.</li>
+  <li>Overlay должен быть в HTML заранее, чтобы не было рывков.</li>
+  <li>Внешние ссылки, tel, mailto и popup triggers не перехватывать.</li>
+</ul>
+
+<h3>Не перехватывать ссылки</h3>
+
+<pre><code>href="#"
+tel:
+mailto:
+target="_blank"
+[data-popup-open]</code></pre>
+
+<h3>Текущие параметры перехода</h3>
+
+<pre><code>EXIT_DURATION около 280ms
+ENTER_DURATION около 380ms
+MAX_ASSET_WAIT около 420ms</code></pre>
+
+<h3>Browser navigation bugfix</h3>
+
+<p>
+Если пользователь нажимает стрелки браузера назад/вперёд, не должен оставаться чёрный экран.
+Для этого в page-transition.js обязательно есть:
+</p>
+
+<pre><code>window.addEventListener('pageshow', function(event){
+  if(event.persisted){
+    resetOverlay();
+  }
+});
+
+window.addEventListener('popstate', function(){
+  window.setTimeout(function(){
+    resetOverlay();
+  }, 0);
+});</code></pre>
+
+<hr>
+
+<h2>14. Animation rules</h2>
+
+<h3>Desktop animation order — главная</h3>
 
 <pre><code>base
 ↓
@@ -463,11 +931,18 @@ scale</code></pre>
 
 <pre><code>clip-path animation
 background-image animation
-filter animation</code></pre>
+filter animation для основных сцен</code></pre>
+
+<h3>Исключения</h3>
+
+<ul>
+  <li>filter/drop-shadow допустим для burger-иконки на странице «Биография», чтобы она была видна на светлых фото.</li>
+  <li>backdrop-filter допустим для меню и popup backdrop.</li>
+</ul>
 
 <hr>
 
-<h2>13. Git workflow</h2>
+<h2>15. Git workflow</h2>
 
 <h3>После каждого stable update</h3>
 
@@ -482,7 +957,15 @@ Fix desktop scaling
 Restore portrait animation
 Refactor popup layout
 Separate mobile overrides
-Optimize localhost workflow</code></pre>
+Optimize localhost workflow
+Create biography desktop page
+Reuse home menu on biography page
+Sync home menu behavior with biography
+Add cinematic page fade transition
+Change page transition to black fade
+Stabilize black page transition
+Speed up black page transition
+Fix page transition browser navigation</code></pre>
 
 <h3>ВАЖНО</h3>
 
@@ -493,11 +976,13 @@ Optimize localhost workflow</code></pre>
 <pre><code>fix
 fix2
 newfix
-finalfix</code></pre>
+finalfix
+test
+update</code></pre>
 
 <hr>
 
-<h2>14. Backup policy</h2>
+<h2>16. Backup policy</h2>
 
 <h3>Backup location</h3>
 
@@ -510,6 +995,19 @@ home.production.css
 home.production.mobile.css
 home.production.js</code></pre>
 
+<h3>Рекомендуемые backup для новых страниц</h3>
+
+<pre><code>backup/biography/production/
+  biography.production.html
+  biography.production.css
+  biography.production.js
+
+backup/shared/production/
+  popups.production.css
+  popups.production.mobile.css
+  page-transition.production.css
+  page-transition.production.js</code></pre>
+
 <h3>Когда делать backup</h3>
 
 <ul>
@@ -517,76 +1015,133 @@ home.production.js</code></pre>
   <li>перед animation rewrite;</li>
   <li>перед menu rewrite;</li>
   <li>перед popup rewrite;</li>
-  <li>перед production deploy.</li>
+  <li>перед production deploy;</li>
+  <li>после утверждения стабильного состояния страницы.</li>
 </ul>
 
 <hr>
 
-<h2>15. Текущий статус проекта</h2>
+<h2>17. Текущий статус проекта</h2>
 
 <h3>Сейчас реализовано</h3>
 
 <ul>
   <li>локальный VS Code workflow;</li>
   <li>localhost preview;</li>
+  <li>главная desktop;</li>
+  <li>главная mobile частично/отдельно через home-mobile.css;</li>
+  <li>страница «Биография» desktop;</li>
   <li>разделение desktop/mobile;</li>
   <li>layered hero system;</li>
   <li>popup system;</li>
+  <li>desktop popup;</li>
+  <li>mobile popup;</li>
   <li>accordion menu;</li>
-  <li>cinematic scaling system.</li>
+  <li>финальное меню главной;</li>
+  <li>финальное меню биографии;</li>
+  <li>cinematic scaling system;</li>
+  <li>black screen page transition.</li>
 </ul>
 
-<h3>Текущая проблема</h3>
-
-<p>
-Во время перехода с GitHub URLs на localhost-relative paths был частично сломан:
-</p>
+<h3>Финально утверждено</h3>
 
 <ul>
-  <li>portrait layer;</li>
-  <li>menu;</li>
-  <li>glow animation;</li>
-  <li>desktop composition.</li>
+  <li>Текущее меню главной страницы.</li>
+  <li>Текущее меню страницы «Биография».</li>
+  <li>Разделение popups.css и popups-mobile.css.</li>
+  <li>Отдельное mobile изображение popup-mobile-bg.webp.</li>
+  <li>Локальный workflow через localhost.</li>
+  <li>Правило полных файлов от ChatGPT.</li>
 </ul>
 
-<h3>Текущая задача</h3>
+<h3>Ближайшие задачи</h3>
 
-<pre><code>Полностью восстановить localhost build
-до состояния production build из Tilda.</code></pre>
+<pre><code>1. Проверить page transition после последнего bugfix browser back/forward.
+2. Довести desktop страницы «Биография» до полного совпадения с макетом.
+3. Создать stable backup.
+4. Перейти к mobile-версии страницы «Биография».
+5. После mobile — переходить к следующим страницам.</code></pre>
 
 <hr>
 
-<h2>16. Что запрещено делать</h2>
+<h2>18. Что запрещено делать</h2>
 
 <ul>
+  <li>Не менять меню без прямого запроса пользователя.</li>
   <li>Не смешивать mobile обратно в home.css.</li>
+  <li>Не смешивать mobile popup обратно в popups.css.</li>
   <li>Не использовать GitHub URLs локально.</li>
   <li>Не делать ручные replace workflow.</li>
   <li>Не ломать desktop при mobile правках.</li>
   <li>Не ломать mobile при desktop правках.</li>
   <li>Не генерировать изображения для code-задач.</li>
   <li>Не делать patch поверх patch поверх patch.</li>
+  <li>Не использовать формулировку «фиксы» в комментариях к коду.</li>
+  <li>Не сокращать файлы.</li>
+  <li>Не писать «остальной код без изменений».</li>
+  <li>Не менять пути на GitHub URLs.</li>
+  <li>Не менять approved menu typography/animation.</li>
 </ul>
 
 <hr>
 
-<h2>17. Следующие этапы</h2>
+<h2>19. Правила работы с изображениями и assets</h2>
 
-<pre><code>1. Восстановить localhost build
-2. Проверить portrait layers
-3. Проверить menu
-4. Проверить popup
-5. Проверить desktop scaling
-6. Проверить mobile scaling
-7. Создать stable backup
-8. Перейти к следующим страницам</code></pre>
+<h3>Общее правило</h3>
+
+<p>
+Все изображения лежат локально в assets. GitHub используется как репозиторий, но сайт локально подтягивает файлы через git pull.
+</p>
+
+<h3>Правильно</h3>
+
+<pre><code>assets/img/biography/carousel/biography-slide-01.webp</code></pre>
+
+<h3>Неправильно</h3>
+
+<pre><code>https://raw.githubusercontent.com/...</code></pre>
+
+<h3>Как обновлять asset</h3>
+
+<pre><code>1. Положить файл локально в нужную папку.
+2. Прописать относительный путь в CSS/HTML.
+3. git add файл.
+4. git commit.
+5. git push.
+6. На другом компьютере git pull.</code></pre>
 
 <hr>
 
-<h2>18. Краткое резюме для нового чата</h2>
+<h2>20. Команды для текущего проекта</h2>
+
+<h3>Локальный запуск</h3>
+
+<pre><code>python -m http.server 8000</code></pre>
+
+<h3>Открыть главную</h3>
+
+<pre><code>http://localhost:8000/preview.html</code></pre>
+
+<h3>Открыть биографию</h3>
+
+<pre><code>http://localhost:8000/biography-preview.html</code></pre>
+
+<h3>Жёсткое обновление браузера</h3>
+
+<pre><code>Ctrl + Shift + R</code></pre>
+
+<h3>Commit после правок</h3>
+
+<pre><code>git add .
+git commit -m "Meaningful commit name"
+git push</code></pre>
+
+<hr>
+
+<h2>21. Краткое резюме для нового чата</h2>
 
 <p>
-Проект — cinematic сайт Ивана Перцева.
+Проект — cinematic сайт Ивана Перцева, ведущего и музыканта.
 </p>
 
 <p>
@@ -606,17 +1161,36 @@ GitHub только как backup/deploy</code></pre>
 </p>
 
 <pre><code>layered image system
-fixed desktop composition
+fixed desktop composition 1440×800
+desktop scale по viewportHeight / 800
 mobile cover scaling
 separate mobile CSS
-cinematic animation system</code></pre>
+cinematic animation system
+final approved menu
+popup system
+black page transition</code></pre>
+
+<p>
+Страница «Биография» использует:
+</p>
+
+<pre><code>desktop composition 1440×800
+left text content
+right carousel 518px
+Ken Burns + fade carousel
+same menu system as home
+menu width 518px only on biography
+black page transition</code></pre>
 
 <p>
 Главное правило:
 </p>
 
 <pre><code>ChatGPT всегда присылает полный готовый код файла.
-Без ручных replace workflow.</code></pre>
+Без ручных replace workflow.
+Без сокращений.
+Без patch-over-patch.
+Меню больше не менять без прямого запроса.</code></pre>
 
 </main>
 
