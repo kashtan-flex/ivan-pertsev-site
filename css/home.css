@@ -736,3 +736,38 @@ body,
     transform:scale(1);
   }
 }
+/* ===== MacOS / Safari desktop text fix ===== */
+
+.ip-home-title{
+  overflow: visible;
+}
+
+.ip-title-line{
+  overflow: visible;
+}
+
+.ip-title-line span{
+  display:flex;
+  align-items:flex-start;
+
+  padding-top:12px;
+
+  line-height:.92;
+
+  overflow:visible;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* first line */
+
+.ip-title-line-first{
+  height:108px;
+}
+
+/* second line */
+
+.ip-title-line-second{
+  height:108px;
+}
