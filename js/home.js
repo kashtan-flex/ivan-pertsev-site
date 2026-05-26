@@ -1,11 +1,13 @@
 /*
-  Версия: home-js-071
+  Версия: home-js-073
 
   ИЗМЕНЕНИЯ:
-  - добавлена маска даты ДД.ММ.ГГГГ для поля name="date"
-  - поле даты работает как обычное текстовое поле без системного календаря
-  - сохранена логика меню, аккордеонов и открытия попапа
-  - сохранена блокировка скролла при открытом попапе
+  - дата теперь работает как настоящая маска
+  - при клике в поле появляется шаблон "__.__.____"
+  - цифры автоматически встают в формат ДД.ММ.ГГГГ
+  - нельзя ввести лишние символы
+  - если дата пустая, при уходе из поля снова показывается "Дата"
+  - сохранена логика меню, аккордеонов и попапа
 */
 
 (function () {
@@ -32,19 +34,10 @@
   function updateHomeScale() {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    let scale;
 
-    if (isMobile()) {
-      scale = Math.max(
-        viewportWidth / DESIGN.mobile.width,
-        viewportHeight / DESIGN.mobile.height
-      );
-    } else {
-      scale = Math.min(
-        viewportWidth / DESIGN.desktop.width,
-        viewportHeight / DESIGN.desktop.height
-      );
-    }
+    const scale = isMobile()
+      ? Math.max(viewportWidth / DESIGN.mobile.width, viewportHeight / DESIGN.mobile.height)
+      : Math.min(viewportWidth / DESIGN.desktop.width, viewportHeight / DESIGN.desktop.height);
 
     page.style.setProperty('--ip-home-scale', scale);
   }
@@ -89,46 +82,98 @@
     document.body.classList.remove('ip-popup-lock');
   }
 
-  function formatDateValue(value) {
-    const digits = value.replace(/\D/g, '').slice(0, 8);
-    const parts = [];
-
-    if (digits.length > 0) {
-      parts.push(digits.slice(0, 2));
-    }
-
-    if (digits.length > 2) {
-      parts.push(digits.slice(2, 4));
-    }
-
-    if (digits.length > 4) {
-      parts.push(digits.slice(4, 8));
-    }
-
-    return parts.join('.');
-  }
-
   function setupDateMask() {
     if (!mainPopup) return;
 
-    const dateInput = mainPopup.querySelector('input[name="date"]');
+    const dateInput =
+      mainPopup.querySelector('input[name="date"]') ||
+      mainPopup.querySelector('.ip-popup-fields input:nth-child(3)');
 
     if (!dateInput) return;
 
+    const mask = '__.__.____';
+
+    function getDigits(value) {
+      return value.replace(/\D/g, '').slice(0, 8);
+    }
+
+    function buildMaskedValue(digits) {
+      const chars = mask.split('');
+      const digitPositions = [0, 1, 3, 4, 6, 7, 8, 9];
+
+      digits.split('').forEach(function (digit, index) {
+        chars[digitPositions[index]] = digit;
+      });
+
+      return chars.join('');
+    }
+
+    function setCaretToNextSlot() {
+      const firstEmptyIndex = dateInput.value.indexOf('_');
+      const caretPosition = firstEmptyIndex === -1 ? dateInput.value.length : firstEmptyIndex;
+
+      requestAnimationFrame(function () {
+        dateInput.setSelectionRange(caretPosition, caretPosition);
+      });
+    }
+
+    function updateMaskedValue() {
+      const digits = getDigits(dateInput.value);
+      dateInput.value = buildMaskedValue(digits);
+      setCaretToNextSlot();
+    }
+
+    dateInput.setAttribute('type', 'text');
     dateInput.setAttribute('placeholder', 'Дата');
     dateInput.setAttribute('inputmode', 'numeric');
     dateInput.setAttribute('maxlength', '10');
     dateInput.setAttribute('autocomplete', 'off');
 
-    dateInput.addEventListener('input', function () {
-      dateInput.value = formatDateValue(dateInput.value);
+    dateInput.addEventListener('focus', function () {
+      if (!getDigits(dateInput.value)) {
+        dateInput.value = mask;
+      }
+
+      setCaretToNextSlot();
     });
+
+    dateInput.addEventListener('click', setCaretToNextSlot);
+
+    dateInput.addEventListener('keydown', function (event) {
+      const allowedKeys = [
+        'Backspace',
+        'Delete',
+        'Tab',
+        'ArrowLeft',
+        'ArrowRight',
+        'Home',
+        'End'
+      ];
+
+      if (allowedKeys.includes(event.key)) return;
+
+      if (!/^\d$/.test(event.key)) {
+        event.preventDefault();
+      }
+    });
+
+    dateInput.addEventListener('input', updateMaskedValue);
 
     dateInput.addEventListener('paste', function (event) {
       event.preventDefault();
 
       const pastedText = (event.clipboardData || window.clipboardData).getData('text');
-      dateInput.value = formatDateValue(pastedText);
+      const digits = getDigits(pastedText);
+
+      dateInput.value = buildMaskedValue(digits);
+      setCaretToNextSlot();
+    });
+
+    dateInput.addEventListener('blur', function () {
+      if (!getDigits(dateInput.value)) {
+        dateInput.value = '';
+        dateInput.setAttribute('placeholder', 'Дата');
+      }
     });
   }
 
