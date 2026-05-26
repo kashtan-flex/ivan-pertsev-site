@@ -1,14 +1,14 @@
 /* =========================================================
-   POPUPS CSS
+   POPUPS CSS — DESKTOP CORE
 
-   Версия: popups-021
+   Версия: popups-desktop-022
 
    ИЗМЕНЕНИЯ:
-   - увеличено межбуквенное расстояние имени Иван Перцев на 0.5px
-   - чекбокс согласия поднят и выровнен по верхней строке текста
-   - анимация открытия разделена на два этапа: сначала мягкий blur фона, затем появление popup-card
-   - сохранён black glass style полей формы
-   - сохранена адаптивная mobile-версия popup
+   - desktop-логика popup вынесена в основной файл
+   - mobile-стили удалены из desktop-файла
+   - сохранено межбуквенное расстояние имени Иван Перцев на 0.5px
+   - сохранено выравнивание чекбокса по верхней строке текста
+   - сохранена анимация: сначала мягкий blur фона, затем появление popup-card
    ========================================================= */
 
 html.ip-popup-lock,
@@ -73,6 +73,7 @@ body.ip-popup-lock{
   background-image:url('../assets/img/popups/popup-main-bg.webp');
   background-size:cover;
   background-position:center;
+  background-repeat:no-repeat;
   box-shadow:
     0 34px 110px rgba(0,0,0,.58),
     0 8px 28px rgba(0,0,0,.35),
@@ -172,23 +173,18 @@ body.ip-popup-lock{
   border:0;
   border-radius:5px;
   outline:none;
-
   background:rgba(0,0,0,.35);
-
   backdrop-filter:blur(3px);
   -webkit-backdrop-filter:blur(3px);
-
   box-shadow:
     inset -1px -1px 1px rgba(255,255,255,.12),
     inset 1px 1px 1px rgba(0,0,0,.22),
     inset 0 1px 0 rgba(255,255,255,.045),
     0 10px 24px rgba(0,0,0,.16);
-
   color:#fff;
   font-family:'Montserrat',sans-serif;
   font-size:14px;
   line-height:1;
-
   transition:
     background .35s ease,
     box-shadow .35s ease;
@@ -196,7 +192,6 @@ body.ip-popup-lock{
 
 .ip-popup-fields input:focus{
   background:rgba(0,0,0,.24);
-
   box-shadow:
     inset -1px -1px 1px rgba(255,255,255,.16),
     inset 1px 1px 1px rgba(0,0,0,.24),
@@ -305,69 +300,4 @@ body.ip-popup-lock{
   background:#fff;
   color:#111;
   border-color:#fff;
-}
-
-@media (max-width:767px){
-
-  .ip-popup{
-    padding:20px;
-  }
-
-  .ip-popup-card{
-    width:min(350px, calc(100vw - 40px), calc((100vh - 40px) * .535));
-    aspect-ratio:350 / 654;
-    border-radius:12px;
-    background-image:
-      linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-      url('../assets/img/popups/popup-main-bg.webp');
-    background-size:cover;
-    background-position:center;
-  }
-
-  .ip-popup-heading{
-    left:28px;
-    top:68px;
-    width:294px;
-    transform:none;
-  }
-
-  .ip-popup-name{
-    margin-bottom:24px;
-    font-size:20px;
-    letter-spacing:.5px;
-  }
-
-  .ip-popup-text{
-    width:294px;
-    font-size:18px;
-    line-height:1.18;
-  }
-
-  .ip-popup-fields{
-    left:28px;
-    top:184px;
-    width:294px;
-    gap:10px;
-  }
-
-  .ip-popup-fields input{
-    width:294px;
-    height:57px;
-    border-radius:9px;
-  }
-
-  .ip-popup-policy{
-    left:28px;
-    top:404px;
-    width:294px;
-    align-items:flex-start;
-  }
-
-  .ip-popup-submit{
-    left:28px;
-    top:465px;
-    width:294px;
-    height:57px;
-  }
-
 }

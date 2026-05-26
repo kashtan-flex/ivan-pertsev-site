@@ -1,0 +1,77 @@
+/* =========================================================
+   POPUPS MOBILE CSS
+
+   Версия: popups-mobile-001
+
+   ИЗМЕНЕНИЯ:
+   - mobile-логика popup вынесена в отдельный файл
+   - подключено отдельное mobile-изображение popup-mobile-bg.webp
+   - сохранена mobile-композиция popup 350×654
+   - сохранены mobile-позиции заголовка, полей, согласия и кнопки
+   ========================================================= */
+
+@media (max-width:767px){
+
+  .ip-popup{
+    padding:20px;
+  }
+
+  .ip-popup-card{
+    width:min(350px, calc(100vw - 40px), calc((100vh - 40px) * .535));
+    aspect-ratio:350 / 654;
+    border-radius:12px;
+    background-image:
+      linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
+      url('../assets/img/popups/popup-mobile-bg.webp');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+  }
+
+  .ip-popup-heading{
+    left:28px;
+    top:68px;
+    width:294px;
+    transform:none;
+  }
+
+  .ip-popup-name{
+    margin-bottom:24px;
+    font-size:20px;
+    letter-spacing:.5px;
+  }
+
+  .ip-popup-text{
+    width:294px;
+    font-size:18px;
+    line-height:1.18;
+  }
+
+  .ip-popup-fields{
+    left:28px;
+    top:184px;
+    width:294px;
+    gap:10px;
+  }
+
+  .ip-popup-fields input{
+    width:294px;
+    height:57px;
+    border-radius:9px;
+  }
+
+  .ip-popup-policy{
+    left:28px;
+    top:404px;
+    width:294px;
+    align-items:flex-start;
+  }
+
+  .ip-popup-submit{
+    left:28px;
+    top:465px;
+    width:294px;
+    height:57px;
+  }
+
+}
