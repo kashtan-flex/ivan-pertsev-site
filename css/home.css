@@ -2,14 +2,17 @@
    IVAN PERTSEV — HOME PAGE
    FILE: css/home.css
 
-   Версия: home-074
+   Версия: home-076
 
    ИЗМЕНЕНИЯ:
-   - исправлен локальный путь к menu-noise.webp
-   - устранена ошибка 404 в мобильной версии
-   - сохранена полная desktop-версия home.css
-   - сохранены исходные позиции текста, меню и анимаций
-   - сохранена чистая структура: попап живёт отдельно в css/popups.css
+   - меню главной приведено к текущему эталону страницы «Биография»
+   - сохранена ширина меню главной 385px
+   - исправлено преждевременное появление пунктов меню при hover до анимации
+   - все элементы меню до открытия принудительно скрыты через visibility/opacity/pointer-events
+   - основные пункты меню: 20px
+   - подразделы меню: 16px
+   - убрано подчеркивание ссылок меню
+   - усилены override-правила через !important для защиты от старых состояний
    ========================================================= */
 
 @font-face{
@@ -39,7 +42,7 @@ body,
 
 .ip-page-home a{
   color:inherit;
-  text-decoration:none;
+  text-decoration:none !important;
 }
 
 .ip-page-home{
@@ -326,6 +329,7 @@ body,
 .ip-menu-inner{
   position:relative;
   z-index:5;
+  width:100%;
   pointer-events:auto;
 }
 
@@ -345,7 +349,8 @@ body,
   display:block;
   width:27px;
   height:27px;
-  opacity:0;
+  visibility:hidden !important;
+  opacity:0 !important;
   transform:translate3d(0,-32px,0);
   will-change:transform,opacity;
   background:none !important;
@@ -353,7 +358,7 @@ body,
   transform-style:preserve-3d;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
-  pointer-events:auto;
+  pointer-events:none !important;
 }
 
 .ip-social::before,
@@ -377,16 +382,9 @@ body,
   opacity:0;
 }
 
-.ip-social:hover::before{
-  opacity:0;
-}
-
-.ip-social:hover::after{
-  opacity:1;
-}
-
 .ip-menu-panel.is-open .ip-social{
-  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
+  pointer-events:auto !important;
+  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) both;
 }
 
 .ip-menu-panel.is-open .ip-social:nth-child(1){
@@ -399,6 +397,14 @@ body,
 
 .ip-menu-panel.is-open .ip-social:nth-child(3){
   animation-delay:.50s;
+}
+
+.ip-menu-panel.is-open .ip-social:hover::before{
+  opacity:0;
+}
+
+.ip-menu-panel.is-open .ip-social:hover::after{
+  opacity:1;
 }
 
 .ip-social.instagram::before{
@@ -436,13 +442,16 @@ body,
 }
 
 .ip-menu-list > *{
-  opacity:0;
+  visibility:hidden !important;
+  opacity:0 !important;
   transform:translate3d(0,-36px,0);
   will-change:transform,opacity;
+  pointer-events:none !important;
 }
 
 .ip-menu-panel.is-open .ip-menu-list > *{
-  animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) forwards;
+  pointer-events:auto !important;
+  animation:ipMenuTextDrop .56s cubic-bezier(.19,1,.22,1) both;
 }
 
 .ip-menu-panel.is-open .ip-menu-list > *:nth-child(1){
@@ -478,6 +487,7 @@ body,
 .ip-accordion-button:hover,
 .ip-accordion-button:active{
   color:#fff !important;
+  text-decoration:none !important;
 }
 
 .ip-menu-link,
@@ -486,17 +496,17 @@ body,
   border:none;
   background:transparent;
   font-family:'Montserrat',sans-serif;
-  font-size:20px;
-  line-height:90%;
-  font-weight:600;
-  letter-spacing:-0.04em;
+  font-size:20px !important;
+  line-height:90% !important;
+  font-weight:600 !important;
+  letter-spacing:-0.04em !important;
   text-align:left;
   cursor:pointer;
   transition:opacity .25s ease;
 }
 
-.ip-menu-link:hover,
-.ip-accordion-button:hover{
+.ip-menu-panel.is-open .ip-menu-link:hover,
+.ip-menu-panel.is-open .ip-accordion-button:hover{
   opacity:.75;
 }
 
@@ -575,17 +585,16 @@ body,
 .ip-submenu a:hover,
 .ip-submenu a:active{
   color:#69C9FF !important;
+  text-decoration:none !important;
+  font-size:16px !important;
+  line-height:120% !important;
+  font-weight:400 !important;
+  letter-spacing:-.025em !important;
+  opacity:1 !important;
 }
 
-.ip-submenu a{
-  font-size:14px;
-  line-height:120%;
-  opacity:1;
-  transition:opacity .25s ease;
-}
-
-.ip-submenu a:hover{
-  opacity:.75;
+.ip-menu-panel.is-open .ip-submenu a:hover{
+  opacity:.75 !important;
 }
 
 .ip-menu-legal{
@@ -597,16 +606,17 @@ body,
   display:flex;
   flex-direction:column;
   gap:2px;
-  opacity:0;
+  visibility:hidden !important;
+  opacity:0 !important;
   transform:translate3d(0,-32px,0);
   transition:none;
-  pointer-events:none;
+  pointer-events:none !important;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal{
-  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) forwards;
+  animation:ipMenuTextDrop .52s cubic-bezier(.19,1,.22,1) both;
   animation-delay:1.28s;
-  pointer-events:auto;
+  pointer-events:auto !important;
 }
 
 .ip-menu-legal a,
@@ -615,6 +625,7 @@ body,
 .ip-menu-legal a:hover,
 .ip-menu-legal a:active{
   color:rgba(255,255,255,.5) !important;
+  text-decoration:none !important;
 }
 
 .ip-menu-legal a{
@@ -623,8 +634,26 @@ body,
   transition:opacity .25s ease;
 }
 
-.ip-menu-legal a:hover{
+.ip-menu-panel.is-open .ip-menu-legal a:hover{
   opacity:.75;
+}
+
+.ip-menu-panel:not(.is-open) .ip-menu-list > *,
+.ip-menu-panel:not(.is-open) .ip-menu-socials .ip-social,
+.ip-menu-panel:not(.is-open) .ip-menu-legal{
+  visibility:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+  transform:translate3d(0,-36px,0) !important;
+  animation:none !important;
+}
+
+.ip-menu-panel:not(.is-open) .ip-menu-link,
+.ip-menu-panel:not(.is-open) .ip-accordion-button,
+.ip-menu-panel:not(.is-open) .ip-submenu a{
+  visibility:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
 }
 
 @keyframes ipPortraitReveal{
@@ -675,11 +704,19 @@ body,
 
 @keyframes ipMenuTextDrop{
   0%{
+    visibility:hidden;
+    opacity:0;
+    transform:translate3d(0,-36px,0);
+  }
+
+  1%{
+    visibility:visible;
     opacity:0;
     transform:translate3d(0,-36px,0);
   }
 
   100%{
+    visibility:visible;
     opacity:1;
     transform:translate3d(0,0,0);
   }
