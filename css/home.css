@@ -736,21 +736,3 @@ body,
     transform:scale(1);
   }
 }
-/* ===== Safari / MacOS desktop text clipping fix ===== */
-
-@supports (-webkit-touch-callout: none) {
-
-  .ip-home-title{
-    overflow: visible;
-  }
-
-  .ip-title-line{
-    overflow: visible;
-  }
-
-  .ip-title-line span{
-    padding-top:4px;
-    overflow:visible;
-  }
-
-}
