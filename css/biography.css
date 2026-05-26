@@ -1,14 +1,17 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-004
+   Версия: biography-css-006
 
    ИЗМЕНЕНИЯ:
-   - увеличен размер submenu до 24px
-   - submenu визуально приведён ближе к макету
-   - увеличена ширина menu-list до 388px
-   - сохранена hierarchy основных разделов и подразделов
-   - сохранены fixes скрытия menu items до анимации
+   - меню страницы «Биография» приведено ближе к эталону главной страницы
+   - убрано чрезмерное увеличение шрифтов в меню
+   - основные пункты меню настроены на 20px
+   - подпункты меню настроены на 16px
+   - сохранена ширина меню 518px только на странице «Биография»
+   - стрелки accordion вынесены к правому краю меню
+   - сохранено скрытие пунктов меню до запуска анимации
+   - сохранена тень burger-иконки на светлых слайдах
    ========================================================= */
 
 .ip-biography,
@@ -263,14 +266,47 @@
 
 .ip-biography .ip-menu-panel{
   width:518px;
+  padding:60px 100px 80px 60px;
+}
+
+.ip-biography .ip-menu-inner{
+  width:100%;
+}
+
+.ip-biography .ip-menu-socials{
+  gap:10px;
+  margin-bottom:40px;
+}
+
+.ip-biography .ip-menu-list{
+  width:358px;
+  gap:20px;
 }
 
 .ip-biography .ip-menu-link,
 .ip-biography .ip-menu-link:link,
 .ip-biography .ip-menu-link:visited,
 .ip-biography .ip-menu-link:hover,
-.ip-biography .ip-menu-link:active{
+.ip-biography .ip-menu-link:active,
+.ip-biography .ip-accordion-button,
+.ip-biography .ip-accordion-button:hover,
+.ip-biography .ip-accordion-button:active{
+  color:#fff !important;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:20px;
+  line-height:90%;
+  font-weight:600;
+  letter-spacing:-.04em;
   text-decoration:none !important;
+}
+
+.ip-biography .ip-menu-link[href="./biography-preview.html"]{
+  opacity:1;
+}
+
+.ip-biography .ip-submenu{
+  gap:12px;
+  padding-top:16px;
 }
 
 .ip-biography .ip-submenu a,
@@ -278,15 +314,50 @@
 .ip-biography .ip-submenu a:visited,
 .ip-biography .ip-submenu a:hover,
 .ip-biography .ip-submenu a:active{
-  font-size:24px;
-  line-height:1.12;
+  color:#69C9FF !important;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:16px;
+  line-height:120%;
   font-weight:400;
-  letter-spacing:-.045em;
+  letter-spacing:-.025em;
+  opacity:1;
   text-decoration:none !important;
 }
 
-.ip-biography .ip-menu-list{
-  width:388px;
+.ip-biography .ip-menu-legal{
+  left:60px;
+  right:100px;
+  bottom:80px;
+}
+
+.ip-biography .ip-menu-legal a,
+.ip-biography .ip-menu-legal a:link,
+.ip-biography .ip-menu-legal a:visited,
+.ip-biography .ip-menu-legal a:hover,
+.ip-biography .ip-menu-legal a:active{
+  color:rgba(255,255,255,.5) !important;
+  font-size:8px;
+  line-height:150%;
+  text-decoration:none !important;
+}
+
+.ip-biography .ip-accordion-button{
+  width:100%;
+  padding-right:118px;
+}
+
+.ip-biography .ip-accordion-button::before,
+.ip-biography .ip-accordion-button::after{
+  width:14px;
+  height:3px;
+}
+
+.ip-biography .ip-accordion-button::before{
+  right:9px;
+}
+
+.ip-biography .ip-accordion-button::after{
+  right:0;
 }
 
 .ip-biography .ip-menu-list > *,
@@ -347,12 +418,8 @@
   animation-delay:1.18s;
 }
 
-.ip-biography .ip-menu-panel.is-open .ip-menu-link[href="./biography-preview.html"]{
-  animation-name:ipBiographyMenuTextDropActive;
-}
-
 .ip-biography .ip-menu-panel.is-open .ip-menu-legal{
-  animation:ipBiographyMenuTextDropMuted .52s cubic-bezier(.19,1,.22,1) both;
+  animation:ipBiographyMenuTextDrop .52s cubic-bezier(.19,1,.22,1) both;
   animation-delay:1.28s;
 }
 
@@ -373,63 +440,7 @@
   opacity:0 !important;
 }
 
-.ip-biography .ip-menu-panel.is-open .ip-menu-list > *:hover{
-  text-decoration:none !important;
-}
-
-.ip-biography .ip-accordion-button{
-  width:100%;
-}
-
-.ip-biography .ip-accordion-button::before{
-  right:9px;
-}
-
-.ip-biography .ip-accordion-button::after{
-  right:0;
-}
-
 @keyframes ipBiographyMenuTextDrop{
-  0%{
-    visibility:hidden;
-    opacity:0;
-    transform:translate3d(0,-36px,0);
-  }
-
-  1%{
-    visibility:visible;
-    opacity:0;
-    transform:translate3d(0,-36px,0);
-  }
-
-  100%{
-    visibility:visible;
-    opacity:1;
-    transform:translate3d(0,0,0);
-  }
-}
-
-@keyframes ipBiographyMenuTextDropActive{
-  0%{
-    visibility:hidden;
-    opacity:0;
-    transform:translate3d(0,-36px,0);
-  }
-
-  1%{
-    visibility:visible;
-    opacity:0;
-    transform:translate3d(0,-36px,0);
-  }
-
-  100%{
-    visibility:visible;
-    opacity:.62;
-    transform:translate3d(0,0,0);
-  }
-}
-
-@keyframes ipBiographyMenuTextDropMuted{
   0%{
     visibility:hidden;
     opacity:0;
