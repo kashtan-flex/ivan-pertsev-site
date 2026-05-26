@@ -2,14 +2,13 @@
 ==================================================
 PAGE TRANSITION JS
 
-Версия: page-transition-005
+Версия: page-transition-006
 
 ИЗМЕНЕНИЯ:
-- переход через чёрный экран ускорен
-- время затемнения уменьшено до 280ms
-- время проявления уменьшено до 380ms
-- ожидание ассетов уменьшено до 420ms
-- сохранена стабильность перехода между страницами
+- исправлен баг с тёмным экраном при переходе назад/вперёд кнопками браузера
+- добавлена обработка pageshow для bfcache
+- добавлен принудительный reset overlay при возврате на страницу
+- сохранён быстрый переход через чёрный экран
 - меню не изменялось
 ==================================================
 */
@@ -36,6 +35,19 @@ PAGE TRANSITION JS
     document.body.appendChild(overlay);
 
     return overlay;
+  }
+
+  function resetOverlay(){
+    var transitionOverlay = getOverlay();
+
+    transitionOverlay.classList.remove('is-active');
+    transitionOverlay.classList.remove('is-enter');
+    transitionOverlay.classList.remove('is-ready');
+
+    transitionOverlay.style.opacity = '';
+    transitionOverlay.style.visibility = '';
+
+    isTransitioning = false;
   }
 
   function waitForImages(){
@@ -90,6 +102,8 @@ PAGE TRANSITION JS
           window.setTimeout(function(){
             transitionOverlay.classList.remove('is-enter');
             transitionOverlay.classList.remove('is-ready');
+            transitionOverlay.classList.remove('is-active');
+            isTransitioning = false;
           }, ENTER_DURATION);
         });
       });
@@ -176,9 +190,24 @@ PAGE TRANSITION JS
     }, true);
   }
 
+  function bindBrowserNavigation(){
+    window.addEventListener('pageshow', function(event){
+      if(event.persisted){
+        resetOverlay();
+      }
+    });
+
+    window.addEventListener('popstate', function(){
+      window.setTimeout(function(){
+        resetOverlay();
+      }, 0);
+    });
+  }
+
   function init(){
     getOverlay();
     bindLinks();
+    bindBrowserNavigation();
     revealPage();
   }
 
