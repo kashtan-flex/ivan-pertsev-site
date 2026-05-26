@@ -2,13 +2,15 @@
 ==================================================
 PAGE TRANSITION JS
 
-Версия: page-transition-006
+Версия: page-transition-007
 
 ИЗМЕНЕНИЯ:
-- исправлен баг с тёмным экраном при переходе назад/вперёд кнопками браузера
-- добавлена обработка pageshow для bfcache
-- добавлен принудительный reset overlay при возврате на страницу
-- сохранён быстрый переход через чёрный экран
+- переход между страницами ускорен
+- уменьшена задержка на чёрном экране
+- fade-in новой страницы запускается быстрее
+- ожидание ассетов сокращено, чтобы не было ощущения подвисания
+- сохранена обработка browser back/forward
+- сохранён переход через чёрный экран без blur
 - меню не изменялось
 ==================================================
 */
@@ -16,9 +18,9 @@ PAGE TRANSITION JS
 (function(){
   'use strict';
 
-  var EXIT_DURATION = 280;
-  var ENTER_DURATION = 380;
-  var MAX_ASSET_WAIT = 420;
+  var EXIT_DURATION = 230;
+  var ENTER_DURATION = 300;
+  var MAX_ASSET_WAIT = 180;
 
   var overlay = null;
   var isTransitioning = false;
@@ -80,9 +82,14 @@ PAGE TRANSITION JS
 
   function waitForFonts(){
     if(document.fonts && document.fonts.ready){
-      return document.fonts.ready.catch(function(){
-        return null;
-      });
+      return Promise.race([
+        document.fonts.ready.catch(function(){
+          return null;
+        }),
+        new Promise(function(resolve){
+          window.setTimeout(resolve, MAX_ASSET_WAIT);
+        })
+      ]);
     }
 
     return Promise.resolve();
@@ -96,16 +103,14 @@ PAGE TRANSITION JS
       waitForFonts()
     ]).then(function(){
       window.requestAnimationFrame(function(){
-        window.requestAnimationFrame(function(){
-          transitionOverlay.classList.add('is-ready');
+        transitionOverlay.classList.add('is-ready');
 
-          window.setTimeout(function(){
-            transitionOverlay.classList.remove('is-enter');
-            transitionOverlay.classList.remove('is-ready');
-            transitionOverlay.classList.remove('is-active');
-            isTransitioning = false;
-          }, ENTER_DURATION);
-        });
+        window.setTimeout(function(){
+          transitionOverlay.classList.remove('is-enter');
+          transitionOverlay.classList.remove('is-ready');
+          transitionOverlay.classList.remove('is-active');
+          isTransitioning = false;
+        }, ENTER_DURATION);
       });
     });
   }

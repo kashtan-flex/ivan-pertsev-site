@@ -1,13 +1,14 @@
 /* =========================================================
    PAGE TRANSITION CSS
 
-   Версия: page-transition-005
+   Версия: page-transition-006
 
    ИЗМЕНЕНИЯ:
    - переход через чёрный экран ускорен
-   - уменьшено время нахождения на тёмном экране
-   - fade-out стал быстрее
-   - fade-in стал мягким, но короче
+   - уменьшено ощущение зависания на чёрном экране
+   - fade-out оставлен коротким и плотным
+   - fade-in новой страницы сделан быстрее и мягче
+   - blur не используется
    - меню не изменялось
    ========================================================= */
 
@@ -20,8 +21,8 @@
   visibility:hidden;
   pointer-events:none;
   transition:
-    opacity .26s cubic-bezier(.19,1,.22,1),
-    visibility .26s cubic-bezier(.19,1,.22,1);
+    opacity .22s cubic-bezier(.19,1,.22,1),
+    visibility .22s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-page-transition.is-active{
@@ -33,8 +34,8 @@
   opacity:1;
   visibility:visible;
   transition:
-    opacity .34s cubic-bezier(.19,1,.22,1),
-    visibility .34s cubic-bezier(.19,1,.22,1);
+    opacity .26s cubic-bezier(.19,1,.22,1),
+    visibility .26s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-page-transition.is-enter.is-ready{
