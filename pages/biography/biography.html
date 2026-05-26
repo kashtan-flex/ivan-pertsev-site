@@ -1,0 +1,204 @@
+<!--
+==================================================
+BIOGRAPHY HTML
+
+Версия: biography-html-001
+
+ИЗМЕНЕНИЯ:
+- создана desktop-страница «Биография»
+- добавлена левая текстовая зона
+- добавлена правая зона с carousel
+- добавлены блоки Wedding Awards и Top 100
+- добавлена цитата поверх правой зоны
+- добавлено меню шириной 518px
+- добавлена popup-разметка для кнопок «Другое» и «Написать»
+==================================================
+-->
+
+<section class="ip-biography" data-biography-page>
+
+  <div class="ip-biography-stage">
+
+    <div class="ip-biography-bg" aria-hidden="true"></div>
+
+    <div class="ip-biography-content">
+
+      <div class="ip-biography-left">
+
+        <header class="ip-biography-header">
+          <h1 class="ip-biography-title">Обо мне</h1>
+
+          <p class="ip-biography-subtitle">
+            Более 10 лет создаю атмосферу незабываемых событий:<br>
+            от камерных свадеб до масштабных корпоративных форумов.
+          </p>
+        </header>
+
+        <ul class="ip-biography-list">
+          <li>Эмпатичный перфекционист с творческим почерком</li>
+          <li>Играю на гитаре ручной работы "C.F. Martin &amp; Co", которая является неотъемлемой частью моего шоу (караоке, фристайл)</li>
+          <li>Прокачиваю разговорный английский</li>
+          <li>В сезон передвигаюсь на своем "Harley Davidson"</li>
+          <li>После плотного рабочего графика перезагружаюсь в "PS5 Pro"</li>
+          <li>Отпуск провожу в путешествиях с женой и двумя сыновьями, оставляя нашего скоттиш-страйта дома за главного</li>
+          <li>На постоянной основе занимаюсь фитнесом</li>
+          <li>Перевез всю семью из Нижнего Новгорода в Москву</li>
+        </ul>
+
+        <div class="ip-biography-awards" aria-label="Награды и факты">
+          <div class="ip-biography-award ip-biography-award-wedding">
+            <img src="./assets/img/biography/icons/biography-wedding-awards.svg" alt="Wedding Awards" class="ip-biography-award-logo">
+            <p class="ip-biography-award-text">
+              Лучший свадебный ведущий<br>
+              ПФО Wedding Awards
+            </p>
+          </div>
+
+          <div class="ip-biography-award ip-biography-award-top">
+            <img src="./assets/img/biography/icons/biography-top100.svg" alt="Top 100" class="ip-biography-award-icon">
+            <p class="ip-biography-award-text">
+              Top 100 лучших<br>
+              ведущих России
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="ip-biography-right" aria-label="Фотографии Ивана Перцева">
+
+        <div class="ip-biography-carousel" data-biography-carousel>
+          <div class="ip-biography-slide is-active">
+            <img src="./assets/img/biography/carousel/biography-slide-01.webp" alt="Иван Перцев">
+          </div>
+
+          <div class="ip-biography-slide">
+            <img src="./assets/img/biography/carousel/biography-slide-02.webp" alt="Иван Перцев">
+          </div>
+
+          <div class="ip-biography-slide">
+            <img src="./assets/img/biography/carousel/biography-slide-03.webp" alt="Иван Перцев">
+          </div>
+
+          <div class="ip-biography-slide">
+            <img src="./assets/img/biography/carousel/biography-slide-04.webp" alt="Иван Перцев">
+          </div>
+
+          <div class="ip-biography-slide">
+            <img src="./assets/img/biography/carousel/biography-slide-05.webp" alt="Иван Перцев">
+          </div>
+
+          <div class="ip-biography-slide">
+            <img src="./assets/img/biography/carousel/biography-slide-06.webp" alt="Иван Перцев">
+          </div>
+        </div>
+
+        <blockquote class="ip-biography-quote">
+          <p>
+            — География моих проектов охватывает<br>
+            всю Россию и ряд зарубежных стран.
+          </p>
+          <cite>Иван Перцев</cite>
+        </blockquote>
+
+      </aside>
+
+      <button class="ip-biography-burger" type="button" aria-label="Открыть меню" data-biography-menu-open>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="ip-biography-menu" aria-label="Основное меню" data-biography-menu>
+        <div class="ip-biography-menu-bg" aria-hidden="true"></div>
+
+        <button class="ip-biography-menu-close" type="button" aria-label="Закрыть меню" data-biography-menu-close>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="ip-biography-menu-inner">
+
+          <div class="ip-biography-menu-socials" aria-label="Социальные сети">
+            <a href="https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://t.me/@ivan_pertsev" target="_blank" rel="noopener">Telegram</a>
+            <a href="#" target="_blank" rel="noopener">VK</a>
+          </div>
+
+          <ul class="ip-biography-menu-list">
+            <li><a href="./preview.html">Главная</a></li>
+            <li><a href="./preview.html" aria-current="page">Биография</a></li>
+
+            <li class="ip-biography-menu-group">
+              <button type="button" data-biography-accordion>Проекты</button>
+
+              <ul class="ip-biography-submenu">
+                <li><a href="#">Свадьба</a></li>
+                <li><a href="#">Корпоратив</a></li>
+                <li><a href="#">День рождение</a></li>
+                <li><a href="#">Выпускной</a></li>
+                <li><button type="button" data-biography-popup-open>Другое</button></li>
+              </ul>
+            </li>
+
+            <li><a href="#">Музыкальное шоу</a></li>
+            <li><a href="#">Сотрудничество</a></li>
+
+            <li class="ip-biography-menu-group">
+              <button type="button" data-biography-accordion>Контакты</button>
+
+              <ul class="ip-biography-submenu">
+                <li><a href="tel:+79200127624">+7 920 012 76 24</a></li>
+                <li><button type="button" data-biography-popup-open>Написать</button></li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="ip-popup" data-ip-popup aria-hidden="true">
+  <div class="ip-popup-backdrop" data-ip-popup-close></div>
+
+  <div class="ip-popup-card" role="dialog" aria-modal="true" aria-label="Форма обратной связи">
+    <form class="ip-popup-form">
+
+      <div class="ip-popup-heading">
+        <p class="ip-popup-name">Иван Перцев</p>
+
+        <p class="ip-popup-text">
+          <strong>Заполните форму</strong>
+          <span>и я скоро свяжусь с вами</span>
+        </p>
+      </div>
+
+      <div class="ip-popup-fields">
+        <input type="text" name="name" placeholder="Ваше имя" autocomplete="name">
+        <input type="tel" name="phone" placeholder="Телефон" autocomplete="tel">
+        <input type="text" name="date" placeholder="Дата мероприятия">
+      </div>
+
+      <label class="ip-popup-policy">
+        <input type="checkbox" name="policy" required checked>
+
+        <span class="ip-popup-checkbox" aria-hidden="true"></span>
+
+        <span class="ip-popup-policy-text">
+          <span class="ip-popup-policy-line">Вы согласны на обработку данных</span>
+          <span class="ip-popup-policy-link-line">
+            <span class="ip-popup-policy-preposition">и</span>
+            <a href="#">политику конфиденциальности</a>
+          </span>
+        </span>
+      </label>
+
+      <button class="ip-popup-submit" type="submit">Отправить</button>
+
+    </form>
+  </div>
+</div>

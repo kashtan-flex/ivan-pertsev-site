@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--
-    Версия: preview-004
+    Версия: biography-preview-001
 
     ИЗМЕНЕНИЯ:
-    - preview.html возвращён на главную страницу
-    - страница «Биография» больше не загружается вместо главной
-    - сохранены подключения home.css, home-mobile.css, popups.css и popups-mobile.css
+    - создан отдельный preview-файл для страницы «Биография»
+    - подключён css/biography.css
+    - подключён js/biography.js
+    - сохранены popups.css и popups-mobile.css
   -->
 
-  <title>Preview — Иван Перцев</title>
+  <title>Биография — Иван Перцев</title>
 
   <style>
     html,
     body,
-    #ip-home-root{
+    #ip-biography-root{
       width:100%;
       min-height:100%;
       margin:0;
@@ -36,26 +37,25 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/home.css">
-  <link rel="stylesheet" href="./css/home-mobile.css">
+  <link rel="stylesheet" href="./css/biography.css">
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
 </head>
 
 <body>
 
-  <div id="ip-home-root"></div>
+  <div id="ip-biography-root"></div>
 
   <script>
-    fetch('./pages/home/home.html')
+    fetch('./pages/biography/biography.html')
       .then(function(response){
         return response.text();
       })
       .then(function(html){
-        document.getElementById('ip-home-root').innerHTML = html;
+        document.getElementById('ip-biography-root').innerHTML = html;
 
         var script = document.createElement('script');
-        script.src = './js/home.js';
+        script.src = './js/biography.js';
         document.body.appendChild(script);
       });
   </script>
