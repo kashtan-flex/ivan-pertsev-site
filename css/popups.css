@@ -10,6 +10,7 @@ body.ip-popup-lock{
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:24px;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
@@ -55,33 +56,41 @@ body.ip-popup-lock{
   background-size:cover;
   background-position:center;
   box-shadow:0 30px 90px rgba(0,0,0,.45);
+  filter:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
 }
 
 .ip-popup-form{
   position:absolute;
-  top:34px;
-  right:69px;
-  width:332px;
+  inset:0;
   color:#fff;
   font-family:'Montserrat',sans-serif;
 }
 
 .ip-popup-heading{
-  margin-bottom:22px;
+  position:absolute;
+  left:486px;
+  top:30px;
+  width:175px;
+  margin:0;
   text-align:center;
 }
 
 .ip-popup-name{
-  margin-bottom:28px;
+  margin:0 0 21px;
   font-family:'Benzin',Arial,sans-serif;
-  font-size:24px;
-  line-height:1;
+  font-size:20px;
+  line-height:.9;
   font-weight:700;
 }
 
 .ip-popup-text{
+  width:169px;
+  margin:0 auto;
   font-size:16px;
-  line-height:1.2;
+  line-height:1.05;
+  font-weight:400;
 }
 
 .ip-popup-text strong,
@@ -90,44 +99,53 @@ body.ip-popup-lock{
 }
 
 .ip-popup-fields{
+  position:absolute;
+  left:426px;
+  top:144px;
   display:flex;
   flex-direction:column;
-  gap:12px;
-  margin-bottom:28px;
+  gap:10px;
+  width:294px;
+  margin:0;
 }
 
 .ip-popup-fields input{
-  width:100%;
+  width:294px;
   height:60px;
-  padding:0 34px;
+  padding:0 35px;
   border:1px solid rgba(255,255,255,.16);
-  border-radius:8px;
+  border-radius:5px;
   outline:none;
-  background:rgba(0,0,0,.30);
+  background:rgba(0,0,0,.20);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   box-shadow:
-    inset -2px -2px 2px rgba(255,255,255,.15),
-    inset 2px 2px 2px rgba(0,0,0,.25);
+    inset -1px -1px 1px rgba(255,255,255,.15),
+    inset 1px 1px 1px rgba(0,0,0,.25);
   color:#fff;
   font-family:'Montserrat',sans-serif;
-  font-size:16px;
+  font-size:14px;
+  line-height:1;
 }
 
 .ip-popup-fields input::placeholder{
-  color:rgba(255,255,255,.52);
+  color:#8C8B8B;
 }
 
 .ip-popup-policy{
+  position:absolute;
+  left:439px;
+  top:364px;
+  width:269px;
+  min-height:31px;
   display:flex;
   align-items:center;
-  justify-content:center;
-  gap:12px;
-  width:100%;
-  margin-bottom:34px;
+  gap:10px;
+  margin:0;
   color:#fff;
   font-size:10px;
-  line-height:1.35;
+  line-height:1.5;
+  letter-spacing:-.01em;
   cursor:pointer;
 }
 
@@ -139,22 +157,22 @@ body.ip-popup-lock{
 
 .ip-popup-checkbox{
   position:relative;
-  width:22px;
-  height:22px;
-  flex:0 0 22px;
-  border:1px solid rgba(255,255,255,.9);
-  border-radius:6px;
+  width:15px;
+  height:15px;
+  flex:0 0 15px;
+  border:1px solid rgba(255,255,255,1);
+  border-radius:4px;
 }
 
 .ip-popup-policy input:checked + .ip-popup-checkbox::after{
   content:'';
   position:absolute;
-  left:7px;
-  top:3px;
-  width:6px;
-  height:11px;
-  border-right:1.5px solid #fff;
-  border-bottom:1.5px solid #fff;
+  left:4px;
+  top:1px;
+  width:5px;
+  height:8px;
+  border-right:1.4px solid #fff;
+  border-bottom:1.4px solid #fff;
   transform:rotate(45deg);
 }
 
@@ -163,14 +181,18 @@ body.ip-popup-lock{
 }
 
 .ip-popup-submit{
-  width:100%;
-  height:58px;
-  border:1px solid rgba(255,255,255,.55);
-  border-radius:8px;
+  position:absolute;
+  left:426px;
+  top:425px;
+  width:294px;
+  height:57px;
+  border:1px solid rgba(255,255,255,.30);
+  border-radius:9px;
   background:transparent;
   color:#fff;
   font-family:'Montserrat',sans-serif;
-  font-size:18px;
+  font-size:16px;
+  line-height:1;
   font-weight:500;
   cursor:pointer;
   transition:
@@ -185,28 +207,68 @@ body.ip-popup-lock{
   border-color:#fff;
 }
 
-@media (max-width:900px){
+@media (max-width:767px){
+
+  .ip-popup{
+    padding:20px;
+  }
+
+  .ip-popup-card{
+    width:min(350px, calc(100vw - 40px), calc((100vh - 40px) * .535));
+    aspect-ratio:350 / 654;
+    border-radius:12px;
+    background-image:
+      linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
+      url('https://kashtan-flex.github.io/ivan-pertsev-site/assets/img/popups/popup-main-bg.webp');
+    background-size:cover;
+    background-position:center;
+  }
+
+  .ip-popup-heading{
+    left:50%;
+    top:68px;
+    width:235px;
+    transform:translateX(-50%);
+  }
+
+  .ip-popup-name{
+    margin-bottom:24px;
+    font-size:20px;
+  }
+
+  .ip-popup-text{
+    width:235px;
+    font-size:18px;
+    line-height:1.18;
+  }
+
+  .ip-popup-fields{
+    left:28px;
+    top:184px;
+    width:294px;
+    gap:10px;
+  }
 
   .ip-popup-fields input{
-    height:clamp(34px, 7.59vw, 60px);
-    padding:0 clamp(16px, 4.3vw, 34px);
-    font-size:clamp(10px, 2.02vw, 16px);
+    width:294px;
+    height:57px;
+    padding:0 35px;
+    border-radius:9px;
+    font-size:14px;
   }
 
   .ip-popup-policy{
-    gap:clamp(6px, 1.52vw, 12px);
-    font-size:clamp(6px, 1.26vw, 10px);
-  }
-
-  .ip-popup-checkbox{
-    width:clamp(14px, 2.78vw, 22px);
-    height:clamp(14px, 2.78vw, 22px);
-    flex-basis:clamp(14px, 2.78vw, 22px);
+    left:42px;
+    top:408px;
+    width:269px;
+    min-height:31px;
   }
 
   .ip-popup-submit{
-    height:clamp(34px, 7.34vw, 58px);
-    font-size:clamp(11px, 2.28vw, 18px);
+    left:28px;
+    top:465px;
+    width:294px;
+    height:57px;
   }
 
 }
