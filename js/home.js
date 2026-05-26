@@ -36,7 +36,10 @@
 
       scale = Math.max(scaleX, scaleY);
     } else {
-      scale = viewportHeight / DESIGN.desktop.height;
+      const scaleX = viewportWidth / DESIGN.desktop.width;
+      const scaleY = viewportHeight / DESIGN.desktop.height;
+
+      scale = Math.min(scaleX, scaleY);
     }
 
     page.style.setProperty('--ip-home-scale', scale);
