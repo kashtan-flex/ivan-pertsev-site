@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--
-    Версия: biography-preview-004
+    Версия: biography-preview-005
 
     ИЗМЕНЕНИЯ:
-    - подключён cinematic page transition
+    - добавлен статичный transition overlay до загрузки контента
+    - стабилизирован переход с биографии на главную и обратно
     - сохранено подключение home.css для общего меню
     - меню не изменялось
   -->
@@ -41,6 +42,8 @@
 </head>
 
 <body>
+
+  <div class="ip-page-transition is-enter" aria-hidden="true"></div>
 
   <div id="ip-biography-root"></div>
 

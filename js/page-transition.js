@@ -2,13 +2,13 @@
 ==================================================
 PAGE TRANSITION JS
 
-Версия: page-transition-003
+Версия: page-transition-004
 
 ИЗМЕНЕНИЯ:
-- переход переделан в короткий монтажный dip to black
-- затемнение перед уходом ускорено до 340ms
-- проявление новой страницы сделано мягче через enter-state
-- исправлена стабильность перехода с главной на биографию и обратно
+- стабилизирован переход с главной на биографию
+- overlay больше не создаётся слишком поздно
+- добавлено ожидание первичной отрисовки и изображений перед fade-in
+- переход работает через чёрный экран без blur
 - внешние ссылки, телефон и popup-триггеры не перехватываются
 - меню не изменялось
 ==================================================
@@ -18,11 +18,13 @@ PAGE TRANSITION JS
   'use strict';
 
   var EXIT_DURATION = 360;
-  var ENTER_DURATION = 480;
+  var ENTER_DURATION = 560;
+  var MAX_ASSET_WAIT = 700;
+
   var overlay = null;
   var isTransitioning = false;
 
-  function createOverlay(){
+  function getOverlay(){
     overlay = document.querySelector('.ip-page-transition');
 
     if(overlay){
@@ -33,18 +35,65 @@ PAGE TRANSITION JS
     overlay.className = 'ip-page-transition is-enter';
     document.body.appendChild(overlay);
 
-    window.requestAnimationFrame(function(){
-      window.requestAnimationFrame(function(){
-        overlay.classList.add('is-ready');
+    return overlay;
+  }
 
-        window.setTimeout(function(){
-          overlay.classList.remove('is-enter');
-          overlay.classList.remove('is-ready');
-        }, ENTER_DURATION);
+  function waitForImages(){
+    var images = Array.prototype.slice.call(document.images || []);
+
+    if(!images.length){
+      return Promise.resolve();
+    }
+
+    var imagePromises = images.map(function(image){
+      if(image.complete){
+        return Promise.resolve();
+      }
+
+      return new Promise(function(resolve){
+        image.addEventListener('load', resolve, { once:true });
+        image.addEventListener('error', resolve, { once:true });
       });
     });
 
-    return overlay;
+    var timeoutPromise = new Promise(function(resolve){
+      window.setTimeout(resolve, MAX_ASSET_WAIT);
+    });
+
+    return Promise.race([
+      Promise.all(imagePromises),
+      timeoutPromise
+    ]);
+  }
+
+  function waitForFonts(){
+    if(document.fonts && document.fonts.ready){
+      return document.fonts.ready.catch(function(){
+        return null;
+      });
+    }
+
+    return Promise.resolve();
+  }
+
+  function revealPage(){
+    var transitionOverlay = getOverlay();
+
+    Promise.all([
+      waitForImages(),
+      waitForFonts()
+    ]).then(function(){
+      window.requestAnimationFrame(function(){
+        window.requestAnimationFrame(function(){
+          transitionOverlay.classList.add('is-ready');
+
+          window.setTimeout(function(){
+            transitionOverlay.classList.remove('is-enter');
+            transitionOverlay.classList.remove('is-ready');
+          }, ENTER_DURATION);
+        });
+      });
+    });
   }
 
   function isModifiedClick(event){
@@ -100,7 +149,7 @@ PAGE TRANSITION JS
 
     isTransitioning = true;
 
-    var transitionOverlay = createOverlay();
+    var transitionOverlay = getOverlay();
 
     transitionOverlay.classList.remove('is-enter');
     transitionOverlay.classList.remove('is-ready');
@@ -128,8 +177,9 @@ PAGE TRANSITION JS
   }
 
   function init(){
-    createOverlay();
+    getOverlay();
     bindLinks();
+    revealPage();
   }
 
   init();

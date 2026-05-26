@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--
-    Версия: preview-005
+    Версия: preview-006
 
     ИЗМЕНЕНИЯ:
-    - подключён cinematic page transition
-    - главная страница сохранена как основной preview
+    - добавлен статичный transition overlay до загрузки контента
+    - стабилизирован переход с главной на биографию
+    - сохранена главная страница как основной preview
     - меню не изменялось
   -->
 
@@ -44,6 +45,8 @@
 </head>
 
 <body>
+
+  <div class="ip-page-transition is-enter" aria-hidden="true"></div>
 
   <div id="ip-home-root"></div>
 
