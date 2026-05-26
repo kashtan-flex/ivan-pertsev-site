@@ -1,15 +1,13 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-011
+   Версия: biography-css-012
 
    ИЗМЕНЕНИЯ:
-   - awards-блок доведён ближе к макету
-   - «Лучший свадебный ведущий» удерживается в одну строку
-   - «ПФО Wedding Awards» удерживается во вторую строку
-   - «Топ 100 лучших» удерживается в одну строку
-   - «ведущих России» удерживается во вторую строку
-   - цитата и подпись «Иван Перцев» опущены ниже для выравнивания с нижним awards-блоком
+   - основной текстовый список поднят выше и приближен к макету
+   - сохранена текущая типографика списка
+   - awards-блок не изменялся
+   - цитата не изменялась
    - меню не изменялось
    - сохранены текущие адаптации и масштабирование
    ========================================================= */
@@ -99,7 +97,7 @@
 .ip-biography-list{
   position:absolute;
   left:60px;
-  top:250px;
+  top:220px;
   width:658px;
   margin:0;
   padding:0;
@@ -229,8 +227,7 @@
   inset:0;
   opacity:0;
   transform:scale(1);
-  transition:
-    opacity 1.45s cubic-bezier(.19,1,.22,1);
+  transition:opacity 1.45s cubic-bezier(.19,1,.22,1);
   will-change:opacity;
 }
 
@@ -246,8 +243,7 @@
   object-fit:cover;
   object-position:center;
   transform:scale(1.04);
-  transition:
-    transform 7.6s cubic-bezier(.19,1,.22,1);
+  transition:transform 7.6s cubic-bezier(.19,1,.22,1);
   will-change:transform;
 }
 
