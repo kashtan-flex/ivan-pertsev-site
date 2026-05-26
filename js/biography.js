@@ -2,13 +2,14 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-002
+Версия: biography-js-003
 
 ИЗМЕНЕНИЯ:
-- удалена отдельная логика ip-biography-menu
-- добавлена логика общего меню как на главной странице
-- сохранено масштабирование desktop-сцены 1440×800
+- масштабирование страницы «Биография» приведено к логике главной страницы
+- desktop-сцена 1440×800 теперь масштабируется только по высоте viewportHeight / 800
+- убрана подгонка по ширине, из-за которой страница обрезалась сверху и снизу
 - сохранена автоматическая карусель Ken Burns + fade
+- сохранена логика общего меню как на главной странице
 - сохранена accordion-логика
 - сохранена popup-логика через data-popup-open="main"
 ==================================================
@@ -17,7 +18,6 @@ BIOGRAPHY JS
 (function(){
   'use strict';
 
-  var DESIGN_WIDTH = 1440;
   var DESIGN_HEIGHT = 800;
   var SLIDE_INTERVAL = 6200;
 
@@ -41,15 +41,8 @@ BIOGRAPHY JS
       return;
     }
 
-    var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
-
     var scale = viewportHeight / DESIGN_HEIGHT;
-    var scaledWidth = DESIGN_WIDTH * scale;
-
-    if(scaledWidth < viewportWidth){
-      scale = viewportWidth / DESIGN_WIDTH;
-    }
 
     document.documentElement.style.setProperty('--biography-scale', scale.toFixed(5));
   }

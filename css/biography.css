@@ -1,21 +1,27 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-001
+   Версия: biography-css-002
 
    ИЗМЕНЕНИЯ:
-   - создана desktop-версия страницы «Биография»
-   - добавлена сцена 1440×800 с масштабированием по высоте
-   - добавлен фон biography-bg.webp
-   - добавлена правая карусель 518px
-   - добавлена Ken Burns + fade логика через классы
-   - добавлено меню шириной 518px
-   - добавлена desktop-типографика и awards-блок
+   - сохранена desktop-версия страницы «Биография»
+   - масштабирование работает через js/biography.js как на главной
+   - страница использует общее меню главной страницы
+   - меню на странице «Биография» расширено до 518px
+   - добавлена тень на burger-иконку для читаемости на светлых фото
+   - убрано подчеркивание ссылок меню
+   - исправлено преждевременное появление пункта «Биография»
+   - стрелки accordion вынесены на один уровень с крестиком: 100px от правого края меню
    ========================================================= */
 
 .ip-biography,
 .ip-biography *{
   box-sizing:border-box;
+}
+
+.ip-biography a{
+  color:inherit;
+  text-decoration:none;
 }
 
 .ip-biography{
@@ -236,10 +242,6 @@
   letter-spacing:-.035em;
 }
 
-.ip-biography-quote p strong{
-  font-weight:700;
-}
-
 .ip-biography-quote cite{
   display:block;
   margin-top:22px;
@@ -253,22 +255,53 @@
   text-align:right;
   letter-spacing:-.04em;
 }
+
 /* =========================================================
    BIOGRAPHY MENU OVERRIDES
-
-   Версия: biography-menu-overrides-001
-
-   ИЗМЕНЕНИЯ:
-   - страница «Биография» использует общее меню главной страницы
-   - ширина меню на странице «Биография» увеличена до 518px
-   - ширина меню на главной странице не меняется
-   - внутренние отступы меню сохранены как на главной
    ========================================================= */
+
+.ip-biography .ip-menu-toggle{
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+}
 
 .ip-biography .ip-menu-panel{
   width:518px;
 }
 
-.ip-biography .ip-menu-link[href="./biography-preview.html"]{
+.ip-biography .ip-menu-link,
+.ip-biography .ip-menu-link:link,
+.ip-biography .ip-menu-link:visited,
+.ip-biography .ip-menu-link:hover,
+.ip-biography .ip-menu-link:active,
+.ip-biography .ip-submenu a,
+.ip-biography .ip-submenu a:link,
+.ip-biography .ip-submenu a:visited,
+.ip-biography .ip-submenu a:hover,
+.ip-biography .ip-submenu a:active{
+  text-decoration:none !important;
+}
+
+.ip-biography .ip-menu-panel:not(.is-open) .ip-menu-list > *{
+  opacity:0 !important;
+  transform:translate3d(0,-36px,0);
+}
+
+.ip-biography .ip-menu-panel.is-open .ip-menu-link[href="./biography-preview.html"]{
   opacity:.62;
+}
+
+.ip-biography .ip-menu-list{
+  width:358px;
+}
+
+.ip-biography .ip-accordion-button{
+  width:100%;
+}
+
+.ip-biography .ip-accordion-button::before{
+  right:9px;
+}
+
+.ip-biography .ip-accordion-button::after{
+  right:0;
 }
