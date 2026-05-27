@@ -2,14 +2,15 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-009
+Версия: biography-js-010
 
 ИЗМЕНЕНИЯ:
-- mobile-scale приведён к логике главной страницы 390×700
-- высота mobile-страницы задаётся через CSS-переменную --biography-mobile-page-height
-- исправлено закрытие меню при scroll, wheel, touchstart и pointermove
-- меню закрывается при попытке скролла внутри открытой панели
-- сохранён vertical scroll страницы «Биография»
+- исправлена работа mobile-меню после агрессивного close-on-scroll
+- клик по крестику больше не перезапускает меню
+- accordion снова открывается по тапу
+- ссылки меню снова работают корректно
+- меню закрывается только при реальном scroll/wheel/свайпе страницы
+- клики внутри меню не считаются scroll-жестом
 - сохранена carousel-система
 - сохранена popup-система
 - сохранена кнопка scroll-to-top
@@ -63,7 +64,9 @@ BIOGRAPHY JS
   var currentSlideIndex = 0;
   var carouselTimer = null;
   var resizeFrame = null;
-  var pointerStartY = null;
+
+  var touchStartY = null;
+  var touchStartedInsideMenu = false;
 
   if(!page || !stage){
     return;
@@ -205,7 +208,12 @@ BIOGRAPHY JS
     });
   }
 
-  function toggleMenu(){
+  function toggleMenu(event){
+    if(event){
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     if(!menuPanel){
       return;
     }
@@ -225,7 +233,10 @@ BIOGRAPHY JS
       return;
     }
 
-    button.addEventListener('click', function(){
+    button.addEventListener('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
       accordion.classList.toggle('is-open');
     });
   }
@@ -269,12 +280,16 @@ BIOGRAPHY JS
     popupOpenTriggers.forEach(function(trigger){
       trigger.addEventListener('click', function(event){
         event.preventDefault();
+        event.stopPropagation();
+
         openPopup();
       });
     });
 
     popupCloseTriggers.forEach(function(trigger){
-      trigger.addEventListener('click', function(){
+      trigger.addEventListener('click', function(event){
+        event.preventDefault();
+
         closePopup();
       });
     });
@@ -320,32 +335,52 @@ BIOGRAPHY JS
 
     window.addEventListener(
       'wheel',
-      closeMenuOnUserScroll,
-      { passive:true }
-    );
-
-    window.addEventListener(
-      'touchstart',
-      closeMenuOnUserScroll,
-      { passive:true }
-    );
-
-    window.addEventListener(
-      'pointerdown',
       function(event){
-        pointerStartY = event.clientY;
+        if(
+          menuPanel &&
+          menuPanel.contains(event.target)
+        ){
+          return;
+        }
+
+        closeMenuOnUserScroll();
       },
       { passive:true }
     );
 
     window.addEventListener(
-      'pointermove',
+      'touchstart',
       function(event){
-        if(pointerStartY === null){
+        var touch = event.touches && event.touches[0];
+
+        if(!touch){
           return;
         }
 
-        if(Math.abs(event.clientY - pointerStartY) > 6){
+        touchStartY = touch.clientY;
+
+        touchStartedInsideMenu = Boolean(
+          menuPanel &&
+          menuPanel.contains(event.target)
+        );
+      },
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'touchmove',
+      function(event){
+        var touch = event.touches && event.touches[0];
+
+        if(!touch || touchStartY === null){
+          return;
+        }
+
+        if(touchStartedInsideMenu){
+          return;
+        }
+
+        if(Math.abs(touch.clientY - touchStartY) > 10){
           closeMenuOnUserScroll();
         }
       },
@@ -353,56 +388,13 @@ BIOGRAPHY JS
     );
 
     window.addEventListener(
-      'pointerup',
+      'touchend',
       function(){
-        pointerStartY = null;
+        touchStartY = null;
+        touchStartedInsideMenu = false;
       },
       { passive:true }
     );
-
-    if(menuPanel){
-      menuPanel.addEventListener(
-        'wheel',
-        closeMenuOnUserScroll,
-        { passive:true }
-      );
-
-      menuPanel.addEventListener(
-        'touchstart',
-        closeMenuOnUserScroll,
-        { passive:true }
-      );
-
-      menuPanel.addEventListener(
-        'pointerdown',
-        function(event){
-          pointerStartY = event.clientY;
-        },
-        { passive:true }
-      );
-
-      menuPanel.addEventListener(
-        'pointermove',
-        function(event){
-          if(pointerStartY === null){
-            return;
-          }
-
-          if(Math.abs(event.clientY - pointerStartY) > 6){
-            closeMenuOnUserScroll();
-          }
-        },
-        { passive:true }
-      );
-
-      menuPanel.addEventListener(
-        'pointerup',
-        function(){
-          pointerStartY = null;
-        },
-        { passive:true }
-      );
-    }
   }
 
   function setupDateMask(){
