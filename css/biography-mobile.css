@@ -1,13 +1,14 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-009
+   Версия: biography-mobile-css-010
 
    ИЗМЕНЕНИЯ:
-   - подзаголовок уменьшен до 320px для корректного переноса в 3 строки
-   - awards-блок опущен ниже и визуально центрирован
-   - scroll-top поднят выше
-   - сохранены все mobile menu фиксы
+   - подключён новый mobile background
+   - подключён retina @2x background
+   - сохранена высота mobile-stage 1510px
+   - сохранены typography настройки
+   - сохранены mobile menu фиксы
    - сохранены Safari/Android-safe настройки
    ========================================================= */
 
@@ -61,10 +62,15 @@
   .ip-biography-bg{
     position:absolute;
     inset:0;
-    background-image:url('../assets/img/biography/background/biography-bg.webp');
-    background-size:390px auto;
+
+    background-image:image-set(
+      url('../assets/img/biography/mobile/background/biography-mobile-bg.webp') 1x,
+      url('../assets/img/biography/mobile/background/biography-mobile-bg@2x.webp') 2x
+    );
+
+    background-size:390px 1506px;
     background-position:top center;
-    background-repeat:repeat-y;
+    background-repeat:no-repeat;
   }
 
   .ip-biography-content{
