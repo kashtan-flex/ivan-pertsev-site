@@ -1,15 +1,14 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-005
+   Версия: biography-mobile-css-006
 
    ИЗМЕНЕНИЯ:
    - blur mobile-меню растянут до нижнего края фотографии
-   - положение правовых ссылок сохранено
-   - сохранена логика mobile-меню как на главной странице
-   - сохранён корректный бургер/крестик без смещения
-   - сохранены стрелки accordion
-   - сохранён вертикальный scroll страницы «Биография»
+   - положение правовых ссылок сохранено на уровне предыдущей версии
+   - mobile-stage масштабируется по логике главной страницы 390×700
+   - страница «Биография» сохраняет вертикальный scroll
+   - menu controls приведены к поведению главной мобильной версии
    - desktop-версия не изменялась
    ========================================================= */
 
@@ -40,14 +39,14 @@
   .ip-biography{
     position:relative;
     width:100%;
-    min-height:100vh;
-    height:auto;
+    min-height:var(--biography-mobile-page-height, 1760px);
+    height:var(--biography-mobile-page-height, 1760px);
     overflow:visible;
     background:#050603;
   }
 
   .ip-biography-stage{
-    position:relative;
+    position:absolute;
     left:50%;
     top:0;
     width:390px;

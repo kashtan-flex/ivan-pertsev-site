@@ -2,15 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
   <!--
-    Версия: biography-preview-007
+    Версия: biography-preview-008
 
     ИЗМЕНЕНИЯ:
-    - для mobile разрешён вертикальный скролл страницы «Биография»
-    - desktop-режим оставлен без скролла
-    - сохранено подключение biography-mobile.css
+    - mobile-scale страницы «Биография» приведён к логике главной страницы
+    - удалены конфликтующие inline overflow-настройки
+    - исправлен vertical scroll mobile-версии
     - сохранены popup, menu и page transition
   -->
 
@@ -21,29 +25,49 @@
     body,
     #ip-biography-root{
       width:100%;
-      height:100%;
       margin:0;
       padding:0;
       background:#050603;
-      overflow:hidden;
     }
 
-    @media (max-width: 767px){
+    html{
+      min-height:100%;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    #ip-biography-root{
+      position:relative;
+      min-height:100vh;
+    }
+
+    @media (min-width:768px){
+
       html,
       body,
       #ip-biography-root{
-        height:auto;
+        width:100%;
+        height:100%;
         min-height:100%;
-        overflow-x:hidden;
-        overflow-y:auto;
+        overflow:hidden;
       }
     }
   </style>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <link rel="stylesheet" href="./css/home.css">
   <link rel="stylesheet" href="./css/biography.css">
@@ -51,39 +75,72 @@
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
+
 </head>
 
 <body>
 
-  <div class="ip-page-transition is-enter" aria-hidden="true"></div>
+  <div
+    class="ip-page-transition is-enter"
+    aria-hidden="true"
+  ></div>
 
   <div id="ip-biography-root"></div>
 
   <script>
+
     fetch('./pages/biography/biography.html')
+
       .then(function(response){
+
         if(!response.ok){
-          throw new Error('Не удалось загрузить pages/biography/biography.html');
+
+          throw new Error(
+            'Не удалось загрузить pages/biography/biography.html'
+          );
         }
 
         return response.text();
       })
+
       .then(function(html){
-        document.getElementById('ip-biography-root').innerHTML = html;
 
-        var script = document.createElement('script');
-        script.src = './js/biography.js';
-        document.body.appendChild(script);
+        document.getElementById(
+          'ip-biography-root'
+        ).innerHTML = html;
 
-        var transitionScript = document.createElement('script');
-        transitionScript.src = './js/page-transition.js';
-        document.body.appendChild(transitionScript);
+        var biographyScript =
+          document.createElement('script');
+
+        biographyScript.src =
+          './js/biography.js';
+
+        document.body.appendChild(
+          biographyScript
+        );
+
+        var transitionScript =
+          document.createElement('script');
+
+        transitionScript.src =
+          './js/page-transition.js';
+
+        document.body.appendChild(
+          transitionScript
+        );
       })
+
       .catch(function(error){
+
         console.error(error);
-        document.body.style.background = '#050603';
-        document.body.innerHTML = '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">Ошибка загрузки страницы Биография. Проверь путь: pages/biography/biography.html</pre>';
+
+        document.body.style.background =
+          '#050603';
+
+        document.body.innerHTML =
+          '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">Ошибка загрузки страницы Биография. Проверь путь: pages/biography/biography.html</pre>';
       });
+
   </script>
 
 </body>

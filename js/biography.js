@@ -2,12 +2,13 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-008
+Версия: biography-js-009
 
 ИЗМЕНЕНИЯ:
-- mobile-scale приведён к логике главной страницы
-- исправлено закрытие меню при scroll, wheel и touchmove
-- добавлено закрытие меню при попытке скролла внутри открытой панели
+- mobile-scale приведён к логике главной страницы 390×700
+- высота mobile-страницы задаётся через CSS-переменную --biography-mobile-page-height
+- исправлено закрытие меню при scroll, wheel, touchstart и pointermove
+- меню закрывается при попытке скролла внутри открытой панели
 - сохранён vertical scroll страницы «Биография»
 - сохранена carousel-система
 - сохранена popup-система
@@ -62,6 +63,7 @@ BIOGRAPHY JS
   var currentSlideIndex = 0;
   var carouselTimer = null;
   var resizeFrame = null;
+  var pointerStartY = null;
 
   if(!page || !stage){
     return;
@@ -92,12 +94,17 @@ BIOGRAPHY JS
         scale.toFixed(5)
       );
 
+      document.documentElement.style.setProperty(
+        '--biography-mobile-page-height',
+        scaledHeight + 'px'
+      );
+
       document.documentElement.style.removeProperty(
         '--biography-scale'
       );
 
-      page.style.height = scaledHeight + 'px';
-      page.style.minHeight = scaledHeight + 'px';
+      page.style.height = '';
+      page.style.minHeight = '';
 
       document.documentElement.style.height = 'auto';
       document.body.style.height = 'auto';
@@ -120,6 +127,10 @@ BIOGRAPHY JS
 
     document.documentElement.style.removeProperty(
       '--biography-mobile-scale'
+    );
+
+    document.documentElement.style.removeProperty(
+      '--biography-mobile-page-height'
     );
 
     page.style.height = '';
@@ -276,17 +287,17 @@ BIOGRAPHY JS
     });
   }
 
+  function closeMenuOnUserScroll(){
+    if(menuPanel && menuPanel.classList.contains('is-open')){
+      closeMenu();
+    }
+  }
+
   function setupMenuCloseOnScroll(){
     var lastScrollTop =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       0;
-
-    function closeMenuOnUserScroll(){
-      if(menuPanel && menuPanel.classList.contains('is-open')){
-        closeMenu();
-      }
-    }
 
     window.addEventListener(
       'scroll',
@@ -309,16 +320,42 @@ BIOGRAPHY JS
 
     window.addEventListener(
       'wheel',
-      function(){
-        closeMenuOnUserScroll();
+      closeMenuOnUserScroll,
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'touchstart',
+      closeMenuOnUserScroll,
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'pointerdown',
+      function(event){
+        pointerStartY = event.clientY;
       },
       { passive:true }
     );
 
     window.addEventListener(
-      'touchmove',
+      'pointermove',
+      function(event){
+        if(pointerStartY === null){
+          return;
+        }
+
+        if(Math.abs(event.clientY - pointerStartY) > 6){
+          closeMenuOnUserScroll();
+        }
+      },
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'pointerup',
       function(){
-        closeMenuOnUserScroll();
+        pointerStartY = null;
       },
       { passive:true }
     );
@@ -326,16 +363,42 @@ BIOGRAPHY JS
     if(menuPanel){
       menuPanel.addEventListener(
         'wheel',
-        function(){
-          closeMenuOnUserScroll();
+        closeMenuOnUserScroll,
+        { passive:true }
+      );
+
+      menuPanel.addEventListener(
+        'touchstart',
+        closeMenuOnUserScroll,
+        { passive:true }
+      );
+
+      menuPanel.addEventListener(
+        'pointerdown',
+        function(event){
+          pointerStartY = event.clientY;
         },
         { passive:true }
       );
 
       menuPanel.addEventListener(
-        'touchmove',
+        'pointermove',
+        function(event){
+          if(pointerStartY === null){
+            return;
+          }
+
+          if(Math.abs(event.clientY - pointerStartY) > 6){
+            closeMenuOnUserScroll();
+          }
+        },
+        { passive:true }
+      );
+
+      menuPanel.addEventListener(
+        'pointerup',
         function(){
-          closeMenuOnUserScroll();
+          pointerStartY = null;
         },
         { passive:true }
       );
