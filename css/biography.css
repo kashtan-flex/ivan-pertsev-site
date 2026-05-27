@@ -1,20 +1,23 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-014
+   Версия: biography-css-015
 
    ИЗМЕНЕНИЯ:
-   - восстановлена desktop-композиция
-   - восстановлены carousel-фото
-   - восстановлен awards-блок
-   - восстановлен popup
-   - mobile-версия больше не затрагивается
-   - desktop приведён к актуальному макету
+   - восстановлена стабильная desktop-типографика до mobile-этапа
+   - восстановлена стабильная desktop-композиция awards
+   - добавлена поддержка отдельного mobile subtitle без влияния на desktop
+   - mobile-версия вынесена в biography-mobile.css и здесь не меняется
    ========================================================= */
 
 .ip-biography,
 .ip-biography *{
   box-sizing:border-box;
+}
+
+.ip-biography a{
+  color:inherit;
+  text-decoration:none;
 }
 
 .ip-biography{
@@ -24,12 +27,7 @@
   overflow:hidden;
   background:#050603;
   color:#fff;
-  font-family:'Montserrat',sans-serif;
-}
-
-.ip-biography a{
-  color:inherit;
-  text-decoration:none;
+  font-family:'Montserrat',Arial,sans-serif;
 }
 
 .ip-biography-stage{
@@ -39,7 +37,7 @@
   width:1440px;
   height:800px;
   overflow:hidden;
-  transform:translate3d(-50%,-50%,0) scale(var(--biography-scale,1));
+  transform:translate3d(-50%,-50%,0) scale(var(--biography-scale, 1));
   transform-origin:center center;
   background:#050603;
 }
@@ -48,7 +46,6 @@
   position:absolute;
   inset:0;
   z-index:1;
-
   background-image:url('../assets/img/biography/background/biography-bg.webp');
   background-size:cover;
   background-position:center;
@@ -61,163 +58,165 @@
   z-index:2;
 }
 
-/* =========================================================
-   LEFT SIDE
-   ========================================================= */
-
 .ip-biography-left{
   position:absolute;
-  left:60px;
-  top:52px;
+  left:100px;
+  top:55px;
   z-index:3;
-  width:820px;
-  height:700px;
+  width:760px;
+  height:690px;
 }
 
 .ip-biography-header{
   position:relative;
-  width:100%;
+  margin:0;
 }
 
 .ip-biography-title{
   margin:0;
-
   color:#fff;
-  font-size:58px;
-  line-height:.92;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:40px;
+  line-height:.95;
   font-weight:600;
-  letter-spacing:-.045em;
+  letter-spacing:-.03em;
 }
 
 .ip-biography-subtitle{
-  margin:24px 0 0;
-
+  width:547px;
+  margin:20px 0 0;
   color:#fff;
   font-size:18px;
-  line-height:1.02;
-  font-weight:400;
-  letter-spacing:-.04em;
-}
-
-.ip-biography-list{
-  position:absolute;
-  left:56px;
-  top:212px;
-
-  width:650px;
-
-  margin:0;
-  padding:0;
-
-  list-style:none;
-
-  color:#fff;
-  font-size:20px;
-  line-height:1.34;
-  font-weight:400;
-  letter-spacing:-.035em;
-}
-
-.ip-biography-list li{
-  position:relative;
-  margin:0;
-  padding-left:22px;
-}
-
-.ip-biography-list li::before{
-  content:'•';
-
-  position:absolute;
-  left:0;
-  top:0;
-
-  color:#fff;
-  font-size:15px;
-  line-height:1.4;
-}
-
-/* =========================================================
-   AWARDS
-   ========================================================= */
-
-.ip-biography-awards{
-  position:absolute;
-  left:36px;
-  bottom:8px;
-
-  display:flex;
-  align-items:flex-end;
-  gap:82px;
-}
-
-.ip-biography-award{
-  display:flex;
-  align-items:center;
-}
-
-.ip-biography-award-top{
-  gap:16px;
-}
-
-.ip-biography-award-icon{
-  width:48px;
-  height:auto;
-  display:block;
-}
-
-.ip-biography-award-text-top{
-  width:136px;
-}
-
-.ip-biography-award-logo{
-  width:268px;
-  height:auto;
-  display:block;
-}
-
-.ip-biography-award-wedding{
-  gap:24px;
-}
-
-.ip-biography-award-text{
-  margin:0;
-
-  color:rgba(255,255,255,.72);
-
-  font-size:14px;
   line-height:1;
   font-weight:400;
   letter-spacing:-.04em;
 }
 
-.ip-biography-award-text strong,
-.ip-biography-award-text span{
+.ip-biography-subtitle-desktop{
   display:block;
 }
 
-.ip-biography-award-text strong{
-  margin-bottom:2px;
+.ip-biography-subtitle-mobile{
+  display:none;
+}
 
+.ip-biography-list{
+  position:absolute;
+  left:60px;
+  top:220px;
+  width:658px;
+  margin:0;
+  padding:0;
+  list-style:none;
   color:#fff;
+  font-size:20px;
+  line-height:1.30;
+  font-weight:400;
+  letter-spacing:-.03em;
+}
+
+.ip-biography-list li{
+  position:relative;
+  margin:0;
+  padding:0 0 0 20px;
+}
+
+.ip-biography-list li::before{
+  content:'•';
+  position:absolute;
+  left:0;
+  top:0;
+  color:#fff;
+  font-size:16px;
+  line-height:1.35;
+}
+
+.ip-biography-awards{
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  display:flex;
+  align-items:center;
+  width:760px;
+}
+
+.ip-biography-award{
+  display:flex;
+  align-items:center;
+  min-width:0;
+}
+
+.ip-biography-award-wedding{
+  gap:30px;
+}
+
+.ip-biography-award-top{
+  gap:30px;
+  margin-left:74px;
+}
+
+.ip-biography-award-logo{
+  display:block;
+  width:267px;
+  height:auto;
+}
+
+.ip-biography-award-icon{
+  display:block;
+  width:48px;
+  height:auto;
+}
+
+.ip-biography-award-text{
+  margin:0;
+  color:#fff;
+  font-size:14px;
+  line-height:1.08;
+  font-weight:400;
+  letter-spacing:-.04em;
+  opacity:.70;
+}
+
+.ip-biography-award-text strong,
+.ip-biography-award-text span{
+  display:block;
+  white-space:nowrap;
+}
+
+.ip-biography-award-text strong{
+  margin:0 0 1px;
+  color:#fff;
+  font-size:14px;
+  line-height:1;
   font-weight:600;
+  letter-spacing:-.04em;
+  opacity:1;
+}
+
+.ip-biography-award-text span{
+  color:#fff;
+  font-size:14px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.04em;
+  opacity:.70;
 }
 
 .ip-biography-award-text-wedding{
   width:220px;
 }
 
-/* =========================================================
-   RIGHT SIDE
-   ========================================================= */
+.ip-biography-award-text-top{
+  width:132px;
+}
 
 .ip-biography-right{
   position:absolute;
   right:0;
   top:0;
-
+  z-index:2;
   width:518px;
   height:800px;
-
   overflow:hidden;
   background:#080807;
 }
@@ -226,91 +225,74 @@
   position:absolute;
   inset:0;
   z-index:1;
+  overflow:hidden;
 }
 
 .ip-biography-slide{
   position:absolute;
   inset:0;
-
   opacity:0;
-
-  transition:
-    opacity 1.4s cubic-bezier(.19,1,.22,1);
+  transform:scale(1);
+  transition:opacity 1.45s cubic-bezier(.19,1,.22,1);
+  will-change:opacity;
 }
 
 .ip-biography-slide.is-active{
-  opacity:1;
   z-index:2;
+  opacity:1;
 }
 
 .ip-biography-slide img{
+  display:block;
   width:100%;
   height:100%;
-
-  display:block;
-
   object-fit:cover;
   object-position:center;
-
   transform:scale(1.04);
-
-  transition:
-    transform 7s cubic-bezier(.19,1,.22,1);
+  transition:transform 7.6s cubic-bezier(.19,1,.22,1);
+  will-change:transform;
 }
 
 .ip-biography-slide.is-active img{
-  transform:scale(1.11);
+  transform:scale(1.12);
 }
-
-/* =========================================================
-   QUOTE
-   ========================================================= */
 
 .ip-biography-quote{
   position:absolute;
-  left:98px;
+  left:97px;
   bottom:58px;
   z-index:5;
-
-  width:320px;
-
+  width:321px;
   margin:0;
+  padding:0;
+  color:#fff;
+  text-align:left;
 }
 
 .ip-biography-quote p{
   margin:0;
-
-  color:#fff;
-
   font-size:16px;
-  line-height:1.4;
+  line-height:1.40;
   font-weight:400;
   letter-spacing:-.03em;
 }
 
-.ip-biography-quote strong{
-  font-weight:700;
-}
-
 .ip-biography-quote cite{
   display:block;
-
   margin-top:18px;
   padding-right:2px;
-
   color:#fff;
-
-  font-family:'Benzin',sans-serif;
+  font-family:'Benzin',Arial,sans-serif;
   font-size:10px;
-  line-height:1;
+  line-height:.9;
   font-style:normal;
   font-weight:700;
-  letter-spacing:.04em;
   text-align:right;
+  letter-spacing:.05em;
 }
 
 /* =========================================================
-   MENU
+   BIOGRAPHY MENU OVERRIDES
    ========================================================= */
 
 .ip-biography .ip-menu-toggle{
@@ -345,13 +327,16 @@
 .ip-biography .ip-accordion-button:hover,
 .ip-biography .ip-accordion-button:active{
   color:#fff !important;
-
+  font-family:'Montserrat',Arial,sans-serif;
   font-size:20px;
-  line-height:.9;
+  line-height:90%;
   font-weight:600;
   letter-spacing:-.04em;
-
   text-decoration:none !important;
+}
+
+.ip-biography .ip-menu-link[href="./biography-preview.html"]{
+  opacity:1;
 }
 
 .ip-biography .ip-submenu{
@@ -365,12 +350,12 @@
 .ip-biography .ip-submenu a:hover,
 .ip-biography .ip-submenu a:active{
   color:#69C9FF !important;
-
+  font-family:'Montserrat',Arial,sans-serif;
   font-size:16px;
-  line-height:1.2;
+  line-height:120%;
   font-weight:400;
   letter-spacing:-.025em;
-
+  opacity:1;
   text-decoration:none !important;
 }
 
@@ -386,31 +371,26 @@
 .ip-biography .ip-menu-legal a:hover,
 .ip-biography .ip-menu-legal a:active{
   color:rgba(255,255,255,.5) !important;
-
   font-size:8px;
-  line-height:1.5;
-
+  line-height:150%;
   text-decoration:none !important;
 }
 
-@media (max-width:767px){
+.ip-biography .ip-accordion-button{
+  width:100%;
+  padding-right:118px;
+}
 
-  .ip-biography{
-    overflow:visible;
-  }
+.ip-biography .ip-accordion-button::before,
+.ip-biography .ip-accordion-button::after{
+  width:14px;
+  height:3px;
+}
 
-  .ip-biography-stage{
-    position:absolute;
-    left:50%;
-    top:0;
+.ip-biography .ip-accordion-button::before{
+  right:9px;
+}
 
-    width:390px;
-    height:1510px;
-
-    transform:
-      translate3d(-50%,0,0)
-      scale(var(--biography-mobile-scale,1));
-
-    transform-origin:top center;
-  }
+.ip-biography .ip-accordion-button::after{
+  right:0;
 }
