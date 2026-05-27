@@ -2,16 +2,16 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-007
+Версия: biography-js-008
 
 ИЗМЕНЕНИЯ:
-- mobile-scale теперь работает как на главной странице
-- исправлен mobile scroll страницы «Биография»
-- меню автоматически закрывается при начале scroll
+- mobile-scale приведён к логике главной страницы
+- исправлено закрытие меню при scroll, wheel и touchmove
+- добавлено закрытие меню при попытке скролла внутри открытой панели
+- сохранён vertical scroll страницы «Биография»
 - сохранена carousel-система
 - сохранена popup-система
 - сохранена кнопка scroll-to-top
-- сохранена логика accordion
 ==================================================
 */
 
@@ -53,9 +53,7 @@ BIOGRAPHY JS
     document.querySelectorAll('[data-popup-close]')
   );
 
-  var scrollTopButton = document.querySelector(
-    '.ip-biography-scrolltop'
-  );
+  var scrollTopButton = document.querySelector('.ip-biography-scrolltop');
 
   var slides = Array.prototype.slice.call(
     document.querySelectorAll('.ip-biography-slide')
@@ -63,6 +61,7 @@ BIOGRAPHY JS
 
   var currentSlideIndex = 0;
   var carouselTimer = null;
+  var resizeFrame = null;
 
   if(!page || !stage){
     return;
@@ -73,17 +72,19 @@ BIOGRAPHY JS
   }
 
   function updateScale(){
-
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
-
     var scale;
+    var scaledHeight;
 
     if(isMobile()){
-
       scale = Math.max(
         viewportWidth / DESIGN.mobile.width,
         viewportHeight / DESIGN.mobile.height
+      );
+
+      scaledHeight = Math.ceil(
+        DESIGN.mobile.stageHeight * scale
       );
 
       document.documentElement.style.setProperty(
@@ -95,12 +96,14 @@ BIOGRAPHY JS
         '--biography-scale'
       );
 
-      var scaledHeight = Math.ceil(
-        DESIGN.mobile.stageHeight * scale
-      );
-
       page.style.height = scaledHeight + 'px';
       page.style.minHeight = scaledHeight + 'px';
+
+      document.documentElement.style.height = 'auto';
+      document.body.style.height = 'auto';
+
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflowX = 'hidden';
 
       document.documentElement.style.overflowY = 'auto';
       document.body.style.overflowY = 'auto';
@@ -122,12 +125,25 @@ BIOGRAPHY JS
     page.style.height = '';
     page.style.minHeight = '';
 
+    document.documentElement.style.height = '';
+    document.body.style.height = '';
+
+    document.documentElement.style.overflowX = '';
+    document.body.style.overflowX = '';
+
     document.documentElement.style.overflowY = '';
     document.body.style.overflowY = '';
   }
 
-  function startCarousel(){
+  function requestScaleUpdate(){
+    if(resizeFrame){
+      window.cancelAnimationFrame(resizeFrame);
+    }
 
+    resizeFrame = window.requestAnimationFrame(updateScale);
+  }
+
+  function startCarousel(){
     if(slides.length <= 1){
       return;
     }
@@ -135,7 +151,6 @@ BIOGRAPHY JS
     stopCarousel();
 
     carouselTimer = window.setInterval(function(){
-
       slides[currentSlideIndex].classList.remove('is-active');
 
       currentSlideIndex += 1;
@@ -145,12 +160,10 @@ BIOGRAPHY JS
       }
 
       slides[currentSlideIndex].classList.add('is-active');
-
     }, SLIDE_INTERVAL);
   }
 
   function stopCarousel(){
-
     if(carouselTimer){
       window.clearInterval(carouselTimer);
       carouselTimer = null;
@@ -158,7 +171,6 @@ BIOGRAPHY JS
   }
 
   function openMenu(){
-
     if(!menuButton || !menuPanel){
       return;
     }
@@ -169,7 +181,6 @@ BIOGRAPHY JS
   }
 
   function closeMenu(){
-
     if(!menuButton || !menuPanel){
       return;
     }
@@ -184,6 +195,9 @@ BIOGRAPHY JS
   }
 
   function toggleMenu(){
+    if(!menuPanel){
+      return;
+    }
 
     if(menuPanel.classList.contains('is-open')){
       closeMenu();
@@ -194,24 +208,18 @@ BIOGRAPHY JS
   }
 
   function setupAccordion(accordion){
-
-    var button = accordion.querySelector(
-      '.ip-accordion-button'
-    );
+    var button = accordion.querySelector('.ip-accordion-button');
 
     if(!button){
       return;
     }
 
     button.addEventListener('click', function(){
-
       accordion.classList.toggle('is-open');
-
     });
   }
 
   function openPopup(){
-
     if(!popup){
       return;
     }
@@ -219,45 +227,27 @@ BIOGRAPHY JS
     closeMenu();
 
     popup.classList.add('is-open');
+    popup.setAttribute('aria-hidden', 'false');
 
-    popup.setAttribute(
-      'aria-hidden',
-      'false'
-    );
-
-    document.documentElement.classList.add(
-      'ip-popup-lock'
-    );
-
-    document.body.classList.add(
-      'ip-popup-lock'
-    );
+    document.documentElement.classList.add('ip-popup-lock');
+    document.body.classList.add('ip-popup-lock');
   }
 
   function closePopup(){
-
     if(!popup){
       return;
     }
 
     popup.classList.remove('is-open');
+    popup.setAttribute('aria-hidden', 'true');
 
-    popup.setAttribute(
-      'aria-hidden',
-      'true'
-    );
+    document.documentElement.classList.remove('ip-popup-lock');
+    document.body.classList.remove('ip-popup-lock');
 
-    document.documentElement.classList.remove(
-      'ip-popup-lock'
-    );
-
-    document.body.classList.remove(
-      'ip-popup-lock'
-    );
+    updateScale();
   }
 
   function scrollToTop(){
-
     window.scrollTo({
       top:0,
       behavior:'smooth'
@@ -265,84 +255,105 @@ BIOGRAPHY JS
   }
 
   function setupPopupTriggers(){
-
     popupOpenTriggers.forEach(function(trigger){
-
       trigger.addEventListener('click', function(event){
-
         event.preventDefault();
-
         openPopup();
-
       });
-
     });
 
     popupCloseTriggers.forEach(function(trigger){
-
       trigger.addEventListener('click', function(){
-
         closePopup();
-
       });
-
     });
 
     document.addEventListener('keydown', function(event){
-
       if(event.key === 'Escape'){
         closePopup();
         closeMenu();
       }
-
     });
   }
 
   function setupMenuCloseOnScroll(){
+    var lastScrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      0;
 
-    var lastScrollTop = 0;
+    function closeMenuOnUserScroll(){
+      if(menuPanel && menuPanel.classList.contains('is-open')){
+        closeMenu();
+      }
+    }
 
     window.addEventListener(
       'scroll',
       function(){
-
         var currentScrollTop =
           window.pageYOffset ||
-          document.documentElement.scrollTop;
+          document.documentElement.scrollTop ||
+          0;
 
-        if(
-          Math.abs(currentScrollTop - lastScrollTop) > 5 &&
-          menuPanel &&
-          menuPanel.classList.contains('is-open')
-        ){
-          closeMenu();
+        if(Math.abs(currentScrollTop - lastScrollTop) > 2){
+          closeMenuOnUserScroll();
         }
 
         lastScrollTop = currentScrollTop <= 0
           ? 0
           : currentScrollTop;
-
       },
       { passive:true }
     );
+
+    window.addEventListener(
+      'wheel',
+      function(){
+        closeMenuOnUserScroll();
+      },
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'touchmove',
+      function(){
+        closeMenuOnUserScroll();
+      },
+      { passive:true }
+    );
+
+    if(menuPanel){
+      menuPanel.addEventListener(
+        'wheel',
+        function(){
+          closeMenuOnUserScroll();
+        },
+        { passive:true }
+      );
+
+      menuPanel.addEventListener(
+        'touchmove',
+        function(){
+          closeMenuOnUserScroll();
+        },
+        { passive:true }
+      );
+    }
   }
 
   function setupDateMask(){
-
     if(!popup){
       return;
     }
 
-    var dateInput = popup.querySelector(
-      'input[name="date"]'
-    );
+    var dateInput = popup.querySelector('input[name="date"]');
 
     if(!dateInput){
       return;
     }
 
     dateInput.addEventListener('input', function(){
-
       var value = dateInput.value.replace(/\D/g, '');
 
       if(value.length > 8){
@@ -368,25 +379,14 @@ BIOGRAPHY JS
   }
 
   function bindEvents(){
+    window.addEventListener('resize', requestScaleUpdate);
 
-    window.addEventListener(
-      'resize',
-      updateScale
-    );
-
-    window.addEventListener(
-      'orientationchange',
-      function(){
-        setTimeout(updateScale, 250);
-      }
-    );
+    window.addEventListener('orientationchange', function(){
+      window.setTimeout(updateScale, 250);
+    });
 
     if(menuButton){
-
-      menuButton.addEventListener(
-        'click',
-        toggleMenu
-      );
+      menuButton.addEventListener('click', toggleMenu);
     }
 
     accordions.forEach(setupAccordion);
@@ -396,20 +396,13 @@ BIOGRAPHY JS
     setupDateMask();
 
     if(scrollTopButton){
-
-      scrollTopButton.addEventListener(
-        'click',
-        scrollToTop
-      );
+      scrollTopButton.addEventListener('click', scrollToTop);
     }
   }
 
   function init(){
-
     updateScale();
-
     bindEvents();
-
     startCarousel();
   }
 
