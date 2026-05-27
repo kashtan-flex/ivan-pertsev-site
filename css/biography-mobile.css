@@ -1,11 +1,13 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-010
+   Версия: biography-mobile-css-011
 
    ИЗМЕНЕНИЯ:
-   - подключён новый mobile background
-   - подключён retina @2x background
+   - добавлена скрытая стартовая стадия для кнопки scroll-top
+   - кнопка scroll-top появляется только через класс is-visible
+   - добавлена мягкая Safari-safe анимация появления
+   - сохранён новый mobile background + retina @2x
    - сохранена высота mobile-stage 1510px
    - сохранены typography настройки
    - сохранены mobile menu фиксы
@@ -328,6 +330,38 @@
     border-radius:7px;
     background:transparent;
     cursor:pointer;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translate3d(0,10px,0) scale(.96);
+    transition:
+      opacity .42s cubic-bezier(.19,1,.22,1),
+      transform .42s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear .42s;
+    will-change:opacity,transform;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    -webkit-transform:translate3d(0,10px,0) scale(.96);
+    -webkit-transition:
+      opacity .42s cubic-bezier(.19,1,.22,1),
+      -webkit-transform .42s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear .42s;
+  }
+
+  .ip-biography-scrolltop.is-visible{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translate3d(0,0,0) scale(1);
+    transition:
+      opacity .42s cubic-bezier(.19,1,.22,1),
+      transform .42s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear 0s;
+    -webkit-transform:translate3d(0,0,0) scale(1);
+    -webkit-transition:
+      opacity .42s cubic-bezier(.19,1,.22,1),
+      -webkit-transform .42s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear 0s;
   }
 
   .ip-biography-scrolltop span{

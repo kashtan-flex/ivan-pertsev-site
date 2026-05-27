@@ -2,14 +2,15 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-012
+Версия: biography-js-013
 
 ИЗМЕНЕНИЯ:
-- высота mobile-stage синхронизирована с новой высотой 1510px
-- mobile-scale сохранён по логике главной страницы 390×700
+- добавлена логика показа scroll-top только в конце страницы
+- scroll-top появляется мягко через класс is-visible
+- показ scroll-top синхронизирован с mobile-scale 1510px
 - сохранена iOS/Android-safe логика viewport через visualViewport
 - сохранено корректное закрытие меню при scroll без поломки кликов
-- сохранены accordion, popup, carousel и scroll-to-top
+- сохранены accordion, popup и carousel
 ==================================================
 */
 
@@ -30,6 +31,7 @@ BIOGRAPHY JS
   };
 
   var SLIDE_INTERVAL = 6200;
+  var SCROLLTOP_REVEAL_OFFSET = 140;
 
   var page = document.querySelector('[data-biography-page]');
   var stage = document.querySelector('.ip-biography-stage');
@@ -94,6 +96,38 @@ BIOGRAPHY JS
     return viewportHeight;
   }
 
+  function updateScrollTopVisibility(){
+    if(!scrollTopButton){
+      return;
+    }
+
+    if(!isMobile()){
+      scrollTopButton.classList.remove('is-visible');
+      return;
+    }
+
+    var scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      0;
+
+    var viewportHeight = getViewportHeight();
+
+    var pageHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    );
+
+    var distanceToBottom = pageHeight - (scrollTop + viewportHeight);
+
+    if(distanceToBottom <= SCROLLTOP_REVEAL_OFFSET){
+      scrollTopButton.classList.add('is-visible');
+      return;
+    }
+
+    scrollTopButton.classList.remove('is-visible');
+  }
+
   function updateScale(){
     var viewportWidth = window.innerWidth;
     var viewportHeight = updateViewportHeightVariable();
@@ -137,6 +171,8 @@ BIOGRAPHY JS
       document.documentElement.style.overflowY = 'auto';
       document.body.style.overflowY = 'auto';
 
+      updateScrollTopVisibility();
+
       return;
     }
 
@@ -166,6 +202,8 @@ BIOGRAPHY JS
 
     document.documentElement.style.overflowY = '';
     document.body.style.overflowY = '';
+
+    updateScrollTopVisibility();
   }
 
   function requestScaleUpdate(){
@@ -348,6 +386,8 @@ BIOGRAPHY JS
         lastScrollTop = currentScrollTop <= 0
           ? 0
           : currentScrollTop;
+
+        updateScrollTopVisibility();
       },
       { passive:true }
     );
@@ -482,6 +522,7 @@ BIOGRAPHY JS
     updateScale();
     bindEvents();
     startCarousel();
+    updateScrollTopVisibility();
   }
 
   init();
