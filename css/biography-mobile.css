@@ -1,14 +1,16 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-006
+   Версия: biography-mobile-css-007
 
    ИЗМЕНЕНИЯ:
+   - добавлена iOS/Android-safe высота через --biography-vh
+   - усилена Safari-safe blur-подложка меню
+   - сохранено положение правовых ссылок
    - blur mobile-меню растянут до нижнего края фотографии
-   - положение правовых ссылок сохранено на уровне предыдущей версии
-   - mobile-stage масштабируется по логике главной страницы 390×700
-   - страница «Биография» сохраняет вертикальный scroll
-   - menu controls приведены к поведению главной мобильной версии
+   - сохранён vertical scroll страницы «Биография»
+   - сохранён корректный бургер/крестик без смещения
+   - сохранены стрелки accordion
    - desktop-версия не изменялась
    ========================================================= */
 
@@ -29,6 +31,7 @@
     overflow-x:hidden !important;
     overflow-y:auto !important;
     background:#050603 !important;
+    overscroll-behavior-x:none;
   }
 
   html.ip-popup-lock,
@@ -350,6 +353,7 @@
     -webkit-appearance:none;
     box-shadow:none !important;
     filter:none;
+    touch-action:manipulation;
   }
 
   .ip-biography .ip-menu-line{
@@ -393,6 +397,35 @@
     height:765px;
     padding:40px 22px 45px 40px;
     overflow:hidden;
+    background:rgba(0,0,0,.34);
+    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(18px);
+    touch-action:pan-y;
+  }
+
+  .ip-biography .ip-menu-panel::before{
+    background:rgba(0,0,0,.30);
+    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(18px);
+  }
+
+  .ip-biography .ip-menu-panel::after{
+    background-image:url('../assets/img/home/popups/menu-noise.webp');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    opacity:.35;
+    mix-blend-mode:normal;
+  }
+
+  @supports not ((backdrop-filter:blur(18px)) or (-webkit-backdrop-filter:blur(18px))){
+    .ip-biography .ip-menu-panel{
+      background:rgba(0,0,0,.62);
+    }
+
+    .ip-biography .ip-menu-panel::before{
+      background:rgba(0,0,0,.62);
+    }
   }
 
   .ip-biography .ip-menu-socials{
@@ -442,6 +475,7 @@
     align-items:center;
     justify-content:flex-start;
     padding-right:34px;
+    touch-action:manipulation;
   }
 
   .ip-biography .ip-accordion-button::before,

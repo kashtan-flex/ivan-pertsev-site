@@ -2,15 +2,13 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-010
+Версия: biography-js-011
 
 ИЗМЕНЕНИЯ:
-- исправлена работа mobile-меню после агрессивного close-on-scroll
-- клик по крестику больше не перезапускает меню
-- accordion снова открывается по тапу
-- ссылки меню снова работают корректно
-- меню закрывается только при реальном scroll/wheel/свайпе страницы
-- клики внутри меню не считаются scroll-жестом
+- добавлена iOS/Android-safe логика viewport через visualViewport
+- mobile-scale синхронизирован с --biography-vh
+- закрытие меню при scroll работает без поломки кликов по меню
+- accordion, крестик, ссылки и popup-триггеры защищены от случайного close-on-scroll
 - сохранена carousel-система
 - сохранена popup-система
 - сохранена кнопка scroll-to-top
@@ -76,9 +74,32 @@ BIOGRAPHY JS
     return window.innerWidth <= DESIGN.breakpoint;
   }
 
+  function getViewportHeight(){
+    if(
+      window.visualViewport &&
+      window.visualViewport.height
+    ){
+      return window.visualViewport.height;
+    }
+
+    return window.innerHeight;
+  }
+
+  function updateViewportHeightVariable(){
+    var viewportHeight = getViewportHeight();
+
+    document.documentElement.style.setProperty(
+      '--biography-vh',
+      (viewportHeight * 0.01) + 'px'
+    );
+
+    return viewportHeight;
+  }
+
   function updateScale(){
     var viewportWidth = window.innerWidth;
-    var viewportHeight = window.innerHeight;
+    var viewportHeight = updateViewportHeightVariable();
+
     var scale;
     var scaledHeight;
 
@@ -336,10 +357,7 @@ BIOGRAPHY JS
     window.addEventListener(
       'wheel',
       function(event){
-        if(
-          menuPanel &&
-          menuPanel.contains(event.target)
-        ){
+        if(menuPanel && menuPanel.contains(event.target)){
           return;
         }
 
@@ -439,6 +457,13 @@ BIOGRAPHY JS
     window.addEventListener('orientationchange', function(){
       window.setTimeout(updateScale, 250);
     });
+
+    if(window.visualViewport){
+      window.visualViewport.addEventListener(
+        'resize',
+        requestScaleUpdate
+      );
+    }
 
     if(menuButton){
       menuButton.addEventListener('click', toggleMenu);

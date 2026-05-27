@@ -9,18 +9,23 @@
   >
 
   <!--
-    Версия: biography-preview-008
+    Версия: biography-preview-009
 
     ИЗМЕНЕНИЯ:
-    - mobile-scale страницы «Биография» приведён к логике главной страницы
-    - удалены конфликтующие inline overflow-настройки
-    - исправлен vertical scroll mobile-версии
+    - добавлена iOS/Android-safe viewport-база для mobile
+    - убраны конфликтующие inline overflow-настройки для mobile
+    - desktop-режим оставлен без скролла
+    - mobile-режим оставлен со scroll страницы
     - сохранены popup, menu и page transition
   -->
 
   <title>Биография — Иван Перцев</title>
 
   <style>
+    :root{
+      --biography-vh: 1vh;
+    }
+
     html,
     body,
     #ip-biography-root{
@@ -32,15 +37,19 @@
 
     html{
       min-height:100%;
+      overflow-x:hidden;
     }
 
     body{
       min-height:100vh;
+      min-height:calc(var(--biography-vh) * 100);
+      overflow-x:hidden;
     }
 
     #ip-biography-root{
       position:relative;
       min-height:100vh;
+      min-height:calc(var(--biography-vh) * 100);
     }
 
     @media (min-width:768px){
@@ -88,13 +97,52 @@
   <div id="ip-biography-root"></div>
 
   <script>
+    (function(){
+      'use strict';
 
+      function setBiographyViewportHeight(){
+        var height = window.innerHeight;
+
+        if(window.visualViewport && window.visualViewport.height){
+          height = window.visualViewport.height;
+        }
+
+        document.documentElement.style.setProperty(
+          '--biography-vh',
+          (height * 0.01) + 'px'
+        );
+      }
+
+      setBiographyViewportHeight();
+
+      window.addEventListener(
+        'resize',
+        setBiographyViewportHeight,
+        { passive:true }
+      );
+
+      window.addEventListener(
+        'orientationchange',
+        function(){
+          window.setTimeout(setBiographyViewportHeight, 250);
+        },
+        { passive:true }
+      );
+
+      if(window.visualViewport){
+        window.visualViewport.addEventListener(
+          'resize',
+          setBiographyViewportHeight,
+          { passive:true }
+        );
+      }
+    })();
+  </script>
+
+  <script>
     fetch('./pages/biography/biography.html')
-
       .then(function(response){
-
         if(!response.ok){
-
           throw new Error(
             'Не удалось загрузить pages/biography/biography.html'
           );
@@ -102,9 +150,7 @@
 
         return response.text();
       })
-
       .then(function(html){
-
         document.getElementById(
           'ip-biography-root'
         ).innerHTML = html;
@@ -129,9 +175,7 @@
           transitionScript
         );
       })
-
       .catch(function(error){
-
         console.error(error);
 
         document.body.style.background =
@@ -140,7 +184,6 @@
         document.body.innerHTML =
           '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">Ошибка загрузки страницы Биография. Проверь путь: pages/biography/biography.html</pre>';
       });
-
   </script>
 
 </body>
