@@ -1,13 +1,15 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-015
+   Версия: biography-css-016
 
    ИЗМЕНЕНИЯ:
    - восстановлена стабильная desktop-типографика до mobile-этапа
-   - восстановлена стабильная desktop-композиция awards
-   - добавлена поддержка отдельного mobile subtitle без влияния на desktop
-   - mobile-версия вынесена в biography-mobile.css и здесь не меняется
+   - desktop и mobile списки разделены через отдельные классы
+   - desktop-список показывается только на desktop
+   - mobile-список показывается только на mobile
+   - восстановлена desktop-композиция awards
+   - mobile-композиция остаётся в biography-mobile.css
    ========================================================= */
 
 .ip-biography,
@@ -113,6 +115,14 @@
   line-height:1.30;
   font-weight:400;
   letter-spacing:-.03em;
+}
+
+.ip-biography-list-desktop{
+  display:block;
+}
+
+.ip-biography-list-mobile{
+  display:none;
 }
 
 .ip-biography-list li{
@@ -277,6 +287,10 @@
   letter-spacing:-.03em;
 }
 
+.ip-biography-quote strong{
+  font-weight:700;
+}
+
 .ip-biography-quote cite{
   display:block;
   margin-top:18px;
@@ -393,4 +407,28 @@
 
 .ip-biography .ip-accordion-button::after{
   right:0;
+}
+
+/* =========================================================
+   MOBILE VISIBILITY ONLY
+   Основные mobile-координаты остаются в biography-mobile.css
+   ========================================================= */
+
+@media (max-width:767px){
+
+  .ip-biography-subtitle-desktop{
+    display:none !important;
+  }
+
+  .ip-biography-subtitle-mobile{
+    display:block !important;
+  }
+
+  .ip-biography-list-desktop{
+    display:none !important;
+  }
+
+  .ip-biography-list-mobile{
+    display:block !important;
+  }
 }
