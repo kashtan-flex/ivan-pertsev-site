@@ -2,13 +2,13 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-004
+Версия: biography-js-005
 
 ИЗМЕНЕНИЯ:
-- добавлена отдельная mobile-логика масштабирования
-- mobile-база переведена на 390×700
+- исправлен mobile scroll страницы «Биография»
+- mobile-высота страницы теперь учитывает scale и полную высоту stage
+- кнопка scroll-to-top прокручивает страницу наверх
 - desktop-логика масштабирования сохранена
-- добавлена кнопка scroll-to-top
 - сохранена carousel-система
 - сохранена popup-система
 - сохранена menu-система
@@ -22,6 +22,7 @@ BIOGRAPHY JS
 
   var MOBILE_WIDTH = 390;
   var MOBILE_HEIGHT = 700;
+  var MOBILE_STAGE_HEIGHT = 1760;
 
   var MOBILE_BREAKPOINT = 767;
 
@@ -53,9 +54,7 @@ BIOGRAPHY JS
     document.querySelectorAll('[data-popup]')
   );
 
-  var scrollTopButton = document.querySelector(
-    '.ip-biography-scrolltop'
-  );
+  var scrollTopButton = document.querySelector('.ip-biography-scrolltop');
 
   var currentSlideIndex = 0;
   var carouselTimer = null;
@@ -66,13 +65,21 @@ BIOGRAPHY JS
 
   function setDesktopScale(){
     var viewportHeight = window.innerHeight;
-
     var scale = viewportHeight / DESKTOP_HEIGHT;
 
     document.documentElement.style.setProperty(
       '--biography-scale',
       scale.toFixed(5)
     );
+
+    document.documentElement.style.removeProperty(
+      '--biography-mobile-scale'
+    );
+
+    if(page){
+      page.style.height = '';
+      page.style.minHeight = '';
+    }
   }
 
   function setMobileScale(){
@@ -81,13 +88,23 @@ BIOGRAPHY JS
 
     var scaleX = viewportWidth / MOBILE_WIDTH;
     var scaleY = viewportHeight / MOBILE_HEIGHT;
-
     var scale = Math.max(scaleX, scaleY);
+
+    var scaledPageHeight = Math.ceil(MOBILE_STAGE_HEIGHT * scale);
 
     document.documentElement.style.setProperty(
       '--biography-mobile-scale',
       scale.toFixed(5)
     );
+
+    document.documentElement.style.removeProperty(
+      '--biography-scale'
+    );
+
+    if(page){
+      page.style.height = scaledPageHeight + 'px';
+      page.style.minHeight = scaledPageHeight + 'px';
+    }
   }
 
   function setScale(){
@@ -111,7 +128,6 @@ BIOGRAPHY JS
     stopCarousel();
 
     carouselTimer = window.setInterval(function(){
-
       slides[currentSlideIndex].classList.remove('is-active');
 
       currentSlideIndex += 1;
@@ -121,7 +137,6 @@ BIOGRAPHY JS
       }
 
       slides[currentSlideIndex].classList.add('is-active');
-
     }, SLIDE_INTERVAL);
   }
 
@@ -172,28 +187,17 @@ BIOGRAPHY JS
   }
 
   function openPopup(name){
-    var targetPopup = document.querySelector(
-      '[data-popup="' + name + '"]'
-    );
+    var targetPopup = document.querySelector('[data-popup="' + name + '"]');
 
     if(!targetPopup){
       return;
     }
 
     targetPopup.classList.add('is-open');
+    targetPopup.setAttribute('aria-hidden', 'false');
 
-    targetPopup.setAttribute(
-      'aria-hidden',
-      'false'
-    );
-
-    document.documentElement.classList.add(
-      'ip-popup-lock'
-    );
-
-    document.body.classList.add(
-      'ip-popup-lock'
-    );
+    document.documentElement.classList.add('ip-popup-lock');
+    document.body.classList.add('ip-popup-lock');
 
     closeMenu();
   }
@@ -204,19 +208,10 @@ BIOGRAPHY JS
     }
 
     popup.classList.remove('is-open');
+    popup.setAttribute('aria-hidden', 'true');
 
-    popup.setAttribute(
-      'aria-hidden',
-      'true'
-    );
-
-    document.documentElement.classList.remove(
-      'ip-popup-lock'
-    );
-
-    document.body.classList.remove(
-      'ip-popup-lock'
-    );
+    document.documentElement.classList.remove('ip-popup-lock');
+    document.body.classList.remove('ip-popup-lock');
   }
 
   function closeAllPopups(){
@@ -240,36 +235,16 @@ BIOGRAPHY JS
   }
 
   function bindEvents(){
-
-    window.addEventListener(
-      'resize',
-      setScale
-    );
-
-    window.addEventListener(
-      'orientationchange',
-      setScale
-    );
-
-    document.addEventListener(
-      'keydown',
-      onKeydown
-    );
+    window.addEventListener('resize', setScale);
+    window.addEventListener('orientationchange', setScale);
+    document.addEventListener('keydown', onKeydown);
 
     if(menuToggle){
-
-      menuToggle.addEventListener(
-        'click',
-        toggleMenu
-      );
-
+      menuToggle.addEventListener('click', toggleMenu);
     }
 
     accordions.forEach(function(accordion){
-
-      var button = accordion.querySelector(
-        '.ip-accordion-button'
-      );
+      var button = accordion.querySelector('.ip-accordion-button');
 
       if(!button){
         return;
@@ -278,55 +253,34 @@ BIOGRAPHY JS
       button.addEventListener('click', function(){
         toggleAccordion(accordion);
       });
-
     });
 
     popupOpenLinks.forEach(function(link){
-
       link.addEventListener('click', function(event){
-
         event.preventDefault();
-
-        openPopup(
-          link.getAttribute('data-popup-open')
-        );
-
+        openPopup(link.getAttribute('data-popup-open'));
       });
-
     });
 
     popupCloseButtons.forEach(function(button){
-
       button.addEventListener('click', function(){
-
         var popup = button.closest('[data-popup]');
-
         closePopup(popup);
-
       });
-
     });
 
     if(scrollTopButton){
-
-      scrollTopButton.addEventListener(
-        'click',
-        scrollToTop
-      );
-
+      scrollTopButton.addEventListener('click', scrollToTop);
     }
   }
 
   function init(){
-
     if(!page){
       return;
     }
 
     setScale();
-
     bindEvents();
-
     startCarousel();
   }
 

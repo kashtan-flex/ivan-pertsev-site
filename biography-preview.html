@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--
-    Версия: biography-preview-006
+    Версия: biography-preview-007
 
     ИЗМЕНЕНИЯ:
-    - подключен новый файл css/biography-mobile.css для мобильной версии страницы «Биография»
-    - сохранено подключение home.css для общего меню
-    - сохранено подключение popup и page transition
-    - меню не изменялось
+    - для mobile разрешён вертикальный скролл страницы «Биография»
+    - desktop-режим оставлен без скролла
+    - сохранено подключение biography-mobile.css
+    - сохранены popup, menu и page transition
   -->
 
   <title>Биография — Иван Перцев</title>
@@ -26,6 +26,17 @@
       padding:0;
       background:#050603;
       overflow:hidden;
+    }
+
+    @media (max-width: 767px){
+      html,
+      body,
+      #ip-biography-root{
+        height:auto;
+        min-height:100%;
+        overflow-x:hidden;
+        overflow-y:auto;
+      }
     }
   </style>
 

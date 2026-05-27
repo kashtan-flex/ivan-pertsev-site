@@ -1,15 +1,19 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-001
+   Версия: biography-mobile-css-002
 
    ИЗМЕНЕНИЯ:
-   - создан отдельный mobile-файл для страницы «Биография»
-   - добавлена мобильная композиция 390px по ширине
-   - сохранено использование общего меню и popup-системы
-   - добавлена мобильная вертикальная структура страницы
-   - подготовлены стили для кнопки подъёма наверх
+   - исправлен desktop-артефакт кнопки подъёма наверх
+   - включён вертикальный скролл только для mobile-версии страницы «Биография»
+   - исправлено отображение крестика меню на mobile
+   - исправлено отображение стрелок accordion в mobile-меню
+   - сохранена текущая desktop-версия без изменений
    ========================================================= */
+
+.ip-biography-scrolltop{
+  display:none;
+}
 
 @media (max-width: 767px){
 
@@ -19,6 +23,8 @@
     width:100%;
     min-height:100%;
     height:auto;
+    margin:0;
+    padding:0;
     overflow-x:hidden;
     overflow-y:auto;
     background:#050603;
@@ -329,20 +335,89 @@
     position:absolute;
     top:40px;
     right:20px;
-    z-index:30;
+    z-index:80;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
     width:34px;
     height:18px;
+    padding:0;
+    border:0;
+    background:transparent;
     filter:none;
   }
 
   .ip-biography .ip-menu-line{
+    display:block;
+    width:34px;
     height:4px;
     border-radius:999px;
     background:#fff;
+    transform-origin:center center;
+  }
+
+  .ip-biography .ip-menu-toggle.is-open{
+    top:58px;
+    right:58px;
+    width:26px;
+    height:26px;
+    z-index:120;
+  }
+
+  .ip-biography .ip-menu-toggle.is-open .ip-menu-line{
+    position:absolute;
+    left:0;
+    top:11px;
+    width:26px;
+    height:3px;
+  }
+
+  .ip-biography .ip-menu-toggle.is-open .ip-menu-line:first-child{
+    transform:rotate(45deg);
+  }
+
+  .ip-biography .ip-menu-toggle.is-open .ip-menu-line:last-child{
+    transform:rotate(-45deg);
   }
 
   .ip-biography .ip-menu-panel{
     width:100%;
     max-width:none;
+  }
+
+  .ip-biography .ip-accordion-button{
+    position:relative;
+    padding-right:44px;
+  }
+
+  .ip-biography .ip-accordion-button::before,
+  .ip-biography .ip-accordion-button::after{
+    display:block;
+    content:'';
+    position:absolute;
+    top:50%;
+    width:14px;
+    height:3px;
+    border-radius:999px;
+    background:#fff;
+    opacity:1;
+  }
+
+  .ip-biography .ip-accordion-button::before{
+    right:10px;
+    transform:translate3d(0,-50%,0) rotate(45deg);
+  }
+
+  .ip-biography .ip-accordion-button::after{
+    right:0;
+    transform:translate3d(0,-50%,0) rotate(-45deg);
+  }
+
+  .ip-biography .ip-accordion.is-open .ip-accordion-button::before{
+    transform:translate3d(0,-50%,0) rotate(-45deg);
+  }
+
+  .ip-biography .ip-accordion.is-open .ip-accordion-button::after{
+    transform:translate3d(0,-50%,0) rotate(45deg);
   }
 }
