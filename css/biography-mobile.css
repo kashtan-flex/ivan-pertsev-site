@@ -1,16 +1,16 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-007
+   Версия: biography-mobile-css-008
 
    ИЗМЕНЕНИЯ:
-   - добавлена iOS/Android-safe высота через --biography-vh
-   - усилена Safari-safe blur-подложка меню
-   - сохранено положение правовых ссылок
-   - blur mobile-меню растянут до нижнего края фотографии
-   - сохранён vertical scroll страницы «Биография»
-   - сохранён корректный бургер/крестик без смещения
-   - сохранены стрелки accordion
+   - высота mobile-stage уменьшена до 1510px
+   - высота mobile-страницы синхронизирована с новой высотой stage
+   - quote-блок под фото выровнен по центру экрана
+   - awards-блок поднят выше
+   - уменьшено расстояние между основным текстом и Top100
+   - сохранены все действующие стили mobile-меню
+   - сохранены Safari/Android-safe настройки меню
    - desktop-версия не изменялась
    ========================================================= */
 
@@ -42,8 +42,8 @@
   .ip-biography{
     position:relative;
     width:100%;
-    min-height:var(--biography-mobile-page-height, 1760px);
-    height:var(--biography-mobile-page-height, 1760px);
+    min-height:var(--biography-mobile-page-height, 1510px);
+    height:var(--biography-mobile-page-height, 1510px);
     overflow:visible;
     background:#050603;
   }
@@ -53,8 +53,8 @@
     left:50%;
     top:0;
     width:390px;
-    height:1760px;
-    min-height:1760px;
+    height:1510px;
+    min-height:1510px;
     overflow:hidden;
     transform:translate3d(-50%,0,0) scale(var(--biography-mobile-scale,1));
     transform-origin:top center;
@@ -148,7 +148,7 @@
 
   .ip-biography-quote{
     position:absolute;
-    left:34px;
+    left:50%;
     bottom:87px;
     z-index:5;
     width:321px;
@@ -156,6 +156,7 @@
     padding:0;
     color:#fff;
     text-align:left;
+    transform:translate3d(-50%,0,0);
   }
 
   .ip-biography-quote p{
@@ -221,7 +222,7 @@
   .ip-biography-awards{
     position:absolute;
     left:0;
-    top:1275px;
+    top:1225px;
     bottom:auto;
     display:flex;
     flex-direction:column;

@@ -2,16 +2,14 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-011
+Версия: biography-js-012
 
 ИЗМЕНЕНИЯ:
-- добавлена iOS/Android-safe логика viewport через visualViewport
-- mobile-scale синхронизирован с --biography-vh
-- закрытие меню при scroll работает без поломки кликов по меню
-- accordion, крестик, ссылки и popup-триггеры защищены от случайного close-on-scroll
-- сохранена carousel-система
-- сохранена popup-система
-- сохранена кнопка scroll-to-top
+- высота mobile-stage синхронизирована с новой высотой 1510px
+- mobile-scale сохранён по логике главной страницы 390×700
+- сохранена iOS/Android-safe логика viewport через visualViewport
+- сохранено корректное закрытие меню при scroll без поломки кликов
+- сохранены accordion, popup, carousel и scroll-to-top
 ==================================================
 */
 
@@ -26,7 +24,7 @@ BIOGRAPHY JS
     mobile:{
       width:390,
       height:700,
-      stageHeight:1760
+      stageHeight:1510
     },
     breakpoint:767
   };
