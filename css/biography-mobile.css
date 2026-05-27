@@ -1,17 +1,14 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-008
+   Версия: biography-mobile-css-009
 
    ИЗМЕНЕНИЯ:
-   - высота mobile-stage уменьшена до 1510px
-   - высота mobile-страницы синхронизирована с новой высотой stage
-   - quote-блок под фото выровнен по центру экрана
-   - awards-блок поднят выше
-   - уменьшено расстояние между основным текстом и Top100
-   - сохранены все действующие стили mobile-меню
-   - сохранены Safari/Android-safe настройки меню
-   - desktop-версия не изменялась
+   - подзаголовок уменьшен до 320px для корректного переноса в 3 строки
+   - awards-блок опущен ниже и визуально центрирован
+   - scroll-top поднят выше
+   - сохранены все mobile menu фиксы
+   - сохранены Safari/Android-safe настройки
    ========================================================= */
 
 .ip-biography-scrolltop{
@@ -106,7 +103,7 @@
   }
 
   .ip-biography-subtitle{
-    width:350px;
+    width:320px;
     margin:16px 0 0;
     color:#fff;
     font-family:'Montserrat',Arial,sans-serif;
@@ -222,7 +219,7 @@
   .ip-biography-awards{
     position:absolute;
     left:0;
-    top:1225px;
+    top:1260px;
     bottom:auto;
     display:flex;
     flex-direction:column;
@@ -313,7 +310,7 @@
   .ip-biography-scrolltop{
     position:absolute;
     right:20px;
-    bottom:40px;
+    bottom:55px;
     z-index:8;
     display:flex;
     align-items:center;
