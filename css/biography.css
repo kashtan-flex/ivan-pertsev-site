@@ -1,15 +1,15 @@
 /* =========================================================
    BIOGRAPHY CSS
 
-   Версия: biography-css-012
+   Версия: biography-css-013
 
    ИЗМЕНЕНИЯ:
-   - основной текстовый список поднят выше и приближен к макету
-   - сохранена текущая типографика списка
-   - awards-блок не изменялся
-   - цитата не изменялась
+   - восстановлена desktop-композиция страницы «Обо мне»
+   - desktop-текст снова расположен по актуальному макету
+   - добавлена поддержка отдельных desktop/mobile subtitle
+   - добавлена поддержка отдельных desktop/mobile awards
+   - mobile-версия не изменялась
    - меню не изменялось
-   - сохранены текущие адаптации и масштабирование
    ========================================================= */
 
 .ip-biography,
@@ -94,6 +94,14 @@
   letter-spacing:-.04em;
 }
 
+.ip-biography-subtitle-desktop{
+  display:block;
+}
+
+.ip-biography-subtitle-mobile{
+  display:none;
+}
+
 .ip-biography-list{
   position:absolute;
   left:60px;
@@ -132,6 +140,14 @@
   display:flex;
   align-items:center;
   width:760px;
+}
+
+.ip-biography-awards-desktop{
+  display:flex;
+}
+
+.ip-biography-awards-mobile{
+  display:none;
 }
 
 .ip-biography-award{
@@ -387,4 +403,23 @@
 
 .ip-biography .ip-accordion-button::after{
   right:0;
+}
+
+@media (max-width:767px){
+
+  .ip-biography-subtitle-desktop{
+    display:none;
+  }
+
+  .ip-biography-subtitle-mobile{
+    display:block;
+  }
+
+  .ip-biography-awards-desktop{
+    display:none;
+  }
+
+  .ip-biography-awards-mobile{
+    display:flex;
+  }
 }

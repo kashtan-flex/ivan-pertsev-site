@@ -1,16 +1,14 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-011
+   Версия: biography-mobile-css-012
 
    ИЗМЕНЕНИЯ:
-   - добавлена скрытая стартовая стадия для кнопки scroll-top
-   - кнопка scroll-top появляется только через класс is-visible
-   - добавлена мягкая Safari-safe анимация появления
-   - сохранён новый mobile background + retina @2x
-   - сохранена высота mobile-stage 1510px
-   - сохранены typography настройки
-   - сохранены mobile menu фиксы
+   - сохранены все настройки mobile-версии
+   - добавлена поддержка отдельного mobile subtitle
+   - добавлена защита от отображения desktop awards на mobile
+   - сохранена анимация появления scroll-top
+   - сохранён mobile background + retina @2x
    - сохранены Safari/Android-safe настройки
    ========================================================= */
 
@@ -108,6 +106,14 @@
     line-height:.95;
     font-weight:600;
     letter-spacing:-.03em;
+  }
+
+  .ip-biography-subtitle-desktop{
+    display:none;
+  }
+
+  .ip-biography-subtitle-mobile{
+    display:block;
   }
 
   .ip-biography-subtitle{
@@ -224,12 +230,19 @@
     line-height:1.3;
   }
 
+  .ip-biography-awards-desktop{
+    display:none !important;
+  }
+
+  .ip-biography-awards-mobile{
+    display:flex !important;
+  }
+
   .ip-biography-awards{
     position:absolute;
     left:0;
     top:1260px;
     bottom:auto;
-    display:flex;
     flex-direction:column;
     align-items:center;
     width:390px;
