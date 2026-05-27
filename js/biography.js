@@ -2,70 +2,113 @@
 ==================================================
 BIOGRAPHY JS
 
-Версия: biography-js-005
+Версия: biography-js-007
 
 ИЗМЕНЕНИЯ:
+- mobile-scale теперь работает как на главной странице
 - исправлен mobile scroll страницы «Биография»
-- mobile-высота страницы теперь учитывает scale и полную высоту stage
-- кнопка scroll-to-top прокручивает страницу наверх
-- desktop-логика масштабирования сохранена
+- меню автоматически закрывается при начале scroll
 - сохранена carousel-система
 - сохранена popup-система
-- сохранена menu-система
+- сохранена кнопка scroll-to-top
+- сохранена логика accordion
 ==================================================
 */
 
 (function(){
   'use strict';
 
-  var DESKTOP_HEIGHT = 800;
-
-  var MOBILE_WIDTH = 390;
-  var MOBILE_HEIGHT = 700;
-  var MOBILE_STAGE_HEIGHT = 1760;
-
-  var MOBILE_BREAKPOINT = 767;
+  var DESIGN = {
+    desktop:{
+      width:1440,
+      height:800
+    },
+    mobile:{
+      width:390,
+      height:700,
+      stageHeight:1760
+    },
+    breakpoint:767
+  };
 
   var SLIDE_INTERVAL = 6200;
 
-  var stage = document.querySelector('.ip-biography-stage');
   var page = document.querySelector('[data-biography-page]');
+  var stage = document.querySelector('.ip-biography-stage');
 
-  var slides = Array.prototype.slice.call(
-    document.querySelectorAll('.ip-biography-slide')
-  );
-
-  var menuToggle = document.querySelector('.ip-menu-toggle');
+  var menuButton = document.querySelector('.ip-menu-toggle');
   var menuPanel = document.querySelector('.ip-menu-panel');
 
   var accordions = Array.prototype.slice.call(
     document.querySelectorAll('.ip-accordion')
   );
 
-  var popupOpenLinks = Array.prototype.slice.call(
+  var popup = document.querySelector('[data-popup="main"]');
+
+  var popupOpenTriggers = Array.prototype.slice.call(
     document.querySelectorAll('[data-popup-open]')
   );
 
-  var popupCloseButtons = Array.prototype.slice.call(
+  var popupCloseTriggers = Array.prototype.slice.call(
     document.querySelectorAll('[data-popup-close]')
   );
 
-  var popups = Array.prototype.slice.call(
-    document.querySelectorAll('[data-popup]')
+  var scrollTopButton = document.querySelector(
+    '.ip-biography-scrolltop'
   );
 
-  var scrollTopButton = document.querySelector('.ip-biography-scrolltop');
+  var slides = Array.prototype.slice.call(
+    document.querySelectorAll('.ip-biography-slide')
+  );
 
   var currentSlideIndex = 0;
   var carouselTimer = null;
 
-  function isMobile(){
-    return window.innerWidth <= MOBILE_BREAKPOINT;
+  if(!page || !stage){
+    return;
   }
 
-  function setDesktopScale(){
+  function isMobile(){
+    return window.innerWidth <= DESIGN.breakpoint;
+  }
+
+  function updateScale(){
+
+    var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
-    var scale = viewportHeight / DESKTOP_HEIGHT;
+
+    var scale;
+
+    if(isMobile()){
+
+      scale = Math.max(
+        viewportWidth / DESIGN.mobile.width,
+        viewportHeight / DESIGN.mobile.height
+      );
+
+      document.documentElement.style.setProperty(
+        '--biography-mobile-scale',
+        scale.toFixed(5)
+      );
+
+      document.documentElement.style.removeProperty(
+        '--biography-scale'
+      );
+
+      var scaledHeight = Math.ceil(
+        DESIGN.mobile.stageHeight * scale
+      );
+
+      page.style.height = scaledHeight + 'px';
+      page.style.minHeight = scaledHeight + 'px';
+
+      document.documentElement.style.overflowY = 'auto';
+      document.body.style.overflowY = 'auto';
+
+      return;
+    }
+
+    scale = viewportHeight / DESIGN.desktop.height;
 
     document.documentElement.style.setProperty(
       '--biography-scale',
@@ -76,51 +119,15 @@ BIOGRAPHY JS
       '--biography-mobile-scale'
     );
 
-    if(page){
-      page.style.height = '';
-      page.style.minHeight = '';
-    }
-  }
+    page.style.height = '';
+    page.style.minHeight = '';
 
-  function setMobileScale(){
-    var viewportWidth = window.innerWidth;
-    var viewportHeight = window.innerHeight;
-
-    var scaleX = viewportWidth / MOBILE_WIDTH;
-    var scaleY = viewportHeight / MOBILE_HEIGHT;
-    var scale = Math.max(scaleX, scaleY);
-
-    var scaledPageHeight = Math.ceil(MOBILE_STAGE_HEIGHT * scale);
-
-    document.documentElement.style.setProperty(
-      '--biography-mobile-scale',
-      scale.toFixed(5)
-    );
-
-    document.documentElement.style.removeProperty(
-      '--biography-scale'
-    );
-
-    if(page){
-      page.style.height = scaledPageHeight + 'px';
-      page.style.minHeight = scaledPageHeight + 'px';
-    }
-  }
-
-  function setScale(){
-    if(!stage){
-      return;
-    }
-
-    if(isMobile()){
-      setMobileScale();
-      return;
-    }
-
-    setDesktopScale();
+    document.documentElement.style.overflowY = '';
+    document.body.style.overflowY = '';
   }
 
   function startCarousel(){
+
     if(slides.length <= 1){
       return;
     }
@@ -128,6 +135,7 @@ BIOGRAPHY JS
     stopCarousel();
 
     carouselTimer = window.setInterval(function(){
+
       slides[currentSlideIndex].classList.remove('is-active');
 
       currentSlideIndex += 1;
@@ -137,10 +145,12 @@ BIOGRAPHY JS
       }
 
       slides[currentSlideIndex].classList.add('is-active');
+
     }, SLIDE_INTERVAL);
   }
 
   function stopCarousel(){
+
     if(carouselTimer){
       window.clearInterval(carouselTimer);
       carouselTimer = null;
@@ -148,21 +158,25 @@ BIOGRAPHY JS
   }
 
   function openMenu(){
-    if(!menuToggle || !menuPanel){
+
+    if(!menuButton || !menuPanel){
       return;
     }
 
-    menuToggle.classList.add('is-open');
+    menuButton.classList.add('is-open');
     menuPanel.classList.add('is-open');
+    menuPanel.style.pointerEvents = 'auto';
   }
 
   function closeMenu(){
-    if(!menuToggle || !menuPanel){
+
+    if(!menuButton || !menuPanel){
       return;
     }
 
-    menuToggle.classList.remove('is-open');
+    menuButton.classList.remove('is-open');
     menuPanel.classList.remove('is-open');
+    menuPanel.style.pointerEvents = 'none';
 
     accordions.forEach(function(accordion){
       accordion.classList.remove('is-open');
@@ -170,9 +184,6 @@ BIOGRAPHY JS
   }
 
   function toggleMenu(){
-    if(!menuPanel){
-      return;
-    }
 
     if(menuPanel.classList.contains('is-open')){
       closeMenu();
@@ -182,105 +193,223 @@ BIOGRAPHY JS
     openMenu();
   }
 
-  function toggleAccordion(accordion){
-    accordion.classList.toggle('is-open');
-  }
+  function setupAccordion(accordion){
 
-  function openPopup(name){
-    var targetPopup = document.querySelector('[data-popup="' + name + '"]');
+    var button = accordion.querySelector(
+      '.ip-accordion-button'
+    );
 
-    if(!targetPopup){
+    if(!button){
       return;
     }
 
-    targetPopup.classList.add('is-open');
-    targetPopup.setAttribute('aria-hidden', 'false');
+    button.addEventListener('click', function(){
 
-    document.documentElement.classList.add('ip-popup-lock');
-    document.body.classList.add('ip-popup-lock');
+      accordion.classList.toggle('is-open');
 
-    closeMenu();
+    });
   }
 
-  function closePopup(popup){
+  function openPopup(){
+
+    if(!popup){
+      return;
+    }
+
+    closeMenu();
+
+    popup.classList.add('is-open');
+
+    popup.setAttribute(
+      'aria-hidden',
+      'false'
+    );
+
+    document.documentElement.classList.add(
+      'ip-popup-lock'
+    );
+
+    document.body.classList.add(
+      'ip-popup-lock'
+    );
+  }
+
+  function closePopup(){
+
     if(!popup){
       return;
     }
 
     popup.classList.remove('is-open');
-    popup.setAttribute('aria-hidden', 'true');
 
-    document.documentElement.classList.remove('ip-popup-lock');
-    document.body.classList.remove('ip-popup-lock');
-  }
+    popup.setAttribute(
+      'aria-hidden',
+      'true'
+    );
 
-  function closeAllPopups(){
-    popups.forEach(function(popup){
-      closePopup(popup);
-    });
+    document.documentElement.classList.remove(
+      'ip-popup-lock'
+    );
+
+    document.body.classList.remove(
+      'ip-popup-lock'
+    );
   }
 
   function scrollToTop(){
+
     window.scrollTo({
       top:0,
       behavior:'smooth'
     });
   }
 
-  function onKeydown(event){
-    if(event.key === 'Escape'){
-      closeMenu();
-      closeAllPopups();
+  function setupPopupTriggers(){
+
+    popupOpenTriggers.forEach(function(trigger){
+
+      trigger.addEventListener('click', function(event){
+
+        event.preventDefault();
+
+        openPopup();
+
+      });
+
+    });
+
+    popupCloseTriggers.forEach(function(trigger){
+
+      trigger.addEventListener('click', function(){
+
+        closePopup();
+
+      });
+
+    });
+
+    document.addEventListener('keydown', function(event){
+
+      if(event.key === 'Escape'){
+        closePopup();
+        closeMenu();
+      }
+
+    });
+  }
+
+  function setupMenuCloseOnScroll(){
+
+    var lastScrollTop = 0;
+
+    window.addEventListener(
+      'scroll',
+      function(){
+
+        var currentScrollTop =
+          window.pageYOffset ||
+          document.documentElement.scrollTop;
+
+        if(
+          Math.abs(currentScrollTop - lastScrollTop) > 5 &&
+          menuPanel &&
+          menuPanel.classList.contains('is-open')
+        ){
+          closeMenu();
+        }
+
+        lastScrollTop = currentScrollTop <= 0
+          ? 0
+          : currentScrollTop;
+
+      },
+      { passive:true }
+    );
+  }
+
+  function setupDateMask(){
+
+    if(!popup){
+      return;
     }
+
+    var dateInput = popup.querySelector(
+      'input[name="date"]'
+    );
+
+    if(!dateInput){
+      return;
+    }
+
+    dateInput.addEventListener('input', function(){
+
+      var value = dateInput.value.replace(/\D/g, '');
+
+      if(value.length > 8){
+        value = value.slice(0, 8);
+      }
+
+      var formatted = '';
+
+      if(value.length > 0){
+        formatted += value.substring(0, 2);
+      }
+
+      if(value.length >= 3){
+        formatted += '.' + value.substring(2, 4);
+      }
+
+      if(value.length >= 5){
+        formatted += '.' + value.substring(4, 8);
+      }
+
+      dateInput.value = formatted;
+    });
   }
 
   function bindEvents(){
-    window.addEventListener('resize', setScale);
-    window.addEventListener('orientationchange', setScale);
-    document.addEventListener('keydown', onKeydown);
 
-    if(menuToggle){
-      menuToggle.addEventListener('click', toggleMenu);
+    window.addEventListener(
+      'resize',
+      updateScale
+    );
+
+    window.addEventListener(
+      'orientationchange',
+      function(){
+        setTimeout(updateScale, 250);
+      }
+    );
+
+    if(menuButton){
+
+      menuButton.addEventListener(
+        'click',
+        toggleMenu
+      );
     }
 
-    accordions.forEach(function(accordion){
-      var button = accordion.querySelector('.ip-accordion-button');
+    accordions.forEach(setupAccordion);
 
-      if(!button){
-        return;
-      }
-
-      button.addEventListener('click', function(){
-        toggleAccordion(accordion);
-      });
-    });
-
-    popupOpenLinks.forEach(function(link){
-      link.addEventListener('click', function(event){
-        event.preventDefault();
-        openPopup(link.getAttribute('data-popup-open'));
-      });
-    });
-
-    popupCloseButtons.forEach(function(button){
-      button.addEventListener('click', function(){
-        var popup = button.closest('[data-popup]');
-        closePopup(popup);
-      });
-    });
+    setupPopupTriggers();
+    setupMenuCloseOnScroll();
+    setupDateMask();
 
     if(scrollTopButton){
-      scrollTopButton.addEventListener('click', scrollToTop);
+
+      scrollTopButton.addEventListener(
+        'click',
+        scrollToTop
+      );
     }
   }
 
   function init(){
-    if(!page){
-      return;
-    }
 
-    setScale();
+    updateScale();
+
     bindEvents();
+
     startCarousel();
   }
 
