@@ -1,15 +1,22 @@
 /* =========================================================
    POPUPS CSS — DESKTOP CORE
 
-   Версия: popups-desktop-022
+   Версия: popups-desktop-029
 
    ИЗМЕНЕНИЯ:
-   - desktop-логика popup вынесена в основной файл
-   - mobile-стили удалены из desktop-файла
-   - сохранено межбуквенное расстояние имени Иван Перцев на 0.5px
-   - сохранено выравнивание чекбокса по верхней строке текста
-   - сохранена анимация: сначала мягкий blur фона, затем появление popup-card
+   - сохранена текущая утверждённая анимация popup
+   - добавлено масштабирование всего popup-card через cqw
+   - теперь уменьшаются не только фон и карточка, но и текст, поля, чекбокс, кнопка
+   - desktop popup адаптируется как единый макет 790×530
+   - mobile-стили остаются в popups-mobile.css
    ========================================================= */
+
+:root{
+  --popup-backdrop-duration:.36s;
+  --popup-card-delay:.08s;
+  --popup-card-duration:.34s;
+  --popup-ease:cubic-bezier(.19,1,.22,1);
+}
 
 html.ip-popup-lock,
 body.ip-popup-lock{
@@ -29,16 +36,11 @@ body.ip-popup-lock{
   align-items:center;
   justify-content:center;
   padding:24px;
-  opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transition:
-    opacity .72s cubic-bezier(.19,1,.22,1),
-    visibility .72s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-popup.is-open{
-  opacity:1;
   visibility:visible;
   pointer-events:auto;
 }
@@ -47,16 +49,23 @@ body.ip-popup-lock{
   position:absolute;
   inset:0;
   z-index:1;
+  opacity:0;
   background:rgba(0,0,0,0);
   backdrop-filter:blur(0);
   -webkit-backdrop-filter:blur(0);
+  transform:translate3d(0,0,0);
   transition:
-    background 1.05s cubic-bezier(.19,1,.22,1),
-    backdrop-filter 1.05s cubic-bezier(.19,1,.22,1),
-    -webkit-backdrop-filter 1.05s cubic-bezier(.19,1,.22,1);
+    opacity .08s linear,
+    background var(--popup-backdrop-duration) var(--popup-ease),
+    backdrop-filter var(--popup-backdrop-duration) var(--popup-ease),
+    -webkit-backdrop-filter var(--popup-backdrop-duration) var(--popup-ease);
+  will-change:background,backdrop-filter;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 
 .ip-popup.is-open .ip-popup-backdrop{
+  opacity:1;
   background:rgba(0,0,0,.62);
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
@@ -65,26 +74,29 @@ body.ip-popup-lock{
 .ip-popup-card{
   position:relative;
   z-index:2;
+  container-type:inline-size;
   width:min(790px, calc(100vw - 48px), calc((100vh - 48px) * 1.490566));
   aspect-ratio:790 / 530;
   overflow:hidden;
-  border-radius:12px;
+  border-radius:calc(12 / 790 * 100cqw);
   background-color:#101311;
   background-image:url('../assets/img/popups/popup-main-bg.webp');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
   box-shadow:
-    0 34px 110px rgba(0,0,0,.58),
-    0 8px 28px rgba(0,0,0,.35),
+    0 calc(34 / 790 * 100cqw) calc(110 / 790 * 100cqw) rgba(0,0,0,.58),
+    0 calc(8 / 790 * 100cqw) calc(28 / 790 * 100cqw) rgba(0,0,0,.35),
     inset 0 0 0 1px rgba(255,255,255,.045);
   opacity:0;
-  transform:translate3d(0,12px,0) scale(.94);
+  transform:translate3d(0,8px,0) scale(.965);
   transform-origin:center center;
   transition:
-    opacity .72s cubic-bezier(.19,1,.22,1),
-    transform .72s cubic-bezier(.19,1,.22,1);
+    opacity var(--popup-card-duration) var(--popup-ease),
+    transform var(--popup-card-duration) var(--popup-ease);
   will-change:opacity,transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 
 .ip-popup-card::before{
@@ -112,8 +124,8 @@ body.ip-popup-lock{
   opacity:1;
   transform:translate3d(0,0,0) scale(1);
   transition:
-    opacity .82s cubic-bezier(.19,1,.22,1) .64s,
-    transform .82s cubic-bezier(.19,1,.22,1) .64s;
+    opacity var(--popup-card-duration) var(--popup-ease) var(--popup-card-delay),
+    transform var(--popup-card-duration) var(--popup-ease) var(--popup-card-delay);
 }
 
 .ip-popup-form{
@@ -126,26 +138,26 @@ body.ip-popup-lock{
 
 .ip-popup-heading{
   position:absolute;
-  left:426px;
-  top:30px;
-  width:294px;
+  left:calc(426 / 790 * 100cqw);
+  top:calc(30 / 790 * 100cqw);
+  width:calc(294 / 790 * 100cqw);
   margin:0;
   text-align:center;
 }
 
 .ip-popup-name{
-  margin:0 0 20px;
+  margin:0 0 calc(20 / 790 * 100cqw);
   font-family:'Benzin',Arial,sans-serif;
-  font-size:20px;
+  font-size:calc(20 / 790 * 100cqw);
   line-height:.9;
   font-weight:700;
-  letter-spacing:.5px;
+  letter-spacing:calc(.5 / 790 * 100cqw);
 }
 
 .ip-popup-text{
-  width:294px;
+  width:calc(294 / 790 * 100cqw);
   margin:0 auto;
-  font-size:16px;
+  font-size:calc(16 / 790 * 100cqw);
   line-height:1.08;
   font-weight:400;
   text-align:center;
@@ -158,20 +170,20 @@ body.ip-popup-lock{
 
 .ip-popup-fields{
   position:absolute;
-  left:426px;
-  top:144px;
+  left:calc(426 / 790 * 100cqw);
+  top:calc(144 / 790 * 100cqw);
   display:flex;
   flex-direction:column;
-  gap:10px;
-  width:294px;
+  gap:calc(10 / 790 * 100cqw);
+  width:calc(294 / 790 * 100cqw);
 }
 
 .ip-popup-fields input{
-  width:294px;
-  height:60px;
-  padding:0 35px;
+  width:calc(294 / 790 * 100cqw);
+  height:calc(60 / 790 * 100cqw);
+  padding:0 calc(35 / 790 * 100cqw);
   border:0;
-  border-radius:5px;
+  border-radius:calc(5 / 790 * 100cqw);
   outline:none;
   background:rgba(0,0,0,.35);
   backdrop-filter:blur(3px);
@@ -180,10 +192,10 @@ body.ip-popup-lock{
     inset -1px -1px 1px rgba(255,255,255,.12),
     inset 1px 1px 1px rgba(0,0,0,.22),
     inset 0 1px 0 rgba(255,255,255,.045),
-    0 10px 24px rgba(0,0,0,.16);
+    0 calc(10 / 790 * 100cqw) calc(24 / 790 * 100cqw) rgba(0,0,0,.16);
   color:#fff;
   font-family:'Montserrat',sans-serif;
-  font-size:14px;
+  font-size:calc(14 / 790 * 100cqw);
   line-height:1;
   transition:
     background .35s ease,
@@ -196,7 +208,7 @@ body.ip-popup-lock{
     inset -1px -1px 1px rgba(255,255,255,.16),
     inset 1px 1px 1px rgba(0,0,0,.24),
     inset 0 1px 0 rgba(255,255,255,.06),
-    0 12px 28px rgba(0,0,0,.18);
+    0 calc(12 / 790 * 100cqw) calc(28 / 790 * 100cqw) rgba(0,0,0,.18);
 }
 
 .ip-popup-fields input::placeholder{
@@ -205,16 +217,16 @@ body.ip-popup-lock{
 
 .ip-popup-policy{
   position:absolute;
-  left:426px;
-  top:360px;
-  width:294px;
-  min-height:31px;
+  left:calc(426 / 790 * 100cqw);
+  top:calc(360 / 790 * 100cqw);
+  width:calc(294 / 790 * 100cqw);
+  min-height:calc(31 / 790 * 100cqw);
   display:flex;
   align-items:flex-start;
   justify-content:center;
-  gap:10px;
+  gap:calc(10 / 790 * 100cqw);
   color:#fff;
-  font-size:10px;
+  font-size:calc(10 / 790 * 100cqw);
   line-height:1.45;
   letter-spacing:-.01em;
   cursor:pointer;
@@ -228,21 +240,21 @@ body.ip-popup-lock{
 
 .ip-popup-checkbox{
   position:relative;
-  width:15px;
-  height:15px;
-  flex:0 0 15px;
+  width:calc(15 / 790 * 100cqw);
+  height:calc(15 / 790 * 100cqw);
+  flex:0 0 calc(15 / 790 * 100cqw);
   margin-top:0;
   border:1px solid #fff;
-  border-radius:4px;
+  border-radius:calc(4 / 790 * 100cqw);
 }
 
 .ip-popup-policy input:checked + .ip-popup-checkbox::after{
   content:'';
   position:absolute;
-  left:5px;
-  top:2px;
-  width:3px;
-  height:6px;
+  left:calc(5 / 790 * 100cqw);
+  top:calc(2 / 790 * 100cqw);
+  width:calc(3 / 790 * 100cqw);
+  height:calc(6 / 790 * 100cqw);
   border-right:1.2px solid #fff;
   border-bottom:1.2px solid #fff;
   transform:rotate(45deg);
@@ -261,7 +273,7 @@ body.ip-popup-lock{
 .ip-popup-policy-link-line{
   display:flex;
   align-items:center;
-  gap:3px;
+  gap:calc(3 / 790 * 100cqw);
   white-space:nowrap;
 }
 
@@ -277,16 +289,16 @@ body.ip-popup-lock{
 
 .ip-popup-submit{
   position:absolute;
-  left:426px;
-  top:425px;
-  width:294px;
-  height:57px;
+  left:calc(426 / 790 * 100cqw);
+  top:calc(425 / 790 * 100cqw);
+  width:calc(294 / 790 * 100cqw);
+  height:calc(57 / 790 * 100cqw);
   border:1px solid rgba(255,255,255,.30);
-  border-radius:9px;
+  border-radius:calc(9 / 790 * 100cqw);
   background:transparent;
   color:#fff;
   font-family:'Montserrat',sans-serif;
-  font-size:16px;
+  font-size:calc(16 / 790 * 100cqw);
   line-height:1;
   font-weight:500;
   cursor:pointer;
