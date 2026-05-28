@@ -2,14 +2,12 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-005
+Версия: wedding-js-006
 
 ИЗМЕНЕНИЯ:
-- Kinescope iframe теперь полностью пересоздаётся при каждом входе на страницу
-- видео принудительно стартует заново при обновлении страницы
-- видео принудительно стартует заново при возврате на страницу после перехода
-- poster продолжает скрывать служебный кадр загрузки
-- сохранены desktop scaling, menu, accordion, popup, review popup и gallery logic
+- добавлена premium magnetic hover анимация для CTA-кнопок
+- magnetic hover отключён на touch/mobile устройствах
+- сохранены desktop scaling, menu, accordion, popup, review popup, gallery logic и текущая video-логика
 ==================================================
 */
 
@@ -27,6 +25,7 @@ WEDDING JS
 
   var VIDEO_REVEAL_DELAY = 3200;
   var VIDEO_RECREATE_DELAY = 80;
+  var MAGNETIC_STRENGTH = 7;
 
   var page = document.querySelector('[data-wedding-page]');
   var stage = document.querySelector('.ip-wedding-stage');
@@ -79,6 +78,10 @@ WEDDING JS
 
   function isMobile(){
     return window.innerWidth <= DESIGN.breakpoint;
+  }
+
+  function isTouchDevice(){
+    return window.matchMedia('(hover: none), (pointer: coarse)').matches;
   }
 
   function getViewportHeight(){
@@ -254,6 +257,51 @@ WEDDING JS
       if(document.visibilityState === 'visible'){
         recreateWeddingVideo();
       }
+    });
+  }
+
+  function resetButtonMagnet(button){
+    button.style.setProperty('--button-x', '0px');
+    button.style.setProperty('--button-y', '0px');
+  }
+
+  function updateButtonMagnet(button, event){
+    var rect = button.getBoundingClientRect();
+
+    var relativeX = event.clientX - rect.left;
+    var relativeY = event.clientY - rect.top;
+
+    var centerX = rect.width / 2;
+    var centerY = rect.height / 2;
+
+    var moveX = ((relativeX - centerX) / centerX) * MAGNETIC_STRENGTH;
+    var moveY = ((relativeY - centerY) / centerY) * MAGNETIC_STRENGTH;
+
+    button.style.setProperty('--button-x', moveX.toFixed(2) + 'px');
+    button.style.setProperty('--button-y', moveY.toFixed(2) + 'px');
+  }
+
+  function setupMagneticButtons(){
+    if(isTouchDevice()){
+      return;
+    }
+
+    var buttons = Array.prototype.slice.call(
+      document.querySelectorAll('.ip-wedding-button')
+    );
+
+    buttons.forEach(function(button){
+      button.addEventListener('mousemove', function(event){
+        updateButtonMagnet(button, event);
+      });
+
+      button.addEventListener('mouseleave', function(){
+        resetButtonMagnet(button);
+      });
+
+      button.addEventListener('blur', function(){
+        resetButtonMagnet(button);
+      });
     });
   }
 
@@ -612,6 +660,7 @@ WEDDING JS
     setupGalleryTrigger();
     setupMenuCloseOnScroll();
     setupDateMask();
+    setupMagneticButtons();
     bindKeyboard();
   }
 
