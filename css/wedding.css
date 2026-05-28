@@ -1,13 +1,11 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-009
+   Версия: wedding-css-010
 
    ИЗМЕНЕНИЯ:
-   - добавлен poster-layer для мгновенного отображения video block
-   - добавлен плавный fade от poster к Kinescope iframe
-   - сохранены video block 450×800, awards, buttons, reviews, menu и текущая логика
-   - файл основан на стабильной wedding-css-008
+   - для кнопки «Смотреть фото» добавлена белая обводка 1px с прозрачностью 50%
+   - остальные блоки, video, menu, reviews, gallery и animations не изменялись
    ========================================================= */
 
 .ip-wedding,
@@ -172,6 +170,7 @@
   background:rgba(0,0,0,.20);
   backdrop-filter:blur(3px);
   -webkit-backdrop-filter:blur(3px);
+  border:1px solid rgba(255,255,255,.50);
   color:#fff;
 }
 
