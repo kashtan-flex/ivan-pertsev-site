@@ -2,14 +2,15 @@
    IVAN PERTSEV — HOME PAGE
    FILE: css/home.css
 
-   Версия: home-076
+   Версия: home-077
 
    ИЗМЕНЕНИЯ:
-   - стабилизирован рендеринг крупного заголовка «Иван Перцев»
-   - снижена вероятность замыливания текста после transform-анимаций
-   - стабилизирован рендеринг текста menu на базовом уровне
-   - финальные состояния keyframes переведены на transform:none
-   - визуальная логика главной страницы и menu сохранена
+   - menu rendering переведён на стабильную layer architecture
+   - transform-анимация убрана с самой панели menu
+   - движение menu перенесено на фоновые слои ::before и ::after
+   - текст menu больше не находится внутри анимируемого transform-layer
+   - сохранены визуал, timing, accordion, popup triggers и логика menu
+   - сохранена стабилизация рендеринга заголовка «Иван Перцев»
    ========================================================= */
 
 @font-face{
@@ -326,6 +327,10 @@ body,
   transform:translateY(-50%) rotate(-45deg);
 }
 
+/* =========================================================
+   MENU — STABLE LAYER ARCHITECTURE
+   ========================================================= */
+
 .ip-menu-panel{
   position:absolute;
   top:0;
@@ -336,8 +341,8 @@ body,
   z-index:40;
   overflow:hidden;
   pointer-events:none;
-  transform:translateX(100%);
-  transition:transform .72s cubic-bezier(.19,1,.22,1);
+  transform:none;
+  background:transparent;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:geometricPrecision;
@@ -345,7 +350,6 @@ body,
 
 .ip-menu-panel.is-open{
   pointer-events:auto;
-  transform:none;
 }
 
 .ip-menu-panel::before,
@@ -354,6 +358,14 @@ body,
   position:absolute;
   inset:0;
   pointer-events:none;
+  transform:translateX(100%);
+  transition:transform .72s cubic-bezier(.19,1,.22,1);
+  will-change:transform;
+}
+
+.ip-menu-panel.is-open::before,
+.ip-menu-panel.is-open::after{
+  transform:translateX(0);
 }
 
 .ip-menu-panel::before{
@@ -381,6 +393,7 @@ body,
   transform:none;
   backface-visibility:visible;
   -webkit-backface-visibility:visible;
+  will-change:auto;
 }
 
 .ip-menu-socials{
@@ -490,6 +503,7 @@ body,
   transform:none;
   backface-visibility:visible;
   -webkit-backface-visibility:visible;
+  will-change:auto;
 }
 
 .ip-menu-list > *{
@@ -561,6 +575,7 @@ body,
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:geometricPrecision;
+  will-change:auto;
 }
 
 .ip-menu-panel.is-open .ip-menu-link:hover,
@@ -660,6 +675,7 @@ body,
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:geometricPrecision;
+  will-change:auto;
 }
 
 .ip-menu-panel.is-open .ip-submenu a:hover{
@@ -683,6 +699,7 @@ body,
   filter:none;
   backface-visibility:visible;
   -webkit-backface-visibility:visible;
+  will-change:auto;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal{

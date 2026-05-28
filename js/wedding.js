@@ -2,13 +2,12 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-002
+Версия: wedding-js-003
 
 ИЗМЕНЕНИЯ:
-- desktop scaling приведён к логике home/biography
-- масштабирование считается от hero-высоты 800px
-- высота scroll-page пересчитывается от 1351px с текущим scale
-- сохранены menu, accordion, popup, review popup и gallery logic
+- добавлена безопасная логика плавного проявления Kinescope video поверх poster
+- video проявляется по таймеру, чтобы poster не зависал при нестабильном iframe load
+- сохранены desktop scaling, menu, accordion, popup, review popup и gallery logic
 ==================================================
 */
 
@@ -23,6 +22,8 @@ WEDDING JS
     },
     breakpoint:767
   };
+
+  var VIDEO_REVEAL_DELAY = 1450;
 
   var page = document.querySelector('[data-wedding-page]');
   var stage = document.querySelector('.ip-wedding-stage');
@@ -59,6 +60,7 @@ WEDDING JS
   );
 
   var resizeFrame = null;
+  var videoRevealTimer = null;
 
   if(!page || !stage){
     return;
@@ -151,6 +153,26 @@ WEDDING JS
     }
 
     resizeFrame = window.requestAnimationFrame(updateScale);
+  }
+
+  function revealVideo(){
+    if(!page || page.classList.contains('is-video-ready')){
+      return;
+    }
+
+    page.classList.add('is-video-ready');
+
+    if(videoRevealTimer){
+      window.clearTimeout(videoRevealTimer);
+      videoRevealTimer = null;
+    }
+  }
+
+  function setupVideoPosterTransition(){
+    videoRevealTimer = window.setTimeout(
+      revealVideo,
+      VIDEO_REVEAL_DELAY
+    );
   }
 
   function openMenu(){
@@ -502,6 +524,7 @@ WEDDING JS
 
     accordions.forEach(setupAccordion);
 
+    setupVideoPosterTransition();
     setupMainPopupTriggers();
     setupReviewPopupTriggers();
     setupGalleryTrigger();

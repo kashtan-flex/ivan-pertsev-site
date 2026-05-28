@@ -2,11 +2,11 @@
 ==================================================
 WEDDING HTML
 
-Версия: wedding-html-002
+Версия: wedding-html-003
 
 ИЗМЕНЕНИЯ:
-- подраздел «Свадьба» подключён к wedding-preview.html
-- сохранена архитектура страницы «Биография»
+- добавлен poster-layer в video block
+- сохранена корректная структура wedding-html-002
 - сохранён Kinescope video block
 - сохранены CTA-кнопки
 - сохранены отзывы и review-popup
@@ -126,8 +126,15 @@ WEDDING HTML
 
         <div class="ip-wedding-video-wrap">
 
+          <div
+            class="ip-wedding-video-poster"
+            data-wedding-video-poster
+            aria-hidden="true"
+          ></div>
+
           <iframe
             class="ip-wedding-video"
+            data-wedding-video-frame
             src="https://kinescope.io/embed/tLG159m4JCtDsZWU4w4uSd?autoplay=1&muted=1&loop=1"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
