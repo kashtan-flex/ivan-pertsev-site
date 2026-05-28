@@ -2,16 +2,14 @@
    IVAN PERTSEV — HOME PAGE
    FILE: css/home.css
 
-   Версия: home-075
+   Версия: home-076
 
    ИЗМЕНЕНИЯ:
-   - версия основана на стабильном home-074
-   - меню главной приведено к поведению меню страницы «Биография»
-   - исправлено преждевременное появление пунктов меню при hover до анимации
-   - подразделы меню увеличены с 14px до 16px
-   - убрано подчеркивание ссылок меню
-   - сохранена ширина меню главной 385px
-   - сохранены исходные позиции текста, меню и анимаций
+   - стабилизирован рендеринг крупного заголовка «Иван Перцев»
+   - снижена вероятность замыливания текста после transform-анимаций
+   - стабилизирован рендеринг текста menu на базовом уровне
+   - финальные состояния keyframes переведены на transform:none
+   - визуальная логика главной страницы и menu сохранена
    ========================================================= */
 
 @font-face{
@@ -66,6 +64,9 @@ body,
   background:#050603;
   color:#fff;
   font-family:'Montserrat',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
 .ip-home-stage{
@@ -143,6 +144,13 @@ body,
   width:510px;
   height:205px;
   z-index:5;
+  transform:none;
+  filter:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
 .ip-home-title{
@@ -154,12 +162,24 @@ body,
   font-weight:700;
   color:#fff;
   text-transform:uppercase;
+  filter:none;
+  text-shadow:none;
+  transform:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
 .ip-title-line{
   display:block;
   width:510px;
   overflow:hidden;
+  filter:none;
+  transform:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
 }
 
 .ip-title-line-first{
@@ -176,8 +196,13 @@ body,
   height:112px;
   line-height:.85;
   opacity:0;
-  transform:translate3d(0,-110%,0);
-  will-change:transform,opacity;
+  transform:translateY(-110%);
+  filter:none;
+  text-shadow:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 .ip-title-line-first span{
@@ -196,6 +221,8 @@ body,
   top:154px;
   overflow:hidden;
   padding-bottom:6px;
+  transform:none;
+  filter:none;
 }
 
 .ip-home-subtitle{
@@ -207,12 +234,18 @@ body,
   font-weight:400;
   letter-spacing:.02em;
   color:#fff;
+  filter:none;
+  text-shadow:none;
+  transform:none;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
 .ip-subtitle-word,
 .ip-subtitle-dot{
   opacity:0;
-  transform:translate3d(0,-120%,0);
+  transform:translateY(-120%);
 }
 
 .ip-subtitle-word-one{
@@ -273,9 +306,8 @@ body,
   background:#fff;
   transform-origin:center center;
   transition:transform .42s cubic-bezier(.19,1,.22,1);
-  will-change:transform;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
 }
 
 .ip-menu-line:first-child{
@@ -304,13 +336,16 @@ body,
   z-index:40;
   overflow:hidden;
   pointer-events:none;
-  transform:translate3d(100%,0,0);
+  transform:translateX(100%);
   transition:transform .72s cubic-bezier(.19,1,.22,1);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
 .ip-menu-panel.is-open{
   pointer-events:auto;
-  transform:translate3d(0,0,0);
+  transform:none;
 }
 
 .ip-menu-panel::before,
@@ -342,6 +377,10 @@ body,
   position:relative;
   z-index:5;
   pointer-events:auto;
+  filter:none;
+  transform:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
 }
 
 .ip-menu-socials{
@@ -362,13 +401,11 @@ body,
   height:27px;
   visibility:hidden;
   opacity:0;
-  transform:translate3d(0,-32px,0);
-  will-change:transform,opacity;
+  transform:translateY(-32px);
   background:none !important;
   overflow:hidden;
-  transform-style:preserve-3d;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
   pointer-events:none;
 }
 
@@ -381,7 +418,6 @@ body,
   background-position:center;
   background-repeat:no-repeat;
   transition:opacity .28s ease;
-  will-change:opacity;
   pointer-events:none;
 }
 
@@ -450,13 +486,16 @@ body,
   gap:20px;
   width:225px;
   pointer-events:auto;
+  filter:none;
+  transform:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
 }
 
 .ip-menu-list > *{
   visibility:hidden;
   opacity:0;
-  transform:translate3d(0,-36px,0);
-  will-change:transform,opacity;
+  transform:translateY(-36px);
   pointer-events:none;
 }
 
@@ -499,6 +538,8 @@ body,
 .ip-accordion-button:active{
   color:#fff !important;
   text-decoration:none !important;
+  filter:none !important;
+  text-shadow:none !important;
 }
 
 .ip-menu-link,
@@ -514,6 +555,12 @@ body,
   text-align:left;
   cursor:pointer;
   transition:opacity .25s ease;
+  transform:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
 .ip-menu-panel.is-open .ip-menu-link:hover,
@@ -550,7 +597,6 @@ body,
   transition:
     transform .35s cubic-bezier(.19,1,.22,1),
     opacity .35s ease;
-  will-change:transform,opacity;
 }
 
 .ip-accordion-button::before{
@@ -606,6 +652,14 @@ body,
   letter-spacing:-0.025em;
   opacity:1;
   transition:opacity .25s ease;
+  filter:none !important;
+  text-shadow:none !important;
+  transform:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
 .ip-menu-panel.is-open .ip-submenu a:hover{
@@ -623,9 +677,12 @@ body,
   gap:2px;
   visibility:hidden;
   opacity:0;
-  transform:translate3d(0,-32px,0);
+  transform:translateY(-32px);
   transition:none;
   pointer-events:none;
+  filter:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal{
@@ -647,6 +704,11 @@ body,
   font-size:8px;
   line-height:150%;
   transition:opacity .25s ease;
+  filter:none !important;
+  text-shadow:none !important;
+  transform:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
 }
 
 .ip-menu-panel.is-open .ip-menu-legal a:hover{
@@ -661,7 +723,7 @@ body,
 
   100%{
     opacity:1;
-    transform:translate3d(0,0,0) scale(1);
+    transform:none;
   }
 }
 
@@ -678,24 +740,24 @@ body,
 @keyframes ipTextReveal{
   0%{
     opacity:0;
-    transform:translate3d(0,-110%,0);
+    transform:translateY(-110%);
   }
 
   100%{
     opacity:1;
-    transform:translate3d(0,0,0);
+    transform:none;
   }
 }
 
 @keyframes ipSubtitleReveal{
   0%{
     opacity:0;
-    transform:translate3d(0,-120%,0);
+    transform:translateY(-120%);
   }
 
   100%{
     opacity:1;
-    transform:translate3d(0,0,0);
+    transform:none;
   }
 }
 
@@ -703,19 +765,19 @@ body,
   0%{
     visibility:hidden;
     opacity:0;
-    transform:translate3d(0,-36px,0);
+    transform:translateY(-36px);
   }
 
   1%{
     visibility:visible;
     opacity:0;
-    transform:translate3d(0,-36px,0);
+    transform:translateY(-36px);
   }
 
   100%{
     visibility:visible;
     opacity:1;
-    transform:translate3d(0,0,0);
+    transform:none;
   }
 }
 
@@ -748,19 +810,18 @@ body,
   }
 
   .ip-title-line span{
-    transform:translate3d(0,-106%,0);
+    transform:translateY(-106%);
   }
 
   @keyframes ipTextReveal{
     0%{
       opacity:0;
-      transform:translate3d(0,-106%,0);
+      transform:translateY(-106%);
     }
 
     100%{
       opacity:1;
-      transform:translate3d(0,0,0);
+      transform:none;
     }
   }
-
 }
