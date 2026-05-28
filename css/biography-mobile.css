@@ -1,17 +1,13 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-014
+   Версия: biography-mobile-css-015
 
    ИЗМЕНЕНИЯ:
-   - сохранены все настройки mobile-версии
-   - mobile-список отцентрован по середине страницы
-   - в mobile-списке убран висящий предлог «с»
-   - desktop-список скрыт на mobile
-   - mobile-список показан на mobile
-   - сохранена анимация появления scroll-top
-   - сохранён mobile background + retina @2x
-   - сохранены Safari/Android-safe настройки
+   - убран блюр страницы при закрытом mobile menu
+   - blur/background сняты с самой .ip-menu-panel
+   - blur остаётся только на фоновых слоях menu через ::before
+   - анимация, логика menu, accordion, scroll-top и mobile layout не изменялись
    ========================================================= */
 
 .ip-biography-scrolltop{
@@ -452,9 +448,9 @@
     height:765px;
     padding:40px 22px 45px 40px;
     overflow:hidden;
-    background:rgba(0,0,0,.34);
-    -webkit-backdrop-filter:blur(18px);
-    backdrop-filter:blur(18px);
+    background:transparent;
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
     touch-action:pan-y;
   }
 
@@ -475,7 +471,7 @@
 
   @supports not ((backdrop-filter:blur(18px)) or (-webkit-backdrop-filter:blur(18px))){
     .ip-biography .ip-menu-panel{
-      background:rgba(0,0,0,.62);
+      background:transparent;
     }
 
     .ip-biography .ip-menu-panel::before{
