@@ -2,11 +2,13 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-003
+Версия: wedding-js-005
 
 ИЗМЕНЕНИЯ:
-- добавлена безопасная логика плавного проявления Kinescope video поверх poster
-- video проявляется по таймеру, чтобы poster не зависал при нестабильном iframe load
+- Kinescope iframe теперь полностью пересоздаётся при каждом входе на страницу
+- видео принудительно стартует заново при обновлении страницы
+- видео принудительно стартует заново при возврате на страницу после перехода
+- poster продолжает скрывать служебный кадр загрузки
 - сохранены desktop scaling, menu, accordion, popup, review popup и gallery logic
 ==================================================
 */
@@ -23,10 +25,18 @@ WEDDING JS
     breakpoint:767
   };
 
-  var VIDEO_REVEAL_DELAY = 1450;
+  var VIDEO_REVEAL_DELAY = 3200;
+  var VIDEO_RECREATE_DELAY = 80;
 
   var page = document.querySelector('[data-wedding-page]');
   var stage = document.querySelector('.ip-wedding-stage');
+
+  var videoFrame = document.querySelector('[data-wedding-video-frame]');
+  var videoWrap = videoFrame ? videoFrame.parentNode : null;
+
+  var originalVideoSrc = videoFrame
+    ? videoFrame.getAttribute('src')
+    : '';
 
   var menuButton = document.querySelector('.ip-menu-toggle');
   var menuPanel = document.querySelector('.ip-menu-panel');
@@ -61,6 +71,7 @@ WEDDING JS
 
   var resizeFrame = null;
   var videoRevealTimer = null;
+  var videoRecreateTimer = null;
 
   if(!page || !stage){
     return;
@@ -155,24 +166,95 @@ WEDDING JS
     resizeFrame = window.requestAnimationFrame(updateScale);
   }
 
+  function clearVideoTimers(){
+    if(videoRevealTimer){
+      window.clearTimeout(videoRevealTimer);
+      videoRevealTimer = null;
+    }
+
+    if(videoRecreateTimer){
+      window.clearTimeout(videoRecreateTimer);
+      videoRecreateTimer = null;
+    }
+  }
+
+  function buildFreshVideoSrc(){
+    if(!originalVideoSrc){
+      return '';
+    }
+
+    var separator = originalVideoSrc.indexOf('?') === -1
+      ? '?'
+      : '&';
+
+    return originalVideoSrc + separator + 'start=0&restart=' + Date.now();
+  }
+
+  function createFreshVideoFrame(){
+    var iframe = document.createElement('iframe');
+
+    iframe.className = 'ip-wedding-video';
+    iframe.setAttribute('data-wedding-video-frame', '');
+    iframe.setAttribute('src', buildFreshVideoSrc());
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('loading', 'eager');
+
+    return iframe;
+  }
+
   function revealVideo(){
     if(!page || page.classList.contains('is-video-ready')){
       return;
     }
 
     page.classList.add('is-video-ready');
+  }
 
-    if(videoRevealTimer){
-      window.clearTimeout(videoRevealTimer);
-      videoRevealTimer = null;
+  function recreateWeddingVideo(){
+    if(!videoWrap || !originalVideoSrc){
+      return;
     }
+
+    clearVideoTimers();
+
+    page.classList.remove('is-video-ready');
+
+    if(videoFrame && videoFrame.parentNode){
+      videoFrame.setAttribute('src', 'about:blank');
+      videoFrame.parentNode.removeChild(videoFrame);
+    }
+
+    videoFrame = null;
+
+    videoRecreateTimer = window.setTimeout(function(){
+      videoFrame = createFreshVideoFrame();
+      videoWrap.appendChild(videoFrame);
+    }, VIDEO_RECREATE_DELAY);
+
+    videoRevealTimer = window.setTimeout(function(){
+      revealVideo();
+    }, VIDEO_REVEAL_DELAY);
   }
 
   function setupVideoPosterTransition(){
-    videoRevealTimer = window.setTimeout(
-      revealVideo,
-      VIDEO_REVEAL_DELAY
-    );
+    recreateWeddingVideo();
+
+    window.addEventListener('pageshow', function(){
+      recreateWeddingVideo();
+    });
+
+    window.addEventListener('pagehide', function(){
+      if(videoFrame){
+        videoFrame.setAttribute('src', 'about:blank');
+      }
+    });
+
+    document.addEventListener('visibilitychange', function(){
+      if(document.visibilityState === 'visible'){
+        recreateWeddingVideo();
+      }
+    });
   }
 
   function openMenu(){
