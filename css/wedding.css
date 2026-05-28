@@ -1,16 +1,13 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-003
+   Версия: wedding-css-005
 
    ИЗМЕНЕНИЯ:
-   - типографика hero-блока приведена к странице «Биография»
-   - video block установлен в размер 450×800
-   - menu panel установлен в размер video block 450×800
-   - исправлено перекрытие menu поверх video
-   - восстановлена видимость крестика menu
-   - стрелки accordion возвращены на корректное расстояние 100px от правого края menu
-   - сохранены reviews, review popup и gallery architecture
+   - основной текст поднят выше по отступам Figma
+   - кнопки подняты выше по отступам Figma
+   - awards-блок перенесён в положение первого экрана как на странице «Биография»
+   - сохранены video block 450×800, menu, reviews, popup и текущая логика
    ========================================================= */
 
 .ip-wedding,
@@ -64,10 +61,6 @@
   min-height:1351px;
 }
 
-/* =========================================================
-   LEFT CONTENT
-   ========================================================= */
-
 .ip-wedding-left{
   position:absolute;
   left:100px;
@@ -104,7 +97,7 @@
 .ip-wedding-text{
   position:absolute;
   left:60px;
-  top:220px;
+  top:175px;
   width:658px;
 }
 
@@ -128,14 +121,10 @@
   letter-spacing:-.03em;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
 .ip-wedding-actions{
   position:absolute;
   left:60px;
-  top:575px;
+  top:455px;
   display:flex;
   gap:30px;
 }
@@ -198,14 +187,10 @@
   background:rgba(255,255,255,.55);
 }
 
-/* =========================================================
-   AWARDS
-   ========================================================= */
-
 .ip-wedding-awards{
   position:absolute;
   left:0;
-  top:1165px;
+  top:650px;
   display:flex;
   align-items:center;
   width:760px;
@@ -281,10 +266,6 @@
   width:132px;
 }
 
-/* =========================================================
-   VIDEO
-   ========================================================= */
-
 .ip-wedding-right{
   position:absolute;
   top:0;
@@ -317,10 +298,6 @@
   transform:translate3d(-50%,-50%,0);
 }
 
-/* =========================================================
-   GALLERY
-   ========================================================= */
-
 .ip-wedding-gallery{
   position:absolute;
   left:60px;
@@ -352,10 +329,6 @@
   -webkit-backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,.05);
 }
-
-/* =========================================================
-   REVIEWS
-   ========================================================= */
 
 .ip-wedding-reviews{
   position:absolute;
@@ -441,26 +414,50 @@
   font-weight:600;
 }
 
-/* =========================================================
-   MENU
-   ========================================================= */
-
 .ip-wedding .ip-menu-toggle{
-  z-index:80;
+  z-index:90;
   top:60px;
   right:100px;
   filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
 }
 
 .ip-wedding .ip-menu-panel{
-  z-index:70;
+  z-index:80;
   width:450px;
   height:800px;
   padding:60px 100px 80px 60px;
+  isolation:isolate;
+  contain:paint;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
 }
 
-.ip-wedding .ip-menu-inner{
-  width:100%;
+.ip-wedding .ip-menu-panel::before{
+  z-index:0;
+  background:rgba(0,0,0,.30);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  transform:translate3d(0,0,0);
+  will-change:backdrop-filter;
+}
+
+.ip-wedding .ip-menu-panel::after{
+  z-index:1;
+  opacity:.35;
+  transform:translate3d(0,0,0);
+}
+
+.ip-wedding .ip-menu-inner,
+.ip-wedding .ip-menu-legal{
+  position:relative;
+  z-index:20;
+  filter:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  transform:translate3d(0,0,0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  will-change:transform;
 }
 
 .ip-wedding .ip-menu-socials{
@@ -488,6 +485,11 @@
   font-weight:600;
   letter-spacing:-.04em;
   text-decoration:none !important;
+  filter:none !important;
+  text-shadow:none !important;
+  transform:translate3d(0,0,0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 
 .ip-wedding .ip-submenu{
@@ -511,9 +513,10 @@
 }
 
 .ip-wedding .ip-menu-legal{
-  left:60px;
-  right:100px;
-  bottom:80px;
+  left:0;
+  right:auto;
+  bottom:auto;
+  margin-top:315px;
 }
 
 .ip-wedding .ip-menu-legal a,
@@ -545,10 +548,6 @@
 .ip-wedding .ip-accordion-button::after{
   right:0;
 }
-
-/* =========================================================
-   REVIEW POPUP
-   ========================================================= */
 
 .ip-review-popup{
   position:fixed;
@@ -640,10 +639,6 @@
   font-size:16px;
   line-height:1.5;
 }
-
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
 
 .ip-wedding::-webkit-scrollbar{
   width:10px;
