@@ -1,13 +1,14 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-005
+   Версия: wedding-css-006
 
    ИЗМЕНЕНИЯ:
-   - основной текст поднят выше по отступам Figma
-   - кнопки подняты выше по отступам Figma
-   - awards-блок перенесён в положение первого экрана как на странице «Биография»
-   - сохранены video block 450×800, menu, reviews, popup и текущая логика
+   - awards-блок страницы «Свадьба» выровнен по значениям страницы «Биография»
+   - .ip-wedding-left получил высоту 690px как .ip-biography-left
+   - .ip-wedding-awards переведён с top на bottom:-1px как в biography.css
+   - сохранены вручную выставленные кнопки top:485px
+   - остальные блоки и логика не изменялись
    ========================================================= */
 
 .ip-wedding,
@@ -67,6 +68,7 @@
   top:55px;
   z-index:5;
   width:760px;
+  height:690px;
 }
 
 .ip-wedding-header{
@@ -124,7 +126,7 @@
 .ip-wedding-actions{
   position:absolute;
   left:60px;
-  top:505px;
+  top:485px;
   display:flex;
   gap:22px;
 }
@@ -190,7 +192,7 @@
 .ip-wedding-awards{
   position:absolute;
   left:0;
-  top:650px;
+  bottom:-1px;
   display:flex;
   align-items:center;
   width:760px;
