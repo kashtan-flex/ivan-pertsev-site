@@ -1,14 +1,14 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-006
+   Версия: wedding-css-007
 
    ИЗМЕНЕНИЯ:
-   - awards-блок страницы «Свадьба» выровнен по значениям страницы «Биография»
-   - .ip-wedding-left получил высоту 690px как .ip-biography-left
-   - .ip-wedding-awards переведён с top на bottom:-1px как в biography.css
+   - исправлено замыливание текста menu на странице «Свадьба»
+   - убран конфликт transform/backdrop-filter/will-change у текстовых слоёв menu
+   - awards-блок выровнен по значениям страницы «Биография»
    - сохранены вручную выставленные кнопки top:485px
-   - остальные блоки и логика не изменялись
+   - сохранены video block 450×800, menu, reviews, popup и текущая логика
    ========================================================= */
 
 .ip-wedding,
@@ -429,9 +429,14 @@
   height:800px;
   padding:60px 100px 80px 60px;
   isolation:isolate;
-  contain:paint;
+  contain:layout paint;
+  transform:translate3d(0,0,0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  will-change:transform;
   -webkit-font-smoothing:antialiased;
-  text-rendering:geometricPrecision;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
 }
 
 .ip-wedding .ip-menu-panel::before{
@@ -439,27 +444,18 @@
   background:rgba(0,0,0,.30);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
-  transform:translate3d(0,0,0);
-  will-change:backdrop-filter;
 }
 
 .ip-wedding .ip-menu-panel::after{
   z-index:1;
   opacity:.35;
-  transform:translate3d(0,0,0);
 }
 
 .ip-wedding .ip-menu-inner,
 .ip-wedding .ip-menu-legal{
   position:relative;
   z-index:20;
-  filter:none !important;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-  transform:translate3d(0,0,0);
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  will-change:transform;
+  isolation:isolate;
 }
 
 .ip-wedding .ip-menu-socials{
@@ -489,9 +485,12 @@
   text-decoration:none !important;
   filter:none !important;
   text-shadow:none !important;
-  transform:translate3d(0,0,0);
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  transform:none !important;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  will-change:auto;
 }
 
 .ip-wedding .ip-submenu{
@@ -512,6 +511,14 @@
   letter-spacing:-.025em;
   opacity:1;
   text-decoration:none !important;
+  filter:none !important;
+  text-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  transform:none !important;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  will-change:auto;
 }
 
 .ip-wedding .ip-menu-legal{
@@ -530,6 +537,14 @@
   font-size:8px;
   line-height:150%;
   text-decoration:none !important;
+  filter:none !important;
+  text-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  transform:none !important;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  will-change:auto;
 }
 
 .ip-wedding .ip-accordion-button{
