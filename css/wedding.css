@@ -124,9 +124,9 @@
 .ip-wedding-actions{
   position:absolute;
   left:60px;
-  top:455px;
+  top:505px;
   display:flex;
-  gap:30px;
+  gap:22px;
 }
 
 .ip-wedding-button{
