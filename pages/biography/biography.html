@@ -2,13 +2,11 @@
 ==================================================
 BIOGRAPHY HTML
 
-Версия: biography-html-017
+Версия: biography-html-018
 
 ИЗМЕНЕНИЯ:
-- desktop и mobile список разделены на два отдельных блока
-- в mobile-списке убран висящий предлог «с»
-- mobile-текст сохранён с ручными переносами под макет
-- desktop-текст не изменялся
+- подраздел «Свадьба» подключён к wedding-preview.html
+- сохранены desktop/mobile списки
 - сохранены carousel, awards, menu, popup и scroll-top
 ==================================================
 -->
@@ -184,6 +182,7 @@ BIOGRAPHY HTML
           <div class="ip-menu-list">
 
             <a class="ip-menu-link" href="./preview.html">Главная</a>
+
             <a class="ip-menu-link" href="./biography-preview.html">Биография</a>
 
             <div class="ip-accordion">
@@ -191,16 +190,23 @@ BIOGRAPHY HTML
 
               <div class="ip-accordion-content">
                 <div class="ip-submenu">
-                  <a href="#">Свадьба</a>
+
+                  <a href="./wedding-preview.html">Свадьба</a>
+
                   <a href="#">Корпоратив</a>
+
                   <a href="#">День рождение</a>
+
                   <a href="#">Выпускной</a>
+
                   <a href="#" data-popup-open="main">Другое</a>
+
                 </div>
               </div>
             </div>
 
             <a class="ip-menu-link" href="#">Музыкальное шоу</a>
+
             <a class="ip-menu-link" href="#">Сотрудничество</a>
 
             <div class="ip-accordion">
@@ -277,14 +283,20 @@ BIOGRAPHY HTML
 
         <span class="ip-popup-policy-text">
           <span class="ip-popup-policy-line">Согласен(а) на обработку данных в соответствии</span>
+
           <span class="ip-popup-policy-link-line">
             <span class="ip-popup-policy-preposition">с</span>
-            <a href="#" target="_blank">Политикой обработки персональных данных.</a>
+
+            <a href="#" target="_blank">
+              Политикой обработки персональных данных.
+            </a>
           </span>
         </span>
       </label>
 
-      <button class="ip-popup-submit" type="submit">Отправить</button>
+      <button class="ip-popup-submit" type="submit">
+        Отправить
+      </button>
 
     </form>
 

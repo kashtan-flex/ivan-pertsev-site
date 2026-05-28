@@ -1,0 +1,659 @@
+/* =========================================================
+   WEDDING CSS
+
+   Версия: wedding-css-002
+
+   ИЗМЕНЕНИЯ:
+   - исправлено desktop-масштабирование страницы
+   - логика адаптации приведена к home/biography
+   - видео приведено к высоте 800px
+   - убрано пустое пространство под видео
+   - menu теперь полностью перекрывает video block
+   - исправлены размеры stage/content
+   - исправлен desktop overflow
+   - подготовлена корректная scroll-area
+   ========================================================= */
+
+.ip-wedding,
+.ip-wedding *{
+  box-sizing:border-box;
+}
+
+.ip-wedding a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.ip-wedding{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  min-height:calc(var(--wedding-vh) * 100);
+
+  overflow-x:hidden;
+  overflow-y:auto;
+
+  background:#050603;
+
+  color:#fff;
+
+  font-family:'Montserrat',Arial,sans-serif;
+}
+
+.ip-wedding-stage{
+  position:relative;
+
+  width:1440px;
+  min-height:1351px;
+
+  margin:0 auto;
+
+  overflow:hidden;
+
+  background:#050603;
+}
+
+.ip-wedding-bg{
+  position:absolute;
+  inset:0;
+  z-index:1;
+
+  background-image:
+    url('../assets/img/wedding/background/wedding-bg.webp');
+
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+}
+
+.ip-wedding-content{
+  position:relative;
+  z-index:2;
+
+  width:1440px;
+  min-height:1351px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+   ========================================================= */
+
+.ip-wedding-left{
+  position:absolute;
+  left:100px;
+  top:55px;
+  z-index:5;
+
+  width:760px;
+}
+
+.ip-wedding-header{
+  margin:0;
+}
+
+.ip-wedding-title{
+  margin:0;
+
+  color:#fff;
+
+  font-size:58px;
+  line-height:.92;
+  font-weight:600;
+  letter-spacing:-.04em;
+}
+
+.ip-wedding-subtitle{
+  width:620px;
+
+  margin:24px 0 0;
+
+  color:#fff;
+
+  font-size:21px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.045em;
+}
+
+.ip-wedding-text{
+  position:absolute;
+  left:60px;
+  top:280px;
+
+  width:670px;
+}
+
+.ip-wedding-text-title{
+  margin:0;
+
+  color:#fff;
+
+  font-size:28px;
+  line-height:1.2;
+  font-weight:600;
+  letter-spacing:-.04em;
+}
+
+.ip-wedding-description{
+  margin:36px 0 0;
+
+  color:#fff;
+
+  font-size:24px;
+  line-height:1.28;
+  font-weight:400;
+  letter-spacing:-.04em;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.ip-wedding-actions{
+  position:absolute;
+  left:60px;
+  top:705px;
+
+  display:flex;
+  gap:24px;
+}
+
+.ip-wedding-button{
+  position:relative;
+
+  width:211px;
+  height:50px;
+
+  border:none;
+  border-radius:6px;
+
+  overflow:hidden;
+
+  cursor:pointer;
+
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:16px;
+  line-height:1;
+  font-weight:500;
+  letter-spacing:-.03em;
+
+  transition:
+    transform .35s cubic-bezier(.19,1,.22,1),
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+.ip-wedding-button::before{
+  content:'';
+
+  position:absolute;
+  inset:-10px;
+  z-index:-1;
+
+  opacity:0;
+
+  border-radius:24px;
+
+  filter:blur(18px);
+
+  transition:opacity .35s ease;
+}
+
+.ip-wedding-button:hover{
+  transform:translate3d(0,-2px,0);
+}
+
+.ip-wedding-button:hover::before{
+  opacity:1;
+}
+
+.ip-wedding-button-outline{
+  background:rgba(0,0,0,.20);
+
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+
+  color:#fff;
+}
+
+.ip-wedding-button-outline::before{
+  background:rgba(255,255,255,.24);
+}
+
+.ip-wedding-button-filled{
+  background:#fff;
+  color:#111;
+}
+
+.ip-wedding-button-filled::before{
+  background:rgba(255,255,255,.55);
+}
+
+/* =========================================================
+   AWARDS
+   ========================================================= */
+
+.ip-wedding-awards{
+  position:absolute;
+  left:0;
+  top:1165px;
+
+  display:flex;
+  align-items:center;
+
+  width:760px;
+}
+
+.ip-wedding-award{
+  display:flex;
+  align-items:center;
+}
+
+.ip-wedding-award-wedding{
+  gap:28px;
+}
+
+.ip-wedding-award-top{
+  gap:26px;
+  margin-left:80px;
+}
+
+.ip-wedding-award-logo{
+  display:block;
+  width:285px;
+  height:auto;
+}
+
+.ip-wedding-award-icon{
+  display:block;
+  width:52px;
+  height:auto;
+}
+
+.ip-wedding-award-text{
+  margin:0;
+
+  color:#fff;
+
+  font-size:15px;
+  line-height:1.08;
+  font-weight:400;
+  letter-spacing:-.04em;
+
+  opacity:.72;
+}
+
+.ip-wedding-award-text strong,
+.ip-wedding-award-text span{
+  display:block;
+}
+
+.ip-wedding-award-text strong{
+  margin-bottom:2px;
+
+  font-size:15px;
+  line-height:1;
+  font-weight:600;
+
+  opacity:1;
+}
+
+.ip-wedding-award-text-wedding{
+  width:230px;
+}
+
+.ip-wedding-award-text-top{
+  width:140px;
+}
+
+/* =========================================================
+   VIDEO
+   ========================================================= */
+
+.ip-wedding-right{
+  position:absolute;
+  top:0;
+  right:0;
+
+  z-index:4;
+
+  width:420px;
+  height:800px;
+
+  overflow:hidden;
+
+  background:#050603;
+}
+
+.ip-wedding-video-wrap{
+  position:absolute;
+  inset:0;
+
+  overflow:hidden;
+
+  background:#050603;
+}
+
+.ip-wedding-video{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  border:none;
+
+  object-fit:cover;
+}
+
+/* =========================================================
+   GALLERY
+   ========================================================= */
+
+.ip-wedding-gallery{
+  position:absolute;
+  left:60px;
+  top:830px;
+
+  width:1320px;
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transform:translate3d(0,20px,0);
+
+  transition:
+    opacity .45s cubic-bezier(.19,1,.22,1),
+    transform .45s cubic-bezier(.19,1,.22,1),
+    visibility .45s ease;
+}
+
+.ip-wedding-gallery.is-visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+
+  transform:translate3d(0,0,0);
+}
+
+.ip-wedding-gallery-inner{
+  width:100%;
+  min-height:420px;
+
+  border-radius:20px;
+
+  background:rgba(0,0,0,.12);
+
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+
+  border:1px solid rgba(255,255,255,.05);
+}
+
+/* =========================================================
+   REVIEWS
+   ========================================================= */
+
+.ip-wedding-reviews{
+  position:absolute;
+  left:11px;
+  top:1038px;
+
+  z-index:6;
+
+  display:flex;
+  gap:10px;
+}
+
+.ip-wedding-review{
+  position:relative;
+
+  width:194px;
+  height:302px;
+
+  padding:18px 16px 16px;
+
+  border:none;
+  border-radius:16px;
+
+  overflow:hidden;
+
+  background:rgba(0,0,0,.20);
+
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 20px 40px rgba(0,0,0,.18);
+
+  color:#fff;
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .42s cubic-bezier(.19,1,.22,1),
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+.ip-wedding-review:hover{
+  transform:translate3d(0,-4px,0);
+
+  background:rgba(0,0,0,.24);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 26px 60px rgba(0,0,0,.26);
+}
+
+.ip-wedding-review-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.ip-wedding-review-avatar{
+  width:42px;
+  height:42px;
+
+  flex:0 0 42px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.08);
+}
+
+.ip-wedding-review-name{
+  color:#fff;
+
+  font-size:11px;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+
+.ip-wedding-review-type{
+  margin-top:6px;
+
+  color:rgba(255,255,255,.65);
+
+  font-size:7px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.02em;
+}
+
+.ip-wedding-review-text{
+  margin-top:18px;
+
+  color:#fff;
+
+  font-size:9px;
+  line-height:1.5;
+  font-weight:400;
+  letter-spacing:0;
+}
+
+.ip-wedding-review-text strong{
+  font-weight:600;
+}
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+.ip-wedding .ip-menu-panel{
+  width:420px;
+  height:800px;
+
+  z-index:999;
+
+  padding:60px 70px 80px 60px;
+}
+
+/* =========================================================
+   REVIEW POPUP
+   ========================================================= */
+
+.ip-review-popup{
+  position:fixed;
+  inset:0;
+
+  z-index:9998;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.ip-review-popup.is-open{
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.ip-review-popup-backdrop{
+  position:absolute;
+  inset:0;
+
+  opacity:0;
+
+  background:rgba(0,0,0,0);
+
+  backdrop-filter:blur(0);
+  -webkit-backdrop-filter:blur(0);
+
+  transition:
+    background .36s cubic-bezier(.19,1,.22,1),
+    backdrop-filter .36s cubic-bezier(.19,1,.22,1),
+    opacity .36s cubic-bezier(.19,1,.22,1);
+}
+
+.ip-review-popup.is-open .ip-review-popup-backdrop{
+  opacity:1;
+
+  background:rgba(0,0,0,.62);
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.ip-review-popup-card{
+  position:relative;
+
+  width:279px;
+  min-height:359px;
+
+  padding:26px;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  background:rgba(0,0,0,.20);
+
+  backdrop-filter:blur(30px);
+  -webkit-backdrop-filter:blur(30px);
+
+  box-shadow:
+    0 50px 120px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.05);
+
+  opacity:0;
+
+  transform:translate3d(0,0,0) scale(.25);
+
+  transition:
+    transform .52s cubic-bezier(.19,1,.22,1),
+    opacity .52s cubic-bezier(.19,1,.22,1);
+
+  transform-origin:center center;
+}
+
+.ip-review-popup.is-open .ip-review-popup-card{
+  opacity:1;
+  transform:translate3d(0,0,0) scale(1);
+}
+
+.ip-review-popup-card .ip-wedding-review{
+  width:100%;
+  height:auto;
+  min-height:0;
+
+  padding:0;
+
+  border-radius:0;
+
+  background:transparent !important;
+
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+
+  box-shadow:none !important;
+
+  cursor:default;
+
+  transform:none !important;
+}
+
+.ip-review-popup-card .ip-wedding-review-name{
+  font-size:19px;
+}
+
+.ip-review-popup-card .ip-wedding-review-type{
+  margin-top:8px;
+  font-size:12px;
+}
+
+.ip-review-popup-card .ip-wedding-review-text{
+  margin-top:26px;
+
+  font-size:16px;
+  line-height:1.5;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.ip-wedding::-webkit-scrollbar{
+  width:10px;
+}
+
+.ip-wedding::-webkit-scrollbar-track{
+  background:#050603;
+}
+
+.ip-wedding::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.14);
+  border-radius:999px;
+}
+
+.ip-wedding::-webkit-scrollbar-thumb:hover{
+  background:rgba(255,255,255,.22);
+}

@@ -1,43 +1,43 @@
 <!--
-  Версия: home-html-071
+==================================================
+HOME HTML
 
-  ИЗМЕНЕНИЯ:
-  - пункт меню «Биография» теперь ведёт на отдельную страницу biography-preview.html
-  - пункт меню «Главная» теперь ведёт на preview.html
-  - сохранена текущая структура главной страницы
-  - сохранена popup-разметка
-  - сохранены триггеры попапа: Другое и Написать
+Версия: home-html-076
+
+ИЗМЕНЕНИЯ:
+- подраздел «Свадьба» подключён к wedding-preview.html
+- сохранена чистая компактная структура главной страницы
+- сохранены menu, popup и текущая архитектура home-page
+==================================================
 -->
 
-<div class="ip-page-home">
+<section class="ip-page-home" data-home-page>
 
   <div class="ip-home-stage">
 
-    <div class="ip-home-bg-base"></div>
-    <div class="ip-home-bg-glow"></div>
-    <div class="ip-home-portrait"></div>
-    <div class="ip-home-dark-overlay"></div>
+    <div class="ip-home-bg-base" aria-hidden="true"></div>
+    <div class="ip-home-bg-glow" aria-hidden="true"></div>
+    <div class="ip-home-portrait" aria-hidden="true"></div>
+    <div class="ip-home-dark-overlay" aria-hidden="true"></div>
 
     <div class="ip-home-content">
-
       <h1 class="ip-home-title">
         <span class="ip-title-line ip-title-line-first">
-          <span>ИВАН</span>
+          <span>Иван</span>
         </span>
 
         <span class="ip-title-line ip-title-line-second">
-          <span>ПЕРЦЕВ</span>
+          <span>Перцев</span>
         </span>
       </h1>
 
       <div class="ip-home-subtitle-wrap">
         <div class="ip-home-subtitle">
-          <span class="ip-subtitle-word ip-subtitle-word-one">ведущий</span>
-          <span class="ip-subtitle-dot"></span>
+          <span class="ip-subtitle-word ip-subtitle-word-one">Ведущий</span>
+          <span class="ip-subtitle-dot" aria-hidden="true"></span>
           <span class="ip-subtitle-word ip-subtitle-word-two">музыкант</span>
         </div>
       </div>
-
     </div>
 
     <button class="ip-menu-toggle" type="button" aria-label="Открыть меню">
@@ -65,7 +65,7 @@
 
             <div class="ip-accordion-content">
               <div class="ip-submenu">
-                <a href="#">Свадьба</a>
+                <a href="./wedding-preview.html">Свадьба</a>
                 <a href="#">Корпоратив</a>
                 <a href="#">День рождение</a>
                 <a href="#">Выпускной</a>
@@ -101,13 +101,23 @@
 
   </div>
 
-</div>
+</section>
 
 <div class="ip-popup" data-popup="main" aria-hidden="true">
+
   <div class="ip-popup-backdrop" data-popup-close></div>
 
-  <div class="ip-popup-card" role="dialog" aria-modal="true" aria-label="Форма связи">
-    <form class="ip-popup-form" data-form-email="ya@ivanpertsev.ru">
+  <div
+    class="ip-popup-card"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Форма связи"
+  >
+
+    <form
+      class="ip-popup-form"
+      data-form-email="ya@ivanpertsev.ru"
+    >
 
       <div class="ip-popup-heading">
         <div class="ip-popup-name">Иван Перцев</div>
@@ -131,15 +141,23 @@
 
         <span class="ip-popup-policy-text">
           <span class="ip-popup-policy-line">Согласен(а) на обработку данных в соответствии</span>
+
           <span class="ip-popup-policy-link-line">
             <span class="ip-popup-policy-preposition">с</span>
-            <a href="#" target="_blank">Политикой обработки персональных данных.</a>
+
+            <a href="#" target="_blank">
+              Политикой обработки персональных данных.
+            </a>
           </span>
         </span>
       </label>
 
-      <button class="ip-popup-submit" type="submit">Отправить</button>
+      <button class="ip-popup-submit" type="submit">
+        Отправить
+      </button>
 
     </form>
+
   </div>
+
 </div>
