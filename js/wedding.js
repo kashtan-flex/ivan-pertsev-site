@@ -2,18 +2,13 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-001
+Версия: wedding-js-002
 
 ИЗМЕНЕНИЯ:
-- создана первая desktop-логика страницы «Свадьба»
-- добавлено масштабирование desktop-страницы 1440×1351
-- добавлена логика меню и accordion из текущей системы проекта
-- добавлена общая popup-логика формы связи
-- добавлена маска даты для формы
-- добавлена логика открытия отзывов в popup
-- добавлена macOS-style анимация раскрытия отзыва из точки клика
-- добавлена логика кнопки «Смотреть фото»
-- добавлено закрытие popup по Escape и клику на backdrop
+- desktop scaling приведён к логике home/biography
+- масштабирование считается от hero-высоты 800px
+- высота scroll-page пересчитывается от 1351px с текущим scale
+- сохранены menu, accordion, popup, review popup и gallery logic
 ==================================================
 */
 
@@ -23,7 +18,8 @@ WEDDING JS
   var DESIGN = {
     desktop:{
       width:1440,
-      height:1351
+      heroHeight:800,
+      pageHeight:1351
     },
     breakpoint:767
   };
@@ -53,6 +49,7 @@ WEDDING JS
 
   var reviewPopup = document.querySelector('[data-review-popup]');
   var reviewPopupCard = document.querySelector('[data-review-popup-card]');
+
   var reviewCloseTriggers = Array.prototype.slice.call(
     document.querySelectorAll('[data-review-close]')
   );
@@ -72,10 +69,7 @@ WEDDING JS
   }
 
   function getViewportHeight(){
-    if(
-      window.visualViewport &&
-      window.visualViewport.height
-    ){
+    if(window.visualViewport && window.visualViewport.height){
       return window.visualViewport.height;
     }
 
@@ -98,13 +92,13 @@ WEDDING JS
     var viewportHeight = updateViewportHeightVariable();
 
     var scale;
-    var scaledHeight;
+    var scaledPageHeight;
 
     if(isMobile()){
       scale = viewportWidth / DESIGN.desktop.width;
 
-      scaledHeight = Math.ceil(
-        DESIGN.desktop.height * scale
+      scaledPageHeight = Math.ceil(
+        DESIGN.desktop.pageHeight * scale
       );
 
       document.documentElement.style.setProperty(
@@ -112,15 +106,8 @@ WEDDING JS
         scale.toFixed(5)
       );
 
-      page.style.minHeight = scaledHeight + 'px';
-      page.style.height = scaledHeight + 'px';
-
-      stage.style.transform =
-        'translate3d(-50%,0,0) scale(' + scale.toFixed(5) + ')';
-
-      stage.style.left = '50%';
-      stage.style.top = '0';
-      stage.style.transformOrigin = 'top center';
+      page.style.height = scaledPageHeight + 'px';
+      page.style.minHeight = scaledPageHeight + 'px';
 
       document.documentElement.style.height = 'auto';
       document.body.style.height = 'auto';
@@ -134,32 +121,28 @@ WEDDING JS
       return;
     }
 
-    scale = Math.min(
-      viewportWidth / DESIGN.desktop.width,
-      1
-    );
+    scale = viewportHeight / DESIGN.desktop.heroHeight;
 
     document.documentElement.style.setProperty(
       '--wedding-scale',
       scale.toFixed(5)
     );
 
-    page.style.minHeight = DESIGN.desktop.height + 'px';
-    page.style.height = '';
+    scaledPageHeight = Math.ceil(
+      DESIGN.desktop.pageHeight * scale
+    );
 
-    stage.style.transform = '';
-    stage.style.left = '';
-    stage.style.top = '';
-    stage.style.transformOrigin = '';
+    page.style.height = scaledPageHeight + 'px';
+    page.style.minHeight = scaledPageHeight + 'px';
 
-    document.documentElement.style.height = '';
-    document.body.style.height = '';
+    document.documentElement.style.height = 'auto';
+    document.body.style.height = 'auto';
 
     document.documentElement.style.overflowX = 'hidden';
     document.body.style.overflowX = 'hidden';
 
-    document.documentElement.style.overflowY = '';
-    document.body.style.overflowY = '';
+    document.documentElement.style.overflowY = 'auto';
+    document.body.style.overflowY = 'auto';
   }
 
   function requestScaleUpdate(){
@@ -279,8 +262,8 @@ WEDDING JS
     var rect = reviewButton.getBoundingClientRect();
 
     return {
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2
+      x:rect.left + rect.width / 2,
+      y:rect.top + rect.height / 2
     };
   }
 
