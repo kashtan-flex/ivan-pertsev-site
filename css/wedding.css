@@ -1,30 +1,13 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-014
+   Версия: wedding-css-013-rollback
 
    ИЗМЕНЕНИЯ:
-   - включён скролл страницы «Свадьба»
-   - сохранено масштабирование по первому экрану 1440×800
-   - нижняя граница первого экрана остаётся по нижнему краю video block 800px
-   - исправлено перекрытие глобального overflow:hidden от home.css
-   - сохранены premium magnetic hover и световой блик по контуру кнопок
-   - остальные блоки, video, menu, reviews и gallery не изменялись
+   - откат к стабильной версии до глобальных scroll/popup/menu правок
+   - сохранены poster video, кнопки, menu, reviews и gallery
+   - убраны последние правки, которые могли ломать menu, popup и scale
    ========================================================= */
-
-html,
-body,
-#allrecords,
-#ip-wedding-root{
-  width:100%;
-  min-height:100%;
-  height:auto;
-  margin:0;
-  padding:0;
-  overflow-x:hidden !important;
-  overflow-y:auto !important;
-  background:#050603 !important;
-}
 
 .ip-wedding,
 .ip-wedding *{
@@ -39,11 +22,10 @@ body,
 .ip-wedding{
   position:relative;
   width:100%;
-  height:auto;
   min-height:100vh;
   min-height:calc(var(--wedding-vh) * 100);
   overflow-x:hidden;
-  overflow-y:visible;
+  overflow-y:auto;
   background:#050603;
   color:#fff;
   font-family:'Montserrat',Arial,sans-serif;
