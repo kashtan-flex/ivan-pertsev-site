@@ -2,16 +2,16 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-008-local-scale
+Версия: wedding-js-011-review-popup-source-origin
 
 ИЗМЕНЕНИЯ:
-- убрано глобальное изменение --wedding-scale через document.documentElement
-- wedding-scale теперь задаётся только внутри .ip-wedding
-- wedding больше не влияет на popup, главную и биографию
-- сохранён внутренний scroll-spacer для корректной прокрутки страницы свадьбы
+- убрано любое вмешательство в document.documentElement и document.body
+- wedding теперь управляет только своей страницей .ip-wedding
+- добавлен внутренний scroll-spacer для корректной прокрутки страницы свадьбы
 - сохранены menu, accordion, popup, review popup, gallery logic
 - сохранена premium magnetic hover анимация CTA-кнопок
 - сохранён Kinescope + poster без принудительного пересоздания iframe
+- review popup появляется из координаты карточки: 1–3 слева, 4 из центра, 5–7 справа
 ==================================================
 */
 
@@ -324,14 +324,51 @@ WEDDING JS
   }
 
   function setReviewPopupOrigin(reviewButton){
-    if(!reviewPopupCard){
+    if(!reviewPopupCard || !reviewButton){
       return;
     }
 
-    var origin = getReviewOrigin(reviewButton);
+    var reviewId =
+      reviewButton.getAttribute('data-review-open') ||
+      '';
+
+    if(reviewId === 'review-4'){
+      reviewPopupCard.style.transformOrigin = '50% 50%';
+      return;
+    }
+
+    var sourceRect = reviewButton.getBoundingClientRect();
+
+    var sourceX =
+      sourceRect.left + sourceRect.width / 2;
+
+    var sourceY =
+      sourceRect.top + sourceRect.height / 2;
+
+    var popupWidth =
+      reviewPopupCard.offsetWidth ||
+      parseFloat(window.getComputedStyle(reviewPopupCard).width) ||
+      339;
+
+    var popupHeight =
+      reviewPopupCard.offsetHeight ||
+      parseFloat(window.getComputedStyle(reviewPopupCard).height) ||
+      528;
+
+    var finalLeft =
+      (window.innerWidth - popupWidth) / 2;
+
+    var finalTop =
+      (window.innerHeight - popupHeight) / 2;
+
+    var originX =
+      sourceX - finalLeft;
+
+    var originY =
+      sourceY - finalTop;
 
     reviewPopupCard.style.transformOrigin =
-      origin.x + 'px ' + origin.y + 'px';
+      originX.toFixed(2) + 'px ' + originY.toFixed(2) + 'px';
   }
 
   function cloneReviewContent(reviewButton){
