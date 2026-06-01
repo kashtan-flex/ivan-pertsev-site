@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-004
+   Версия: project-reviews-005
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -12,6 +12,7 @@
    - подложка: #000000 20%, background blur 4px
    - сохранён desktop popup по клику
    - сохранён mobile swipe крупными карточками
+   - отступ между аватаром и блоком имени/мероприятия установлен 15px
    ========================================================= */
 
 .ip-wedding-reviews,
@@ -61,7 +62,7 @@
   top:17px;
   display:flex;
   align-items:flex-start;
-  gap:17px;
+  gap:15px;
   width:160px;
   height:23px;
 }
@@ -226,7 +227,7 @@
   top:auto;
   display:flex;
   align-items:flex-start;
-  gap:17px;
+  gap:15px;
   width:auto;
   height:auto;
 }
@@ -321,7 +322,7 @@
     position:relative;
     left:auto;
     top:auto;
-    gap:17px;
+    gap:15px;
     width:auto;
     height:auto;
   }
