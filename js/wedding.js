@@ -2,7 +2,7 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-014-gallery-lightbox-minimal
+Версия: wedding-js-015-gallery-lightbox-premium
 
 ИЗМЕНЕНИЯ:
 - убрано любое вмешательство в document.documentElement и document.body
@@ -15,7 +15,8 @@ WEDDING JS
 - добавлено состояние is-gallery-open на .ip-wedding при раскрытии галереи
 - scroll-spacer теперь пересчитывает высоту страницы с учётом раскрытой desktop-галереи
 - добавлен gallery lightbox: открытие фото по клику/Enter, закрытие по Esc/фону
-- убран фокус на видимые кнопки управления, потому что в минимальном lightbox остаётся только счётчик
+- убран фокус на видимые кнопки управления, потому что в lightbox остаётся только счётчик
+- усилена логика закрытия: клик в любой зоне вне самой фотографии закрывает lightbox
 - сохранена навигация по фотографиям клавишами и колесом мыши внутри lightbox
 ==================================================
 */
@@ -652,6 +653,19 @@ WEDDING JS
     }
 
     if(galleryLightbox){
+      galleryLightbox.addEventListener('click', function(event){
+        if(!isGalleryLightboxOpen()){
+          return;
+        }
+
+        if(event.target && event.target.closest('.ip-gallery-lightbox-image')){
+          return;
+        }
+
+        event.preventDefault();
+        closeGalleryLightbox();
+      });
+
       galleryLightbox.addEventListener('wheel', function(event){
         if(!isGalleryLightboxOpen()){
           return;
