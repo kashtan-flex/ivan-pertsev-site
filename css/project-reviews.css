@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-014
+   Версия: project-reviews-016
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -17,6 +17,7 @@
    - усилено мягкое тёмное свечение карточки на hover
    - Safari-safe hover: убрано движение всей карточки с текстом
    - подъём при наведении имитируется тенью без перерастеризации текста
+   - popup review typography and spacing приведены к Figma: avatar 40px, title 19px, type 12px, text 16px
    ========================================================= */
 
 .ip-wedding-reviews,
@@ -35,13 +36,11 @@
   width:194px;
   height:302px;
   padding:0;
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.10);
   border-radius:4px;
   overflow:hidden;
   background:transparent;
-  box-shadow:
-    0 14px 34px rgba(0,0,0,.16),
-    inset 0 1px 0 rgba(255,255,255,.025);
+  box-shadow:none;
   color:#fff;
   text-align:left;
   cursor:pointer;
@@ -221,8 +220,9 @@
 .ip-review-popup-card{
   position:relative;
   width:339px;
+  height:528px;
   min-height:528px;
-  padding:26px;
+  padding:0;
   border:1px solid rgba(255,255,255,.10);
   border-radius:7px;
   overflow:hidden;
@@ -247,9 +247,10 @@
 
 .ip-review-popup-card .ip-wedding-review,
 .ip-review-popup-card .ip-project-review{
-  position:static;
-  width:auto;
-  height:auto;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
   min-height:0;
   padding:0;
   margin:0;
@@ -274,21 +275,21 @@
 
 .ip-review-popup-card .ip-wedding-review-top,
 .ip-review-popup-card .ip-project-review-top{
-  position:relative;
-  left:auto;
-  top:auto;
+  position:absolute;
+  left:30px;
+  top:30px;
   display:flex;
   align-items:flex-start;
-  gap:15px;
-  width:auto;
-  height:auto;
+  gap:20px;
+  width:279px;
+  height:40px;
 }
 
 .ip-review-popup-card .ip-wedding-review-avatar,
 .ip-review-popup-card .ip-project-review-avatar{
-  width:42px;
-  height:42px;
-  flex:0 0 42px;
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
 }
 
 
@@ -305,24 +306,45 @@
 
 .ip-review-popup-card .ip-wedding-review-name,
 .ip-review-popup-card .ip-project-review-name{
+  margin:0;
+  padding:0;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
   font-size:19px;
+  line-height:1.2;
+  font-weight:600;
+  letter-spacing:-.02em;
+  white-space:nowrap;
 }
 
 .ip-review-popup-card .ip-wedding-review-type,
 .ip-review-popup-card .ip-project-review-type{
-  margin-top:8px;
+  margin:1px 0 0;
+  padding:0;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
   font-size:12px;
+  line-height:1.2;
+  font-weight:400;
+  letter-spacing:-.02em;
+  white-space:nowrap;
 }
 
 .ip-review-popup-card .ip-wedding-review-text,
 .ip-review-popup-card .ip-project-review-text{
-  position:relative;
-  left:auto;
-  right:auto;
-  top:auto;
-  margin-top:26px;
+  position:absolute;
+  left:30px;
+  right:30px;
+  top:100px;
+  width:279px;
+  margin:0;
+  padding:0;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
   font-size:16px;
   line-height:1.5;
+  font-weight:400;
+  letter-spacing:0;
 }
 
 /* MOBILE SWIPE */
@@ -411,4 +433,9 @@
   .ip-review-popup{
     display:none !important;
   }
+}
+
+.ip-review-popup-card .ip-wedding-review-text strong,
+.ip-review-popup-card .ip-project-review-text strong{
+  font-weight:700;
 }
