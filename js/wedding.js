@@ -2,12 +2,13 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-007-safe-scope
+Версия: wedding-js-008-local-scale
 
 ИЗМЕНЕНИЯ:
-- убрано любое вмешательство в document.documentElement и document.body
-- wedding теперь управляет только своей страницей .ip-wedding
-- добавлен внутренний scroll-spacer для корректной прокрутки страницы свадьбы
+- убрано глобальное изменение --wedding-scale через document.documentElement
+- wedding-scale теперь задаётся только внутри .ip-wedding
+- wedding больше не влияет на popup, главную и биографию
+- сохранён внутренний scroll-spacer для корректной прокрутки страницы свадьбы
 - сохранены menu, accordion, popup, review popup, gallery logic
 - сохранена premium magnetic hover анимация CTA-кнопок
 - сохранён Kinescope + poster без принудительного пересоздания iframe
@@ -119,12 +120,12 @@ WEDDING JS
       DESIGN.desktop.pageHeight * scale
     );
 
-    document.documentElement.style.setProperty(
+    page.style.setProperty(
       '--wedding-scale',
       scale.toFixed(5)
     );
 
-    document.documentElement.style.setProperty(
+    page.style.setProperty(
       '--wedding-vh',
       (viewportHeight * 0.01) + 'px'
     );
