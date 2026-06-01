@@ -2,7 +2,7 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-015-gallery-lightbox-premium
+Версия: wedding-js-016-gallery-scrolltop
 
 ИЗМЕНЕНИЯ:
 - убрано любое вмешательство в document.documentElement и document.body
@@ -29,13 +29,14 @@ WEDDING JS
       width:1440,
       heroHeight:800,
       pageHeight:1351,
-      galleryOpenPageHeight:3760
+      galleryOpenPageHeight:3882
     },
     breakpoint:767
   };
 
   var VIDEO_REVEAL_DELAY = 3200;
   var MAGNETIC_STRENGTH = 7;
+  var SCROLLTOP_REVEAL_OFFSET = 140;
 
   var page = document.querySelector('[data-wedding-page]');
   var stage = document.querySelector('.ip-wedding-stage');
@@ -59,6 +60,8 @@ WEDDING JS
 
   var galleryButton = document.querySelector('[data-wedding-gallery-open]');
   var gallery = document.querySelector('[data-wedding-gallery]');
+
+  var scrollTopButton = document.querySelector('.ip-wedding-scrolltop');
 
   var galleryLightbox = document.querySelector('[data-gallery-lightbox]');
   var galleryLightboxImage = document.querySelector('[data-gallery-lightbox-image]');
@@ -176,6 +179,49 @@ WEDDING JS
     page.style.overflowY = 'auto';
 
     ensureScrollSpacer().style.height = scaledPageHeight + 'px';
+
+    updateScrollTopVisibility();
+  }
+
+  function updateScrollTopVisibility(){
+    if(!scrollTopButton){
+      return;
+    }
+
+    if(isMobile()){
+      scrollTopButton.classList.remove('is-visible');
+      return;
+    }
+
+    var viewportHeight = getViewportHeight();
+    var currentPageHeight = getCurrentPageHeight();
+    var scaleValue = parseFloat(
+      page.style.getPropertyValue('--wedding-scale')
+    );
+
+    if(!scaleValue || scaleValue <= 0){
+      scaleValue = viewportHeight / DESIGN.desktop.heroHeight;
+    }
+
+    var scaledPageHeight = Math.ceil(
+      currentPageHeight * scaleValue
+    );
+
+    var distanceToBottom = scaledPageHeight - (page.scrollTop + viewportHeight);
+
+    if(distanceToBottom <= SCROLLTOP_REVEAL_OFFSET){
+      scrollTopButton.classList.add('is-visible');
+      return;
+    }
+
+    scrollTopButton.classList.remove('is-visible');
+  }
+
+  function scrollWeddingToTop(){
+    page.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
   }
 
   function requestScaleUpdate(){
@@ -782,6 +828,8 @@ WEDDING JS
         lastScrollTop = currentScrollTop <= 0
           ? 0
           : currentScrollTop;
+
+        updateScrollTopVisibility();
       },
       { passive:true }
     );
@@ -856,6 +904,10 @@ WEDDING JS
 
     if(menuButton){
       menuButton.addEventListener('click', toggleMenu);
+    }
+
+    if(scrollTopButton){
+      scrollTopButton.addEventListener('click', scrollWeddingToTop);
     }
 
     accordions.forEach(setupAccordion);

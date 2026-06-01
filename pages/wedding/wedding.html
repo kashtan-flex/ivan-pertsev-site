@@ -2,12 +2,14 @@
 ==================================================
 WEDDING HTML
 
-Версия: wedding-html-015-gallery-lightbox-premium
+Версия: wedding-html-017-scrolltop-aligned
 
 ИЗМЕНЕНИЯ:
 - наполнен desktop photo-grid страницы «Свадьба» двадцатью фотографиями
 - добавлено открытие фотографий галереи в отдельном popup/lightbox по клику или клавише Enter
 - gallery lightbox переведён в premium fullscreen режим без видимых кнопок закрытия и навигации
+- добавлена кнопка подъёма вверх под подсказкой отзывов
+- кнопка подъёма вверх привязана к контейнеру подсказки и выровнена по правому краю текста
 - оставлен только счётчик фотографий
 - усилено затемнение и blur фона за открытой фотографией
 - закрытие выполняется по Esc или клику в любой зоне вне самой фотографии
@@ -825,20 +827,35 @@ WEDDING HTML
       </section>
 
       <div
-        class="ip-wedding-review-hint"
-        aria-hidden="true"
+        class="ip-wedding-review-tools"
+        aria-label="Навигация по отзывам"
       >
 
-        <img
-          src="./assets/img/wedding/icons/review-tap-hint.svg"
-          alt=""
-          class="ip-wedding-review-hint-icon"
+        <div
+          class="ip-wedding-review-hint"
+          aria-hidden="true"
         >
 
-        <div class="ip-wedding-review-hint-text">
-          Нажмите<br>
-          для просмотра
+          <img
+            src="./assets/img/wedding/icons/review-tap-hint.svg"
+            alt=""
+            class="ip-wedding-review-hint-icon"
+          >
+
+          <div class="ip-wedding-review-hint-text">
+            Нажмите<br>
+            для просмотра
+          </div>
+
         </div>
+
+        <button
+          class="ip-wedding-scrolltop"
+          type="button"
+          aria-label="Подняться наверх"
+        >
+          <span></span>
+        </button>
 
       </div>
 
