@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Rules — Иван Перцев Сайт</title>
+  <title>Project Rules v2.0 — Иван Перцев Сайт</title>
 
   <style>
     body{
@@ -86,6 +86,89 @@
       border:none;
       border-top:1px solid #ddd;
     }
+
+    .hero{
+      margin:30px 0 36px;
+      padding:28px 32px;
+      color:#fff;
+      background:linear-gradient(135deg,#111 0%,#2b2b2b 100%);
+      border-radius:22px;
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+    }
+
+    .hero strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:18px;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin:24px 0;
+    }
+
+    .card{
+      padding:18px 20px;
+      border-radius:16px;
+      background:#f7f7f4;
+      border:1px solid #e5e5df;
+    }
+
+    .card strong{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .pill{
+      display:inline-block;
+      margin:4px 6px 4px 0;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      background:#f1f1ee;
+    }
+
+    .pill-ok{
+      background:#e9f8ec;
+      color:#16642b;
+    }
+
+    .pill-active{
+      background:#fff7d9;
+      color:#8a6300;
+    }
+
+    .pill-danger{
+      background:#ffe8e8;
+      color:#970000;
+    }
+
+    .toc{
+      margin:30px 0 40px;
+      padding:24px 26px;
+      background:#f7f7f4;
+      border-radius:18px;
+      border:1px solid #e5e5df;
+    }
+
+    .toc a{
+      display:inline-block;
+      margin:4px 12px 4px 0;
+      color:#111;
+      text-decoration:none;
+      border-bottom:1px solid rgba(0,0,0,.22);
+    }
+
+    @media (max-width:900px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 </head>
 
@@ -93,12 +176,52 @@
 
 <main>
 
-<h1>Project Rules — Иван Перцев Сайт</h1>
+<h1>Project Rules v2.0 — Иван Перцев Сайт</h1>
+
+<div class="hero">
+  <strong>DOCUMENT STATUS</strong>
+  Project Rules v2.0 · Дата актуализации: 2026-06-01 · Статус: ACTIVE<br>
+  Этот документ является единым актуальным источником правил проекта. Если старые разделы противоречат новым разделам 22–27, приоритет имеют разделы 22–27.
+</div>
+
+<div class="grid">
+  <div class="card">
+    <strong>APPROVED STABLE</strong>
+    <span class="pill pill-ok">Главная</span>
+    <span class="pill pill-ok">Биография</span>
+    <span class="pill pill-ok">Меню</span>
+    <span class="pill pill-ok">Popup</span>
+    <span class="pill pill-ok">Page Transition</span>
+  </div>
+
+  <div class="card">
+    <strong>ACTIVE DEVELOPMENT</strong>
+    <span class="pill pill-active">Свадьба</span>
+    <p>Текущая рабочая страница. Desktop собран, часть блоков утверждена, следующий этап — фотографии и mobile.</p>
+  </div>
+
+  <div class="card">
+    <strong>КРИТИЧЕСКОЕ ПРАВИЛО</strong>
+    <span class="pill pill-danger">Только полные файлы</span>
+    <p>Никаких patch, «найди и замени», «остальное без изменений», если пользователь прямо не попросил фрагмент.</p>
+  </div>
+</div>
+
+<div class="toc">
+  <strong>Ключевые разделы:</strong><br>
+  <a href="#rules-chatgpt">Правила ChatGPT</a>
+  <a href="#backup-v2">Backup v2</a>
+  <a href="#wedding-status">Свадьба</a>
+  <a href="#safari-safe">Safari-safe</a>
+  <a href="#approved-stable">Approved Stable</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#new-chat">Новый чат</a>
+</div>
 
 <p>
 Главный документ проекта. Фиксирует актуальную архитектуру сайта, правила разработки,
 локальный workflow, структуру файлов, desktop/mobile логику, правила работы ChatGPT с кодом,
-финальные решения по меню, popup, странице «Биография» и переходам между страницами.
+финальные решения по меню, popup, страницам «Главная», «Биография», текущему состоянию страницы «Свадьба», переходам между страницами, backup-логике и правилам дальнейшей разработки.
 </p>
 
 <div class="note">
@@ -140,7 +263,7 @@
     <li>масштабирование popup как единого макета: фон, текст, поля, чекбокс и кнопка уменьшаются вместе;</li>
     <li>page transition между страницами через короткий чёрный экран.</li>
   </ul>
-  Следующая рабочая задача: начать верстку страницы «Свадьба».
+  Текущая рабочая задача: продолжить страницу «Свадьба». Следующий этап — добавить фотографии, финализировать desktop и перейти к mobile адаптации.
 </div>
 
 
@@ -197,12 +320,12 @@ README.md</code></pre>
 <div class="note">
   <strong>АКТУАЛЬНАЯ BACKUP-ЛОГИКА:</strong><br>
   Старые папки backup/home и backup/home-v52-desktop-final удалены как неактуальные.
-  Текущий свежий backup хранится в <code>backup/build/</code> и содержит актуальные assets, css, js, pages, preview.html, biography-preview.html и README.md.
+  Текущий свежий backup хранится в <code>backup-YYYY-MM-DD-HH-MM/</code> и содержит актуальные assets, css, js, pages, preview.html, biography-preview.html и README.md.
 </div>
 
 <div class="danger">
   <strong>ВАЖНО:</strong><br>
-  Папку <code>backup/build/</code> не использовать как рабочую версию для правок.
+  Папку <code>backup-YYYY-MM-DD-HH-MM/</code> не использовать как рабочую версию для правок.
   Правки вносить только в основные папки проекта: <code>assets</code>, <code>css</code>, <code>js</code>, <code>pages</code> и корневые preview-файлы.
   Backup нужен только для сохранения стабильного состояния перед билдом/деплоем.
 </div>
@@ -326,7 +449,7 @@ biography-preview.html — локальный entry-point страницы «Б�
 
 <hr>
 
-<h2>4. Правила работы ChatGPT</h2>
+<h2 id="rules-chatgpt">4. Правила работы ChatGPT</h2>
 
 <h3>Главное правило</h3>
 
@@ -979,15 +1102,15 @@ update</code></pre>
 
 <hr>
 
-<h2>16. Backup policy</h2>
+<h2 id="backup-v2">16. Backup policy v2</h2>
 
 <h3>Текущий backup location</h3>
 
-<pre><code>backup/build/</code></pre>
+<pre><code>backup-YYYY-MM-DD-HH-MM/</code></pre>
 
-<h3>Текущий состав backup/build</h3>
+<h3>Текущий состав backup-YYYY-MM-DD-HH-MM</h3>
 
-<pre><code>backup/build/
+<pre><code>backup-YYYY-MM-DD-HH-MM/
   assets/
   css/
   js/
@@ -999,15 +1122,15 @@ update</code></pre>
 <h3>Правила backup</h3>
 
 <ul>
-  <li>backup/build — это свежий снимок текущего stable-состояния проекта;</li>
+  <li>backup-YYYY-MM-DD-HH-MM — это свежий снимок текущего stable-состояния проекта;</li>
   <li>старые backup/home и backup/home-v52-desktop-final больше не использовать;</li>
-  <li>не править файлы внутри backup/build как рабочие;</li>
+  <li>не править файлы внутри backup-YYYY-MM-DD-HH-MM как рабочие;</li>
   <li>рабочие правки всегда делать в основных папках проекта;</li>
-  <li>после стабильных изменений можно пересоздать backup/build заново;</li>
-  <li>backup/build должен идти в Git как точка восстановления перед build/deploy.</li>
+  <li>после стабильных изменений можно пересоздать backup-YYYY-MM-DD-HH-MM заново;</li>
+  <li>backup-YYYY-MM-DD-HH-MM должен идти в Git как точка восстановления перед build/deploy.</li>
 </ul>
 
-<h3>Что копировать в backup/build</h3>
+<h3>Что копировать в backup-YYYY-MM-DD-HH-MM</h3>
 
 <pre><code>assets
 css
@@ -1017,7 +1140,7 @@ biography-preview.html
 preview.html
 README.md</code></pre>
 
-<h3>Что НЕ копировать в backup/build</h3>
+<h3>Что НЕ копировать в backup-YYYY-MM-DD-HH-MM</h3>
 
 <pre><code>backup
 .git
@@ -1059,7 +1182,7 @@ README.md</code></pre>
   <li>black screen page transition между preview.html и biography-preview.html;</li>
   <li>desktop/mobile typography разделены, чтобы mobile-переносы не ломали desktop;</li>
   <li>mobile typography: не оставлять висящие предлоги, союзы и короткие слова в конце строки;</li>
-  <li>свежий backup build создан в backup/build.</li>
+  <li>свежий backup build создан в backup-YYYY-MM-DD-HH-MM.</li>
 </ul>
 
 <h3>Финально утверждено</h3>
@@ -1079,12 +1202,12 @@ README.md</code></pre>
 
 <h3>Следующая задача</h3>
 
-<pre><code>Начать верстку следующей страницы: «Свадьба».</code></pre>
+<pre><code>Продолжить страницу «Свадьба»: добавить фотографии, финализировать desktop, затем выполнить mobile адаптацию.</code></pre>
 
 <p>
 В новом чате сразу исходить из того, что главная и биография уже готовы и утверждены.
 Нужно не возвращаться к их меню, popup, transition и mobile-логике без прямого запроса пользователя.
-Работу продолжать со страницы «Свадьба», сохраняя текущую архитектуру проекта.
+Работу продолжать со страницы «Свадьба», сохраняя текущую архитектуру проекта и утверждённые блоки.
 </p>
 
 <hr>
@@ -1192,7 +1315,7 @@ git push</code></pre>
 
 <h3>Следующая задача</h3>
 
-<pre><code>Начать верстку следующей страницы: «Свадьба».</code></pre>
+<pre><code>Продолжить страницу «Свадьба»: добавить фотографии, финализировать desktop, затем выполнить mobile адаптацию.</code></pre>
 
 <p>
 В новом чате нужно сразу продолжать проект с этой точки. Не возвращаться к переработке главной,
@@ -1516,7 +1639,7 @@ css/popups-mobile.css</code></pre>
     preview.html
     README.md</code></pre>
 
-<h3>Что копировать в backup/build</h3>
+<h3>Что копировать в backup-YYYY-MM-DD-HH-MM</h3>
 
 <pre><code>assets
 css
@@ -1547,7 +1670,7 @@ README.md</code></pre>
 
 <div class="note">
   <strong>СТАРТ СЛЕДУЮЩЕГО ЧАТА:</strong><br>
-  Нужно сразу приступать к верстке страницы «Свадьба».
+  Страница «Свадьба» уже находится в active development. Нужно продолжать с текущей stable-базы, не переписывая страницу заново.
 </div>
 
 <h3>Что использовать как основу</h3>
@@ -1582,7 +1705,7 @@ README.md</code></pre>
 4. Для mobile использовать отдельный CSS.
 5. Если desktop/mobile текст отличается по переносам — сразу разделить HTML-блоки.
 6. После утверждения сделать commit.
-7. После стабильного состояния добавить страницу в backup/build.</code></pre>
+7. После стабильного состояния добавить страницу в backup-YYYY-MM-DD-HH-MM.</code></pre>
 
 <h3>Ожидание пользователя</h3>
 
@@ -1590,6 +1713,283 @@ README.md</code></pre>
 Пользователь хочет продолжать итеративно, но без ручных замен.
 На каждый запрос по коду давать полный готовый файл.
 </p>
+
+
+
+<hr>
+
+<h2 id="wedding-status">22. Страница «Свадьба» — актуальный статус</h2>
+
+<div class="note">
+  <strong>СТАТУС:</strong><br>
+  Страница «Свадьба» находится в <strong>ACTIVE DEVELOPMENT</strong> и является текущей рабочей страницей проекта.
+  Её не нужно начинать заново. Работать только от текущей стабильной базы.
+</div>
+
+<h3>Текущие файлы страницы</h3>
+
+<pre><code>wedding-preview.html
+
+pages/
+  wedding/
+    wedding.html
+
+css/
+  wedding.css
+  project-reviews.css
+
+js/
+  wedding.js</code></pre>
+
+<h3>Что уже реализовано на странице «Свадьба»</h3>
+
+<ul>
+  <li>Desktop-страница собрана как отдельная проектная страница.</li>
+  <li>Используется общий preview workflow через <code>wedding-preview.html</code>.</li>
+  <li>Сохранена общая архитектура проекта: общий menu, общий popup, общий page transition.</li>
+  <li>Левая часть страницы содержит заголовок, подзаголовок, текст, CTA-кнопки и awards.</li>
+  <li>Правая часть содержит Kinescope-видео.</li>
+  <li>Видео работает через Kinescope iframe.</li>
+  <li>Используется poster-layer перед видео.</li>
+  <li>Autoplay muted loop сохранён.</li>
+  <li>Отдельный iframe reset не использовать.</li>
+  <li>Блок отзывов реализован.</li>
+  <li>Popup отзывов реализован.</li>
+  <li>CTA-кнопки «Смотреть фото» и «Обсудить детали» реализованы.</li>
+  <li>Подсказка под отзывами «Нажмите / для просмотра» реализована.</li>
+</ul>
+
+<h3>Wedding video</h3>
+
+<div class="success">
+  <strong>УТВЕРЖДЕНО:</strong><br>
+  Kinescope + poster preload. Не возвращаться к экспериментам со сбросом iframe.
+</div>
+
+<ul>
+  <li>Видео справа, высота 800px в desktop-композиции.</li>
+  <li>Poster используется для аккуратного визуального старта.</li>
+  <li>Видео не должно ломать меню.</li>
+  <li>Меню на Wedding должно перекрывать видео корректно.</li>
+</ul>
+
+<h3>Wedding reviews</h3>
+
+<div class="success">
+  <strong>УТВЕРЖДЕНО:</strong><br>
+  Маленькие отзывы и popup-отзывы считаются стабильными. Не менять без прямого запроса пользователя.
+</div>
+
+<ul>
+  <li>На странице 7 отзывов.</li>
+  <li>Отзывы идут слева направо.</li>
+  <li>Аватары лежат в <code>assets/img/wedding/reviews/</code>.</li>
+  <li>Имена файлов аватаров: <code>review-wedding-01.webp</code> ... <code>review-wedding-07.webp</code>.</li>
+  <li>Desktop карточки отзывов приведены к Figma-геометрии.</li>
+  <li>Внутри отзывов зафиксированы ручные переносы строк.</li>
+  <li>Popup-отзывы имеют собственную типографику и размеры.</li>
+</ul>
+
+<h3>Popup отзывов</h3>
+
+<ul>
+  <li>Отзывы 1–3 открываются с левой стороны.</li>
+  <li>Отзыв 4 открывается из центра.</li>
+  <li>Отзывы 5–7 открываются с правой стороны.</li>
+  <li>Текущая анимация появления считается принятой.</li>
+  <li>Если остаётся минимальная перерастеризация текста на фоне — не возвращаться к бесконечной правке без прямого запроса пользователя.</li>
+</ul>
+
+<h3>CTA-кнопки Wedding</h3>
+
+<div class="success">
+  <strong>УТВЕРЖДЕНО:</strong><br>
+  Magnetic hover удалён. Используется равномерная тёмная тень вокруг кнопки.
+</div>
+
+<ul>
+  <li>Кнопка «Смотреть фото» сохраняет свой исходный цвет.</li>
+  <li>Кнопка «Обсудить детали» сохраняет свой исходный цвет.</li>
+  <li>На hover не менять цвет кнопок.</li>
+  <li>На hover показывать равномерное тёмное свечение вокруг кнопки.</li>
+  <li>Не возвращать magnetic hover без прямого запроса пользователя.</li>
+</ul>
+
+<h3>Подсказка под отзывами</h3>
+
+<pre><code>Нажмите
+для просмотра</code></pre>
+
+<ul>
+  <li>SVG лежит по пути: <code>assets/img/wedding/icons/review-tap-hint.svg</code>.</li>
+  <li>Подсказка только desktop.</li>
+  <li>Отступ от правого края: 100px.</li>
+  <li>Не ломать <code>project-reviews.css</code> ради этой подсказки.</li>
+</ul>
+
+<h3>Что запрещено менять на Wedding без прямого запроса</h3>
+
+<ul>
+  <li>Не ломать меню.</li>
+  <li>Не ломать общий popup.</li>
+  <li>Не ломать page transition.</li>
+  <li>Не ломать отзывы.</li>
+  <li>Не ломать popup-отзывы.</li>
+  <li>Не менять Kinescope + poster решение.</li>
+  <li>Не переписывать страницу заново.</li>
+  <li>Не возвращать magnetic hover на CTA-кнопки.</li>
+</ul>
+
+<hr>
+
+<h2 id="safari-safe">23. Safari-safe animation rules</h2>
+
+<div class="danger">
+  <strong>КРИТИЧЕСКОЕ ПРАВИЛО:</strong><br>
+  Все новые анимации и hover-эффекты должны настраиваться с учётом Safari.
+</div>
+
+<h3>Главная проблема</h3>
+
+<p>
+Safari и часть Chromium-браузеров могут перерастеризовывать текст, если одновременно используются:
+</p>
+
+<ul>
+  <li><code>transform</code> на контейнере с текстом;</li>
+  <li><code>backdrop-filter</code> или <code>filter</code>;</li>
+  <li>масштабирование <code>scale()</code>;</li>
+  <li>мелкая типографика;</li>
+  <li>полупрозрачные слои поверх текста.</li>
+</ul>
+
+<h3>Запрещено</h3>
+
+<ul>
+  <li>Не анимировать текстовые контейнеры через <code>transform</code>, если рядом используется blur/backdrop-filter.</li>
+  <li>Не использовать решения, которые дают заметное дрожание или изменение жирности текста.</li>
+  <li>Не добавлять hover-подъём через transform на контейнер с текстом, если это вызывает блюр.</li>
+  <li>Не анимировать <code>backdrop-filter</code> без необходимости.</li>
+</ul>
+
+<h3>Предпочтительно</h3>
+
+<ul>
+  <li><code>opacity</code>;</li>
+  <li><code>visibility</code>;</li>
+  <li><code>box-shadow</code>;</li>
+  <li>отдельный декоративный слой;</li>
+  <li>анимация тени вместо движения текстового слоя;</li>
+  <li>Safari-safe подход без перерастеризации текста.</li>
+</ul>
+
+<h3>Для карточек и кнопок</h3>
+
+<ul>
+  <li>Если нужен hover-эффект, сначала пробовать тень.</li>
+  <li>Если нужен подъём, не двигать текстовый слой.</li>
+  <li>Если текст начинает дрожать, остановиться и выбрать более безопасный эффект.</li>
+</ul>
+
+<hr>
+
+<h2 id="approved-stable">24. Approved Stable</h2>
+
+<div class="success">
+  <strong>APPROVED STABLE:</strong><br>
+  Следующие части проекта считаются утверждёнными и не должны меняться без прямого запроса пользователя.
+</div>
+
+<ul>
+  <li>Главная страница desktop.</li>
+  <li>Главная страница mobile.</li>
+  <li>Страница «Биография / Обо мне» desktop.</li>
+  <li>Страница «Биография / Обо мне» mobile.</li>
+  <li>Общее меню на главной и биографии.</li>
+  <li>Общий popup.</li>
+  <li>Popup desktop.</li>
+  <li>Popup mobile.</li>
+  <li>Page transition через короткий чёрный экран.</li>
+  <li>Wedding video block.</li>
+  <li>Wedding reviews.</li>
+  <li>Wedding review popup.</li>
+  <li>Wedding CTA buttons.</li>
+</ul>
+
+<h3>Свадьба</h3>
+
+<div class="note">
+  <strong>ACTIVE DEVELOPMENT:</strong><br>
+  Страница «Свадьба» не является полностью finished, но её текущие утверждённые блоки нельзя ломать.
+</div>
+
+<hr>
+
+<h2>25. Правила дальнейшей работы со страницей «Свадьба»</h2>
+
+<h3>Перед любой правкой</h3>
+
+<ul>
+  <li>Проверить, какой файл реально нужно менять.</li>
+  <li>Не менять <code>project-reviews.css</code>, если задача не относится к отзывам.</li>
+  <li>Не менять <code>wedding.css</code>, если задача относится только к HTML-контенту.</li>
+  <li>Не менять <code>wedding.js</code>, если задача относится только к визуальному CSS.</li>
+  <li>Делать минимально локальную правку.</li>
+  <li>После правки проверять на localhost.</li>
+</ul>
+
+<h3>Текущий следующий этап Wedding</h3>
+
+<ul>
+  <li>Добавить фотографии на страницу «Свадьба».</li>
+  <li>После добавления фотографий финализировать desktop.</li>
+  <li>После утверждения desktop перейти к mobile адаптации.</li>
+</ul>
+
+<hr>
+
+<h2 id="roadmap">26. Roadmap</h2>
+
+<ol>
+  <li>Добавить фотографии на страницу «Свадьба».</li>
+  <li>Настроить отображение фото-блока/галереи.</li>
+  <li>Проверить desktop Wedding на localhost.</li>
+  <li>Финализировать desktop Wedding.</li>
+  <li>Создать backup по дате и времени.</li>
+  <li>Перейти к mobile адаптации Wedding.</li>
+  <li>После mobile создать новый backup.</li>
+  <li>После завершения Wedding перейти к следующей странице проекта.</li>
+</ol>
+
+<hr>
+
+<h2 id="new-chat">27. Старт нового чата</h2>
+
+<div class="note">
+  <strong>ПЕРВОЕ СООБЩЕНИЕ В НОВОМ ЧАТЕ:</strong>
+</div>
+
+<pre><code>Работаем строго по Project Rules v2.0.
+
+Главная и Биография — approved stable.
+
+Shared menu/system нельзя ломать.
+
+Popup нельзя ломать.
+
+Page transition нельзя ломать.
+
+Страница Свадьба является текущей рабочей страницей.
+
+Работаем только точечными правками.
+
+Следующий этап:
+добавляем фотографии на страницу Свадьба,
+после этого финализируем desktop,
+затем делаем mobile адаптацию.
+
+Нужны только полные готовые файлы или архивы.
+Без блочных правок, без patch, без «найди и замени».</code></pre>
 
 
 <hr>
@@ -1648,242 +2048,8 @@ black page transition</code></pre>
 Без patch-over-patch.
 Меню больше не менять без прямого запроса.</code></pre>
 
-<hr>
-
-<h2>21-J. Правила стабильности shared-систем</h2>
-
-<div class="danger">
-  <strong>КРИТИЧЕСКОЕ ПРАВИЛО:</strong><br>
-  Shared-системы проекта считаются стабильными и не должны переписываться локальными правками отдельных страниц.
-</div>
-
-<h3>Что считается shared-системой</h3>
-
-<ul>
-  <li>menu system;</li>
-  <li>accordion system;</li>
-  <li>popup system;</li>
-  <li>page transition system;</li>
-  <li>desktop scaling logic;</li>
-  <li>mobile scaling logic;</li>
-  <li>shared animation helpers;</li>
-  <li>shared typography rules.</li>
-</ul>
-
-<h3>Главное правило</h3>
-
-<p>
-Если правка относится только к одной странице, например «Свадьба», нельзя изменять глобальные shared-классы:
-</p>
-
-<pre><code>.ip-menu-*
-.ip-accordion-*
-.ip-popup-*
-html
-body
-#allrecords</code></pre>
-
-<p>
-Все page-specific overrides должны быть строго scoped:
-</p>
-
-<pre><code>.ip-wedding ...
-.ip-corporate ...
-.ip-birthday ...</code></pre>
-
-<h3>Запрещено</h3>
-
-<ul>
-  <li>Ломать главную ради новой страницы.</li>
-  <li>Ломать биографию ради новой страницы.</li>
-  <li>Менять общую menu-архитектуру ради локального исправления.</li>
-  <li>Менять popup scaling локально внутри страницы.</li>
-  <li>Добавлять глобальный overflow в html/body.</li>
-  <li>Добавлять global transform hacks.</li>
-  <li>Использовать локальную page-правку, которая визуально меняет утверждённое меню на других страницах.</li>
-</ul>
-
-<h3>Перед любым большим refactor</h3>
-
-<p>
-Обязательно:
-</p>
-
-<pre><code>1. Создать backup/build snapshot.
-2. Сделать отдельный commit.
-3. Только потом начинать refactor.</code></pre>
-
-<hr>
-
-<h2>21-K. Актуальные правила страницы «Свадьба»</h2>
-
-<div class="note">
-  <strong>ТЕКУЩИЙ СТАТУС:</strong><br>
-  Страница «Свадьба» находится в активной разработке.
-</div>
-
-<h3>Что уже утверждено</h3>
-
-<ul>
-  <li>Video-first layout справа 450×800.</li>
-  <li>Poster preload перед запуском видео.</li>
-  <li>Плавный fade между poster и video.</li>
-  <li>Kinescope остаётся основным video-hosting.</li>
-  <li>Используется компромисс: при возврате на страницу видео может продолжаться, если это даёт более стабильную загрузку без чёрного экрана.</li>
-</ul>
-
-<div class="success">
-  <strong>ВАЖНО:</strong><br>
-  Не ломать стабильность video-loading ради принудительного reset video.
-  Плавная и стабильная загрузка важнее полного reset playback.
-</div>
-
-<h3>Главное правило свадьбы</h3>
-
-<p>
-Все правки страницы «Свадьба» должны быть scoped только внутри:
-</p>
-
-<pre><code>.ip-wedding ...</code></pre>
-
-<p>
-Нельзя менять shared menu system ради страницы «Свадьба».
-</p>
-
-<h3>Scroll логика</h3>
-
-<ul>
-  <li>Desktop масштабирование должно оставаться как на главной и биографии.</li>
-  <li>Базовая область 1440×800 остаётся visual viewport.</li>
-  <li>Scroll добавляется только для дополнительного контента ниже fold.</li>
-  <li>Нельзя ломать desktop scaling ради scroll.</li>
-  <li>Нельзя добавлять глобальные overflow-правки для html/body/#allrecords ради одной страницы.</li>
-</ul>
-
-<h3>Кнопки свадьбы</h3>
-
-<ul>
-  <li>Premium magnetic hover утверждён как направление, но применять его осторожно.</li>
-  <li>Glow behind button запрещён.</li>
-  <li>Допустим только edge shine по контуру.</li>
-  <li>Белая кнопка → тёмный shine.</li>
-  <li>Тёмная кнопка → белый shine.</li>
-  <li>Если magnetic hover конфликтует со scale-контейнером или мылит текст, сначала отключить magnetic и вернуть стабильную кнопку.</li>
-</ul>
-
-<h3>Video preload compromise</h3>
-
-<ul>
-  <li>Kinescope + poster preload остаётся текущим компромиссом.</li>
-  <li>Не пытаться жёстко сбрасывать iframe Kinescope на начало, если это ломает загрузку или создаёт чёрный/служебный кадр.</li>
-  <li>Poster может быть любым красивым кадром, не обязательно первым кадром видео.</li>
-  <li>Переход poster → video должен быть плавным.</li>
-</ul>
-
-<hr>
-
-<h2>21-L. Актуальный стиль commit</h2>
-
-<div class="success">
-  <strong>ПОЛЬЗОВАТЕЛЬ УТВЕРДИЛ КОРОТКИЙ VS CODE STYLE COMMIT FORMAT.</strong>
-</div>
-
-<h3>Правильный формат</h3>
-
-<pre><code>Create first production-ready wedding page layout
-Refine biography mobile spacing
-Restore stable shared menu rendering
-Improve wedding video preload transition
-Stabilize popup responsive scaling
-Keep wedding video poster preload compromise</code></pre>
-
-<h3>Запрещено</h3>
-
-<pre><code>fix
-fix2
-final
-newfinal
-ultimatefix
-patch
-hotfix
-test
-update</code></pre>
-
-<h3>Правило</h3>
-
-<p>
-После каждой проектной правки ChatGPT должен предлагать короткий production-style commit.
-Если пользователь просит только commit, отвечать только одной готовой фразой без пояснений.
-</p>
-
-<hr>
-
-<h2>21-M. Старт нового чата</h2>
-
-<div class="danger">
-  <strong>ОБЯЗАТЕЛЬНО:</strong><br>
-  При старте нового чата первым сообщением необходимо указать актуальный статус проекта.
-</div>
-
-<h3>Первое сообщение нового чата</h3>
-
-<pre><code>Работаем строго по Project Rules.
-
-Главная и биография считаются approved и stable.
-
-Shared menu system нельзя ломать.
-
-Работаем только scoped-правками.</code></pre>
-
-<h3>Что это означает</h3>
-
-<ul>
-  <li>Не возвращаться к переработке главной без прямого запроса пользователя.</li>
-  <li>Не возвращаться к переработке биографии без прямого запроса пользователя.</li>
-  <li>Не менять approved menu system.</li>
-  <li>Не переписывать popup system без прямого запроса.</li>
-  <li>Все новые страницы должны использовать текущую shared-архитектуру.</li>
-  <li>Если проблема появилась сразу на главной, биографии и свадьбе — сначала искать причину в shared CSS/JS, а не продолжать локальные правки wedding.css.</li>
-</ul>
-
-<hr>
-
-<h2>21-N. Аварийный порядок восстановления после поломки shared UI</h2>
-
-<div class="danger">
-  <strong>ВАЖНО:</strong><br>
-  Если одновременно ломаются главная, биография и свадьба, нельзя продолжать править отдельную страницу.
-</div>
-
-<h3>Порядок действий</h3>
-
-<pre><code>1. Остановить правки текущей страницы.
-2. Проверить, какие shared-файлы изменялись последними.
-3. Вернуть стабильность главной и биографии.
-4. Проверить меню, popup, transition.
-5. Только после этого возвращаться к странице «Свадьба».</code></pre>
-
-<h3>Что проверить первым</h3>
-
-<ul>
-  <li><code>css/home.css</code> — базовая menu system.</li>
-  <li><code>css/popups.css</code> — popup scaling и backdrop.</li>
-  <li><code>css/page-transition.css</code> — overlay перехода.</li>
-  <li><code>js/home.js</code> — menu behavior.</li>
-  <li><code>js/page-transition.js</code> — переходы между страницами.</li>
-</ul>
-
-<h3>Что не трогать без необходимости</h3>
-
-<ul>
-  <li><code>biography-mobile.css</code>, если mobile меню работает корректно.</li>
-  <li>Утверждённую popup-анимацию.</li>
-  <li>Утверждённую page transition-анимацию.</li>
-  <li>Утверждённую типографику меню.</li>
-</ul>
-
-
 </main>
 
+<!-- Project Rules v2.0 generated 2026-06-01 -->
 </body>
 </html>
