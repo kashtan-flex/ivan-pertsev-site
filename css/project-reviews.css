@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-021
+   Версия: project-reviews-024
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -20,6 +20,7 @@
    - Safari-safe hover: убрано движение всей карточки с текстом
    - подъём при наведении имитируется тенью без перерастеризации текста
    - popup review typography and spacing приведены к Figma: avatar 40px, title 19px, type 12px, text 16px
+   - уменьшен стартовый scale popup с .25 до .72 для снижения перерастеризации текста на фоне
    ========================================================= */
 
 .ip-wedding-reviews,
@@ -203,15 +204,20 @@
   position:absolute;
   inset:0;
   opacity:0;
-  background:rgba(0,0,0,.62);
-  backdrop-filter:none;
-  -webkit-backdrop-filter:none;
+  background:rgba(0,0,0,0);
+  backdrop-filter:blur(0);
+  -webkit-backdrop-filter:blur(0);
   transition:
+    background .36s cubic-bezier(.19,1,.22,1),
+    backdrop-filter .36s cubic-bezier(.19,1,.22,1),
     opacity .36s cubic-bezier(.19,1,.22,1);
 }
 
 .ip-review-popup.is-open .ip-review-popup-backdrop{
   opacity:1;
+  background:rgba(0,0,0,.62);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }
 
 .ip-review-popup-card{
@@ -230,7 +236,7 @@
     0 44px 120px rgba(0,0,0,.48),
     inset 0 1px 0 rgba(255,255,255,.035);
   opacity:0;
-  transform:translate3d(0,0,0) scale(.25);
+  transform:translate3d(0,0,0) scale(.72);
   transition:
     transform .52s cubic-bezier(.19,1,.22,1),
     opacity .52s cubic-bezier(.19,1,.22,1);
