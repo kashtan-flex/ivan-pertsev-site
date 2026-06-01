@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-003
+   Версия: project-reviews-004
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -75,6 +75,18 @@
   background:rgba(255,255,255,.08);
   overflow:hidden;
 }
+
+
+.ip-wedding-review-avatar img,
+.ip-project-review-avatar img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  border-radius:50%;
+}
+
 
 .ip-wedding-review-meta,
 .ip-project-review-meta{
@@ -225,6 +237,18 @@
   height:42px;
   flex:0 0 42px;
 }
+
+
+.ip-review-popup-card .ip-wedding-review-avatar img,
+.ip-review-popup-card .ip-project-review-avatar img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  border-radius:50%;
+}
+
 
 .ip-review-popup-card .ip-wedding-review-name,
 .ip-review-popup-card .ip-project-review-name{
