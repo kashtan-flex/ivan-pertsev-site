@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-010
+   Версия: project-reviews-012
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -61,7 +61,7 @@
   inset:0;
   z-index:0;
   border-radius:inherit;
-  background:rgba(0,0,0,.20);
+  background:transparent;
   backdrop-filter:blur(4px);
   -webkit-backdrop-filter:blur(4px);
   pointer-events:none;
@@ -225,7 +225,7 @@
   padding:26px;
   border-radius:24px;
   overflow:hidden;
-  background:rgba(0,0,0,.20);
+  background:transparent;
   backdrop-filter:blur(4px);
   -webkit-backdrop-filter:blur(4px);
   box-shadow:none;
@@ -235,6 +235,7 @@
     transform .52s cubic-bezier(.19,1,.22,1),
     opacity .52s cubic-bezier(.19,1,.22,1);
   transform-origin:center center;
+  border:1px solid rgba(255,255,255,.10);
 }
 
 .ip-review-popup.is-open .ip-review-popup-card{
