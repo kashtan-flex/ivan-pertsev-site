@@ -3,7 +3,7 @@
 =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-cta-hover-002
+   Версия: wedding-css-cta-hover-003
 
    ИЗМЕНЕНИЯ:
    - откат к стабильной версии до глобальных scroll/popup/menu правок
@@ -730,7 +730,7 @@
 /* =========================================================
    CTA BUTTONS HOVER — SAFARI SAFE
 
-   Версия: wedding-css-cta-hover-002
+   Версия: wedding-css-cta-hover-003
 
    ИЗМЕНЕНИЯ:
    - полностью отключён magnetic hover у кнопок «Смотреть фото» и «Обсудить детали»
@@ -765,8 +765,9 @@
   transform:none !important;
   -webkit-transform:none !important;
   box-shadow:
-    0 0 42px rgba(0,0,0,.36),
-    0 0 18px rgba(0,0,0,.24);
+    0 0 72px rgba(0,0,0,.52),
+    0 0 36px rgba(0,0,0,.34),
+    0 0 18px rgba(0,0,0,.20);
 }
 
 .ip-wedding-button-outline:hover,
