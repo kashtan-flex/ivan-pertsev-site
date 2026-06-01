@@ -783,3 +783,30 @@
   color:#050603;
   border-color:#fff;
 }
+
+/* =========================================================
+   REVIEW HINT TEXT FINAL OVERRIDE
+
+   Версия: wedding-css-review-hint-001
+
+   ИЗМЕНЕНИЯ:
+   - исправлен перенос подсказки под отзывами без изменения project-reviews.css
+   - строка «для просмотра» больше не дробится на две строки
+   - отступ справа зафиксирован 100px
+   ========================================================= */
+
+.ip-wedding .ip-wedding-review-hint{
+  right:100px !important;
+  left:auto !important;
+  width:170px !important;
+}
+
+.ip-wedding .ip-wedding-review-hint-text{
+  width:135px !important;
+  min-width:135px !important;
+  white-space:nowrap !important;
+}
+
+.ip-wedding .ip-wedding-review-hint-text br{
+  display:block !important;
+}
