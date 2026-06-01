@@ -2,17 +2,22 @@
 ==================================================
 WEDDING HTML
 
-Версия: wedding-html-011
+Версия: wedding-html-018-gallery-autoscroll-motion
 
 ИЗМЕНЕНИЯ:
-- добавлен poster-layer в video block
-- сохранена корректная структура wedding-html-002
-- сохранён Kinescope video block
-- сохранены CTA-кнопки
-- уточнены ручные переносы строк в отзывах №2–№7
-- зафиксированы переносы строк отзывов через неразрывные пробелы
-- сохранены отзывы и review-popup
-- сохранены popup/menu/page transition
+- наполнен desktop photo-grid страницы «Свадьба» двадцатью фотографиями
+- добавлено открытие фотографий галереи в отдельном popup/lightbox по клику или клавише Enter
+- gallery lightbox переведён в premium fullscreen режим без видимых кнопок закрытия и навигации
+- добавлена кнопка подъёма вверх под подсказкой отзывов
+- кнопка подъёма вверх привязана к контейнеру подсказки и выровнена по правому краю текста
+- оставлен только счётчик фотографий
+- усилено затемнение и blur фона за открытой фотографией
+- закрытие выполняется по Esc или клику в любой зоне вне самой фотографии
+- навигация сохраняется через клавиши и колесо мыши
+- добавлен фиксированный порядок фотографий слева направо и сверху вниз
+- сохранены Kinescope video block, CTA-кнопки, отзывы, review-popup, popup, menu и page transition
+- сохранена существующая архитектура страницы без изменения общей системы меню и popup
+- HTML-структура сохранена для новой логики автопрокрутки и анимации галереи
 ==================================================
 -->
 
@@ -152,9 +157,332 @@ WEDDING HTML
         class="ip-wedding-gallery"
         data-wedding-gallery
         aria-hidden="true"
+        aria-label="Фотографии со свадеб"
       >
 
-        <div class="ip-wedding-gallery-inner"></div>
+        <div class="ip-wedding-gallery-inner">
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-01"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="0"
+            aria-label="Открыть фото 01"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-01.webp"
+              alt="Свадьба Иван Перцев — фото 01"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-02"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="1"
+            aria-label="Открыть фото 02"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-02.webp"
+              alt="Свадьба Иван Перцев — фото 02"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-03"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="2"
+            aria-label="Открыть фото 03"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-03.webp"
+              alt="Свадьба Иван Перцев — фото 03"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-04"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="3"
+            aria-label="Открыть фото 04"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-04.webp"
+              alt="Свадьба Иван Перцев — фото 04"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-05"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="4"
+            aria-label="Открыть фото 05"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-05.webp"
+              alt="Свадьба Иван Перцев — фото 05"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-06"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="5"
+            aria-label="Открыть фото 06"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-06.webp"
+              alt="Свадьба Иван Перцев — фото 06"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-07"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="6"
+            aria-label="Открыть фото 07"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-07.webp"
+              alt="Свадьба Иван Перцев — фото 07"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-08"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="7"
+            aria-label="Открыть фото 08"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-08.webp"
+              alt="Свадьба Иван Перцев — фото 08"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-09"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="8"
+            aria-label="Открыть фото 09"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-09.webp"
+              alt="Свадьба Иван Перцев — фото 09"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-10"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="9"
+            aria-label="Открыть фото 10"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-10.webp"
+              alt="Свадьба Иван Перцев — фото 10"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-11"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="10"
+            aria-label="Открыть фото 11"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-11.webp"
+              alt="Свадьба Иван Перцев — фото 11"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-12"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="11"
+            aria-label="Открыть фото 12"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-12.webp"
+              alt="Свадьба Иван Перцев — фото 12"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-13"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="12"
+            aria-label="Открыть фото 13"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-13.webp"
+              alt="Свадьба Иван Перцев — фото 13"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-14"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="13"
+            aria-label="Открыть фото 14"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-14.webp"
+              alt="Свадьба Иван Перцев — фото 14"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-15"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="14"
+            aria-label="Открыть фото 15"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-15.webp"
+              alt="Свадьба Иван Перцев — фото 15"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-16"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="15"
+            aria-label="Открыть фото 16"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-16.webp"
+              alt="Свадьба Иван Перцев — фото 16"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-17"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="16"
+            aria-label="Открыть фото 17"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-17.webp"
+              alt="Свадьба Иван Перцев — фото 17"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-18"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="17"
+            aria-label="Открыть фото 18"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-18.webp"
+              alt="Свадьба Иван Перцев — фото 18"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-19"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="18"
+            aria-label="Открыть фото 19"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-19.webp"
+              alt="Свадьба Иван Перцев — фото 19"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <figure
+            class="ip-wedding-gallery-item ip-wedding-gallery-item-20"
+            role="button"
+            tabindex="0"
+            data-gallery-lightbox-open
+            data-gallery-index="19"
+            aria-label="Открыть фото 20"
+          >
+            <img
+              src="./assets/img/wedding/gallery/wedding-gallery-20.webp"
+              alt="Свадьба Иван Перцев — фото 20"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+        </div>
 
       </section>
 
@@ -500,20 +828,35 @@ WEDDING HTML
       </section>
 
       <div
-        class="ip-wedding-review-hint"
-        aria-hidden="true"
+        class="ip-wedding-review-tools"
+        aria-label="Навигация по отзывам"
       >
 
-        <img
-          src="./assets/img/wedding/icons/review-tap-hint.svg"
-          alt=""
-          class="ip-wedding-review-hint-icon"
+        <div
+          class="ip-wedding-review-hint"
+          aria-hidden="true"
         >
 
-        <div class="ip-wedding-review-hint-text">
-          Нажмите<br>
-          для просмотра
+          <img
+            src="./assets/img/wedding/icons/review-tap-hint.svg"
+            alt=""
+            class="ip-wedding-review-hint-icon"
+          >
+
+          <div class="ip-wedding-review-hint-text">
+            Нажмите<br>
+            для просмотра
+          </div>
+
         </div>
+
+        <button
+          class="ip-wedding-scrolltop"
+          type="button"
+          aria-label="Подняться наверх"
+        >
+          <span></span>
+        </button>
 
       </div>
 
@@ -706,6 +1049,44 @@ WEDDING HTML
     class="ip-review-popup-card"
     data-review-popup-card
   ></div>
+
+</div>
+
+
+<div
+  class="ip-gallery-lightbox"
+  data-gallery-lightbox
+  aria-hidden="true"
+>
+
+  <div
+    class="ip-gallery-lightbox-backdrop"
+    data-gallery-lightbox-close
+  ></div>
+
+  <div
+    class="ip-gallery-lightbox-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Просмотр фотографий со свадьбы"
+  >
+
+    <figure class="ip-gallery-lightbox-figure">
+      <img
+        class="ip-gallery-lightbox-image"
+        data-gallery-lightbox-image
+        src=""
+        alt=""
+      >
+    </figure>
+
+    <div
+      class="ip-gallery-lightbox-counter"
+      data-gallery-lightbox-counter
+      aria-live="polite"
+    ></div>
+
+  </div>
 
 </div>
 

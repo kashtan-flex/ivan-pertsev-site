@@ -2,7 +2,7 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-016-gallery-scrolltop
+Версия: wedding-js-017-gallery-autoscroll-motion
 
 ИЗМЕНЕНИЯ:
 - убрано любое вмешательство в document.documentElement и document.body
@@ -18,6 +18,8 @@ WEDDING JS
 - убран фокус на видимые кнопки управления, потому что в lightbox остаётся только счётчик
 - усилена логика закрытия: клик в любой зоне вне самой фотографии закрывает lightbox
 - сохранена навигация по фотографиям клавишами и колесом мыши внутри lightbox
+- при открытии галереи страница плавно прокручивается к началу фотографий
+- закрытие галереи переведено в staged-анимацию: отзывы поднимаются снизу, затем страница пересчитывает высоту
 ==================================================
 */
 
@@ -37,6 +39,8 @@ WEDDING JS
   var VIDEO_REVEAL_DELAY = 3200;
   var MAGNETIC_STRENGTH = 7;
   var SCROLLTOP_REVEAL_OFFSET = 140;
+  var GALLERY_SCROLL_DESIGN_TOP = 830;
+  var GALLERY_CLOSE_ANIMATION_DURATION = 760;
 
   var page = document.querySelector('[data-wedding-page]');
   var stage = document.querySelector('.ip-wedding-stage');
@@ -93,6 +97,7 @@ WEDDING JS
   var scrollSpacer = null;
   var activeGalleryIndex = 0;
   var galleryWheelLocked = false;
+  var galleryCloseTimer = null;
 
   if(!page || !stage){
     return;
@@ -215,6 +220,29 @@ WEDDING JS
     }
 
     scrollTopButton.classList.remove('is-visible');
+  }
+
+  function getCurrentScaleValue(){
+    var scaleValue = parseFloat(
+      page.style.getPropertyValue('--wedding-scale')
+    );
+
+    if(!scaleValue || scaleValue <= 0){
+      scaleValue = getViewportHeight() / DESIGN.desktop.heroHeight;
+    }
+
+    return scaleValue;
+  }
+
+  function scrollWeddingToGallery(){
+    if(isMobile()){
+      return;
+    }
+
+    page.scrollTo({
+      top:Math.max(0, Math.round(GALLERY_SCROLL_DESIGN_TOP * getCurrentScaleValue())),
+      behavior:'smooth'
+    });
   }
 
   function scrollWeddingToTop(){
@@ -738,6 +766,51 @@ WEDDING JS
     }
   }
 
+  function openWeddingGallery(){
+    if(!gallery || !galleryButton){
+      return;
+    }
+
+    if(galleryCloseTimer){
+      window.clearTimeout(galleryCloseTimer);
+      galleryCloseTimer = null;
+    }
+
+    page.classList.remove('is-gallery-closing');
+    page.classList.add('is-gallery-open');
+    gallery.classList.add('is-visible');
+    gallery.setAttribute('aria-hidden', 'false');
+    galleryButton.textContent = 'Скрыть фото';
+
+    updateScale();
+
+    window.setTimeout(function(){
+      scrollWeddingToGallery();
+    }, 80);
+  }
+
+  function closeWeddingGallery(){
+    if(!gallery || !galleryButton){
+      return;
+    }
+
+    if(galleryCloseTimer){
+      window.clearTimeout(galleryCloseTimer);
+    }
+
+    page.classList.add('is-gallery-closing');
+    gallery.classList.remove('is-visible');
+    gallery.setAttribute('aria-hidden', 'true');
+    galleryButton.textContent = 'Смотреть фото';
+
+    galleryCloseTimer = window.setTimeout(function(){
+      page.classList.remove('is-gallery-open');
+      page.classList.remove('is-gallery-closing');
+      galleryCloseTimer = null;
+      updateScale();
+    }, GALLERY_CLOSE_ANIMATION_DURATION);
+  }
+
   function toggleGallery(event){
     if(event){
       event.preventDefault();
@@ -747,20 +820,12 @@ WEDDING JS
       return;
     }
 
-    gallery.classList.toggle('is-visible');
-
     if(gallery.classList.contains('is-visible')){
-      page.classList.add('is-gallery-open');
-      gallery.setAttribute('aria-hidden', 'false');
-      galleryButton.textContent = 'Скрыть фото';
-      updateScale();
+      closeWeddingGallery();
       return;
     }
 
-    page.classList.remove('is-gallery-open');
-    gallery.setAttribute('aria-hidden', 'true');
-    galleryButton.textContent = 'Смотреть фото';
-    updateScale();
+    openWeddingGallery();
   }
 
   function setupGalleryTrigger(){

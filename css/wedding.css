@@ -1,7 +1,7 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-021-scrolltop-hint-edge
+   Версия: wedding-css-022-gallery-autoscroll-motion
 
    ИЗМЕНЕНИЯ:
    - добавлена desktop-галерея Wedding из 20 фотографий
@@ -18,6 +18,8 @@
    - затемнение и blur gallery lightbox откатаны к предыдущему более мягкому состоянию
    - убран визуальный внутренний контейнер за фотографией
    - размер открытой фотографии 88vh / 88vw сохранён
+   - добавлен плавный переход к галерее после нажатия «Смотреть фото»
+   - добавлена staged-анимация открытия/закрытия галереи через движение блока отзывов
    - добавлена кнопка подъёма вверх под подсказкой отзывов
    - фон раскрытой страницы разделён на верхний, средний и нижний слои без растягивания изображения
    - кнопка подъёма вверх привязана к подсказке и выровнена по правому краю слова «просмотра»
@@ -460,11 +462,11 @@
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transform:translate3d(0,20px,0);
+  transform:translate3d(0,28px,0);
   transition:
-    opacity .45s cubic-bezier(.19,1,.22,1),
-    transform .45s cubic-bezier(.19,1,.22,1),
-    visibility .45s ease;
+    opacity .52s cubic-bezier(.19,1,.22,1),
+    transform .72s cubic-bezier(.19,1,.22,1),
+    visibility .52s ease;
 }
 
 .ip-wedding-gallery.is-visible{
@@ -472,6 +474,12 @@
   visibility:visible;
   pointer-events:auto;
   transform:translate3d(0,0,0);
+}
+
+.ip-wedding.is-gallery-closing .ip-wedding-gallery{
+  opacity:0;
+  pointer-events:none;
+  transform:translate3d(0,34px,0);
 }
 
 .ip-wedding-gallery-inner{
@@ -1353,18 +1361,32 @@
 
 .ip-wedding .ip-wedding-reviews{
   top:860px !important;
+  transition:
+    top .72s cubic-bezier(.19,1,.22,1),
+    opacity .34s ease;
 }
 
 .ip-wedding.is-gallery-open .ip-wedding-reviews{
   top:3325px !important;
 }
 
+.ip-wedding.is-gallery-open.is-gallery-closing .ip-wedding-reviews{
+  top:860px !important;
+}
+
 .ip-wedding .ip-wedding-review-tools{
   top:1226px !important;
+  transition:
+    top .72s cubic-bezier(.19,1,.22,1),
+    opacity .34s ease;
 }
 
 .ip-wedding.is-gallery-open .ip-wedding-review-tools{
   top:3691px !important;
+}
+
+.ip-wedding.is-gallery-open.is-gallery-closing .ip-wedding-review-tools{
+  top:1226px !important;
 }
 
 @media (max-width:767px){
