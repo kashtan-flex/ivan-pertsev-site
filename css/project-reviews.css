@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-020
+   Версия: project-reviews-021
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -204,8 +204,8 @@
   inset:0;
   opacity:0;
   background:rgba(0,0,0,.62);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
   transition:
     opacity .36s cubic-bezier(.19,1,.22,1);
 }
