@@ -2,7 +2,7 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-012-gallery-scroll-height
+Версия: wedding-js-014-gallery-lightbox-minimal
 
 ИЗМЕНЕНИЯ:
 - убрано любое вмешательство в document.documentElement и document.body
@@ -14,6 +14,9 @@ WEDDING JS
 - review popup появляется из координаты карточки: 1–3 слева, 4 из центра, 5–7 справа
 - добавлено состояние is-gallery-open на .ip-wedding при раскрытии галереи
 - scroll-spacer теперь пересчитывает высоту страницы с учётом раскрытой desktop-галереи
+- добавлен gallery lightbox: открытие фото по клику/Enter, закрытие по Esc/фону
+- убран фокус на видимые кнопки управления, потому что в минимальном lightbox остаётся только счётчик
+- сохранена навигация по фотографиям клавишами и колесом мыши внутри lightbox
 ==================================================
 */
 
@@ -56,6 +59,20 @@ WEDDING JS
   var galleryButton = document.querySelector('[data-wedding-gallery-open]');
   var gallery = document.querySelector('[data-wedding-gallery]');
 
+  var galleryLightbox = document.querySelector('[data-gallery-lightbox]');
+  var galleryLightboxImage = document.querySelector('[data-gallery-lightbox-image]');
+  var galleryLightboxCounter = document.querySelector('[data-gallery-lightbox-counter]');
+  var galleryLightboxPrev = document.querySelector('[data-gallery-lightbox-prev]');
+  var galleryLightboxNext = document.querySelector('[data-gallery-lightbox-next]');
+
+  var galleryLightboxCloseTriggers = Array.prototype.slice.call(
+    document.querySelectorAll('[data-gallery-lightbox-close]')
+  );
+
+  var galleryLightboxOpenTriggers = Array.prototype.slice.call(
+    document.querySelectorAll('[data-gallery-lightbox-open]')
+  );
+
   var reviewPopup = document.querySelector('[data-review-popup]');
   var reviewPopupCard = document.querySelector('[data-review-popup-card]');
 
@@ -70,6 +87,8 @@ WEDDING JS
   var resizeFrame = null;
   var videoRevealTimer = null;
   var scrollSpacer = null;
+  var activeGalleryIndex = 0;
+  var galleryWheelLocked = false;
 
   if(!page || !stage){
     return;
@@ -465,6 +484,200 @@ WEDDING JS
     });
   }
 
+
+  function getGalleryLightboxItems(){
+    if(!gallery){
+      return [];
+    }
+
+    return Array.prototype.slice.call(
+      gallery.querySelectorAll('.ip-wedding-gallery-item img')
+    );
+  }
+
+  function normalizeGalleryIndex(index){
+    var items = getGalleryLightboxItems();
+
+    if(!items.length){
+      return 0;
+    }
+
+    if(index < 0){
+      return items.length - 1;
+    }
+
+    if(index >= items.length){
+      return 0;
+    }
+
+    return index;
+  }
+
+  function updateGalleryLightboxImage(index){
+    var items = getGalleryLightboxItems();
+
+    if(!galleryLightboxImage || !items.length){
+      return;
+    }
+
+    activeGalleryIndex = normalizeGalleryIndex(index);
+
+    var sourceImage = items[activeGalleryIndex];
+
+    galleryLightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+    galleryLightboxImage.alt = sourceImage.alt || 'Фотография со свадьбы';
+
+    if(galleryLightboxCounter){
+      galleryLightboxCounter.textContent =
+        String(activeGalleryIndex + 1).padStart(2, '0') +
+        ' / ' +
+        String(items.length).padStart(2, '0');
+    }
+  }
+
+  function openGalleryLightbox(index){
+    if(!galleryLightbox || !galleryLightboxImage){
+      return;
+    }
+
+    closeMenu();
+    closeMainPopup();
+    closeReviewPopup();
+
+    updateGalleryLightboxImage(index);
+
+    galleryLightbox.classList.add('is-open');
+    galleryLightbox.setAttribute('aria-hidden', 'false');
+
+    document.documentElement.classList.add('ip-popup-lock');
+    document.body.classList.add('ip-popup-lock');
+  }
+
+  function closeGalleryLightbox(){
+    if(!galleryLightbox){
+      return;
+    }
+
+    galleryLightbox.classList.remove('is-open');
+    galleryLightbox.setAttribute('aria-hidden', 'true');
+
+    window.setTimeout(function(){
+      if(
+        galleryLightbox &&
+        !galleryLightbox.classList.contains('is-open') &&
+        galleryLightboxImage
+      ){
+        galleryLightboxImage.removeAttribute('src');
+        galleryLightboxImage.alt = '';
+      }
+    }, 380);
+
+    if(
+      (!popup || !popup.classList.contains('is-open')) &&
+      (!reviewPopup || !reviewPopup.classList.contains('is-open'))
+    ){
+      document.documentElement.classList.remove('ip-popup-lock');
+      document.body.classList.remove('ip-popup-lock');
+    }
+
+    updateScale();
+  }
+
+  function showPreviousGalleryImage(){
+    updateGalleryLightboxImage(activeGalleryIndex - 1);
+  }
+
+  function showNextGalleryImage(){
+    updateGalleryLightboxImage(activeGalleryIndex + 1);
+  }
+
+  function isGalleryLightboxOpen(){
+    return !!(
+      galleryLightbox &&
+      galleryLightbox.classList.contains('is-open')
+    );
+  }
+
+  function setupGalleryLightboxTriggers(){
+    galleryLightboxOpenTriggers.forEach(function(trigger){
+      trigger.addEventListener('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+
+        var index = parseInt(
+          trigger.getAttribute('data-gallery-index') || '0',
+          10
+        );
+
+        openGalleryLightbox(index);
+      });
+
+      trigger.addEventListener('keydown', function(event){
+        if(event.key !== 'Enter' && event.key !== ' '){
+          return;
+        }
+
+        event.preventDefault();
+
+        var index = parseInt(
+          trigger.getAttribute('data-gallery-index') || '0',
+          10
+        );
+
+        openGalleryLightbox(index);
+      });
+    });
+
+    galleryLightboxCloseTriggers.forEach(function(trigger){
+      trigger.addEventListener('click', function(event){
+        event.preventDefault();
+        closeGalleryLightbox();
+      });
+    });
+
+    if(galleryLightboxPrev){
+      galleryLightboxPrev.addEventListener('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        showPreviousGalleryImage();
+      });
+    }
+
+    if(galleryLightboxNext){
+      galleryLightboxNext.addEventListener('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        showNextGalleryImage();
+      });
+    }
+
+    if(galleryLightbox){
+      galleryLightbox.addEventListener('wheel', function(event){
+        if(!isGalleryLightboxOpen()){
+          return;
+        }
+
+        event.preventDefault();
+
+        if(galleryWheelLocked){
+          return;
+        }
+
+        galleryWheelLocked = true;
+
+        if(event.deltaY > 0 || event.deltaX > 0){
+          showNextGalleryImage();
+        }else{
+          showPreviousGalleryImage();
+        }
+
+        window.setTimeout(function(){
+          galleryWheelLocked = false;
+        }, 360);
+      }, { passive:false });
+    }
+  }
+
   function toggleGallery(event){
     if(event){
       event.preventDefault();
@@ -574,6 +787,26 @@ WEDDING JS
 
   function bindKeyboard(){
     document.addEventListener('keydown', function(event){
+      if(isGalleryLightboxOpen()){
+        if(event.key === 'Escape'){
+          event.preventDefault();
+          closeGalleryLightbox();
+          return;
+        }
+
+        if(event.key === 'ArrowLeft' || event.key === 'ArrowUp'){
+          event.preventDefault();
+          showPreviousGalleryImage();
+          return;
+        }
+
+        if(event.key === 'ArrowRight' || event.key === 'ArrowDown'){
+          event.preventDefault();
+          showNextGalleryImage();
+          return;
+        }
+      }
+
       if(event.key !== 'Escape'){
         return;
       }
@@ -617,6 +850,7 @@ WEDDING JS
     setupMainPopupTriggers();
     setupReviewPopupTriggers();
     setupGalleryTrigger();
+    setupGalleryLightboxTriggers();
     setupMenuCloseOnScroll();
     setupDateMask();
     setupMagneticButtons();

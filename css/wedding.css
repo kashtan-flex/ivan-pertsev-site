@@ -1,7 +1,7 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-013-gallery-repeat-background
+   Версия: wedding-css-015-gallery-lightbox-minimal
 
    ИЗМЕНЕНИЯ:
    - добавлена desktop-галерея Wedding из 20 фотографий
@@ -12,6 +12,10 @@
    - ниже первого экрана добавлен повторяющийся фон через CSS без большого изображения
    - сохранены меню, popup, page transition, видео, отзывы и CTA-кнопки
    - hover-эффекты оставлены Safari-safe без движения текстового слоя
+   - добавлен gallery lightbox для просмотра фотографий по клику
+   - gallery lightbox переведён в минимальный режим без видимых кнопок закрытия и навигации
+   - оставлен только счётчик фотографий
+   - затемнён backdrop, чтобы фон страницы почти не просвечивал
    ========================================================= */
 
 .ip-wedding,
@@ -609,6 +613,222 @@
   height:380px;
 }
 
+
+.ip-wedding-gallery-item{
+  cursor:pointer;
+  outline:none;
+}
+
+.ip-wedding-gallery-item::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:rgba(0,0,0,0);
+  pointer-events:none;
+  transition:background .28s ease, box-shadow .28s ease;
+}
+
+.ip-wedding-gallery-item:hover::after,
+.ip-wedding-gallery-item:focus-visible::after{
+  background:rgba(0,0,0,.10);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
+}
+
+.ip-gallery-lightbox{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.ip-gallery-lightbox.is-open{
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.ip-gallery-lightbox-backdrop{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  opacity:0;
+  background:rgba(0,0,0,0);
+  backdrop-filter:blur(0);
+  -webkit-backdrop-filter:blur(0);
+  transition:
+    opacity .34s cubic-bezier(.19,1,.22,1),
+    background .34s cubic-bezier(.19,1,.22,1),
+    backdrop-filter .34s cubic-bezier(.19,1,.22,1);
+}
+
+.ip-gallery-lightbox.is-open .ip-gallery-lightbox-backdrop{
+  opacity:1;
+  background:rgba(0,0,0,.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.ip-gallery-lightbox-dialog{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:calc(100vw - 120px);
+  height:calc(100vh - 100px);
+  max-width:1240px;
+  max-height:760px;
+  opacity:0;
+  transform:translate3d(0,0,0) scale(.96);
+  transition:
+    opacity .38s cubic-bezier(.19,1,.22,1),
+    transform .38s cubic-bezier(.19,1,.22,1);
+}
+
+.ip-gallery-lightbox.is-open .ip-gallery-lightbox-dialog{
+  opacity:1;
+  transform:translate3d(0,0,0) scale(1);
+}
+
+.ip-gallery-lightbox-figure{
+  position:relative;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  border-radius:8px;
+  background:rgba(0,0,0,.18);
+  box-shadow:0 44px 130px rgba(0,0,0,.62);
+}
+
+.ip-gallery-lightbox-image{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+}
+
+.ip-gallery-lightbox-close{
+  position:absolute;
+  top:-42px;
+  right:0;
+  z-index:6;
+  width:32px;
+  height:32px;
+  padding:0;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+}
+
+.ip-gallery-lightbox-close span{
+  position:absolute;
+  left:4px;
+  top:15px;
+  width:24px;
+  height:2px;
+  border-radius:999px;
+  background:rgba(255,255,255,.86);
+}
+
+.ip-gallery-lightbox-close span:first-child{
+  transform:rotate(45deg);
+}
+
+.ip-gallery-lightbox-close span:last-child{
+  transform:rotate(-45deg);
+}
+
+.ip-gallery-lightbox-close:hover span,
+.ip-gallery-lightbox-close:focus-visible span{
+  background:#fff;
+}
+
+.ip-gallery-lightbox-nav{
+  position:absolute;
+  top:50%;
+  z-index:5;
+  width:52px;
+  height:52px;
+  margin-top:-26px;
+  padding:0;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;
+  background:rgba(0,0,0,.26);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  cursor:pointer;
+  transition:
+    background .28s ease,
+    border-color .28s ease,
+    box-shadow .28s ease;
+}
+
+.ip-gallery-lightbox-nav:hover,
+.ip-gallery-lightbox-nav:focus-visible{
+  background:rgba(0,0,0,.36);
+  border-color:rgba(255,255,255,.34);
+  box-shadow:0 0 42px rgba(0,0,0,.40);
+}
+
+.ip-gallery-lightbox-prev{
+  left:-76px;
+}
+
+.ip-gallery-lightbox-next{
+  right:-76px;
+}
+
+.ip-gallery-lightbox-nav::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:14px;
+  height:14px;
+  border-top:2px solid rgba(255,255,255,.86);
+  border-right:2px solid rgba(255,255,255,.86);
+}
+
+.ip-gallery-lightbox-prev::before{
+  transform:translate3d(-35%,-50%,0) rotate(-135deg);
+}
+
+.ip-gallery-lightbox-next::before{
+  transform:translate3d(-65%,-50%,0) rotate(45deg);
+}
+
+.ip-gallery-lightbox-counter{
+  position:absolute;
+  left:50%;
+  bottom:-38px;
+  z-index:6;
+  transform:translate3d(-50%,0,0);
+  color:rgba(255,255,255,.72);
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:13px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:.02em;
+  pointer-events:none;
+}
+
+@media (max-width:767px){
+  .ip-gallery-lightbox{
+    display:none !important;
+  }
+}
+
 .ip-wedding-reviews{
   position:absolute;
   left:11px;
@@ -1022,4 +1242,30 @@
   .ip-wedding-gallery{
     display:none !important;
   }
+}
+
+/* =========================================================
+   GALLERY LIGHTBOX MINIMAL CONTROLS
+
+   Версия: wedding-css-015-gallery-lightbox-minimal
+
+   ИЗМЕНЕНИЯ:
+   - скрыты все видимые элементы управления gallery lightbox, кроме счётчика
+   - закрытие остаётся по Esc и клику вне фотографии
+   - листание остаётся через клавиши и колесо мыши
+   - backdrop сделан темнее, чтобы фон страницы не отвлекал от фото
+   ========================================================= */
+
+.ip-gallery-lightbox-close,
+.ip-gallery-lightbox-nav{
+  display:none !important;
+}
+
+.ip-gallery-lightbox-counter{
+  bottom:-34px;
+  color:rgba(255,255,255,.62);
+}
+
+.ip-gallery-lightbox-figure{
+  background:transparent;
 }
