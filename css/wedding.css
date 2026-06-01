@@ -1,7 +1,7 @@
 /* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-019-scrolltop-aligned
+   Версия: wedding-css-021-scrolltop-hint-edge
 
    ИЗМЕНЕНИЯ:
    - добавлена desktop-галерея Wedding из 20 фотографий
@@ -1270,12 +1270,13 @@
 /* =========================================================
    WEDDING SCROLL TO TOP
 
-   Версия: wedding-css-019-scrolltop-aligned
+   Версия: wedding-css-021-scrolltop-hint-edge
 
    ИЗМЕНЕНИЯ:
    - добавлена кнопка подъёма вверх под подсказкой «Нажмите для просмотра»
    - кнопка появляется только когда страница прокручена до конца
-   - расположение: на 30px ниже подсказки, отступ справа 100px, выравнивание по правому краю текста
+   - расположение: на 30px ниже подсказки, отступ справа 100px, выравнивание по правому краю слова «просмотра»
+   - размер кнопки уменьшен до 24×24px
    - анимация Safari-safe через opacity, visibility и transform
    ========================================================= */
 
@@ -1284,20 +1285,21 @@
   right:auto;
   top:auto;
   z-index:7;
+  align-self:flex-end;
   margin-top:30px;
-  margin-left:auto;
-  width:32px;
-  height:32px;
+  margin-left:0;
+  width:24px;
+  height:24px;
   padding:0;
   border:1px solid rgba(255,255,255,.58);
-  border-radius:8px;
+  border-radius:6px;
   background:rgba(0,0,0,.12);
   color:#fff;
   cursor:pointer;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transform:translate3d(0,10px,0);
+  transform:translate3d(-24px,10px,0);
   transition:
     opacity .34s cubic-bezier(.19,1,.22,1),
     visibility .34s ease,
@@ -1312,18 +1314,18 @@
   opacity:1;
   visibility:visible;
   pointer-events:auto;
-  transform:translate3d(0,0,0);
+  transform:translate3d(-24px,0,0);
 }
 
 .ip-wedding-scrolltop span{
   position:absolute;
   left:50%;
   top:50%;
-  width:10px;
-  height:10px;
-  border-top:2px solid rgba(255,255,255,.86);
-  border-left:2px solid rgba(255,255,255,.86);
-  transform:translate3d(-50%,-28%,0) rotate(45deg);
+  width:8px;
+  height:8px;
+  border-top:1.5px solid rgba(255,255,255,.86);
+  border-left:1.5px solid rgba(255,255,255,.86);
+  transform:translate3d(-50%,-25%,0) rotate(45deg);
   pointer-events:none;
 }
 
