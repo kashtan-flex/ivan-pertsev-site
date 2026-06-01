@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-006
+   Версия: project-reviews-010
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -13,6 +13,10 @@
    - сохранён desktop popup по клику
    - сохранён mobile swipe крупными карточками
    - отступ между аватаром и блоком имени/мероприятия установлен 15px
+   - hover отзывов стабилизирован: текст больше не должен блюриться при наведении
+   - усилено мягкое тёмное свечение карточки на hover
+   - Safari-safe hover: убрано движение всей карточки с текстом
+   - подъём при наведении имитируется тенью без перерастеризации текста
    ========================================================= */
 
 .ip-wedding-reviews,
@@ -34,26 +38,61 @@
   border:1px solid rgba(255,255,255,.14);
   border-radius:4px;
   overflow:hidden;
-  background:rgba(0,0,0,.20);
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-  box-shadow:none;
+  background:transparent;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.16),
+    inset 0 1px 0 rgba(255,255,255,.025);
   color:#fff;
   text-align:left;
   cursor:pointer;
   font-family:'Montserrat',Arial,sans-serif;
+  isolation:isolate;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
   transition:
-    transform .42s cubic-bezier(.19,1,.22,1),
-    background .35s ease,
-    border-color .35s ease;
+    border-color .35s ease,
+    box-shadow .35s ease;
 }
+
+.ip-wedding-review::before,
+.ip-project-review::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:0;
+  border-radius:inherit;
+  background:rgba(0,0,0,.20);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  pointer-events:none;
+  transition:
+    background .35s ease,
+    opacity .35s ease;
+}
+
+.ip-wedding-review-top,
+.ip-project-review-top,
+.ip-wedding-review-text,
+.ip-project-review-text{
+  z-index:2;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  transform:none;
+  -webkit-transform:none;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
 
 .ip-wedding-review:hover,
 .ip-project-review:hover{
-  transform:translate3d(0,-4px,0);
-  background:rgba(0,0,0,.24);
-  border-color:rgba(255,255,255,.20);
+  border-color:rgba(255,255,255,.22);
+  box-shadow:
+    0 28px 72px rgba(0,0,0,.40),
+    0 10px 28px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.04);
 }
+
 
 .ip-wedding-review-top,
 .ip-project-review-top{
