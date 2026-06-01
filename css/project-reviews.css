@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-012
+   Версия: project-reviews-014
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -220,22 +220,24 @@
 
 .ip-review-popup-card{
   position:relative;
-  width:279px;
-  min-height:359px;
+  width:339px;
+  min-height:528px;
   padding:26px;
-  border-radius:24px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:7px;
   overflow:hidden;
-  background:transparent;
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-  box-shadow:none;
+  background:rgba(0,0,0,.38);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:
+    0 44px 120px rgba(0,0,0,.48),
+    inset 0 1px 0 rgba(255,255,255,.035);
   opacity:0;
   transform:translate3d(0,0,0) scale(.25);
   transition:
     transform .52s cubic-bezier(.19,1,.22,1),
     opacity .52s cubic-bezier(.19,1,.22,1);
   transform-origin:center center;
-  border:1px solid rgba(255,255,255,.10);
 }
 
 .ip-review-popup.is-open .ip-review-popup-card{
@@ -245,19 +247,29 @@
 
 .ip-review-popup-card .ip-wedding-review,
 .ip-review-popup-card .ip-project-review{
-  position:relative;
-  width:100%;
+  position:static;
+  width:auto;
   height:auto;
   min-height:0;
   padding:0;
-  border:none;
-  border-radius:0;
-  background:transparent !important;
+  margin:0;
+  border:none !important;
+  border-radius:0 !important;
+  background:none !important;
+  background-color:transparent !important;
   backdrop-filter:none !important;
   -webkit-backdrop-filter:none !important;
   box-shadow:none !important;
   cursor:default;
   transform:none !important;
+}
+
+.ip-review-popup-card .ip-wedding-review::before,
+.ip-review-popup-card .ip-project-review::before,
+.ip-review-popup-card .ip-wedding-review::after,
+.ip-review-popup-card .ip-project-review::after{
+  display:none !important;
+  content:none !important;
 }
 
 .ip-review-popup-card .ip-wedding-review-top,
