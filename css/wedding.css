@@ -1,7 +1,9 @@
-/* =========================================================
+/* - CTA-кнопки получили hover-тень как у маленьких отзывов
+- Safari-safe hover: без transform на текстовом слое
+=========================================================
    WEDDING CSS
 
-   Версия: wedding-css-013-rollback
+   Версия: wedding-css-cta-hover-001
 
    ИЗМЕНЕНИЯ:
    - откат к стабильной версии до глобальных scroll/popup/menu правок
@@ -430,7 +432,7 @@
 .ip-wedding-reviews{
   position:absolute;
   left:11px;
-  top:860px;px;
+  top:1038px;
   z-index:6;
   display:flex;
   gap:10px;
@@ -723,4 +725,64 @@
 
 .ip-wedding::-webkit-scrollbar-thumb:hover{
   background:rgba(255,255,255,.22);
+}
+
+/* =========================================================
+   CTA BUTTONS HOVER — SAFARI SAFE
+
+   Версия: wedding-css-cta-hover-001
+
+   ИЗМЕНЕНИЯ:
+   - для кнопок «Смотреть фото» и «Обсудить детали» добавлена тёмная hover-тень как у маленьких отзывов
+   - сохранён текущий magnetic hover через CSS-переменные --button-x / --button-y
+   - текстовый слой кнопок не получает blur/backdrop-filter
+   - решение безопаснее для Safari: без фильтров и без анимации blur
+   ========================================================= */
+
+.ip-wedding-button{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  box-shadow:none;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
+  transition:
+    border-color .35s ease,
+    background-color .35s ease,
+    color .35s ease,
+    box-shadow .35s ease,
+    transform .42s cubic-bezier(.19,1,.22,1);
+}
+
+.ip-wedding-button::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  border-radius:inherit;
+  pointer-events:none;
+  opacity:0;
+  background:rgba(0,0,0,.20);
+  transition:
+    opacity .35s ease,
+    background .35s ease;
+}
+
+.ip-wedding-button:hover{
+  box-shadow:
+    0 28px 72px rgba(0,0,0,.40),
+    0 10px 28px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.ip-wedding-button:hover::before{
+  opacity:1;
+}
+
+.ip-wedding-button-outline:hover{
+  border-color:rgba(255,255,255,.22);
+}
+
+.ip-wedding-button-filled:hover{
+  border-color:rgba(255,255,255,.22);
 }
