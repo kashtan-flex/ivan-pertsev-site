@@ -1,14 +1,17 @@
-/* - CTA-кнопки получили hover-тень как у маленьких отзывов
-- Safari-safe hover: без transform на текстовом слое
-=========================================================
+/* =========================================================
    WEDDING CSS
 
-   Версия: wedding-css-cta-hover-003
+   Версия: wedding-css-013-gallery-repeat-background
 
    ИЗМЕНЕНИЯ:
-   - откат к стабильной версии до глобальных scroll/popup/menu правок
-   - сохранены poster video, кнопки, menu, reviews и gallery
-   - убраны последние правки, которые могли ломать menu, popup и scale
+   - добавлена desktop-галерея Wedding из 20 фотографий
+   - галерея собрана фиксированной композицией по размерам макета
+   - зафиксированы отступы галереи: 11px от краёв и 10px между фото
+   - раскрытая галерея сдвигает отзывы ниже с отступом 60px
+   - фон первого экрана ограничен высотой hero 800px
+   - ниже первого экрана добавлен повторяющийся фон через CSS без большого изображения
+   - сохранены меню, popup, page transition, видео, отзывы и CTA-кнопки
+   - hover-эффекты оставлены Safari-safe без движения текстового слоя
    ========================================================= */
 
 .ip-wedding,
@@ -47,8 +50,11 @@
 
 .ip-wedding-bg{
   position:absolute;
-  inset:0;
+  left:0;
+  top:0;
   z-index:1;
+  width:1440px;
+  height:800px;
   background-image:url('../assets/img/wedding/background/wedding-bg.webp');
   background-size:cover;
   background-position:center top;
@@ -60,6 +66,26 @@
   z-index:2;
   width:1440px;
   min-height:1351px;
+}
+
+.ip-wedding-content::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:800px;
+  bottom:0;
+  z-index:1;
+  width:1440px;
+  background-image:url('../assets/img/wedding/background/wedding-bg.webp');
+  background-size:1440px 800px;
+  background-position:center top;
+  background-repeat:repeat-y;
+  pointer-events:none;
+}
+
+.ip-wedding.is-gallery-open .ip-wedding-stage,
+.ip-wedding.is-gallery-open .ip-wedding-content{
+  min-height:3760px;
 }
 
 .ip-wedding-left{
@@ -399,9 +425,11 @@
 
 .ip-wedding-gallery{
   position:absolute;
-  left:60px;
-  top:830px;
-  width:1320px;
+  left:11px;
+  top:860px;
+  z-index:5;
+  width:1418px;
+  height:2405px;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
@@ -420,13 +448,165 @@
 }
 
 .ip-wedding-gallery-inner{
+  position:relative;
+  width:1418px;
+  height:2405px;
+}
+
+.ip-wedding-gallery-item{
+  position:absolute;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  background:#050603;
+}
+
+.ip-wedding-gallery-item img{
+  display:block;
   width:100%;
-  min-height:420px;
-  border-radius:20px;
-  background:rgba(0,0,0,.12);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.05);
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+}
+
+.ip-wedding-gallery-item-01{
+  left:0;
+  top:0;
+  width:234px;
+  height:407px;
+}
+
+.ip-wedding-gallery-item-02{
+  left:244px;
+  top:0;
+  width:272px;
+  height:407px;
+}
+
+.ip-wedding-gallery-item-03{
+  left:526px;
+  top:0;
+  width:271px;
+  height:407px;
+}
+
+.ip-wedding-gallery-item-04{
+  left:807px;
+  top:0;
+  width:611px;
+  height:407px;
+}
+
+.ip-wedding-gallery-item-05{
+  left:0;
+  top:417px;
+  width:255px;
+  height:382px;
+}
+
+.ip-wedding-gallery-item-06{
+  left:265px;
+  top:417px;
+  width:573px;
+  height:382px;
+}
+
+.ip-wedding-gallery-item-07{
+  left:848px;
+  top:417px;
+  width:570px;
+  height:382px;
+}
+
+.ip-wedding-gallery-item-08{
+  left:0;
+  top:809px;
+  width:540px;
+  height:360px;
+}
+
+.ip-wedding-gallery-item-09{
+  left:550px;
+  top:809px;
+  width:251px;
+  height:360px;
+}
+
+.ip-wedding-gallery-item-10{
+  left:811px;
+  top:809px;
+  width:357px;
+  height:360px;
+}
+
+.ip-wedding-gallery-item-11{
+  left:1178px;
+  top:809px;
+  width:240px;
+  height:360px;
+}
+
+.ip-wedding-gallery-item-12{
+  left:0;
+  top:1179px;
+  width:500px;
+  height:333px;
+}
+
+.ip-wedding-gallery-item-13{
+  left:510px;
+  top:1179px;
+  width:397px;
+  height:333px;
+}
+
+.ip-wedding-gallery-item-14{
+  left:917px;
+  top:1179px;
+  width:501px;
+  height:333px;
+}
+
+.ip-wedding-gallery-item-15{
+  left:0;
+  top:1522px;
+  width:329px;
+  height:493px;
+}
+
+.ip-wedding-gallery-item-16{
+  left:339px;
+  top:1522px;
+  width:329px;
+  height:493px;
+}
+
+.ip-wedding-gallery-item-17{
+  left:678px;
+  top:1522px;
+  width:740px;
+  height:493px;
+}
+
+.ip-wedding-gallery-item-18{
+  left:0;
+  top:2025px;
+  width:573px;
+  height:380px;
+}
+
+.ip-wedding-gallery-item-19{
+  left:583px;
+  top:2025px;
+  width:253px;
+  height:380px;
+}
+
+.ip-wedding-gallery-item-20{
+  left:846px;
+  top:2025px;
+  width:572px;
+  height:380px;
 }
 
 .ip-wedding-reviews{
@@ -809,4 +989,37 @@
 
 .ip-wedding .ip-wedding-review-hint-text br{
   display:block !important;
+}
+
+/* =========================================================
+   WEDDING GALLERY LAYOUT OVERRIDES
+
+   Версия: wedding-css-012-gallery-desktop
+
+   ИЗМЕНЕНИЯ:
+   - отзывы остаются на прежней позиции, пока галерея скрыта
+   - при раскрытой галерее отзывы переносятся под фото-блок
+   - подсказка под отзывами сохраняет прежний визуальный отступ от карточек
+   ========================================================= */
+
+.ip-wedding .ip-wedding-reviews{
+  top:860px !important;
+}
+
+.ip-wedding.is-gallery-open .ip-wedding-reviews{
+  top:3325px !important;
+}
+
+.ip-wedding .ip-wedding-review-hint{
+  top:1226px !important;
+}
+
+.ip-wedding.is-gallery-open .ip-wedding-review-hint{
+  top:3691px !important;
+}
+
+@media (max-width:767px){
+  .ip-wedding-gallery{
+    display:none !important;
+  }
 }

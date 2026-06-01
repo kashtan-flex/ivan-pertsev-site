@@ -2,7 +2,7 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-011-review-popup-source-origin
+Версия: wedding-js-012-gallery-scroll-height
 
 ИЗМЕНЕНИЯ:
 - убрано любое вмешательство в document.documentElement и document.body
@@ -12,6 +12,8 @@ WEDDING JS
 - сохранена premium magnetic hover анимация CTA-кнопок
 - сохранён Kinescope + poster без принудительного пересоздания iframe
 - review popup появляется из координаты карточки: 1–3 слева, 4 из центра, 5–7 справа
+- добавлено состояние is-gallery-open на .ip-wedding при раскрытии галереи
+- scroll-spacer теперь пересчитывает высоту страницы с учётом раскрытой desktop-галереи
 ==================================================
 */
 
@@ -22,7 +24,8 @@ WEDDING JS
     desktop:{
       width:1440,
       heroHeight:800,
-      pageHeight:1351
+      pageHeight:1351,
+      galleryOpenPageHeight:3760
     },
     breakpoint:767
   };
@@ -88,6 +91,21 @@ WEDDING JS
     return window.innerHeight;
   }
 
+  function isGalleryOpen(){
+    return !!(
+      gallery &&
+      gallery.classList.contains('is-visible')
+    );
+  }
+
+  function getCurrentPageHeight(){
+    if(!isMobile() && isGalleryOpen()){
+      return DESIGN.desktop.galleryOpenPageHeight;
+    }
+
+    return DESIGN.desktop.pageHeight;
+  }
+
   function ensureScrollSpacer(){
     if(scrollSpacer){
       return scrollSpacer;
@@ -116,8 +134,10 @@ WEDDING JS
       ? viewportWidth / DESIGN.desktop.width
       : viewportHeight / DESIGN.desktop.heroHeight;
 
+    var currentPageHeight = getCurrentPageHeight();
+
     var scaledPageHeight = Math.ceil(
-      DESIGN.desktop.pageHeight * scale
+      currentPageHeight * scale
     );
 
     page.style.setProperty(
@@ -457,13 +477,17 @@ WEDDING JS
     gallery.classList.toggle('is-visible');
 
     if(gallery.classList.contains('is-visible')){
+      page.classList.add('is-gallery-open');
       gallery.setAttribute('aria-hidden', 'false');
       galleryButton.textContent = 'Скрыть фото';
+      updateScale();
       return;
     }
 
+    page.classList.remove('is-gallery-open');
     gallery.setAttribute('aria-hidden', 'true');
     galleryButton.textContent = 'Смотреть фото';
+    updateScale();
   }
 
   function setupGalleryTrigger(){
