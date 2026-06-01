@@ -1,7 +1,7 @@
 /* =========================================================
    PROJECT REVIEWS CSS
 
-   Версия: project-reviews-024
+   Версия: project-reviews-025
 
    ИЗМЕНЕНИЯ:
    - карточки отзывов приведены к фиксированной Figma-геометрии
@@ -20,7 +20,6 @@
    - Safari-safe hover: убрано движение всей карточки с текстом
    - подъём при наведении имитируется тенью без перерастеризации текста
    - popup review typography and spacing приведены к Figma: avatar 40px, title 19px, type 12px, text 16px
-   - уменьшен стартовый scale popup с .25 до .72 для снижения перерастеризации текста на фоне
    ========================================================= */
 
 .ip-wedding-reviews,
@@ -236,7 +235,7 @@
     0 44px 120px rgba(0,0,0,.48),
     inset 0 1px 0 rgba(255,255,255,.035);
   opacity:0;
-  transform:translate3d(0,0,0) scale(.72);
+  transform:translate3d(0,0,0) scale(.25);
   transition:
     transform .52s cubic-bezier(.19,1,.22,1),
     opacity .52s cubic-bezier(.19,1,.22,1);
@@ -350,9 +349,64 @@
   letter-spacing:0;
 }
 
+
+/* =========================================================
+   REVIEW TAP HINT
+
+   Версия: project-reviews-025
+
+   ИЗМЕНЕНИЯ:
+   - добавлена desktop-подсказка под отзывами
+   - подключён SVG review-tap-hint.svg
+   - элемент скрыт на mobile
+   ========================================================= */
+
+.ip-wedding-review-hint,
+.ip-project-review-hint{
+  position:absolute;
+  left:1211px;
+  top:1226px;
+  z-index:5;
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  width:129px;
+  height:39px;
+  pointer-events:none;
+  user-select:none;
+}
+
+.ip-wedding-review-hint-icon,
+.ip-project-review-hint-icon{
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  display:block;
+  opacity:.20;
+}
+
+.ip-wedding-review-hint-text,
+.ip-project-review-hint-text{
+  width:96px;
+  height:39px;
+  margin-top:-1px;
+  color:rgba(255,255,255,.20);
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:14px;
+  line-height:1.4;
+  font-weight:400;
+  letter-spacing:-.01em;
+  text-align:left;
+}
+
 /* MOBILE SWIPE */
 
 @media (max-width:767px){
+
+  .ip-wedding-review-hint,
+  .ip-project-review-hint{
+    display:none !important;
+  }
 
   .ip-wedding-reviews,
   .ip-project-reviews{
