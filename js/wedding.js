@@ -2,12 +2,15 @@
 ==================================================
 WEDDING JS
 
-Версия: wedding-js-006
+Версия: wedding-js-007-safe-scope
 
 ИЗМЕНЕНИЯ:
-- добавлена premium magnetic hover анимация для CTA-кнопок
-- magnetic hover отключён на touch/mobile устройствах
-- сохранены desktop scaling, menu, accordion, popup, review popup, gallery logic и текущая video-логика
+- убрано любое вмешательство в document.documentElement и document.body
+- wedding теперь управляет только своей страницей .ip-wedding
+- добавлен внутренний scroll-spacer для корректной прокрутки страницы свадьбы
+- сохранены menu, accordion, popup, review popup, gallery logic
+- сохранена premium magnetic hover анимация CTA-кнопок
+- сохранён Kinescope + poster без принудительного пересоздания iframe
 ==================================================
 */
 
@@ -24,18 +27,10 @@ WEDDING JS
   };
 
   var VIDEO_REVEAL_DELAY = 3200;
-  var VIDEO_RECREATE_DELAY = 80;
   var MAGNETIC_STRENGTH = 7;
 
   var page = document.querySelector('[data-wedding-page]');
   var stage = document.querySelector('.ip-wedding-stage');
-
-  var videoFrame = document.querySelector('[data-wedding-video-frame]');
-  var videoWrap = videoFrame ? videoFrame.parentNode : null;
-
-  var originalVideoSrc = videoFrame
-    ? videoFrame.getAttribute('src')
-    : '';
 
   var menuButton = document.querySelector('.ip-menu-toggle');
   var menuPanel = document.querySelector('.ip-menu-panel');
@@ -70,7 +65,7 @@ WEDDING JS
 
   var resizeFrame = null;
   var videoRevealTimer = null;
-  var videoRecreateTimer = null;
+  var scrollSpacer = null;
 
   if(!page || !stage){
     return;
@@ -92,73 +87,54 @@ WEDDING JS
     return window.innerHeight;
   }
 
-  function updateViewportHeightVariable(){
-    var viewportHeight = getViewportHeight();
+  function ensureScrollSpacer(){
+    if(scrollSpacer){
+      return scrollSpacer;
+    }
 
-    document.documentElement.style.setProperty(
-      '--wedding-vh',
-      (viewportHeight * 0.01) + 'px'
-    );
+    scrollSpacer = document.createElement('div');
+    scrollSpacer.setAttribute('data-wedding-scroll-spacer', '');
+    scrollSpacer.setAttribute('aria-hidden', 'true');
 
-    return viewportHeight;
+    scrollSpacer.style.position = 'relative';
+    scrollSpacer.style.zIndex = '0';
+    scrollSpacer.style.width = '1px';
+    scrollSpacer.style.pointerEvents = 'none';
+    scrollSpacer.style.opacity = '0';
+
+    page.appendChild(scrollSpacer);
+
+    return scrollSpacer;
   }
 
   function updateScale(){
     var viewportWidth = window.innerWidth;
-    var viewportHeight = updateViewportHeightVariable();
+    var viewportHeight = getViewportHeight();
 
-    var scale;
-    var scaledPageHeight;
+    var scale = isMobile()
+      ? viewportWidth / DESIGN.desktop.width
+      : viewportHeight / DESIGN.desktop.heroHeight;
 
-    if(isMobile()){
-      scale = viewportWidth / DESIGN.desktop.width;
-
-      scaledPageHeight = Math.ceil(
-        DESIGN.desktop.pageHeight * scale
-      );
-
-      document.documentElement.style.setProperty(
-        '--wedding-scale',
-        scale.toFixed(5)
-      );
-
-      page.style.height = scaledPageHeight + 'px';
-      page.style.minHeight = scaledPageHeight + 'px';
-
-      document.documentElement.style.height = 'auto';
-      document.body.style.height = 'auto';
-
-      document.documentElement.style.overflowX = 'hidden';
-      document.body.style.overflowX = 'hidden';
-
-      document.documentElement.style.overflowY = 'auto';
-      document.body.style.overflowY = 'auto';
-
-      return;
-    }
-
-    scale = viewportHeight / DESIGN.desktop.heroHeight;
+    var scaledPageHeight = Math.ceil(
+      DESIGN.desktop.pageHeight * scale
+    );
 
     document.documentElement.style.setProperty(
       '--wedding-scale',
       scale.toFixed(5)
     );
 
-    scaledPageHeight = Math.ceil(
-      DESIGN.desktop.pageHeight * scale
+    document.documentElement.style.setProperty(
+      '--wedding-vh',
+      (viewportHeight * 0.01) + 'px'
     );
 
-    page.style.height = scaledPageHeight + 'px';
-    page.style.minHeight = scaledPageHeight + 'px';
+    page.style.height = viewportHeight + 'px';
+    page.style.minHeight = viewportHeight + 'px';
+    page.style.overflowX = 'hidden';
+    page.style.overflowY = 'auto';
 
-    document.documentElement.style.height = 'auto';
-    document.body.style.height = 'auto';
-
-    document.documentElement.style.overflowX = 'hidden';
-    document.body.style.overflowX = 'hidden';
-
-    document.documentElement.style.overflowY = 'auto';
-    document.body.style.overflowY = 'auto';
+    ensureScrollSpacer().style.height = scaledPageHeight + 'px';
   }
 
   function requestScaleUpdate(){
@@ -169,43 +145,6 @@ WEDDING JS
     resizeFrame = window.requestAnimationFrame(updateScale);
   }
 
-  function clearVideoTimers(){
-    if(videoRevealTimer){
-      window.clearTimeout(videoRevealTimer);
-      videoRevealTimer = null;
-    }
-
-    if(videoRecreateTimer){
-      window.clearTimeout(videoRecreateTimer);
-      videoRecreateTimer = null;
-    }
-  }
-
-  function buildFreshVideoSrc(){
-    if(!originalVideoSrc){
-      return '';
-    }
-
-    var separator = originalVideoSrc.indexOf('?') === -1
-      ? '?'
-      : '&';
-
-    return originalVideoSrc + separator + 'start=0&restart=' + Date.now();
-  }
-
-  function createFreshVideoFrame(){
-    var iframe = document.createElement('iframe');
-
-    iframe.className = 'ip-wedding-video';
-    iframe.setAttribute('data-wedding-video-frame', '');
-    iframe.setAttribute('src', buildFreshVideoSrc());
-    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('loading', 'eager');
-
-    return iframe;
-  }
-
   function revealVideo(){
     if(!page || page.classList.contains('is-video-ready')){
       return;
@@ -214,50 +153,14 @@ WEDDING JS
     page.classList.add('is-video-ready');
   }
 
-  function recreateWeddingVideo(){
-    if(!videoWrap || !originalVideoSrc){
-      return;
+  function setupVideoPosterTransition(){
+    if(videoRevealTimer){
+      window.clearTimeout(videoRevealTimer);
     }
-
-    clearVideoTimers();
-
-    page.classList.remove('is-video-ready');
-
-    if(videoFrame && videoFrame.parentNode){
-      videoFrame.setAttribute('src', 'about:blank');
-      videoFrame.parentNode.removeChild(videoFrame);
-    }
-
-    videoFrame = null;
-
-    videoRecreateTimer = window.setTimeout(function(){
-      videoFrame = createFreshVideoFrame();
-      videoWrap.appendChild(videoFrame);
-    }, VIDEO_RECREATE_DELAY);
 
     videoRevealTimer = window.setTimeout(function(){
       revealVideo();
     }, VIDEO_REVEAL_DELAY);
-  }
-
-  function setupVideoPosterTransition(){
-    recreateWeddingVideo();
-
-    window.addEventListener('pageshow', function(){
-      recreateWeddingVideo();
-    });
-
-    window.addEventListener('pagehide', function(){
-      if(videoFrame){
-        videoFrame.setAttribute('src', 'about:blank');
-      }
-    });
-
-    document.addEventListener('visibilitychange', function(){
-      if(document.visibilityState === 'visible'){
-        recreateWeddingVideo();
-      }
-    });
   }
 
   function resetButtonMagnet(button){
@@ -576,18 +479,12 @@ WEDDING JS
   }
 
   function setupMenuCloseOnScroll(){
-    var lastScrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      0;
+    var lastScrollTop = page.scrollTop || 0;
 
-    window.addEventListener(
+    page.addEventListener(
       'scroll',
       function(){
-        var currentScrollTop =
-          window.pageYOffset ||
-          document.documentElement.scrollTop ||
-          0;
+        var currentScrollTop = page.scrollTop || 0;
 
         if(Math.abs(currentScrollTop - lastScrollTop) > 2){
           closeMenuOnUserScroll();
