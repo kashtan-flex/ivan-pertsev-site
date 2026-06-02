@@ -2,13 +2,13 @@
 ==================================================
 WEDDING MOBILE HTML
 
-Версия: wedding-mobile-html-015-gallery-lightbox-attributes-final
+Версия: wedding-mobile-html-017-gallery-eager-loading
 
 ИЗМЕНЕНИЯ:
-- точечно добавлены data-атрибуты открытия lightbox ко всем 20 фотографиям мобильной галереи
-- возвращена отсутствующая HTML-разметка mobile lightbox перед popup
-- блок отзывов LOCKED не изменялся
-- видео, меню, popup, подсказка, стрелка наверх, CSS и JS не изменялись
+- у 20 фотографий мобильной галереи loading="lazy" заменён на loading="eager"
+- правка сделана для устранения паузы/залипания скролла при первом проходе по галерее
+- работа lightbox сохранена: data-атрибуты галереи и HTML-разметка lightbox не изменялись
+- отзывы, видео, меню, popup, подсказка, стрелка наверх, CSS и JS не изменялись
 ==================================================
 -->
 
@@ -164,83 +164,83 @@ WEDDING MOBILE HTML
       <div class="ip-wedding-mobile-gallery-grid">
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-01" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="0" aria-label="Открыть фото 01">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-01.webp" alt="Свадьба Иван Перцев — фото 01" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-01.webp" alt="Свадьба Иван Перцев — фото 01" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-02" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="1" aria-label="Открыть фото 02">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-02.webp" alt="Свадьба Иван Перцев — фото 02" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-02.webp" alt="Свадьба Иван Перцев — фото 02" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-03" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="2" aria-label="Открыть фото 03">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-03.webp" alt="Свадьба Иван Перцев — фото 03" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-03.webp" alt="Свадьба Иван Перцев — фото 03" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-04" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="3" aria-label="Открыть фото 04">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-04.webp" alt="Свадьба Иван Перцев — фото 04" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-04.webp" alt="Свадьба Иван Перцев — фото 04" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-05" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="4" aria-label="Открыть фото 05">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-05.webp" alt="Свадьба Иван Перцев — фото 05" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-05.webp" alt="Свадьба Иван Перцев — фото 05" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-06" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="5" aria-label="Открыть фото 06">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-06.webp" alt="Свадьба Иван Перцев — фото 06" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-06.webp" alt="Свадьба Иван Перцев — фото 06" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-07" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="6" aria-label="Открыть фото 07">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-07.webp" alt="Свадьба Иван Перцев — фото 07" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-07.webp" alt="Свадьба Иван Перцев — фото 07" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-08" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="7" aria-label="Открыть фото 08">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-08.webp" alt="Свадьба Иван Перцев — фото 08" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-08.webp" alt="Свадьба Иван Перцев — фото 08" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-09" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="8" aria-label="Открыть фото 09">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-09.webp" alt="Свадьба Иван Перцев — фото 09" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-09.webp" alt="Свадьба Иван Перцев — фото 09" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-10" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="9" aria-label="Открыть фото 10">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-10.webp" alt="Свадьба Иван Перцев — фото 10" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-10.webp" alt="Свадьба Иван Перцев — фото 10" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-11" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="10" aria-label="Открыть фото 11">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-11.webp" alt="Свадьба Иван Перцев — фото 11" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-11.webp" alt="Свадьба Иван Перцев — фото 11" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-12" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="11" aria-label="Открыть фото 12">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-12.webp" alt="Свадьба Иван Перцев — фото 12" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-12.webp" alt="Свадьба Иван Перцев — фото 12" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-13" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="12" aria-label="Открыть фото 13">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-13.webp" alt="Свадьба Иван Перцев — фото 13" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-13.webp" alt="Свадьба Иван Перцев — фото 13" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-14" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="13" aria-label="Открыть фото 14">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-14.webp" alt="Свадьба Иван Перцев — фото 14" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-14.webp" alt="Свадьба Иван Перцев — фото 14" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-15" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="14" aria-label="Открыть фото 15">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-15.webp" alt="Свадьба Иван Перцев — фото 15" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-15.webp" alt="Свадьба Иван Перцев — фото 15" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-16" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="15" aria-label="Открыть фото 16">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-16.webp" alt="Свадьба Иван Перцев — фото 16" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-16.webp" alt="Свадьба Иван Перцев — фото 16" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-17" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="16" aria-label="Открыть фото 17">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-17.webp" alt="Свадьба Иван Перцев — фото 17" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-17.webp" alt="Свадьба Иван Перцев — фото 17" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-18" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="17" aria-label="Открыть фото 18">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-18.webp" alt="Свадьба Иван Перцев — фото 18" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-18.webp" alt="Свадьба Иван Перцев — фото 18" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-19" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="18" aria-label="Открыть фото 19">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-19.webp" alt="Свадьба Иван Перцев — фото 19" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-19.webp" alt="Свадьба Иван Перцев — фото 19" loading="eager" decoding="async">
         </figure>
 
         <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-20" role="button" tabindex="0" data-wedding-mobile-lightbox-open data-wedding-mobile-gallery-index="19" aria-label="Открыть фото 20">
-          <img src="./assets/img/wedding/gallery/wedding-gallery-20.webp" alt="Свадьба Иван Перцев — фото 20" loading="lazy" decoding="async">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-20.webp" alt="Свадьба Иван Перцев — фото 20" loading="eager" decoding="async">
         </figure>
 
       </div>
@@ -281,7 +281,18 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Вань, ещё раз хотим сказать тебе огромное спасибо. Благодаря тебе этот день мы будем всегда вспоминать с восторгом.<br><br><strong>Ты сделал идеальную свадьбу!</strong><br>Трогательно и с драйвом. Спустя два месяца наши гости говорят о тебе с эмоциями!<br><br>Желаем, чтобы всем парам повезло провести этот день именно с тобой!<br><br><strong>Ты лучший!</strong>
+            Вань, ещё раз хотим сказать тебе<br>
+            огромное спасибо. Благодаря<br>
+            тебе этот день мы будем всегда<br>
+            вспоминать с восторгом.<br><br>
+            <strong>Ты сделал идеальную свадьбу!</strong><br>
+            Трогательно и с драйвом.<br>
+            Спустя два месяца наши гости<br>
+            говорят о тебе с эмоциями!<br><br>
+            Желаем, чтобы всем парам<br>
+            повезло провести этот день<br>
+            именно с тобой!<br><br>
+            <strong>Ты лучший!</strong>
           </div>
 
         </article>
@@ -312,7 +323,18 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Вань, еще раз хотел бы поблагодарить тебя! Ты — настоящий профи своего дела.<br><br><strong>Безумно круто было с тобой поработать.</strong><br>Я рад, что такое знаковое для нас с Полиной событие провел ты! Желаю тебе дальнейших успехов, профессионального роста и семейного благополучия.<br><br><strong>Обнял!</strong>
+            Вань,&nbsp;еще&nbsp;раз&nbsp;хотел<br>
+            бы&nbsp;поблагодарить&nbsp;тебя!<br>
+            Ты&nbsp;—&nbsp;настоящий&nbsp;профи<br>
+            своего&nbsp;дела.<br><br>
+            <strong>Безумно&nbsp;круто&nbsp;было&nbsp;с&nbsp;тобой<br>
+            поработать.</strong>
+            Я&nbsp;рад,&nbsp;что&nbsp;такое&nbsp;знаковое&nbsp;для&nbsp;нас<br>
+            с&nbsp;Полиной&nbsp;событие&nbsp;провел&nbsp;ты!<br>
+            Желаю&nbsp;тебе&nbsp;дальнейших&nbsp;успехов,<br>
+            профессионального&nbsp;роста<br>
+            и&nbsp;семейного&nbsp;благополучия.<br><br>
+            <strong>Обнял!</strong>
           </div>
 
         </article>
@@ -343,7 +365,19 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Дорогой Ваня, мы благодарим тебя за шикарно организованный вечер нашей свадьбы!<br><br><strong>Мы были уверены, что всё под контролем!</strong><br>Ваня, отдельное спасибо за шикарные песни и проведение всего мероприятия. Мы и гости просто в восторге, все сегодня звонят и говорят о шикарной организации и о супер ведущем!<br><br><strong>Спасибо огромное!</strong>
+            Дорогой&nbsp;Ваня,&nbsp;мы&nbsp;благодарим<br>
+            тебя&nbsp;за&nbsp;шикарно&nbsp;организованный<br>
+            вечер&nbsp;нашей&nbsp;свадьбы!<br><br>
+            <strong>Мы&nbsp;были&nbsp;уверены,&nbsp;что&nbsp;всё<br>
+            под&nbsp;контролем!</strong>
+            Ваня,&nbsp;отдельное&nbsp;спасибо<br>
+            за&nbsp;шикарные&nbsp;песни&nbsp;и&nbsp;проведение<br>
+            всего&nbsp;мероприятия.<br>
+            Мы&nbsp;и&nbsp;гости&nbsp;просто&nbsp;в&nbsp;восторге,<br>
+            все&nbsp;сегодня&nbsp;звонят&nbsp;и&nbsp;говорят<br>
+            о&nbsp;шикарной&nbsp;организации<br>
+            и&nbsp;о&nbsp;супер&nbsp;ведущем!<br><br>
+            <strong>Спасибо&nbsp;огромное!</strong>
           </div>
 
         </article>
@@ -374,7 +408,19 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Спасибо за организацию такого чудесного праздника! Каждый день мы вспоминаем как же всё было нереально круто!<br><br><strong>Не было ни одного изъяна, довольны каждой минутой и секундой!</strong><br>Это самые лучшие и тёплые воспоминания. Ваня провёл весь этот вечер с нами и сделал его семейным, тёплым и незабываемым.<br><br><strong>Спасибо, спасибо, спасибо!</strong>
+            Спасибо&nbsp;за&nbsp;организацию<br>
+такого&nbsp;чудесного&nbsp;праздника!<br>
+Каждый&nbsp;день&nbsp;мы&nbsp;вспоминаем<br>
+как&nbsp;же&nbsp;всё&nbsp;было&nbsp;нереально&nbsp;круто!<br><br>
+<strong>Не&nbsp;было&nbsp;ни&nbsp;одного&nbsp;изъяна,<br>
+довольны&nbsp;каждой&nbsp;минутой<br>
+и&nbsp;секундой!</strong><br>
+Это&nbsp;самые&nbsp;лучшие&nbsp;и&nbsp;тёплые<br>
+воспоминания.&nbsp;Ваня&nbsp;провёл<br>
+весь&nbsp;этот&nbsp;вечер&nbsp;с&nbsp;нами&nbsp;и&nbsp;сделал<br>
+его&nbsp;семейным,&nbsp;тёплым<br>
+и&nbsp;незабываемым.<br><br>
+<strong>Спасибо,&nbsp;спасибо,&nbsp;спасибо!</strong>
           </div>
 
         </article>
@@ -405,7 +451,19 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Вань, привет! Мы с Егором неделю отходили от вечера, который ты сделал крутым! Спасибо большое!<br><br><strong>Было идеально всё:</strong><br>от встреч с подготовкой до самой свадьбы. Не слышала от гостей ни одного отрицательного отзыва, особенно все хвалили ведущего, даже самые искушённые.<br><br><strong>Благодаря тебе всё получилось именно так, как хотелось!</strong>
+            Вань,&nbsp;привет!&nbsp;Мы&nbsp;с&nbsp;Егором<br>
+            неделю&nbsp;отходили&nbsp;от&nbsp;вечера,<br>
+            который&nbsp;ты&nbsp;сделал&nbsp;крутым!<br>
+            Спасибо&nbsp;большое!<br><br>
+            <strong>Было&nbsp;идеально&nbsp;всё:</strong>
+            от&nbsp;встреч&nbsp;с&nbsp;подготовкой<br>
+            до&nbsp;самой&nbsp;свадьбы.&nbsp;Не&nbsp;слышала<br>
+            от&nbsp;гостей&nbsp;ни&nbsp;одного<br>
+            отрицательного&nbsp;отзыва,<br>
+            особенно&nbsp;все&nbsp;хвалили&nbsp;ведущего,<br>
+            даже&nbsp;самые&nbsp;искушённые.<br><br>
+            <strong>Благодаря&nbsp;тебе&nbsp;всё&nbsp;получилось<br>
+            именно&nbsp;так,&nbsp;как&nbsp;хотелось!</strong>
           </div>
 
         </article>
@@ -436,7 +494,17 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Вань, я в очередной раз хотел тебе написать какой ты крутой ведущий! Три года прошло, на каких я только мероприятиях не был.<br><br><strong>Ты просто лучший!</strong><br>Несравним ни с кем. Любое следующее мероприятие даже рассматриваться не будет без тебя!<br><br><strong>Спасибо большое!</strong>
+            Вань,&nbsp;я&nbsp;в&nbsp;очередной&nbsp;раз&nbsp;хотел<br>
+            тебе&nbsp;написать&nbsp;какой&nbsp;ты&nbsp;крутой<br>
+            ведущий!&nbsp;Три&nbsp;года&nbsp;прошло,<br>
+            на&nbsp;каких&nbsp;я&nbsp;только&nbsp;мероприятиях<br>
+            не&nbsp;был.<br><br>
+            <strong>Ты&nbsp;просто&nbsp;лучший!</strong>
+            Несравним&nbsp;ни&nbsp;с&nbsp;кем.&nbsp;Любое<br>
+            следующее&nbsp;мероприятие&nbsp;даже<br>
+            рассматриваться&nbsp;не&nbsp;будет<br>
+            без&nbsp;тебя!<br><br>
+            <strong>Спасибо&nbsp;большое!</strong>
           </div>
 
         </article>
@@ -467,7 +535,19 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Свадьба моего сына стала одним из самых ярких событий моей жизни! Во многом, благодаря тебе, Иван!<br><br><strong>Это было очень профессионально!</strong><br>Твои милые интерактивы удивили и порадовали абсолютно всех. Песни под гитару стали лучшим объединением всех гостей.<br><br><strong>Спасибо за вечер! Ваня - ты лучший!</strong>
+            Свадьба&nbsp;моего&nbsp;сына&nbsp;стала&nbsp;одним<br>
+            из&nbsp;самых&nbsp;ярких&nbsp;событий&nbsp;моей<br>
+            жизни!&nbsp;Во&nbsp;многом,&nbsp;благодаря<br>
+            тебе,&nbsp;Иван!<br><br>
+            <strong>Это&nbsp;было&nbsp;очень<br>
+            профессионально!</strong>
+            Твои&nbsp;милые&nbsp;интерактивы<br>
+            удивили&nbsp;и&nbsp;порадовали<br>
+            абсолютно&nbsp;всех.<br>
+            Песни&nbsp;под&nbsp;гитару&nbsp;стали&nbsp;лучшим<br>
+            объединением&nbsp;всех&nbsp;гостей.<br><br>
+            <strong>Спасибо&nbsp;за&nbsp;вечер!<br>
+            Ваня&nbsp;-&nbsp;ты&nbsp;лучший!</strong>
           </div>
 
         </article>
@@ -568,7 +648,7 @@ WEDDING MOBILE HTML
 
               <div class="ip-submenu">
 
-                <a href="./wedding-mobile-preview.html">
+                <a href="./wedding-preview.html">
                   Свадьба
                 </a>
 
