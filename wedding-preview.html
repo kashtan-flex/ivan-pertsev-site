@@ -2,13 +2,16 @@
 ==================================================
 WEDDING PREVIEW HTML
 
-Версия: wedding-preview-002
+Версия: wedding-preview-003-responsive-entry
 
 ИЗМЕНЕНИЯ:
-- подключён общий модуль отзывов project-reviews.css
-- сохранена архитектура biography-preview
-- сохранён wedding viewport workflow
-- сохранены popup и page transition
+- wedding-preview.html стал единой точкой входа для desktop и mobile версии страницы «Свадьба»
+- при ширине экрана до 767px автоматически загружается pages/wedding/wedding-mobile.html
+- при ширине экрана от 768px автоматически загружается pages/wedding/wedding.html
+- для mobile подключается wedding-mobile.css и wedding-mobile.js
+- для desktop подключаются wedding.css, project-reviews.css и wedding.js
+- отдельный wedding-mobile-preview.html больше не нужен и может быть удалён
+- сохранены popup, page transition и viewport workflow
 ==================================================
 -->
 
@@ -27,6 +30,7 @@ WEDDING PREVIEW HTML
   <style>
     :root{
       --wedding-vh:1vh;
+      --wedding-mobile-vh:1vh;
     }
 
     html,
@@ -81,9 +85,10 @@ WEDDING PREVIEW HTML
     rel="stylesheet"
   >
 
+  <link rel="preload" href="./assets/img/wedding/mobile/background/wedding-mobile-bg.webp" as="image">
+  <link rel="preload" href="./assets/img/wedding/video/wedding-video-poster.webp" as="image">
+
   <link rel="stylesheet" href="./css/home.css">
-  <link rel="stylesheet" href="./css/wedding.css">
-  <link rel="stylesheet" href="./css/project-reviews.css">
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
@@ -103,6 +108,14 @@ WEDDING PREVIEW HTML
     (function(){
       'use strict';
 
+      var MOBILE_BREAKPOINT = 767;
+
+      var root = document.getElementById('ip-wedding-root');
+
+      function isMobileViewport(){
+        return window.innerWidth <= MOBILE_BREAKPOINT;
+      }
+
       function setWeddingViewportHeight(){
         var height = window.innerHeight;
 
@@ -114,84 +127,149 @@ WEDDING PREVIEW HTML
           '--wedding-vh',
           (height * 0.01) + 'px'
         );
+
+        document.documentElement.style.setProperty(
+          '--wedding-mobile-vh',
+          (height * 0.01) + 'px'
+        );
       }
 
-      setWeddingViewportHeight();
+      function loadStylesheet(href){
+        return new Promise(function(resolve, reject){
+          var existing = document.querySelector(
+            'link[href="' + href + '"]'
+          );
 
-      window.addEventListener(
-        'resize',
-        setWeddingViewportHeight,
-        { passive:true }
-      );
+          if(existing){
+            resolve();
+            return;
+          }
 
-      window.addEventListener(
-        'orientationchange',
-        function(){
-          window.setTimeout(setWeddingViewportHeight, 250);
-        },
-        { passive:true }
-      );
+          var link = document.createElement('link');
 
-      if(window.visualViewport){
-        window.visualViewport.addEventListener(
+          link.rel = 'stylesheet';
+          link.href = href;
+
+          link.onload = resolve;
+          link.onerror = reject;
+
+          document.head.appendChild(link);
+        });
+      }
+
+      function loadScript(src){
+        return new Promise(function(resolve, reject){
+          var script = document.createElement('script');
+
+          script.src = src;
+          script.defer = true;
+
+          script.onload = resolve;
+          script.onerror = reject;
+
+          document.body.appendChild(script);
+        });
+      }
+
+      function getPageConfig(){
+        if(isMobileViewport()){
+          return {
+            css:[
+              './css/wedding-mobile.css'
+            ],
+            html:'./pages/wedding/wedding-mobile.html',
+            js:'./js/wedding-mobile.js',
+            error:'Ошибка загрузки мобильной страницы Свадьба. Проверь путь: pages/wedding/wedding-mobile.html'
+          };
+        }
+
+        return {
+          css:[
+            './css/wedding.css',
+            './css/project-reviews.css'
+          ],
+          html:'./pages/wedding/wedding.html',
+          js:'./js/wedding.js',
+          error:'Ошибка загрузки страницы Свадьба. Проверь путь: pages/wedding/wedding.html'
+        };
+      }
+
+      function initViewportListeners(){
+        setWeddingViewportHeight();
+
+        window.addEventListener(
           'resize',
           setWeddingViewportHeight,
           { passive:true }
         );
-      }
-    })();
-  </script>
 
-  <script>
-    fetch('./pages/wedding/wedding.html')
-      .then(function(response){
+        window.addEventListener(
+          'orientationchange',
+          function(){
+            window.setTimeout(setWeddingViewportHeight, 250);
+          },
+          { passive:true }
+        );
 
-        if(!response.ok){
-          throw new Error(
-            'Не удалось загрузить pages/wedding/wedding.html'
+        if(window.visualViewport){
+          window.visualViewport.addEventListener(
+            'resize',
+            setWeddingViewportHeight,
+            { passive:true }
           );
         }
+      }
 
-        return response.text();
-      })
+      function initPage(){
+        var config = getPageConfig();
 
-      .then(function(html){
+        Promise.all(
+          config.css.map(function(href){
+            return loadStylesheet(href);
+          })
+        )
+          .then(function(){
+            return fetch(config.html);
+          })
+          .then(function(response){
 
-        document.getElementById(
-          'ip-wedding-root'
-        ).innerHTML = html;
+            if(!response.ok){
+              throw new Error(config.error);
+            }
 
-        var weddingScript =
-          document.createElement('script');
+            return response.text();
+          })
+          .then(function(html){
 
-        weddingScript.src =
-          './js/wedding.js';
+            root.innerHTML = html;
 
-        document.body.appendChild(
-          weddingScript
-        );
+            return loadScript(config.js);
+          })
+          .then(function(){
+            return loadScript('./js/page-transition.js');
+          })
+          .catch(function(error){
 
-        var transitionScript =
-          document.createElement('script');
+            console.error(error);
 
-        transitionScript.src =
-          './js/page-transition.js';
+            document.body.style.background =
+              '#050603';
 
-        document.body.appendChild(
-          transitionScript
-        );
-      })
+            document.body.innerHTML =
+              '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">' +
+              config.error +
+              '</pre>';
+          });
+      }
 
-      .catch(function(error){
+      if(!root){
+        return;
+      }
 
-        console.error(error);
+      initViewportListeners();
+      initPage();
 
-        document.body.style.background =
-          '#050603';
-
-        document.body.innerHTML =
-          '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">Ошибка загрузки страницы Свадьба. Проверь путь: pages/wedding/wedding.html</pre>';
-      });
+    })();
   </script>
 
 </body>

@@ -2,15 +2,15 @@
 ==================================================
 WEDDING MOBILE HTML
 
-Версия: wedding-mobile-html-001
+Версия: wedding-mobile-html-002-mobile-video
 
 ИЗМЕНЕНИЯ:
-- создана отдельная HTML-структура мобильной версии страницы «Свадьба»
+- в мобильную версию страницы «Свадьба» добавлен рабочий Kinescope iframe из desktop-версии
+- сохранён poster-слой для аккуратного старта видео
+- добавлены data-атрибуты для JS-скрытия poster после загрузки iframe
+- пункт меню «Свадьба» направлен на единый responsive entry-point wedding-preview.html
 - desktop-страница Wedding не затрагивается
-- добавлены mobile hero, видео-постер, текстовый блок, CTA-кнопки, awards, галерея, отзывы и scroll-top
-- меню использует утверждённую shared-структуру ip-menu-toggle / ip-menu-panel / ip-accordion
-- popup использует общую систему проекта через data-popup="main"
-- lightbox на первом этапе не подключается
+- сохранены mobile hero, CTA, awards, gallery, reviews, popup, menu и scroll-top
 ==================================================
 -->
 
@@ -54,8 +54,17 @@ WEDDING MOBILE HTML
 
         <div
           class="ip-wedding-mobile-video-poster"
+          data-wedding-mobile-video-poster
           aria-hidden="true"
         ></div>
+
+        <iframe
+          class="ip-wedding-mobile-video"
+          data-wedding-mobile-video-frame
+          src="https://kinescope.io/embed/tLG159m4JCtDsZWU4w4uSd?autoplay=1&muted=1&loop=1"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
 
       </div>
 
