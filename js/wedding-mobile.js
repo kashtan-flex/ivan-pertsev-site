@@ -2,15 +2,17 @@
 ==================================================
 WEDDING MOBILE JS
 
-Версия: wedding-mobile-js-009-lightbox-open-stage
+Версия: wedding-mobile-js-011-lightbox-complete-clean
 
 ИЗМЕНЕНИЯ:
-- добавлен только первый JS-этап mobile lightbox
-- добавлено открытие фотографии по клику из мобильной галереи
-- используется уже подготовленная HTML-разметка lightbox и CSS Stage 2
-- не добавлялись: закрытие, свайпы, перелистывание, счётчик и блокировка скролла
-- блок отзывов LOCKED не изменялся
-- scale, menu, popup, gallery open/close, video poster и scrolltop сохранены
+- файл собран на основе актуального wedding-mobile-js-010-lightbox-complete
+- удалены дубли lightbox-переменных и функций
+- сохранены масштабирование, высоты страницы, меню, popup, gallery open/close, video poster и scrolltop
+- сохранены открытие фото, закрытие, свайп влево/вправо, счётчик и клавиши ArrowLeft / ArrowRight
+- крестик закрытия отображается и позиционируется относительно открытого фото
+- правый край крестика выровнен по правому краю фото
+- крестик расположен на 20px выше верхнего края фото
+- отзывы LOCKED, HTML и CSS не изменялись
 ==================================================
 */
 
@@ -61,6 +63,12 @@ WEDDING MOBILE JS
 
   var lightbox = document.querySelector('[data-wedding-mobile-lightbox]');
   var lightboxImage = document.querySelector('[data-wedding-mobile-lightbox-image]');
+  var lightboxCounter = document.querySelector('[data-wedding-mobile-lightbox-counter]');
+  var lightboxCloseButton = document.querySelector('.ip-wedding-mobile-lightbox-close');
+  var lightboxCloseTriggers = Array.prototype.slice.call(
+    document.querySelectorAll('[data-wedding-mobile-lightbox-close]')
+  );
+
   var galleryLightboxItems = Array.prototype.slice.call(
     document.querySelectorAll('[data-wedding-mobile-lightbox-open]')
   );
@@ -69,6 +77,10 @@ WEDDING MOBILE JS
   var touchStartY = null;
   var touchStartedInsideMenu = false;
   var videoPosterHidden = false;
+  var lightboxIndex = 0;
+  var lightboxImages = [];
+  var lightboxTouchStartX = null;
+  var lightboxTouchStartY = null;
 
   if(!page || !stage){
     return;
@@ -410,8 +422,25 @@ WEDDING MOBILE JS
 
     document.addEventListener('keydown', function(event){
       if(event.key === 'Escape'){
+        closePhotoLightbox();
         closePopup();
         closeMenu();
+        return;
+      }
+
+      if(!lightbox || !lightbox.classList.contains('is-open')){
+        return;
+      }
+
+      if(event.key === 'ArrowRight'){
+        event.preventDefault();
+        showNextLightboxImage();
+        return;
+      }
+
+      if(event.key === 'ArrowLeft'){
+        event.preventDefault();
+        showPrevLightboxImage();
       }
     });
   }
@@ -568,37 +597,240 @@ WEDDING MOBILE JS
   }
 
 
-  function openPhotoLightbox(item){
-    if(!lightbox || !lightboxImage || !item){
+  function collectLightboxImages(){
+    lightboxImages = galleryLightboxItems.map(function(item){
+      var image = item.querySelector('img');
+
+      if(!image){
+        return null;
+      }
+
+      return {
+        src:image.getAttribute('src'),
+        alt:image.getAttribute('alt') || ''
+      };
+    }).filter(Boolean);
+  }
+
+  function lockLightboxScroll(){
+    document.documentElement.classList.add('ip-popup-lock');
+    document.body.classList.add('ip-popup-lock');
+  }
+
+  function unlockLightboxScroll(){
+    if(popup && popup.classList.contains('is-open')){
       return;
     }
 
-    var image = item.querySelector('img');
+    document.documentElement.classList.remove('ip-popup-lock');
+    document.body.classList.remove('ip-popup-lock');
+  }
 
-    if(!image){
+  function positionPhotoLightboxClose(){
+    if(!lightbox || !lightboxImage || !lightboxCloseButton){
       return;
     }
 
-    lightboxImage.src = image.getAttribute('src');
-    lightboxImage.alt = image.getAttribute('alt') || '';
+    if(!lightbox.classList.contains('is-open')){
+      return;
+    }
+
+    var imageRect = lightboxImage.getBoundingClientRect();
+    var closeWidth = lightboxCloseButton.offsetWidth || 34;
+    var closeHeight = lightboxCloseButton.offsetHeight || 34;
+
+    if(!imageRect.width || !imageRect.height){
+      return;
+    }
+
+    lightboxCloseButton.style.display = 'block';
+    lightboxCloseButton.style.top = Math.max(12, imageRect.top - closeHeight - 20) + 'px';
+    lightboxCloseButton.style.left = (imageRect.right - closeWidth) + 'px';
+    lightboxCloseButton.style.right = 'auto';
+  }
+
+  function updateLightboxCounter(){
+    if(!lightboxCounter || !lightboxImages.length){
+      return;
+    }
+
+    lightboxCounter.textContent =
+      String(lightboxIndex + 1).padStart(2, '0') +
+      ' / ' +
+      String(lightboxImages.length).padStart(2, '0');
+  }
+
+  function updateLightboxImage(){
+    if(!lightboxImage || !lightboxImages.length){
+      return;
+    }
+
+    var imageData = lightboxImages[lightboxIndex];
+
+    lightboxImage.src = imageData.src;
+    lightboxImage.alt = imageData.alt;
+
+    updateLightboxCounter();
+
+    window.requestAnimationFrame(function(){
+      positionPhotoLightboxClose();
+    });
+  }
+
+  function openPhotoLightbox(index){
+    if(!lightbox || !lightboxImage || !lightboxImages.length){
+      return;
+    }
+
+    closeMenu();
+
+    lightboxIndex = Math.max(
+      0,
+      Math.min(index, lightboxImages.length - 1)
+    );
+
+    updateLightboxImage();
 
     lightbox.classList.add('is-open');
     lightbox.setAttribute('aria-hidden', 'false');
+
+    lockLightboxScroll();
+
+    window.requestAnimationFrame(function(){
+      positionPhotoLightboxClose();
+    });
   }
 
-  function setupPhotoLightboxOpen(){
-    if(!galleryLightboxItems.length){
+  function closePhotoLightbox(){
+    if(!lightbox){
       return;
     }
 
-    galleryLightboxItems.forEach(function(item){
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+
+    if(lightboxImage){
+      lightboxImage.removeAttribute('src');
+      lightboxImage.removeAttribute('alt');
+    }
+
+    if(lightboxCloseButton){
+      lightboxCloseButton.style.display = '';
+      lightboxCloseButton.style.top = '';
+      lightboxCloseButton.style.left = '';
+      lightboxCloseButton.style.right = '';
+    }
+
+    unlockLightboxScroll();
+    updateScale();
+  }
+
+  function showNextLightboxImage(){
+    if(!lightboxImages.length){
+      return;
+    }
+
+    lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
+    updateLightboxImage();
+  }
+
+  function showPrevLightboxImage(){
+    if(!lightboxImages.length){
+      return;
+    }
+
+    lightboxIndex =
+      (lightboxIndex - 1 + lightboxImages.length) %
+      lightboxImages.length;
+
+    updateLightboxImage();
+  }
+
+  function setupPhotoLightbox(){
+    if(!lightbox || !lightboxImage || !galleryLightboxItems.length){
+      return;
+    }
+
+    collectLightboxImages();
+
+    galleryLightboxItems.forEach(function(item, index){
       item.addEventListener('click', function(event){
         event.preventDefault();
         event.stopPropagation();
 
-        openPhotoLightbox(item);
+        openPhotoLightbox(index);
+      });
+
+      item.addEventListener('keydown', function(event){
+        if(event.key !== 'Enter' && event.key !== ' '){
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        openPhotoLightbox(index);
       });
     });
+
+    lightboxCloseTriggers.forEach(function(trigger){
+      trigger.addEventListener('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+
+        closePhotoLightbox();
+      });
+    });
+
+    lightbox.addEventListener(
+      'touchstart',
+      function(event){
+        var touch = event.touches && event.touches[0];
+
+        if(!touch){
+          return;
+        }
+
+        lightboxTouchStartX = touch.clientX;
+        lightboxTouchStartY = touch.clientY;
+      },
+      { passive:true }
+    );
+
+    lightbox.addEventListener(
+      'touchend',
+      function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+
+        if(
+          !touch ||
+          lightboxTouchStartX === null ||
+          lightboxTouchStartY === null
+        ){
+          lightboxTouchStartX = null;
+          lightboxTouchStartY = null;
+          return;
+        }
+
+        var deltaX = touch.clientX - lightboxTouchStartX;
+        var deltaY = touch.clientY - lightboxTouchStartY;
+
+        lightboxTouchStartX = null;
+        lightboxTouchStartY = null;
+
+        if(Math.abs(deltaX) < 44 || Math.abs(deltaX) < Math.abs(deltaY)){
+          return;
+        }
+
+        if(deltaX < 0){
+          showNextLightboxImage();
+          return;
+        }
+
+        showPrevLightboxImage();
+      },
+      { passive:true }
+    );
   }
 
   function setupGalleryInitialState(){
@@ -614,6 +846,7 @@ WEDDING MOBILE JS
 
   function bindEvents(){
     window.addEventListener('resize', requestScaleUpdate);
+    window.addEventListener('resize', positionPhotoLightboxClose);
 
     window.addEventListener('orientationchange', function(){
       window.setTimeout(updateScale, 250);
@@ -636,7 +869,11 @@ WEDDING MOBILE JS
     setupMenuCloseOnScroll();
     setupDateMask();
     setupVideoPoster();
-    setupPhotoLightboxOpen();
+    setupPhotoLightbox();
+
+    if(lightboxImage){
+      lightboxImage.addEventListener('load', positionPhotoLightboxClose);
+    }
 
     if(galleryButton){
       galleryButton.addEventListener('click', toggleGallery);
