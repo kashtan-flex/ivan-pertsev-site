@@ -2,14 +2,13 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-015-reviews-scroll-padding
+Версия: wedding-mobile-css-016-hint-text-figma
 
 ИЗМЕНЕНИЯ:
-- исправлено прилипание первого отзыва к левому краю
-- сохранён отступ 20px слева у первого отзыва и 20px справа у последнего
-- убрано scroll-snap-примагничивание у ленты отзывов
-- сохранены карточки отзывов 257×400px и расстояние между отзывами 10px
-- не изменялись: видео, фотосетка, расстояния до Wedding Awards, меню, popup, высоты страницы, подсказка и стрелка наверх
+- изменён только блок подсказки «Листайте для просмотра»
+- подсказка сдвинута левее без изменения правого положения стрелки наверх
+- текст подсказки приведён к параметрам Figma: Montserrat Regular 14px, line-height 140%, letter-spacing -1%, opacity 20%
+- стрелка наверх, высота страницы, отзывы, фотосетка, видео, меню и popup не изменялись
 ==================================================
 */
 
@@ -617,12 +616,14 @@ WEDDING MOBILE CSS
 }
 
   .ip-wedding-mobile-hint-text{
-    color:rgba(255,255,255,.30);
+    width:97px;
+    height:39px;
+    color:rgba(255,255,255,.20);
     font-family:'Montserrat',Arial,sans-serif;
     font-size:14px;
-    line-height:1.18;
+    line-height:1.4;
     font-weight:400;
-    letter-spacing:-.035em;
+    letter-spacing:-.01em;
   }
 
   .ip-wedding-mobile-scrolltop{
