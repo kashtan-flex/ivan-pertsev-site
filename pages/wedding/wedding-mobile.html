@@ -1,0 +1,668 @@
+<!--
+==================================================
+WEDDING MOBILE HTML
+
+Версия: wedding-mobile-html-001
+
+ИЗМЕНЕНИЯ:
+- создана отдельная HTML-структура мобильной версии страницы «Свадьба»
+- desktop-страница Wedding не затрагивается
+- добавлены mobile hero, видео-постер, текстовый блок, CTA-кнопки, awards, галерея, отзывы и scroll-top
+- меню использует утверждённую shared-структуру ip-menu-toggle / ip-menu-panel / ip-accordion
+- popup использует общую систему проекта через data-popup="main"
+- lightbox на первом этапе не подключается
+==================================================
+-->
+
+<section class="ip-wedding-mobile" data-wedding-mobile-page>
+
+  <div class="ip-wedding-mobile-bg" aria-hidden="true"></div>
+
+  <div class="ip-wedding-mobile-content">
+
+    <!-- HERO -->
+
+    <header class="ip-wedding-mobile-header">
+
+      <h1 class="ip-wedding-mobile-title">
+        Свадьба
+      </h1>
+
+      <p class="ip-wedding-mobile-subtitle">
+        По-настоящему влюбиться — роскошный<br>
+        максимум, а когда есть с кем поделиться<br>
+        — это уже свадьба.
+      </p>
+
+    </header>
+
+    <button
+      class="ip-menu-toggle"
+      type="button"
+      aria-label="Открыть меню"
+    >
+      <span class="ip-menu-line"></span>
+      <span class="ip-menu-line"></span>
+    </button>
+
+    <section
+      class="ip-wedding-mobile-video-section"
+      aria-label="Видео со свадеб"
+    >
+
+      <div class="ip-wedding-mobile-video-wrap">
+
+        <div
+          class="ip-wedding-mobile-video-poster"
+          aria-hidden="true"
+        ></div>
+
+      </div>
+
+    </section>
+
+    <!-- TEXT -->
+
+    <section class="ip-wedding-mobile-about">
+
+      <h2 class="ip-wedding-mobile-about-title">
+        Базовый минимум —<br>
+        харизматичный ведущий.
+      </h2>
+
+      <p class="ip-wedding-mobile-description">
+        С удовольствием познакомлюсь с вашей<br>
+        историей любви, узнаем интересные факты<br>
+        о гостях и уже на первой встрече появится<br>
+        чувство уверенности, что все пройдет<br>
+        на высшем уровне.
+      </p>
+
+      <p class="ip-wedding-mobile-description">
+        Гитара может стать приятным дополнением<br>
+        вечера.
+      </p>
+
+    </section>
+
+    <!-- ACTIONS -->
+
+    <section class="ip-wedding-mobile-actions">
+
+      <button
+        class="ip-wedding-mobile-button ip-wedding-mobile-button-outline"
+        type="button"
+        data-wedding-mobile-gallery-open
+      >
+        Смотреть фото
+      </button>
+
+      <button
+        class="ip-wedding-mobile-button ip-wedding-mobile-button-filled"
+        type="button"
+        data-popup-open="main"
+      >
+        Обсудить детали
+      </button>
+
+    </section>
+
+    <!-- AWARDS -->
+
+    <section
+      class="ip-wedding-mobile-awards"
+      aria-label="Награды и факты"
+    >
+
+      <div class="ip-wedding-mobile-award ip-wedding-mobile-award-top">
+
+        <img
+          src="./assets/img/biography/icons/biography-top100.svg"
+          alt="Top 100"
+          class="ip-wedding-mobile-award-icon"
+        >
+
+        <p class="ip-wedding-mobile-award-text ip-wedding-mobile-award-text-top">
+          <strong>Топ 100 лучших</strong>
+          <span>ведущих России</span>
+        </p>
+
+      </div>
+
+      <div class="ip-wedding-mobile-award ip-wedding-mobile-award-wedding">
+
+        <img
+          src="./assets/img/biography/icons/biography-wedding-awards.svg"
+          alt="Wedding Awards"
+          class="ip-wedding-mobile-award-logo"
+        >
+
+        <p class="ip-wedding-mobile-award-text ip-wedding-mobile-award-text-wedding">
+          <strong>Лучший свадебный ведущий</strong>
+          <span>ПФО Wedding Awards</span>
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- GALLERY -->
+
+    <section
+      class="ip-wedding-mobile-gallery"
+      data-wedding-mobile-gallery
+      aria-label="Фотографии со свадеб"
+    >
+
+      <div class="ip-wedding-mobile-gallery-grid">
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-01">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-01.webp" alt="Свадьба Иван Перцев — фото 01" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-02">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-02.webp" alt="Свадьба Иван Перцев — фото 02" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-03">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-03.webp" alt="Свадьба Иван Перцев — фото 03" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-04">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-04.webp" alt="Свадьба Иван Перцев — фото 04" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-05">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-05.webp" alt="Свадьба Иван Перцев — фото 05" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-06">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-06.webp" alt="Свадьба Иван Перцев — фото 06" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-07">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-07.webp" alt="Свадьба Иван Перцев — фото 07" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-08">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-08.webp" alt="Свадьба Иван Перцев — фото 08" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-09">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-09.webp" alt="Свадьба Иван Перцев — фото 09" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-10">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-10.webp" alt="Свадьба Иван Перцев — фото 10" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-11">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-11.webp" alt="Свадьба Иван Перцев — фото 11" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-12">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-12.webp" alt="Свадьба Иван Перцев — фото 12" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-13">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-13.webp" alt="Свадьба Иван Перцев — фото 13" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-14">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-14.webp" alt="Свадьба Иван Перцев — фото 14" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-15">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-15.webp" alt="Свадьба Иван Перцев — фото 15" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-16">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-16.webp" alt="Свадьба Иван Перцев — фото 16" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-17">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-17.webp" alt="Свадьба Иван Перцев — фото 17" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-18">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-18.webp" alt="Свадьба Иван Перцев — фото 18" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-19">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-19.webp" alt="Свадьба Иван Перцев — фото 19" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="ip-wedding-mobile-gallery-item ip-wedding-mobile-gallery-item-20">
+          <img src="./assets/img/wedding/gallery/wedding-gallery-20.webp" alt="Свадьба Иван Перцев — фото 20" loading="lazy" decoding="async">
+        </figure>
+
+      </div>
+
+    </section>
+
+    <!-- REVIEWS -->
+
+    <section
+      class="ip-wedding-mobile-reviews"
+      aria-label="Отзывы"
+    >
+
+      <div class="ip-wedding-mobile-reviews-track">
+
+        <article class="ip-wedding-mobile-review">
+
+          <div class="ip-wedding-mobile-review-top">
+
+            <div class="ip-wedding-mobile-review-avatar">
+              <img
+                src="./assets/img/wedding/reviews/review-wedding-01.webp"
+                alt="Елена Никонова"
+              >
+            </div>
+
+            <div class="ip-wedding-mobile-review-meta">
+
+              <div class="ip-wedding-mobile-review-name">
+                Елена Никонова
+              </div>
+
+              <div class="ip-wedding-mobile-review-type">
+                Свадьба
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="ip-wedding-mobile-review-text">
+            Вань, ещё раз хотим сказать тебе огромное спасибо. Благодаря тебе этот день мы будем всегда вспоминать с восторгом.<br><br>
+            <strong>Ты сделал идеальную свадьбу!</strong><br>
+            Трогательно и с драйвом.<br>
+            Спустя два месяца наши гости говорят о тебе с эмоциями!<br><br>
+            Желаем, чтобы всем парам повезло провести этот день именно с тобой!<br><br>
+            <strong>Ты лучший!</strong>
+          </div>
+
+        </article>
+
+        <article class="ip-wedding-mobile-review">
+
+          <div class="ip-wedding-mobile-review-top">
+
+            <div class="ip-wedding-mobile-review-avatar">
+              <img
+                src="./assets/img/wedding/reviews/review-wedding-02.webp"
+                alt="Максим Волков"
+              >
+            </div>
+
+            <div class="ip-wedding-mobile-review-meta">
+
+              <div class="ip-wedding-mobile-review-name">
+                Максим Волков
+              </div>
+
+              <div class="ip-wedding-mobile-review-type">
+                Свадьба
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="ip-wedding-mobile-review-text">
+            Вань, еще раз хотел бы поблагодарить тебя! Ты — настоящий профи своего дела.<br><br>
+            <strong>Безумно круто было с тобой поработать.</strong><br>
+            Я рад, что такое знаковое для нас с Полиной событие провел ты! Желаю тебе дальнейших успехов, профессионального роста и семейного благополучия.<br><br>
+            <strong>Обнял!</strong>
+          </div>
+
+        </article>
+
+        <article class="ip-wedding-mobile-review">
+
+          <div class="ip-wedding-mobile-review-top">
+
+            <div class="ip-wedding-mobile-review-avatar">
+              <img
+                src="./assets/img/wedding/reviews/review-wedding-03.webp"
+                alt="Юлия Аникина"
+              >
+            </div>
+
+            <div class="ip-wedding-mobile-review-meta">
+
+              <div class="ip-wedding-mobile-review-name">
+                Юлия Аникина
+              </div>
+
+              <div class="ip-wedding-mobile-review-type">
+                Свадьба
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="ip-wedding-mobile-review-text">
+            Дорогой Ваня, мы благодарим тебя за шикарно организованный вечер нашей свадьбы!<br><br>
+            <strong>Мы были уверены, что всё под контролем!</strong><br>
+            Ваня, отдельное спасибо за шикарные песни и проведение всего мероприятия. Мы и гости просто в восторге.<br><br>
+            <strong>Спасибо огромное!</strong>
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <div
+      class="ip-wedding-mobile-hint"
+      aria-hidden="true"
+    >
+
+      <img
+        src="./assets/img/wedding/icons/review-tap-hint.svg"
+        alt=""
+        class="ip-wedding-mobile-hint-icon"
+      >
+
+      <div class="ip-wedding-mobile-hint-text">
+        Листайте для<br>
+        просмотра
+      </div>
+
+    </div>
+
+    <button
+      class="ip-wedding-mobile-scrolltop"
+      type="button"
+      aria-label="Подняться наверх"
+    >
+      <span></span>
+    </button>
+
+    <!-- MENU -->
+
+    <nav
+      class="ip-menu-panel"
+      aria-label="Главное меню"
+    >
+
+      <div class="ip-menu-inner">
+
+        <div class="ip-menu-socials">
+
+          <a
+            class="ip-social instagram"
+            href="https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          ></a>
+
+          <a
+            class="ip-social telegram"
+            href="https://t.me/ivan_pertsev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Telegram"
+          ></a>
+
+          <a
+            class="ip-social vk"
+            href="https://vk.com/ivan_pertsev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="VK"
+          ></a>
+
+        </div>
+
+        <div class="ip-menu-list">
+
+          <a
+            class="ip-menu-link"
+            href="./preview.html"
+          >
+            Главная
+          </a>
+
+          <a
+            class="ip-menu-link"
+            href="./biography-preview.html"
+          >
+            Биография
+          </a>
+
+          <div class="ip-accordion">
+
+            <button
+              class="ip-accordion-button"
+              type="button"
+            >
+              Проекты
+            </button>
+
+            <div class="ip-accordion-content">
+
+              <div class="ip-submenu">
+
+                <a href="./wedding-preview.html">
+                  Свадьба
+                </a>
+
+                <a href="#">
+                  Корпоратив
+                </a>
+
+                <a href="#">
+                  День рождение
+                </a>
+
+                <a href="#">
+                  Выпускной
+                </a>
+
+                <a
+                  href="#"
+                  data-popup-open="main"
+                >
+                  Другое
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <a
+            class="ip-menu-link"
+            href="#"
+          >
+            Музыкальное шоу
+          </a>
+
+          <a
+            class="ip-menu-link"
+            href="#"
+          >
+            Сотрудничество
+          </a>
+
+          <div class="ip-accordion">
+
+            <button
+              class="ip-accordion-button"
+              type="button"
+            >
+              Контакты
+            </button>
+
+            <div class="ip-accordion-content">
+
+              <div class="ip-submenu">
+
+                <a href="tel:+79200127624">
+                  +7 920 012 76 24
+                </a>
+
+                <a
+                  href="#"
+                  data-popup-open="main"
+                >
+                  Написать
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="ip-menu-legal">
+
+        <a href="#">
+          Политика обработки персональных данных
+        </a>
+
+        <a href="#">
+          Согласие на обработку персональных данных
+        </a>
+
+      </div>
+
+    </nav>
+
+  </div>
+
+</section>
+
+<div
+  class="ip-popup"
+  data-popup="main"
+  aria-hidden="true"
+>
+
+  <div
+    class="ip-popup-backdrop"
+    data-popup-close
+  ></div>
+
+  <div
+    class="ip-popup-card"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Форма связи"
+  >
+
+    <form
+      class="ip-popup-form"
+      data-form-email="ya@ivanpertsev.ru"
+    >
+
+      <div class="ip-popup-heading">
+
+        <div class="ip-popup-name">
+          Иван Перцев
+        </div>
+
+        <div class="ip-popup-text">
+
+          <strong>
+            Заполните форму,
+          </strong>
+
+          <span>
+            и в ближайшее время
+          </span>
+
+          <span>
+            я с Вами свяжусь.
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="ip-popup-fields">
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Имя"
+          required
+        >
+
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Телефон"
+          required
+        >
+
+        <input
+          type="text"
+          name="date"
+          placeholder="Дата"
+          inputmode="numeric"
+          maxlength="10"
+          autocomplete="off"
+          required
+        >
+
+      </div>
+
+      <label class="ip-popup-policy">
+
+        <input
+          type="checkbox"
+          checked
+          required
+        >
+
+        <span class="ip-popup-checkbox"></span>
+
+        <span class="ip-popup-policy-text">
+
+          <span class="ip-popup-policy-line">
+            Согласен(а) на обработку данных в соответствии
+          </span>
+
+          <span class="ip-popup-policy-link-line">
+
+            <span class="ip-popup-policy-preposition">
+              с
+            </span>
+
+            <a
+              href="#"
+              target="_blank"
+            >
+              Политикой обработки персональных данных.
+            </a>
+
+          </span>
+
+        </span>
+
+      </label>
+
+      <button
+        class="ip-popup-submit"
+        type="submit"
+      >
+        Отправить
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

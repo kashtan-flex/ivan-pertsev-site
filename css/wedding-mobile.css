@@ -1,0 +1,639 @@
+/*
+==================================================
+WEDDING MOBILE CSS
+
+Версия: wedding-mobile-css-001
+
+ИЗМЕНЕНИЯ:
+- создана первая статичная версия мобильной страницы «Свадьба»
+- desktop-файлы Wedding не затрагиваются
+- подключён отдельный мобильный фон wedding-mobile-bg.webp
+- собраны mobile hero, видео-постер, текстовый блок, CTA-кнопки, awards, галерея и отзывы
+- меню использует утверждённые общие классы ip-menu-toggle / ip-menu-panel / ip-accordion
+- интерактив lightbox на первом этапе не подключается
+==================================================
+*/
+
+html,
+body{
+  margin:0;
+  padding:0;
+  min-width:320px;
+  min-height:100%;
+  background:#050603;
+  overflow-x:hidden;
+}
+
+body{
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+}
+
+.ip-wedding-mobile,
+.ip-wedding-mobile *{
+  box-sizing:border-box;
+}
+
+.ip-wedding-mobile a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.ip-wedding-mobile{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  min-height:calc(var(--wedding-mobile-vh,1vh) * 100);
+  overflow:hidden;
+  background:#050603;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+}
+
+.ip-wedding-mobile-bg{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background-image:url('../assets/img/wedding/mobile/background/wedding-mobile-bg.webp');
+  background-size:100% auto;
+  background-position:center top;
+  background-repeat:repeat-y;
+  pointer-events:none;
+}
+
+.ip-wedding-mobile-content{
+  position:relative;
+  z-index:2;
+  width:100%;
+  min-height:100vh;
+  padding:31px 0 86px;
+}
+
+/* HERO */
+
+.ip-wedding-mobile-header{
+  position:relative;
+  z-index:5;
+  width:100%;
+  padding:0 20px;
+}
+
+.ip-wedding-mobile-title{
+  margin:0;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:34px;
+  line-height:.95;
+  font-weight:600;
+  letter-spacing:-.045em;
+}
+
+.ip-wedding-mobile-subtitle{
+  width:330px;
+  margin:18px 0 0;
+  color:rgba(255,255,255,.86);
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:14px;
+  line-height:1.05;
+  font-weight:400;
+  letter-spacing:-.045em;
+}
+
+.ip-wedding-mobile .ip-menu-toggle{
+  position:absolute;
+  top:36px;
+  right:20px;
+  z-index:90;
+  width:35px;
+  height:24px;
+  padding:0;
+  border:none;
+  background:transparent;
+}
+
+.ip-wedding-mobile .ip-menu-line{
+  display:block;
+  width:35px;
+  height:4px;
+  margin:0;
+  border-radius:999px;
+  background:#fff;
+}
+
+.ip-wedding-mobile .ip-menu-line + .ip-menu-line{
+  margin-top:8px;
+}
+
+.ip-wedding-mobile-video-section{
+  position:relative;
+  z-index:3;
+  width:100%;
+  margin:37px 0 0;
+}
+
+.ip-wedding-mobile-video-wrap{
+  position:relative;
+  width:100%;
+  height:666px;
+  overflow:hidden;
+  background:#050603;
+}
+
+.ip-wedding-mobile-video-poster{
+  position:absolute;
+  inset:0;
+  background-image:url('../assets/img/wedding/video/wedding-video-poster.webp');
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+}
+
+/* ABOUT */
+
+.ip-wedding-mobile-about{
+  position:relative;
+  z-index:4;
+  width:100%;
+  padding:36px 20px 0;
+}
+
+.ip-wedding-mobile-about-title{
+  margin:0;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:18px;
+  line-height:1.05;
+  font-weight:700;
+  letter-spacing:-.045em;
+}
+
+.ip-wedding-mobile-description{
+  margin:21px 0 0;
+  color:rgba(255,255,255,.92);
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:16px;
+  line-height:1.02;
+  font-weight:400;
+  letter-spacing:-.052em;
+}
+
+.ip-wedding-mobile-description + .ip-wedding-mobile-description{
+  margin-top:21px;
+}
+
+/* ACTIONS */
+
+.ip-wedding-mobile-actions{
+  position:relative;
+  z-index:4;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+  width:100%;
+  padding:65px 0 0;
+}
+
+.ip-wedding-mobile-button{
+  position:relative;
+  width:202px;
+  height:48px;
+  padding:0;
+  border-radius:6px;
+  cursor:pointer;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:15px;
+  line-height:1;
+  font-weight:500;
+  letter-spacing:-.045em;
+  transition:
+    box-shadow .32s ease,
+    border-color .32s ease,
+    background .32s ease;
+}
+
+.ip-wedding-mobile-button-outline{
+  border:1px solid rgba(255,255,255,.55);
+  background:rgba(0,0,0,.18);
+  color:#fff;
+}
+
+.ip-wedding-mobile-button-filled{
+  border:1px solid #fff;
+  background:#fff;
+  color:#050603;
+}
+
+.ip-wedding-mobile-button:active{
+  box-shadow:
+    0 0 54px rgba(0,0,0,.48),
+    0 0 24px rgba(0,0,0,.28);
+}
+
+/* AWARDS */
+
+.ip-wedding-mobile-awards{
+  position:relative;
+  z-index:4;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  padding:70px 20px 0;
+}
+
+.ip-wedding-mobile-award{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.ip-wedding-mobile-award-top{
+  gap:18px;
+}
+
+.ip-wedding-mobile-award-icon{
+  display:block;
+  width:47px;
+  height:auto;
+}
+
+.ip-wedding-mobile-award-logo{
+  display:block;
+  width:243px;
+  height:auto;
+}
+
+.ip-wedding-mobile-award-text{
+  margin:0;
+  color:rgba(255,255,255,.70);
+  font-family:'Montserrat',Arial,sans-serif;
+  letter-spacing:-.045em;
+}
+
+.ip-wedding-mobile-award-text strong,
+.ip-wedding-mobile-award-text span{
+  display:block;
+}
+
+.ip-wedding-mobile-award-text strong{
+  color:#fff;
+  font-size:13px;
+  line-height:1.02;
+  font-weight:600;
+}
+
+.ip-wedding-mobile-award-text span{
+  color:rgba(255,255,255,.68);
+  font-size:13px;
+  line-height:1.02;
+  font-weight:400;
+}
+
+.ip-wedding-mobile-award-wedding{
+  flex-direction:column;
+  gap:22px;
+  margin-top:54px;
+}
+
+.ip-wedding-mobile-award-text-wedding{
+  text-align:center;
+}
+
+.ip-wedding-mobile-award-text-wedding strong,
+.ip-wedding-mobile-award-text-wedding span{
+  font-size:13px;
+}
+
+/* GALLERY */
+
+.ip-wedding-mobile-gallery{
+  position:relative;
+  z-index:4;
+  width:100%;
+  padding:70px 5px 0;
+}
+
+.ip-wedding-mobile-gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+  width:100%;
+}
+
+.ip-wedding-mobile-gallery-item{
+  position:relative;
+  display:block;
+  min-height:0;
+  margin:0;
+  overflow:hidden;
+  background:#050603;
+}
+
+.ip-wedding-mobile-gallery-item img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+}
+
+.ip-wedding-mobile-gallery-item-01{
+  grid-column:span 1;
+  height:198px;
+}
+
+.ip-wedding-mobile-gallery-item-02{
+  grid-column:span 1;
+  height:198px;
+}
+
+.ip-wedding-mobile-gallery-item-03{
+  grid-column:span 1;
+  height:198px;
+}
+
+.ip-wedding-mobile-gallery-item-04{
+  grid-column:span 2;
+  height:145px;
+}
+
+.ip-wedding-mobile-gallery-item-05{
+  grid-column:span 1;
+  height:145px;
+}
+
+.ip-wedding-mobile-gallery-item-06{
+  grid-column:span 2;
+  height:145px;
+}
+
+.ip-wedding-mobile-gallery-item-07{
+  grid-column:span 1;
+  height:145px;
+}
+
+.ip-wedding-mobile-gallery-item-08{
+  grid-column:span 3;
+  height:245px;
+}
+
+.ip-wedding-mobile-gallery-item-09{
+  grid-column:span 1;
+  height:196px;
+}
+
+.ip-wedding-mobile-gallery-item-10{
+  grid-column:span 1;
+  height:196px;
+}
+
+.ip-wedding-mobile-gallery-item-11{
+  grid-column:span 1;
+  height:196px;
+}
+
+.ip-wedding-mobile-gallery-item-12{
+  grid-column:span 1;
+  height:160px;
+}
+
+.ip-wedding-mobile-gallery-item-13{
+  grid-column:span 2;
+  height:160px;
+}
+
+.ip-wedding-mobile-gallery-item-14{
+  grid-column:span 3;
+  height:214px;
+}
+
+.ip-wedding-mobile-gallery-item-15{
+  grid-column:span 1;
+  height:218px;
+}
+
+.ip-wedding-mobile-gallery-item-16{
+  grid-column:span 1;
+  height:218px;
+}
+
+.ip-wedding-mobile-gallery-item-17{
+  grid-column:span 1;
+  height:218px;
+}
+
+.ip-wedding-mobile-gallery-item-18{
+  grid-column:span 2;
+  height:154px;
+}
+
+.ip-wedding-mobile-gallery-item-19{
+  grid-column:span 1;
+  height:154px;
+}
+
+.ip-wedding-mobile-gallery-item-20{
+  grid-column:span 3;
+  height:204px;
+}
+
+/* REVIEWS */
+
+.ip-wedding-mobile-reviews{
+  position:relative;
+  z-index:4;
+  width:100%;
+  padding:70px 0 0;
+  overflow:hidden;
+}
+
+.ip-wedding-mobile-reviews-track{
+  display:flex;
+  gap:10px;
+  width:100%;
+  padding:0 0 0 20px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+
+.ip-wedding-mobile-reviews-track::-webkit-scrollbar{
+  display:none;
+}
+
+.ip-wedding-mobile-review{
+  position:relative;
+  flex:0 0 246px;
+  width:246px;
+  min-height:382px;
+  padding:25px 20px 24px;
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.22);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  scroll-snap-align:start;
+}
+
+.ip-wedding-mobile-review-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.ip-wedding-mobile-review-avatar{
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  overflow:hidden;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+}
+
+.ip-wedding-mobile-review-avatar img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.ip-wedding-mobile-review-name{
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:13px;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:-.03em;
+}
+
+.ip-wedding-mobile-review-type{
+  margin-top:6px;
+  color:rgba(255,255,255,.58);
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:8px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.02em;
+}
+
+.ip-wedding-mobile-review-text{
+  margin-top:27px;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:13px;
+  line-height:1.42;
+  font-weight:400;
+  letter-spacing:-.02em;
+}
+
+.ip-wedding-mobile-review-text strong{
+  font-weight:700;
+}
+
+/* HINT + SCROLLTOP */
+
+.ip-wedding-mobile-hint{
+  position:relative;
+  z-index:4;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-end;
+  gap:10px;
+  width:100%;
+  padding:35px 34px 0 0;
+  color:rgba(255,255,255,.30);
+}
+
+.ip-wedding-mobile-hint-icon{
+  display:block;
+  width:18px;
+  height:auto;
+  opacity:.38;
+}
+
+.ip-wedding-mobile-hint-text{
+  color:rgba(255,255,255,.30);
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:14px;
+  line-height:1.18;
+  font-weight:400;
+  letter-spacing:-.035em;
+}
+
+.ip-wedding-mobile-scrolltop{
+  position:relative;
+  z-index:4;
+  display:block;
+  width:24px;
+  height:24px;
+  margin:28px 34px 0 auto;
+  padding:0;
+  border:1px solid rgba(255,255,255,.58);
+  border-radius:6px;
+  background:rgba(0,0,0,.12);
+  cursor:pointer;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate3d(0,10px,0);
+  transition:
+    opacity .34s cubic-bezier(.19,1,.22,1),
+    visibility .34s ease,
+    transform .34s cubic-bezier(.19,1,.22,1);
+}
+
+.ip-wedding-mobile-scrolltop.is-visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translate3d(0,0,0);
+}
+
+.ip-wedding-mobile-scrolltop span{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:8px;
+  height:8px;
+  border-left:1.5px solid rgba(255,255,255,.86);
+  border-top:1.5px solid rgba(255,255,255,.86);
+  transform:translate3d(-50%,-28%,0) rotate(45deg);
+}
+
+/* MENU SCOPED MOBILE OVERRIDES */
+
+.ip-wedding-mobile .ip-menu-panel{
+  position:fixed;
+  top:0;
+  right:0;
+  z-index:80;
+  width:100%;
+  height:100vh;
+  height:calc(var(--wedding-mobile-vh,1vh) * 100);
+  padding:88px 32px 36px;
+}
+
+.ip-wedding-mobile .ip-menu-list{
+  width:100%;
+}
+
+.ip-wedding-mobile .ip-menu-link,
+.ip-wedding-mobile .ip-accordion-button{
+  font-size:20px;
+}
+
+.ip-wedding-mobile .ip-menu-legal{
+  left:32px;
+  right:32px;
+  bottom:36px;
+}
+
+@media (min-width:768px){
+  .ip-wedding-mobile{
+    max-width:390px;
+    margin:0 auto;
+  }
+}
