@@ -2,13 +2,13 @@
 ==================================================
 WEDDING MOBILE HTML
 
-Версия: wedding-mobile-html-005-reviews-stage-2
+Версия: wedding-mobile-html-006-video-iframe-return
 
 ИЗМЕНЕНИЯ:
-- второй этап правок: обновлён только блок отзывов
-- добавлены все 7 отзывов для мобильной версии
-- структура карточек отзывов подготовлена под точные CSS-параметры из макета
-- видео, фотосетка, меню, popup, кнопки и lightbox не изменялись
+- восстановлен рабочий Kinescope iframe в мобильном video-блоке
+- добавлены data-атрибуты для JS-логики скрытия poster после загрузки iframe
+- сохранены текущие отзывы, фотосетка, меню, popup, подсказка и scroll-top
+- CSS и JS не изменялись
 ==================================================
 -->
 
@@ -52,8 +52,17 @@ WEDDING MOBILE HTML
 
         <div
           class="ip-wedding-mobile-video-poster"
+          data-wedding-mobile-video-poster
           aria-hidden="true"
         ></div>
+
+        <iframe
+          class="ip-wedding-mobile-video"
+          data-wedding-mobile-video-frame
+          src="https://kinescope.io/embed/tLG159m4JCtDsZWU4w4uSd?autoplay=1&muted=1&loop=1"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
 
       </div>
 

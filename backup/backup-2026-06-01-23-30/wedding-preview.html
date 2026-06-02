@@ -2,13 +2,17 @@
 ==================================================
 WEDDING PREVIEW HTML
 
-Версия: wedding-preview-002
+Версия: wedding-preview-005-responsive-interaction-unblock
 
 ИЗМЕНЕНИЯ:
-- подключён общий модуль отзывов project-reviews.css
-- сохранена архитектура biography-preview
-- сохранён wedding viewport workflow
-- сохранены popup и page transition
+- wedding-preview.html остаётся единой точкой входа для desktop и mobile версии страницы «Свадьба»
+- сохранена responsive-загрузка desktop/mobile без ручного обновления страницы
+- исправлена возможная блокировка кликов прозрачным page-transition слоем
+- page-transition больше не перехватывает клики по меню, кнопкам, отзывам и галерее
+- добавлен cache-busting для CSS и JS страницы при локальной разработке
+- desktop загружает pages/wedding/wedding.html, css/wedding.css, css/project-reviews.css и js/wedding.js
+- mobile загружает pages/wedding/wedding-mobile.html, css/wedding-mobile.css и js/wedding-mobile.js
+- сохранены popup, page transition и viewport workflow
 ==================================================
 -->
 
@@ -27,6 +31,7 @@ WEDDING PREVIEW HTML
   <style>
     :root{
       --wedding-vh:1vh;
+      --wedding-mobile-vh:1vh;
     }
 
     html,
@@ -55,6 +60,10 @@ WEDDING PREVIEW HTML
       min-height:calc(var(--wedding-vh) * 100);
     }
 
+    .ip-page-transition{
+      pointer-events:none !important;
+    }
+
     @media (min-width:768px){
 
       html,
@@ -81,9 +90,9 @@ WEDDING PREVIEW HTML
     rel="stylesheet"
   >
 
+  <link rel="preload" href="./assets/img/wedding/video/wedding-video-poster.webp" as="image">
+
   <link rel="stylesheet" href="./css/home.css">
-  <link rel="stylesheet" href="./css/wedding.css">
-  <link rel="stylesheet" href="./css/project-reviews.css">
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
@@ -103,6 +112,26 @@ WEDDING PREVIEW HTML
     (function(){
       'use strict';
 
+      var MOBILE_BREAKPOINT = 767;
+      var BREAKPOINT_DEBOUNCE = 120;
+      var CACHE_VERSION = Date.now();
+
+      var root = document.getElementById('ip-wedding-root');
+
+      var currentMode = null;
+      var resizeTimer = null;
+      var loadedPageStyles = [];
+      var loadedPageScript = null;
+      var loadToken = 0;
+
+      function isMobileViewport(){
+        return window.innerWidth <= MOBILE_BREAKPOINT;
+      }
+
+      function getMode(){
+        return isMobileViewport() ? 'mobile' : 'desktop';
+      }
+
       function setWeddingViewportHeight(){
         var height = window.innerHeight;
 
@@ -114,84 +143,271 @@ WEDDING PREVIEW HTML
           '--wedding-vh',
           (height * 0.01) + 'px'
         );
-      }
 
-      setWeddingViewportHeight();
-
-      window.addEventListener(
-        'resize',
-        setWeddingViewportHeight,
-        { passive:true }
-      );
-
-      window.addEventListener(
-        'orientationchange',
-        function(){
-          window.setTimeout(setWeddingViewportHeight, 250);
-        },
-        { passive:true }
-      );
-
-      if(window.visualViewport){
-        window.visualViewport.addEventListener(
-          'resize',
-          setWeddingViewportHeight,
-          { passive:true }
+        document.documentElement.style.setProperty(
+          '--wedding-mobile-vh',
+          (height * 0.01) + 'px'
         );
       }
-    })();
-  </script>
 
-  <script>
-    fetch('./pages/wedding/wedding.html')
-      .then(function(response){
+      function unblockPageTransitionClicks(){
+        var transition = document.querySelector('.ip-page-transition');
 
-        if(!response.ok){
-          throw new Error(
-            'Не удалось загрузить pages/wedding/wedding.html'
-          );
+        if(!transition){
+          return;
         }
 
-        return response.text();
-      })
+        transition.style.pointerEvents = 'none';
+      }
 
-      .then(function(html){
+      function withCache(href){
+        var separator = href.indexOf('?') === -1 ? '?' : '&';
 
-        document.getElementById(
-          'ip-wedding-root'
-        ).innerHTML = html;
+        return href + separator + 'v=' + CACHE_VERSION;
+      }
 
-        var weddingScript =
-          document.createElement('script');
+      function loadStylesheet(href){
+        return new Promise(function(resolve, reject){
+          var link = document.createElement('link');
 
-        weddingScript.src =
-          './js/wedding.js';
+          link.rel = 'stylesheet';
+          link.href = withCache(href);
+          link.setAttribute('data-wedding-page-style', 'true');
 
-        document.body.appendChild(
-          weddingScript
+          link.onload = function(){
+            resolve(link);
+          };
+
+          link.onerror = reject;
+
+          document.head.appendChild(link);
+        });
+      }
+
+      function removePageStyles(){
+        loadedPageStyles.forEach(function(link){
+          if(link && link.parentNode){
+            link.parentNode.removeChild(link);
+          }
+        });
+
+        loadedPageStyles = [];
+      }
+
+      function removePageScript(){
+        if(loadedPageScript && loadedPageScript.parentNode){
+          loadedPageScript.parentNode.removeChild(loadedPageScript);
+        }
+
+        loadedPageScript = null;
+      }
+
+      function loadScript(src){
+        return new Promise(function(resolve, reject){
+          var script = document.createElement('script');
+
+          script.src = withCache(src);
+          script.setAttribute('data-wedding-page-script', 'true');
+
+          script.onload = function(){
+            loadedPageScript = script;
+            resolve(script);
+          };
+
+          script.onerror = reject;
+
+          document.body.appendChild(script);
+        });
+      }
+
+      function getPageConfig(mode){
+        if(mode === 'mobile'){
+          return {
+            mode:'mobile',
+            css:[
+              './css/wedding-mobile.css'
+            ],
+            html:'./pages/wedding/wedding-mobile.html',
+            js:'./js/wedding-mobile.js',
+            error:'Ошибка загрузки мобильной страницы Свадьба. Проверь путь: pages/wedding/wedding-mobile.html'
+          };
+        }
+
+        return {
+          mode:'desktop',
+          css:[
+            './css/wedding.css',
+            './css/project-reviews.css'
+          ],
+          html:'./pages/wedding/wedding.html',
+          js:'./js/wedding.js',
+          error:'Ошибка загрузки страницы Свадьба. Проверь путь: pages/wedding/wedding.html'
+        };
+      }
+
+      function resetDocumentState(){
+        document.documentElement.classList.remove('ip-popup-lock');
+        document.body.classList.remove('ip-popup-lock');
+
+        document.documentElement.style.height = '';
+        document.body.style.height = '';
+
+        document.documentElement.style.overflowX = '';
+        document.body.style.overflowX = '';
+
+        document.documentElement.style.overflowY = '';
+        document.body.style.overflowY = '';
+
+        document.documentElement.style.removeProperty('--wedding-scale');
+        document.documentElement.style.removeProperty('--wedding-mobile-scale');
+        document.documentElement.style.removeProperty('--wedding-mobile-page-height');
+
+        unblockPageTransitionClicks();
+      }
+
+      function initViewportListeners(){
+        setWeddingViewportHeight();
+
+        window.addEventListener(
+          'resize',
+          function(){
+            setWeddingViewportHeight();
+            scheduleBreakpointCheck();
+          },
+          { passive:true }
         );
 
-        var transitionScript =
-          document.createElement('script');
-
-        transitionScript.src =
-          './js/page-transition.js';
-
-        document.body.appendChild(
-          transitionScript
+        window.addEventListener(
+          'orientationchange',
+          function(){
+            window.setTimeout(function(){
+              setWeddingViewportHeight();
+              scheduleBreakpointCheck();
+            }, 250);
+          },
+          { passive:true }
         );
-      })
 
-      .catch(function(error){
+        if(window.visualViewport){
+          window.visualViewport.addEventListener(
+            'resize',
+            function(){
+              setWeddingViewportHeight();
+              scheduleBreakpointCheck();
+            },
+            { passive:true }
+          );
+        }
+      }
 
-        console.error(error);
+      function scheduleBreakpointCheck(){
+        if(resizeTimer){
+          window.clearTimeout(resizeTimer);
+        }
 
-        document.body.style.background =
-          '#050603';
+        resizeTimer = window.setTimeout(function(){
+          var nextMode = getMode();
 
-        document.body.innerHTML =
-          '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">Ошибка загрузки страницы Свадьба. Проверь путь: pages/wedding/wedding.html</pre>';
-      });
+          if(nextMode !== currentMode){
+            loadPage(nextMode);
+          }
+        }, BREAKPOINT_DEBOUNCE);
+      }
+
+      function loadPage(mode){
+        var config = getPageConfig(mode);
+        var token = loadToken + 1;
+
+        loadToken = token;
+        currentMode = mode;
+
+        resetDocumentState();
+        removePageScript();
+        removePageStyles();
+
+        root.innerHTML = '';
+
+        Promise.all(
+          config.css.map(function(href){
+            return loadStylesheet(href);
+          })
+        )
+          .then(function(links){
+            if(token !== loadToken){
+              return Promise.reject(new Error('stale-load'));
+            }
+
+            loadedPageStyles = links;
+
+            return fetch(withCache(config.html));
+          })
+          .then(function(response){
+
+            if(!response.ok){
+              throw new Error(config.error);
+            }
+
+            return response.text();
+          })
+          .then(function(html){
+
+            if(token !== loadToken){
+              return Promise.reject(new Error('stale-load'));
+            }
+
+            root.innerHTML = html;
+
+            unblockPageTransitionClicks();
+
+            return loadScript(config.js);
+          })
+          .then(function(){
+
+            if(token !== loadToken){
+              return Promise.reject(new Error('stale-load'));
+            }
+
+            unblockPageTransitionClicks();
+
+            if(!document.querySelector('script[data-page-transition-script]')){
+              var transitionScript = document.createElement('script');
+
+              transitionScript.src = withCache('./js/page-transition.js');
+              transitionScript.setAttribute('data-page-transition-script', 'true');
+
+              document.body.appendChild(transitionScript);
+            }
+
+            window.setTimeout(unblockPageTransitionClicks, 50);
+            window.setTimeout(unblockPageTransitionClicks, 500);
+            window.setTimeout(unblockPageTransitionClicks, 1200);
+          })
+          .catch(function(error){
+
+            if(error && error.message === 'stale-load'){
+              return;
+            }
+
+            console.error(error);
+
+            document.body.style.background = '#050603';
+
+            root.innerHTML =
+              '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">' +
+              config.error +
+              '</pre>';
+          });
+      }
+
+      if(!root){
+        return;
+      }
+
+      initViewportListeners();
+      unblockPageTransitionClicks();
+      loadPage(getMode());
+
+    })();
   </script>
 
 </body>
