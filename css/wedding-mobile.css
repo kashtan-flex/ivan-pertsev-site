@@ -2,13 +2,14 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-016-hint-text-figma
+Версия: wedding-mobile-css-018-lightbox-open-state
 
 ИЗМЕНЕНИЯ:
-- изменён только блок подсказки «Листайте для просмотра»
-- подсказка сдвинута левее без изменения правого положения стрелки наверх
-- текст подсказки приведён к параметрам Figma: Montserrat Regular 14px, line-height 140%, letter-spacing -1%, opacity 20%
-- стрелка наверх, высота страницы, отзывы, фотосетка, видео, меню и popup не изменялись
+- добавлено только видимое состояние mobile lightbox
+- исправлена причина, по которой фото не показывалось после клика: не было CSS-правила .is-open
+- скрытое состояние lightbox сохранено
+- блок отзывов LOCKED не изменялся
+- галерея, видео, меню, popup, подсказка, стрелка наверх, масштабирование и высоты страницы не изменялись
 ==================================================
 */
 
@@ -684,6 +685,130 @@ WEDDING MOBILE CSS
     transform:translateY(2px) rotate(45deg);
   }
 
+
+  /* MOBILE LIGHTBOX — STAGE 2 (HIDDEN) */
+
+  .ip-wedding-mobile-lightbox{
+    position:fixed;
+    inset:0;
+    z-index:10020;
+    visibility:hidden;
+    opacity:0;
+    pointer-events:none;
+  }
+
+
+
+  .ip-wedding-mobile-lightbox.is-open{
+    visibility:visible;
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .ip-wedding-mobile-lightbox-backdrop{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:rgba(0,0,0,.92);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+  }
+
+  .ip-wedding-mobile-lightbox-dialog{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100vw;
+    height:100vh;
+    padding:0;
+    pointer-events:none;
+  }
+
+  .ip-wedding-mobile-lightbox-figure{
+    position:relative;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:auto;
+    height:auto;
+    max-width:92vw;
+    max-height:82vh;
+    margin:0;
+    padding:0;
+    overflow:visible;
+    background:transparent;
+    pointer-events:none;
+  }
+
+  .ip-wedding-mobile-lightbox-image{
+    display:block;
+    width:auto;
+    height:auto;
+    max-width:92vw;
+    max-height:82vh;
+    object-fit:contain;
+    object-position:center center;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    pointer-events:auto;
+  }
+
+  .ip-wedding-mobile-lightbox-close{
+    position:absolute;
+    top:22px;
+    right:22px;
+    z-index:6;
+    width:34px;
+    height:34px;
+    padding:0;
+    border:none;
+    outline:none;
+    background:transparent;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    pointer-events:auto;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .ip-wedding-mobile-lightbox-close span{
+    position:absolute;
+    left:4px;
+    top:16px;
+    width:26px;
+    height:2px;
+    border-radius:999px;
+    background:rgba(255,255,255,.92);
+    pointer-events:none;
+  }
+
+  .ip-wedding-mobile-lightbox-close span:first-child{
+    transform:rotate(45deg);
+  }
+
+  .ip-wedding-mobile-lightbox-close span:last-child{
+    transform:rotate(-45deg);
+  }
+
+  .ip-wedding-mobile-lightbox-counter{
+    position:absolute;
+    left:50%;
+    bottom:26px;
+    z-index:6;
+    transform:translate3d(-50%,0,0);
+    color:rgba(255,255,255,.72);
+    font-family:'Montserrat',Arial,sans-serif;
+    font-size:13px;
+    line-height:1;
+    font-weight:400;
+    letter-spacing:.02em;
+    pointer-events:none;
+  }
+
   /* MENU — COPIED SYSTEM FROM MOBILE BIOGRAPHY */
 
   .ip-wedding-mobile .ip-menu-toggle{
@@ -873,7 +998,6 @@ WEDDING MOBILE CSS
     opacity:.5;
     transform:translateY(-50%) rotate(45deg);
   }
-
   .ip-wedding-mobile .ip-accordion-content{
     max-height:0;
     overflow:hidden;

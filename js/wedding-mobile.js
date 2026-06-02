@@ -2,13 +2,15 @@
 ==================================================
 WEDDING MOBILE JS
 
-Версия: wedding-mobile-js-008-closed-layout-system
+Версия: wedding-mobile-js-009-lightbox-open-stage
 
 ИЗМЕНЕНИЯ:
-- высота закрытого состояния мобильной страницы синхронизирована с новой CSS-системой
-- высота открытого состояния галереи синхронизирована с новой CSS-системой
-- сохранено переключение кнопки «Смотреть фото» / «Скрыть фото»
-- сохранена логика появления/закрытия галереи, scroll, menu, popup, date mask и scroll-top
+- добавлен только первый JS-этап mobile lightbox
+- добавлено открытие фотографии по клику из мобильной галереи
+- используется уже подготовленная HTML-разметка lightbox и CSS Stage 2
+- не добавлялись: закрытие, свайпы, перелистывание, счётчик и блокировка скролла
+- блок отзывов LOCKED не изменялся
+- scale, menu, popup, gallery open/close, video poster и scrolltop сохранены
 ==================================================
 */
 
@@ -56,6 +58,12 @@ WEDDING MOBILE JS
 
   var videoFrame = document.querySelector('[data-wedding-mobile-video-frame]');
   var videoPoster = document.querySelector('[data-wedding-mobile-video-poster]');
+
+  var lightbox = document.querySelector('[data-wedding-mobile-lightbox]');
+  var lightboxImage = document.querySelector('[data-wedding-mobile-lightbox-image]');
+  var galleryLightboxItems = Array.prototype.slice.call(
+    document.querySelectorAll('[data-wedding-mobile-lightbox-open]')
+  );
 
   var resizeFrame = null;
   var touchStartY = null;
@@ -559,6 +567,40 @@ WEDDING MOBILE JS
     window.setTimeout(hideVideoPoster, VIDEO_POSTER_FALLBACK_DELAY);
   }
 
+
+  function openPhotoLightbox(item){
+    if(!lightbox || !lightboxImage || !item){
+      return;
+    }
+
+    var image = item.querySelector('img');
+
+    if(!image){
+      return;
+    }
+
+    lightboxImage.src = image.getAttribute('src');
+    lightboxImage.alt = image.getAttribute('alt') || '';
+
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+  }
+
+  function setupPhotoLightboxOpen(){
+    if(!galleryLightboxItems.length){
+      return;
+    }
+
+    galleryLightboxItems.forEach(function(item){
+      item.addEventListener('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+
+        openPhotoLightbox(item);
+      });
+    });
+  }
+
   function setupGalleryInitialState(){
     if(!gallery){
       return;
@@ -594,6 +636,7 @@ WEDDING MOBILE JS
     setupMenuCloseOnScroll();
     setupDateMask();
     setupVideoPoster();
+    setupPhotoLightboxOpen();
 
     if(galleryButton){
       galleryButton.addEventListener('click', toggleGallery);
