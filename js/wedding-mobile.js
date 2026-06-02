@@ -2,14 +2,14 @@
 ==================================================
 WEDDING MOBILE JS
 
-Версия: wedding-mobile-js-004-video-poster-delay
+Версия: wedding-mobile-js-007-gallery-toggle
 
 ИЗМЕНЕНИЯ:
-- увеличено время отображения poster-обложки перед показом Kinescope iframe
-- по видео проверки загрузочный экран плеера виден примерно 0.28–0.30 секунды
-- добавлен запас по времени: poster скрывается позже, чтобы перекрыть загрузочный экран
+- кнопка «Смотреть фото» стала переключателем открытия и закрытия галереи
+- при открытии кнопка меняет текст на «Скрыть фото»
+- при закрытии кнопка возвращает текст «Смотреть фото»
+- закрытие повторяет desktop-логику: галерея уходит, отзывы поднимаются, страница становится компактной
 - сохранена mobile-логика «Биографии»: scale, scroll, menu, accordion, popup, date mask и scroll-top
-- desktop-логика Wedding не затрагивается
 ==================================================
 */
 
@@ -20,7 +20,8 @@ WEDDING MOBILE JS
     mobile:{
       width:390,
       height:700,
-      stageHeight:4100
+      stageHeightClosed:2360,
+      stageHeightOpened:4100
     },
     breakpoint:767
   };
@@ -142,8 +143,12 @@ WEDDING MOBILE JS
         viewportHeight / DESIGN.mobile.height
       );
 
+      var currentStageHeight = page.classList.contains('has-gallery-opened')
+        ? DESIGN.mobile.stageHeightOpened
+        : DESIGN.mobile.stageHeightClosed;
+
       scaledHeight = Math.ceil(
-        DESIGN.mobile.stageHeight * scale
+        currentStageHeight * scale
       );
 
       document.documentElement.style.setProperty(
@@ -296,7 +301,71 @@ WEDDING MOBILE JS
     });
   }
 
-  function scrollToGallery(event){
+  function setGalleryButtonText(text){
+    if(!galleryButton){
+      return;
+    }
+
+    galleryButton.textContent = text;
+  }
+
+  function scrollToElement(element, offset){
+    if(!element){
+      return;
+    }
+
+    var targetTop =
+      element.getBoundingClientRect().top +
+      (
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        0
+      ) -
+      offset;
+
+    window.scrollTo({
+      top:targetTop,
+      behavior:'smooth'
+    });
+  }
+
+  function openGallery(){
+    if(!gallery){
+      return;
+    }
+
+    page.classList.add('has-gallery-opened');
+    updateScale();
+
+    gallery.classList.add('is-visible');
+    gallery.setAttribute('aria-hidden', 'false');
+    setGalleryButtonText('Скрыть фото');
+
+    window.requestAnimationFrame(function(){
+      scrollToElement(gallery, 24);
+    });
+  }
+
+  function closeGallery(){
+    if(!gallery){
+      return;
+    }
+
+    gallery.classList.remove('is-visible');
+    gallery.setAttribute('aria-hidden', 'true');
+    setGalleryButtonText('Смотреть фото');
+
+    window.setTimeout(function(){
+      page.classList.remove('has-gallery-opened');
+      updateScale();
+
+      window.requestAnimationFrame(function(){
+        scrollToElement(document.querySelector('.ip-wedding-mobile-awards'), 36);
+      });
+    }, 520);
+  }
+
+  function toggleGallery(event){
     if(event){
       event.preventDefault();
       event.stopPropagation();
@@ -306,19 +375,12 @@ WEDDING MOBILE JS
       return;
     }
 
-    var targetTop =
-      gallery.getBoundingClientRect().top +
-      (
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        0
-      ) -
-      24;
+    if(page.classList.contains('has-gallery-opened')){
+      closeGallery();
+      return;
+    }
 
-    window.scrollTo({
-      top:targetTop,
-      behavior:'smooth'
-    });
+    openGallery();
   }
 
   function setupPopupTriggers(){
@@ -498,6 +560,17 @@ WEDDING MOBILE JS
     window.setTimeout(hideVideoPoster, VIDEO_POSTER_FALLBACK_DELAY);
   }
 
+  function setupGalleryInitialState(){
+    if(!gallery){
+      return;
+    }
+
+    page.classList.remove('has-gallery-opened');
+    gallery.classList.remove('is-visible');
+    gallery.setAttribute('aria-hidden', 'true');
+    setGalleryButtonText('Смотреть фото');
+  }
+
   function bindEvents(){
     window.addEventListener('resize', requestScaleUpdate);
 
@@ -524,7 +597,7 @@ WEDDING MOBILE JS
     setupVideoPoster();
 
     if(galleryButton){
-      galleryButton.addEventListener('click', scrollToGallery);
+      galleryButton.addEventListener('click', toggleGallery);
     }
 
     if(scrollTopButton){
@@ -534,6 +607,7 @@ WEDDING MOBILE JS
 
   function init(){
     updateScale();
+    setupGalleryInitialState();
     bindEvents();
     updateScrollTopVisibility();
   }

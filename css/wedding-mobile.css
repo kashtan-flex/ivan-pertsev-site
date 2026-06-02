@@ -2,15 +2,13 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-004-kinescope-controls
+Версия: wedding-mobile-css-009-awards-spacing
 
 ИЗМЕНЕНИЯ:
-- mobile Kinescope iframe переведён из cover-режима в видимый player-режим 390×666
-- элементы управления Kinescope больше не уходят за пределы экрана
-- сохранён poster-слой для мягкого старта видео
-- poster-слой не блокирует взаимодействие с iframe
-- сохранена mobile-система «Биографии»: scale, scroll, menu, popup и scroll-top
-- desktop-файлы Wedding не затрагиваются
+- уменьшено расстояние между подписью Wedding Awards и началом галереи до 70px
+- уменьшено расстояние между подписью Wedding Awards и отзывами до 70px в закрытом состоянии галереи
+- синхронно подняты отзывы и подсказка в открытом состоянии галереи
+- сохранены открытие/закрытие галереи, Kinescope player, mobile scale, menu, popup и scroll-top
 ==================================================
 */
 
@@ -52,8 +50,8 @@ WEDDING MOBILE CSS
   .ip-wedding-mobile{
     position:relative;
     width:100%;
-    min-height:var(--wedding-mobile-page-height, 4100px);
-    height:var(--wedding-mobile-page-height, 4100px);
+    min-height:var(--wedding-mobile-page-height, 2360px);
+    height:var(--wedding-mobile-page-height, 2360px);
     overflow:visible;
     background:#050603;
     color:#fff;
@@ -66,8 +64,8 @@ WEDDING MOBILE CSS
     top:0;
     z-index:1;
     width:390px;
-    height:4100px;
-    min-height:4100px;
+    height:2360px;
+    min-height:2360px;
     background-image:url('../assets/img/wedding/mobile/background/wedding-mobile-bg.webp');
     background-size:390px auto;
     background-position:top center;
@@ -83,13 +81,28 @@ WEDDING MOBILE CSS
     top:0;
     z-index:2;
     width:390px;
-    min-height:4100px;
-    height:4100px;
+    min-height:2360px;
+    height:2360px;
     padding:0;
     overflow:hidden;
     transform:translate3d(-50%,0,0) scale(var(--wedding-mobile-scale,1));
     transform-origin:top center;
     background:transparent;
+  }
+
+  .ip-wedding-mobile.has-gallery-opened{
+    min-height:var(--wedding-mobile-page-height, 4100px);
+    height:var(--wedding-mobile-page-height, 4100px);
+  }
+
+  .ip-wedding-mobile.has-gallery-opened .ip-wedding-mobile-bg{
+    height:4100px;
+    min-height:4100px;
+  }
+
+  .ip-wedding-mobile.has-gallery-opened .ip-wedding-mobile-content{
+    min-height:4100px;
+    height:4100px;
   }
 
   /* HERO */
@@ -369,10 +382,32 @@ WEDDING MOBILE CSS
   .ip-wedding-mobile-gallery{
     position:absolute;
     left:5px;
-    top:1595px;
+    top:1490px;
     z-index:4;
     width:380px;
     padding:0;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translate3d(0,34px,0);
+    transition:
+      opacity .72s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear .72s,
+      transform .72s cubic-bezier(.19,1,.22,1);
+    will-change:opacity,transform;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+
+  .ip-wedding-mobile-gallery.is-visible{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translate3d(0,0,0);
+    transition:
+      opacity .72s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear 0s,
+      transform .72s cubic-bezier(.19,1,.22,1);
   }
 
   .ip-wedding-mobile-gallery-grid{
@@ -425,11 +460,17 @@ WEDDING MOBILE CSS
   .ip-wedding-mobile-reviews{
     position:absolute;
     left:0;
-    top:3590px;
+    top:1490px;
     z-index:4;
     width:390px;
     padding:0;
     overflow:hidden;
+    transition:
+      top .72s cubic-bezier(.19,1,.22,1),
+      transform .72s cubic-bezier(.19,1,.22,1);
+    will-change:top,transform;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
   }
 
   .ip-wedding-mobile-reviews-track{
@@ -517,12 +558,20 @@ WEDDING MOBILE CSS
     font-weight:700;
   }
 
+  .ip-wedding-mobile.has-gallery-opened .ip-wedding-mobile-reviews{
+    top:3485px;
+  }
+
+  .ip-wedding-mobile.has-gallery-opened .ip-wedding-mobile-hint{
+    top:3915px;
+  }
+
   /* HINT + SCROLLTOP */
 
   .ip-wedding-mobile-hint{
     position:absolute;
     right:34px;
-    top:4020px;
+    top:2208px;
     z-index:4;
     display:flex;
     align-items:flex-start;
@@ -531,6 +580,8 @@ WEDDING MOBILE CSS
     width:auto;
     padding:0;
     color:rgba(255,255,255,.30);
+    transition:top .72s cubic-bezier(.19,1,.22,1);
+    will-change:top;
   }
 
   .ip-wedding-mobile-hint-icon{
@@ -670,7 +721,7 @@ WEDDING MOBILE CSS
     max-width:none;
     height:765px;
     padding:40px 22px 45px 40px;
-    overflow:hidden;
+    overflow:visible;
     background:transparent;
     -webkit-backdrop-filter:none;
     backdrop-filter:none;
@@ -678,12 +729,18 @@ WEDDING MOBILE CSS
   }
 
   .ip-wedding-mobile .ip-menu-panel::before{
+    top:0;
+    bottom:auto;
+    height:830px;
     background:rgba(0,0,0,.30);
     -webkit-backdrop-filter:blur(18px);
     backdrop-filter:blur(18px);
   }
 
   .ip-wedding-mobile .ip-menu-panel::after{
+    top:0;
+    bottom:auto;
+    height:830px;
     background-image:url('../assets/img/home/popups/menu-noise.webp');
     background-size:cover;
     background-position:center;
