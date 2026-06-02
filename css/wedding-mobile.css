@@ -2,13 +2,14 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-020-mobile-menu-cross-balance
+Версия: wedding-mobile-css-018-lightbox-open-state
 
 ИЗМЕНЕНИЯ:
-- уменьшен mobile menu toggle с 34×20 до 27×27, чтобы открытый крестик соответствовал размеру соц-иконок
-- ширина линий mobile burger/cross уменьшена до 27px без изменения логики меню
-- верхняя посадка меню сохранена в едином mobile-ритме 40px
-- видео edge-to-edge, галерея, отзывы, popup, подсказка, стрелка наверх и анимации не изменялись
+- добавлено только видимое состояние mobile lightbox
+- исправлена причина, по которой фото не показывалось после клика: не было CSS-правила .is-open
+- скрытое состояние lightbox сохранено
+- блок отзывов LOCKED не изменялся
+- галерея, видео, меню, popup, подсказка, стрелка наверх, масштабирование и высоты страницы не изменялись
 ==================================================
 */
 
@@ -140,21 +141,20 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile-video-section{
     position:absolute;
-    left:50%;
+    left:0;
     top:164px;
     z-index:3;
-    width:calc(100vw / var(--wedding-mobile-scale,1));
+    width:390px;
     height:666px;
     margin:0;
     overflow:hidden;
     background:#080807;
-    transform:translate3d(-50%,0,0);
   }
 
   .ip-wedding-mobile-video-wrap{
     position:absolute;
     inset:0;
-    width:100%;
+    width:390px;
     height:666px;
     overflow:hidden;
     background:#080807;
@@ -167,18 +167,15 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile-video-poster{
     position:absolute;
-    left:50%;
-    top:50%;
+    inset:0;
     z-index:3;
-    width:112%;
-    height:112%;
     background-image:url('../assets/img/wedding/video/wedding-video-poster.webp');
     background-size:cover;
     background-position:center top;
     background-repeat:no-repeat;
     opacity:1;
     visibility:visible;
-    transform:translate3d(-50%,-50%,0);
+    transform:translate3d(0,0,0);
     transition:
       opacity .62s cubic-bezier(.19,1,.22,1),
       visibility 0s linear .62s;
@@ -192,13 +189,13 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile-video{
     position:absolute;
-    left:50%;
-    top:50%;
+    left:0;
+    top:0;
     z-index:2;
-    width:112%;
-    height:112%;
+    width:390px;
+    height:666px;
     border:0;
-    transform:translate3d(-50%,-50%,0);
+    transform:translate3d(0,0,0);
     background:#080807;
   }
 
@@ -819,8 +816,8 @@ WEDDING MOBILE CSS
     top:40px;
     right:20px;
     z-index:80;
-    width:27px;
-    height:27px;
+    width:34px;
+    height:20px;
     padding:0 !important;
     margin:0 !important;
     border:none !important;
@@ -839,7 +836,7 @@ WEDDING MOBILE CSS
     position:absolute;
     left:0;
     top:50%;
-    width:27px;
+    width:34px;
     height:3px;
     border-radius:10px;
     background:#fff;
