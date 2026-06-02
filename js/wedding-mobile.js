@@ -2,17 +2,12 @@
 ==================================================
 WEDDING MOBILE JS
 
-Версия: wedding-mobile-js-011-lightbox-complete-clean
+Версия: wedding-mobile-js-012-stable-height-sync
 
 ИЗМЕНЕНИЯ:
-- файл собран на основе актуального wedding-mobile-js-010-lightbox-complete
-- удалены дубли lightbox-переменных и функций
-- сохранены масштабирование, высоты страницы, меню, popup, gallery open/close, video poster и scrolltop
-- сохранены открытие фото, закрытие, свайп влево/вправо, счётчик и клавиши ArrowLeft / ArrowRight
-- крестик закрытия отображается и позиционируется относительно открытого фото
-- правый край крестика выровнен по правому краю фото
-- крестик расположен на 20px выше верхнего края фото
-- отзывы LOCKED, HTML и CSS не изменялись
+- закрытая высота mobile-страницы синхронизирована с CSS: 2100px
+- раскрытая высота mobile-страницы синхронизирована с CSS: 4900px
+- масштабирование, меню, popup, gallery open/close, video poster, lightbox и scrolltop сохранены
 ==================================================
 */
 
@@ -23,8 +18,8 @@ WEDDING MOBILE JS
     mobile:{
       width:390,
       height:700,
-      stageHeightClosed:2140,
-      stageHeightOpened:4135
+      stageHeightClosed:2100,
+      stageHeightOpened:4900
     },
     breakpoint:767
   };

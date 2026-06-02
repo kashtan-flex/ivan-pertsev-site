@@ -2,16 +2,14 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-024-kinescope-ratio-safe
+Версия: wedding-mobile-css-019-stable-height-sync
 
 ИЗМЕНЕНИЯ:
-- масштабирование mobile video пересобрано без crop/overscan самого iframe Kinescope
-- video-section остаётся edge-to-edge через 100vw с компенсацией stage-scale
-- video-section получил портретное соотношение 9/16 через aspect-ratio, чтобы iframe заполнял ширину без обрезки элементов управления
-- iframe и poster возвращены к 100% ширины и высоты внутри видимой области
-- overflow у mobile content сделан visible, чтобы edge-to-edge video-section не обрезался рамкой stage 390px
-- mobile menu burger/cross balance сохранён
-- галерея, отзывы, popup, подсказка, стрелка наверх и анимации не изменялись
+- закрытая высота mobile-страницы «Свадьба» подрезана до фактического низа контента, чтобы убрать тёмную область снизу
+- раскрытая высота страницы синхронизирована с JS и CSS: 4900px
+- стрелка подъёма вверх переведена на top-позиционирование рядом с подсказкой, чтобы не уезжала при раскрытии/закрытии фото
+- burger и крестик mobile menu приведены к единому стандарту Главной и Биографии: 27×27, линии 27px
+- стабильная сетка, видео 390×666, галерея, отзывы, popup, lightbox и анимации сохранены
 ==================================================
 */
 
@@ -53,8 +51,8 @@ WEDDING MOBILE CSS
   .ip-wedding-mobile{
     position:relative;
     width:100%;
-    min-height:var(--wedding-mobile-page-height, 2140px);
-    height:var(--wedding-mobile-page-height, 2140px);
+    min-height:var(--wedding-mobile-page-height, 2100px);
+    height:var(--wedding-mobile-page-height, 2100px);
     overflow:visible;
     background:#050603;
     color:#fff;
@@ -67,8 +65,8 @@ WEDDING MOBILE CSS
     top:0;
     z-index:1;
     width:390px;
-    height:2140px;
-    min-height:2140px;
+    height:2100px;
+    min-height:2100px;
     background-image:url('../assets/img/wedding/mobile/background/wedding-mobile-bg.webp');
     background-size:390px auto;
     background-position:top center;
@@ -84,10 +82,10 @@ WEDDING MOBILE CSS
     top:0;
     z-index:2;
     width:390px;
-    min-height:2140px;
-    height:2140px;
+    min-height:2100px;
+    height:2100px;
     padding:0;
-    overflow:visible;
+    overflow:hidden;
     transform:translate3d(-50%,0,0) scale(var(--wedding-mobile-scale,1));
     transform-origin:top center;
     background:transparent;
@@ -143,23 +141,21 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile-video-section{
     position:absolute;
-    left:50%;
+    left:0;
     top:164px;
     z-index:3;
-    width:calc(100vw / var(--wedding-mobile-scale,1));
-    aspect-ratio:9 / 16;
-    height:auto;
+    width:390px;
+    height:666px;
     margin:0;
     overflow:hidden;
     background:#080807;
-    transform:translate3d(-50%,0,0);
   }
 
   .ip-wedding-mobile-video-wrap{
     position:absolute;
     inset:0;
-    width:100%;
-    height:100%;
+    width:390px;
+    height:666px;
     overflow:hidden;
     background:#080807;
     isolation:isolate;
@@ -173,8 +169,6 @@ WEDDING MOBILE CSS
     position:absolute;
     inset:0;
     z-index:3;
-    width:100%;
-    height:100%;
     background-image:url('../assets/img/wedding/video/wedding-video-poster.webp');
     background-size:cover;
     background-position:center top;
@@ -195,10 +189,11 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile-video{
     position:absolute;
-    inset:0;
+    left:0;
+    top:0;
     z-index:2;
-    width:100%;
-    height:100%;
+    width:390px;
+    height:666px;
     border:0;
     transform:translate3d(0,0,0);
     background:#080807;
@@ -595,6 +590,10 @@ WEDDING MOBILE CSS
     top:4745px;
   }
 
+  .ip-wedding-mobile.has-gallery-opened .ip-wedding-mobile-scrolltop{
+    top:4808px;
+  }
+
   /* HINT + SCROLLTOP */
 
   .ip-wedding-mobile-hint{
@@ -635,7 +634,8 @@ WEDDING MOBILE CSS
   .ip-wedding-mobile-scrolltop{
     position:absolute;
     right:34px;
-    bottom:50px;
+    top:2060px;
+    bottom:auto;
     z-index:8;
     display:flex;
     align-items:center;
@@ -821,8 +821,8 @@ WEDDING MOBILE CSS
     top:40px;
     right:20px;
     z-index:80;
-    width:34px;
-    height:20px;
+    width:27px;
+    height:27px;
     padding:0 !important;
     margin:0 !important;
     border:none !important;
@@ -839,10 +839,10 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile .ip-menu-line{
     position:absolute;
-    left:1.5px;
+    left:0;
     top:50%;
-    width:24px;
-    height:2.5px;
+    width:27px;
+    height:3px;
     border-radius:10px;
     background:#fff;
     transform-origin:center center;
@@ -866,12 +866,6 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile .ip-menu-toggle.is-open .ip-menu-line:last-child{
     transform:translateY(-50%) rotate(-45deg);
-  }
-
-  .ip-wedding-mobile .ip-menu-toggle.is-open .ip-menu-line{
-    left:1.5px;
-    width:24px;
-    height:2.5px;
   }
 
   .ip-wedding-mobile .ip-menu-panel{
@@ -1004,7 +998,6 @@ WEDDING MOBILE CSS
     opacity:.5;
     transform:translateY(-50%) rotate(-45deg);
   }
-
   .ip-wedding-mobile .ip-accordion.is-open .ip-accordion-button::after{
     opacity:.5;
     transform:translateY(-50%) rotate(45deg);
