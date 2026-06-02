@@ -2,15 +2,13 @@
 ==================================================
 WEDDING MOBILE HTML
 
-Версия: wedding-mobile-html-002-mobile-video
+Версия: wedding-mobile-html-005-reviews-stage-2
 
 ИЗМЕНЕНИЯ:
-- в мобильную версию страницы «Свадьба» добавлен рабочий Kinescope iframe из desktop-версии
-- сохранён poster-слой для аккуратного старта видео
-- добавлены data-атрибуты для JS-скрытия poster после загрузки iframe
-- пункт меню «Свадьба» направлен на единый responsive entry-point wedding-preview.html
-- desktop-страница Wedding не затрагивается
-- сохранены mobile hero, CTA, awards, gallery, reviews, popup, menu и scroll-top
+- второй этап правок: обновлён только блок отзывов
+- добавлены все 7 отзывов для мобильной версии
+- структура карточек отзывов подготовлена под точные CSS-параметры из макета
+- видео, фотосетка, меню, popup, кнопки и lightbox не изменялись
 ==================================================
 -->
 
@@ -54,16 +52,8 @@ WEDDING MOBILE HTML
 
         <div
           class="ip-wedding-mobile-video-poster"
-          data-wedding-mobile-video-poster
           aria-hidden="true"
         ></div>
-
-        <iframe
-          class="ip-wedding-mobile-video"
-          data-wedding-mobile-video-frame
-          src="https://kinescope.io/embed/tLG159m4JCtDsZWU4w4uSd?autoplay=1&muted=1&loop=1"
-          allow="autoplay; fullscreen; picture-in-picture; wake-lock"
-        ></iframe>
 
       </div>
 
@@ -256,7 +246,6 @@ WEDDING MOBILE HTML
     >
 
       <div class="ip-wedding-mobile-reviews-track">
-
         <article class="ip-wedding-mobile-review">
 
           <div class="ip-wedding-mobile-review-top">
@@ -283,12 +272,7 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Вань, ещё раз хотим сказать тебе огромное спасибо. Благодаря тебе этот день мы будем всегда вспоминать с восторгом.<br><br>
-            <strong>Ты сделал идеальную свадьбу!</strong><br>
-            Трогательно и с драйвом.<br>
-            Спустя два месяца наши гости говорят о тебе с эмоциями!<br><br>
-            Желаем, чтобы всем парам повезло провести этот день именно с тобой!<br><br>
-            <strong>Ты лучший!</strong>
+            Вань, ещё раз хотим сказать тебе огромное спасибо. Благодаря тебе этот день мы будем всегда вспоминать с восторгом.<br><br><strong>Ты сделал идеальную свадьбу!</strong><br>Трогательно и с драйвом. Спустя два месяца наши гости говорят о тебе с эмоциями!<br><br>Желаем, чтобы всем парам повезло провести этот день именно с тобой!<br><br><strong>Ты лучший!</strong>
           </div>
 
         </article>
@@ -319,10 +303,7 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Вань, еще раз хотел бы поблагодарить тебя! Ты — настоящий профи своего дела.<br><br>
-            <strong>Безумно круто было с тобой поработать.</strong><br>
-            Я рад, что такое знаковое для нас с Полиной событие провел ты! Желаю тебе дальнейших успехов, профессионального роста и семейного благополучия.<br><br>
-            <strong>Обнял!</strong>
+            Вань, еще раз хотел бы поблагодарить тебя! Ты — настоящий профи своего дела.<br><br><strong>Безумно круто было с тобой поработать.</strong><br>Я рад, что такое знаковое для нас с Полиной событие провел ты! Желаю тебе дальнейших успехов, профессионального роста и семейного благополучия.<br><br><strong>Обнял!</strong>
           </div>
 
         </article>
@@ -353,10 +334,131 @@ WEDDING MOBILE HTML
           </div>
 
           <div class="ip-wedding-mobile-review-text">
-            Дорогой Ваня, мы благодарим тебя за шикарно организованный вечер нашей свадьбы!<br><br>
-            <strong>Мы были уверены, что всё под контролем!</strong><br>
-            Ваня, отдельное спасибо за шикарные песни и проведение всего мероприятия. Мы и гости просто в восторге.<br><br>
-            <strong>Спасибо огромное!</strong>
+            Дорогой Ваня, мы благодарим тебя за шикарно организованный вечер нашей свадьбы!<br><br><strong>Мы были уверены, что всё под контролем!</strong><br>Ваня, отдельное спасибо за шикарные песни и проведение всего мероприятия. Мы и гости просто в восторге, все сегодня звонят и говорят о шикарной организации и о супер ведущем!<br><br><strong>Спасибо огромное!</strong>
+          </div>
+
+        </article>
+
+        <article class="ip-wedding-mobile-review">
+
+          <div class="ip-wedding-mobile-review-top">
+
+            <div class="ip-wedding-mobile-review-avatar">
+              <img
+                src="./assets/img/wedding/reviews/review-wedding-04.webp"
+                alt="Анастасия"
+              >
+            </div>
+
+            <div class="ip-wedding-mobile-review-meta">
+
+              <div class="ip-wedding-mobile-review-name">
+                Анастасия
+              </div>
+
+              <div class="ip-wedding-mobile-review-type">
+                Свадьба
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="ip-wedding-mobile-review-text">
+            Спасибо за организацию такого чудесного праздника! Каждый день мы вспоминаем как же всё было нереально круто!<br><br><strong>Не было ни одного изъяна, довольны каждой минутой и секундой!</strong><br>Это самые лучшие и тёплые воспоминания. Ваня провёл весь этот вечер с нами и сделал его семейным, тёплым и незабываемым.<br><br><strong>Спасибо, спасибо, спасибо!</strong>
+          </div>
+
+        </article>
+
+        <article class="ip-wedding-mobile-review">
+
+          <div class="ip-wedding-mobile-review-top">
+
+            <div class="ip-wedding-mobile-review-avatar">
+              <img
+                src="./assets/img/wedding/reviews/review-wedding-05.webp"
+                alt="Татьяна Волкова"
+              >
+            </div>
+
+            <div class="ip-wedding-mobile-review-meta">
+
+              <div class="ip-wedding-mobile-review-name">
+                Татьяна Волкова
+              </div>
+
+              <div class="ip-wedding-mobile-review-type">
+                Свадьба
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="ip-wedding-mobile-review-text">
+            Вань, привет! Мы с Егором неделю отходили от вечера, который ты сделал крутым! Спасибо большое!<br><br><strong>Было идеально всё:</strong><br>от встреч с подготовкой до самой свадьбы. Не слышала от гостей ни одного отрицательного отзыва, особенно все хвалили ведущего, даже самые искушённые.<br><br><strong>Благодаря тебе всё получилось именно так, как хотелось!</strong>
+          </div>
+
+        </article>
+
+        <article class="ip-wedding-mobile-review">
+
+          <div class="ip-wedding-mobile-review-top">
+
+            <div class="ip-wedding-mobile-review-avatar">
+              <img
+                src="./assets/img/wedding/reviews/review-wedding-06.webp"
+                alt="Егор Орлов"
+              >
+            </div>
+
+            <div class="ip-wedding-mobile-review-meta">
+
+              <div class="ip-wedding-mobile-review-name">
+                Егор Орлов
+              </div>
+
+              <div class="ip-wedding-mobile-review-type">
+                Свадьба
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="ip-wedding-mobile-review-text">
+            Вань, я в очередной раз хотел тебе написать какой ты крутой ведущий! Три года прошло, на каких я только мероприятиях не был.<br><br><strong>Ты просто лучший!</strong><br>Несравним ни с кем. Любое следующее мероприятие даже рассматриваться не будет без тебя!<br><br><strong>Спасибо большое!</strong>
+          </div>
+
+        </article>
+
+        <article class="ip-wedding-mobile-review">
+
+          <div class="ip-wedding-mobile-review-top">
+
+            <div class="ip-wedding-mobile-review-avatar">
+              <img
+                src="./assets/img/wedding/reviews/review-wedding-07.webp"
+                alt="Елена Кутьина"
+              >
+            </div>
+
+            <div class="ip-wedding-mobile-review-meta">
+
+              <div class="ip-wedding-mobile-review-name">
+                Елена Кутьина
+              </div>
+
+              <div class="ip-wedding-mobile-review-type">
+                Свадьба
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="ip-wedding-mobile-review-text">
+            Свадьба моего сына стала одним из самых ярких событий моей жизни! Во многом, благодаря тебе, Иван!<br><br><strong>Это было очень профессионально!</strong><br>Твои милые интерактивы удивили и порадовали абсолютно всех. Песни под гитару стали лучшим объединением всех гостей.<br><br><strong>Спасибо за вечер! Ваня - ты лучший!</strong>
           </div>
 
         </article>
@@ -371,7 +473,7 @@ WEDDING MOBILE HTML
     >
 
       <img
-        src="./assets/img/wedding/icons/review-tap-hint.svg"
+        src="./assets/img/wedding/mobile/icons/ip-wedding-mobile-hint-icon.svg"
         alt=""
         class="ip-wedding-mobile-hint-icon"
       >
@@ -457,7 +559,7 @@ WEDDING MOBILE HTML
 
               <div class="ip-submenu">
 
-                <a href="./wedding-preview.html">
+                <a href="./wedding-mobile-preview.html">
                   Свадьба
                 </a>
 
