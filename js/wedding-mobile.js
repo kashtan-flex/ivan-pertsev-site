@@ -2,13 +2,13 @@
 ==================================================
 WEDDING MOBILE JS
 
-Версия: wedding-mobile-js-003-kinescope-poster-timing
+Версия: wedding-mobile-js-004-video-poster-delay
 
 ИЗМЕНЕНИЯ:
+- увеличено время отображения poster-обложки перед показом Kinescope iframe
+- по видео проверки загрузочный экран плеера виден примерно 0.28–0.30 секунды
+- добавлен запас по времени: poster скрывается позже, чтобы перекрыть загрузочный экран
 - сохранена mobile-логика «Биографии»: scale, scroll, menu, accordion, popup, date mask и scroll-top
-- сохранён скролл к галерее по кнопке «Смотреть фото»
-- poster-слой видео скрывается мягко после загрузки iframe
-- добавлен fallback-таймер скрытия poster, чтобы убрать заметную паузу загрузки после первого кадра
 - desktop-логика Wedding не затрагивается
 ==================================================
 */
@@ -26,8 +26,8 @@ WEDDING MOBILE JS
   };
 
   var SCROLLTOP_REVEAL_OFFSET = 140;
-  var VIDEO_POSTER_FALLBACK_DELAY = 1250;
-  var VIDEO_POSTER_LOAD_DELAY = 360;
+  var VIDEO_POSTER_FALLBACK_DELAY = 2800;
+  var VIDEO_POSTER_LOAD_DELAY = 2200;
 
   var page = document.querySelector('[data-wedding-mobile-page]');
   var stage = document.querySelector('.ip-wedding-mobile-content');
