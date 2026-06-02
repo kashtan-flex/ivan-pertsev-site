@@ -2,15 +2,13 @@
    IVAN PERTSEV — HOME PAGE
    FILE: css/home-mobile.css
 
-   Версия: home-mobile-026
+   Версия: home-mobile-028-subtitle-spacing
 
    ИЗМЕНЕНИЯ:
-   - восстановлена мобильная production-композиция 390×700
-   - исправлены локальные пути к mobile background
-   - исправлены локальные пути к mobile portrait
-   - сохранена cover-логика масштабирования через home.js
-   - сохранена мягкая мобильная анимация текста
-   - сохранены настройки мобильного меню
+   - мобильный подзаголовок опущен на 7px ниже относительно фамилии «Перцев»
+   - анимация появления подзаголовка сохранена без изменений
+   - mobile menu cross balance сохранён
+   - desktop версия не изменялась
    ========================================================= */
 
 @media (max-width:767px){
@@ -122,7 +120,7 @@
 
   .ip-home-subtitle-wrap{
     left:0;
-    top:111px;
+    top:118px;
     width:215px;
     height:24px;
     overflow:hidden;
@@ -167,12 +165,12 @@
   .ip-menu-toggle{
     top:40px;
     right:20px;
-    width:34px;
-    height:20px;
+    width:27px;
+    height:27px;
   }
 
   .ip-menu-line{
-    width:34px;
+    width:27px;
     height:3px;
   }
 

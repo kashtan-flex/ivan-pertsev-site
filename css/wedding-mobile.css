@@ -2,13 +2,13 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-019-edge-to-edge-video
+Версия: wedding-mobile-css-020-mobile-menu-cross-balance
 
 ИЗМЕНЕНИЯ:
-- доработано только масштабирование mobile video
-- video-section, video-wrap, iframe и poster вынесены в edge-to-edge ширину через 100vw с компенсацией текущего stage-scale
-- добавлен небольшой внутренний overscan для iframe и poster, чтобы убрать пустоты слева и справа внутри Kinescope-плеера
-- высоты страницы, галерея, отзывы, меню, popup, подсказка, стрелка наверх и анимации не изменялись
+- уменьшен mobile menu toggle с 34×20 до 27×27, чтобы открытый крестик соответствовал размеру соц-иконок
+- ширина линий mobile burger/cross уменьшена до 27px без изменения логики меню
+- верхняя посадка меню сохранена в едином mobile-ритме 40px
+- видео edge-to-edge, галерея, отзывы, popup, подсказка, стрелка наверх и анимации не изменялись
 ==================================================
 */
 
@@ -819,8 +819,8 @@ WEDDING MOBILE CSS
     top:40px;
     right:20px;
     z-index:80;
-    width:34px;
-    height:20px;
+    width:27px;
+    height:27px;
     padding:0 !important;
     margin:0 !important;
     border:none !important;
@@ -839,7 +839,7 @@ WEDDING MOBILE CSS
     position:absolute;
     left:0;
     top:50%;
-    width:34px;
+    width:27px;
     height:3px;
     border-radius:10px;
     background:#fff;

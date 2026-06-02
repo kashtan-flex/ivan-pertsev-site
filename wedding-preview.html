@@ -2,16 +2,15 @@
 ==================================================
 WEDDING PREVIEW HTML
 
-Версия: wedding-preview-004-responsive-breakpoint-reload
+Версия: wedding-preview-005-mobile-root-html-route
 
 ИЗМЕНЕНИЯ:
-- wedding-preview.html остаётся единой точкой входа для desktop и mobile версии страницы «Свадьба»
-- исправлено переключение desktop/mobile при изменении ширины viewport без ручного обновления страницы
-- при переходе через DevTools Responsive страница автоматически перегружает нужный HTML/CSS/JS
-- mobile загружает pages/wedding/wedding-mobile.html, css/wedding-mobile.css и js/wedding-mobile.js
-- desktop загружает pages/wedding/wedding.html, css/wedding.css, css/project-reviews.css и js/wedding.js
-- удалён preload мобильного фона, который давал предупреждение о неиспользованном ресурсе
-- сохранены popup, page transition и viewport workflow
+- wedding-preview.html сохранён как единая точка входа для desktop и mobile версии страницы «Свадьба»
+- исправлен mobile-маршрут: удалено обращение к несуществующему pages/wedding/wedding-mobile.html
+- mobile теперь загружает существующий wedding-mobile.html, css/wedding-mobile.css и js/wedding-mobile.js
+- desktop по-прежнему загружает pages/wedding/wedding.html, css/wedding.css, css/project-reviews.css и js/wedding.js
+- переключение desktop/mobile при изменении ширины viewport сохранено
+- popup, page transition и viewport workflow не изменялись
 ==================================================
 -->
 
@@ -215,9 +214,9 @@ WEDDING PREVIEW HTML
             css:[
               './css/wedding-mobile.css'
             ],
-            html:'./pages/wedding/wedding-mobile.html',
+            html:'./wedding-mobile.html',
             js:'./js/wedding-mobile.js',
-            error:'Ошибка загрузки мобильной страницы Свадьба. Проверь путь: pages/wedding/wedding-mobile.html'
+            error:'Ошибка загрузки мобильной страницы Свадьба. Проверь путь: wedding-mobile.html'
           };
         }
 

@@ -1,7 +1,7 @@
 /* =========================================================
    BIOGRAPHY MOBILE CSS
 
-   Версия: biography-mobile-css-015
+   Версия: biography-mobile-css-016-mobile-menu-cross-balance
 
    ИЗМЕНЕНИЯ:
    - убран блюр страницы при закрытом mobile menu
@@ -391,8 +391,8 @@
     top:40px;
     right:20px;
     z-index:80;
-    width:34px;
-    height:20px;
+    width:27px;
+    height:27px;
     padding:0 !important;
     margin:0 !important;
     border:none !important;
@@ -411,7 +411,7 @@
     position:absolute;
     left:0;
     top:50%;
-    width:34px;
+    width:27px;
     height:3px;
     border-radius:10px;
     background:#fff;
