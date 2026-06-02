@@ -2,7 +2,7 @@
 ==================================================
 WEDDING MOBILE JS
 
-Версия: wedding-mobile-js-012-stable-height-sync
+Версия: wedding-mobile-js-013-closed-page-bottom-space
 
 ИЗМЕНЕНИЯ:
 - закрытая высота mobile-страницы синхронизирована с CSS: 2100px
@@ -18,7 +18,7 @@ WEDDING MOBILE JS
     mobile:{
       width:390,
       height:700,
-      stageHeightClosed:2100,
+      stageHeightClosed:2152,
       stageHeightOpened:4900
     },
     breakpoint:767
