@@ -2,15 +2,12 @@
 ==================================================
 WEDDING PREVIEW HTML
 
-Версия: wedding-preview-007-final-single-entry
+Версия: wedding-preview-008-corporate-mobile-menu-route
 
 ИЗМЕНЕНИЯ:
-- wedding-preview.html оставлен единственной точкой входа для desktop и mobile версии страницы «Свадьба»
-- mobile-разметка встроена прямо в wedding-preview.html как внутренний template
-- desktop продолжает загружать основную разметку страницы из pages/wedding/wedding.html
-- mobile загружает только css/wedding-mobile.css и js/wedding-mobile.js
-- переключение desktop/mobile при изменении ширины viewport сохранено
-- popup, page transition и viewport workflow сохранены
+- во встроенном mobile-template страницы «Свадьба» подраздел «Корпоратив» подключён к /corporate-preview.html
+- desktop/mobile переключение, popup, page transition и viewport workflow не изменялись
+- правка нужна для единой навигации меню до сборки мобильной версии «Корпоратив»
 ==================================================
 -->
 
@@ -765,7 +762,7 @@ WEDDING MOBILE HTML
                   Свадьба
                 </a>
 
-                <a href="#">
+                <a href="/corporate-preview.html">
                   Корпоратив
                 </a>
 

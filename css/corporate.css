@@ -1,15 +1,15 @@
 /* =========================================================
    CORPORATE CSS
 
-   Версия: corporate-css-013-reviews-text-alignment
+   Версия: corporate-css-014-review-popup-text-alignment
 
    ИЗМЕНЕНИЯ:
-   - файл основан на corporate-css-012-top100-partner-pair-alignment
-   - текст, CTA-кнопки, Top 100, партнёрские логотипы, видео, галерея, popup и меню не изменялись
-   - сохранены утверждённые координаты и размеры карточек отзывов, аватаров и анимаций
-   - добавлено финальное перекрытие типографики текста отзывов под макет
-   - основной текст отзывов слегка уменьшен и уплотнён для корректных переносов по словам
-   - жирные фрагменты отзывов оставлены выразительными, но без избыточного утяжеления
+   - файл основан на corporate-css-013-reviews-text-alignment
+   - миниатюры отзывов, их положение, размеры, аватары и анимации не изменялись
+   - текст, CTA-кнопки, Top 100, партнёрские логотипы, видео, галерея и меню не изменялись
+   - добавлено отдельное перекрытие типографики текста внутри popup отзывов
+   - текст popup отзывов уплотнён по размеру, line-height и letter-spacing под утверждённые переносы миниатюр
+   - сохранены размеры popup-карточки, фон, blur, анимация открытия и расположение аватаров
    ========================================================= */
 
 .ip-corporate,
@@ -1755,4 +1755,52 @@
 
 .ip-corporate .ip-corporate-review-text strong{
   font-weight:600 !important;
+}
+
+
+/* =========================================================
+   CORPORATE REVIEW POPUP TEXT ALIGNMENT
+
+   Версия: corporate-css-014-review-popup-text-alignment
+
+   ИЗМЕНЕНИЯ:
+   - правка касается только текста внутри открытого popup отзыва
+   - размеры popup-карточки, положение popup, аватары, фон, blur и анимации не изменялись
+   - типографика popup-текста приведена к той же логике переносов, что и утверждённые миниатюры отзывов
+   - уменьшен размер текста popup, скорректированы line-height, letter-spacing и вес жирных фрагментов
+   ========================================================= */
+
+.ip-review-popup-card .ip-corporate-review-text{
+  position:absolute !important;
+  left:30px !important;
+  right:30px !important;
+  top:100px !important;
+  width:279px !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#fff !important;
+  font-family:'Montserrat',Arial,sans-serif !important;
+  font-size:15px !important;
+  line-height:1.52 !important;
+  font-weight:400 !important;
+  letter-spacing:-.005em !important;
+}
+
+.ip-review-popup-card .ip-corporate-review-text strong{
+  font-weight:600 !important;
+}
+
+.ip-review-popup-card .ip-corporate-review-name{
+  font-size:19px !important;
+  line-height:1.2 !important;
+  font-weight:600 !important;
+  letter-spacing:-.02em !important;
+}
+
+.ip-review-popup-card .ip-corporate-review-type{
+  margin-top:1px !important;
+  font-size:12px !important;
+  line-height:1.2 !important;
+  font-weight:400 !important;
+  letter-spacing:-.02em !important;
 }
