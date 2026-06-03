@@ -1,0 +1,152 @@
+<!--
+==================================================
+CORPORATE PREVIEW HTML
+
+Версия: corporate-preview-002-top100-partners-reviews
+
+ИЗМЕНЕНИЯ:
+- создана desktop-точка входа страницы «Корпоратив» на основе approved stable страницы «Свадьба»
+- подключены corporate.css, corporate-reviews.css и corporate.js
+- сохранены общие home.css, popups.css, popups-mobile.css и page-transition.css
+- desktop-разметка загружается из pages/corporate/corporate.html
+- mobile-версия не подключается на этом этапе разработки
+==================================================
+-->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <title>Корпоратив — Иван Перцев</title>
+
+  <style>
+    :root{
+      --corporate-vh:1vh;
+    }
+
+    html,
+    body,
+    #ip-corporate-root{
+      width:100%;
+      height:100%;
+      margin:0;
+      padding:0;
+      overflow:hidden;
+      background:#050603;
+    }
+
+    #ip-corporate-root{
+      position:relative;
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="preload" href="./assets/img/corporate/video/corporate-video-poster.webp" as="image">
+  <link rel="preload" href="./assets/img/corporate/background/corporate-bg.webp" as="image">
+
+  <link rel="stylesheet" href="./css/home.css">
+  <link rel="stylesheet" href="./css/popups.css">
+  <link rel="stylesheet" href="./css/popups-mobile.css">
+  <link rel="stylesheet" href="./css/page-transition.css">
+  <link rel="stylesheet" href="./css/corporate.css">
+  <link rel="stylesheet" href="./css/corporate-reviews.css">
+</head>
+
+<body>
+
+  <div
+    class="ip-page-transition is-enter"
+    aria-hidden="true"
+  ></div>
+
+  <div id="ip-corporate-root"></div>
+
+  <script>
+    (function(){
+      'use strict';
+
+      var root = document.getElementById('ip-corporate-root');
+
+      function setCorporateViewportHeight(){
+        var height = window.innerHeight;
+
+        if(window.visualViewport && window.visualViewport.height){
+          height = window.visualViewport.height;
+        }
+
+        document.documentElement.style.setProperty(
+          '--corporate-vh',
+          (height * 0.01) + 'px'
+        );
+      }
+
+      function loadScript(src, attribute){
+        var script = document.createElement('script');
+        script.src = src + '?v=' + Date.now();
+        script.defer = true;
+
+        if(attribute){
+          script.setAttribute(attribute, 'true');
+        }
+
+        document.body.appendChild(script);
+      }
+
+      if(!root){
+        return;
+      }
+
+      setCorporateViewportHeight();
+
+      window.addEventListener('resize', setCorporateViewportHeight, { passive:true });
+      window.addEventListener('orientationchange', function(){
+        window.setTimeout(setCorporateViewportHeight, 250);
+      }, { passive:true });
+
+      if(window.visualViewport){
+        window.visualViewport.addEventListener('resize', setCorporateViewportHeight, { passive:true });
+      }
+
+      fetch('./pages/corporate/corporate.html')
+        .then(function(response){
+          if(!response.ok){
+            throw new Error('Ошибка загрузки страницы Корпоратив. Проверь путь: pages/corporate/corporate.html');
+          }
+
+          return response.text();
+        })
+        .then(function(html){
+          root.innerHTML = html;
+          loadScript('./js/corporate.js');
+
+          if(!document.querySelector('script[data-page-transition-script]')){
+            loadScript('./js/page-transition.js', 'data-page-transition-script');
+          }
+        })
+        .catch(function(error){
+          console.error(error);
+          root.innerHTML = '<pre style="color:#fff;padding:40px;font-family:Arial,sans-serif;">Ошибка загрузки страницы Корпоратив.</pre>';
+        });
+    })();
+  </script>
+
+</body>
+</html>
