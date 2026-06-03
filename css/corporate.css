@@ -154,7 +154,7 @@
 
 .ip-corporate-top100{
   position:absolute;
-  left:72px;
+  left:60px;
   top:162px;
   z-index:6;
   display:flex;
@@ -1549,7 +1549,7 @@
 }
 
 .ip-corporate .ip-corporate-actions{
-  top:485px;
+  top:510px;
 }
 
 .ip-corporate .ip-corporate-review-tools{
@@ -1564,17 +1564,16 @@
 /* =========================================================
    CORPORATE TOP100 / PARTNERS FINAL OVERRIDES
 
-   Версия: corporate-css-003-actions-position
+   Версия: corporate-css-004-top100-cta-balance
 
    ИЗМЕНЕНИЯ:
-   - добавлен блок Top 100 между подзаголовком и основным текстом
-   - выровнена сетка логотипов партнёров по макету
-   - отзывы вынесены в отдельный файл corporate-reviews.css
-   - кнопки CTA подняты к макетной позиции под основным текстом
+   - блок Top 100 выровнен по левому краю основного текста
+   - сохранено расстояние между иконкой Top 100 и подписью
+   - кнопки CTA опущены ниже и поставлены ближе к центру между основным текстом и логотипами партнёров
    ========================================================= */
 
 .ip-corporate .ip-corporate-top100{
-  left:72px;
+  left:60px;
   top:162px;
 }
 
