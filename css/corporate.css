@@ -1549,7 +1549,7 @@
 }
 
 .ip-corporate .ip-corporate-actions{
-  top:585px;
+  top:485px;
 }
 
 .ip-corporate .ip-corporate-review-tools{
@@ -1564,12 +1564,13 @@
 /* =========================================================
    CORPORATE TOP100 / PARTNERS FINAL OVERRIDES
 
-   Версия: corporate-css-002-top100-partners-reviews
+   Версия: corporate-css-003-actions-position
 
    ИЗМЕНЕНИЯ:
    - добавлен блок Top 100 между подзаголовком и основным текстом
    - выровнена сетка логотипов партнёров по макету
    - отзывы вынесены в отдельный файл corporate-reviews.css
+   - кнопки CTA подняты к макетной позиции под основным текстом
    ========================================================= */
 
 .ip-corporate .ip-corporate-top100{
