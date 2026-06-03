@@ -2,17 +2,13 @@
 ==================================================
 BIRTHDAY MOBILE CSS
 
-Версия: birthday-mobile-css-001-base
+Версия: birthday-mobile-css-005-review-hint-40px-gap
 
 ИЗМЕНЕНИЯ:
-- файл основан на birthday-mobile-css-001-base
-- точечно исправлены только вертикальные отступы мобильной страницы после видео
-- блок Top 100 поставлен строго на позицию из Figma
-- отступ Top 100 → основной текст приведён к 20px
-- блок CTA-кнопок поставлен строго на позицию из Figma, расстояние между кнопками 30px
-- блок логотипов партнёров поставлен строго на позицию из Figma
-- блок отзывов поднят на позицию из Figma с отступом 70px от логотипов
-- размеры, начертания, видео, галерея, отзывы, меню и JavaScript не изменялись
+- файл основан на birthday-mobile-css-004-gallery-layout-order
+- подсказка «Листайте для просмотра» в раскрытом состоянии поднята до расстояния 40px от нижнего края отзывов
+- положение стрелки, высота страницы, отзывы, галерея, hero-блок, меню и popup не изменялись
+- расстояние между подсказкой и стрелкой будет проверяться следующим шагом отдельно
 ==================================================
 */
 
@@ -442,26 +438,26 @@ BIRTHDAY MOBILE CSS
     object-position:center center;
   }
 
-  .ip-birthday-mobile-gallery-item-01{width:167px;height:290px;}
-  .ip-birthday-mobile-gallery-item-02{width:193px;height:290px;}
+  .ip-birthday-mobile-gallery-item-01{width:111px;height:166px;}
+  .ip-birthday-mobile-gallery-item-02{width:249px;height:166px;}
   .ip-birthday-mobile-gallery-item-03{width:111px;height:166px;}
   .ip-birthday-mobile-gallery-item-04{width:249px;height:166px;}
-  .ip-birthday-mobile-gallery-item-05{width:111px;height:166px;}
-  .ip-birthday-mobile-gallery-item-06{width:249px;height:166px;}
-  .ip-birthday-mobile-gallery-item-07{width:370px;height:248px;}
-  .ip-birthday-mobile-gallery-item-08{width:370px;height:247px;}
-  .ip-birthday-mobile-gallery-item-09{width:150px;height:214px;}
-  .ip-birthday-mobile-gallery-item-10{width:210px;height:214px;}
-  .ip-birthday-mobile-gallery-item-11{width:112px;height:166px;}
-  .ip-birthday-mobile-gallery-item-12{width:248px;height:166px;}
-  .ip-birthday-mobile-gallery-item-13{width:159px;height:133px;}
-  .ip-birthday-mobile-gallery-item-14{width:201px;height:133px;}
-  .ip-birthday-mobile-gallery-item-15{width:180px;height:269px;}
-  .ip-birthday-mobile-gallery-item-16{width:180px;height:270px;}
-  .ip-birthday-mobile-gallery-item-17{width:370px;height:247px;}
+  .ip-birthday-mobile-gallery-item-05{width:370px;height:247px;}
+  .ip-birthday-mobile-gallery-item-06{width:370px;height:245px;}
+  .ip-birthday-mobile-gallery-item-07{width:370px;height:247px;}
+  .ip-birthday-mobile-gallery-item-08{width:180px;height:270px;}
+  .ip-birthday-mobile-gallery-item-09{width:180px;height:270px;}
+  .ip-birthday-mobile-gallery-item-10{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-11{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-12{width:249px;height:166px;}
+  .ip-birthday-mobile-gallery-item-13{width:111px;height:166px;}
+  .ip-birthday-mobile-gallery-item-14{width:109px;height:166px;}
+  .ip-birthday-mobile-gallery-item-15{width:251px;height:166px;}
+  .ip-birthday-mobile-gallery-item-16{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-17{width:370px;height:246px;}
   .ip-birthday-mobile-gallery-item-18{width:370px;height:246px;}
-  .ip-birthday-mobile-gallery-item-19{width:110px;height:165px;}
-  .ip-birthday-mobile-gallery-item-20{width:250px;height:165px;}
+  .ip-birthday-mobile-gallery-item-19{width:370px;height:247px;}
+  .ip-birthday-mobile-gallery-item-20{width:111px;height:166px;}
 
   /* REVIEWS */
 
@@ -1235,27 +1231,27 @@ BIRTHDAY MOBILE CSS
     width:370px;
   }
 
-  .ip-birthday-mobile-gallery-item-01{width:250px;height:167px;}
-  .ip-birthday-mobile-gallery-item-02{width:110px;height:167px;}
-  .ip-birthday-mobile-gallery-item-03{width:370px;height:246px;}
-  .ip-birthday-mobile-gallery-item-04{width:111px;height:166px;}
-  .ip-birthday-mobile-gallery-item-05{width:249px;height:166px;}
-  .ip-birthday-mobile-gallery-item-06{width:111px;height:166px;}
-  .ip-birthday-mobile-gallery-item-07{width:249px;height:166px;}
-  .ip-birthday-mobile-gallery-item-08{width:111px;height:166px;}
-  .ip-birthday-mobile-gallery-item-09{width:249px;height:166px;}
-  .ip-birthday-mobile-gallery-item-10{width:111px;height:166px;}
-  .ip-birthday-mobile-gallery-item-11{width:249px;height:166px;}
-  .ip-birthday-mobile-gallery-item-12{width:111px;height:159px;}
-  .ip-birthday-mobile-gallery-item-13{width:249px;height:159px;}
-  .ip-birthday-mobile-gallery-item-14{width:111px;height:166px;}
-  .ip-birthday-mobile-gallery-item-15{width:249px;height:166px;}
-  .ip-birthday-mobile-gallery-item-16{width:370px;height:247px;}
-  .ip-birthday-mobile-gallery-item-17{width:249px;height:167px;}
-  .ip-birthday-mobile-gallery-item-18{width:111px;height:167px;}
-  .ip-birthday-mobile-gallery-item-19{width:370px;height:246px;}
-  .ip-birthday-mobile-gallery-item-20{width:370px;height:247px;}
-  .ip-birthday-mobile-gallery-item-21{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-01{width:111px;height:166px;}
+  .ip-birthday-mobile-gallery-item-02{width:249px;height:166px;}
+  .ip-birthday-mobile-gallery-item-03{width:111px;height:166px;}
+  .ip-birthday-mobile-gallery-item-04{width:249px;height:166px;}
+  .ip-birthday-mobile-gallery-item-05{width:370px;height:247px;}
+  .ip-birthday-mobile-gallery-item-06{width:370px;height:245px;}
+  .ip-birthday-mobile-gallery-item-07{width:370px;height:247px;}
+  .ip-birthday-mobile-gallery-item-08{width:180px;height:270px;}
+  .ip-birthday-mobile-gallery-item-09{width:180px;height:270px;}
+  .ip-birthday-mobile-gallery-item-10{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-11{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-12{width:249px;height:166px;}
+  .ip-birthday-mobile-gallery-item-13{width:111px;height:166px;}
+  .ip-birthday-mobile-gallery-item-14{width:109px;height:166px;}
+  .ip-birthday-mobile-gallery-item-15{width:251px;height:166px;}
+  .ip-birthday-mobile-gallery-item-16{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-17{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-18{width:370px;height:246px;}
+  .ip-birthday-mobile-gallery-item-19{width:370px;height:247px;}
+  .ip-birthday-mobile-gallery-item-20{width:111px;height:166px;}
+  .ip-birthday-mobile-gallery-item-21{width:249px;height:166px;}
 
   .ip-birthday-mobile-reviews{
     top:1708px;
@@ -1365,7 +1361,7 @@ BIRTHDAY MOBILE CSS
   }
 
   .ip-birthday-mobile-hint{
-    top:1990px !important;
+    top:2030px !important;
   }
 
   .ip-birthday-mobile.has-gallery-opened .ip-birthday-mobile-reviews{
@@ -1373,7 +1369,7 @@ BIRTHDAY MOBILE CSS
   }
 
   .ip-birthday-mobile.has-gallery-opened .ip-birthday-mobile-hint{
-    top:4725px !important;
+    top:4765px !important;
   }
 }
 
@@ -1385,8 +1381,8 @@ BIRTHDAY MOBILE CSS
 
    ИЗМЕНЕНИЯ:
    - мобильная версия страницы «День рождения» собрана по макетам closed/opened
-   - закрытая высота страницы: 2064px
-   - раскрытая высота страницы: 6102px
+   - закрытая высота страницы: 2104px
+   - раскрытая высота страницы: 6142px
    - фон подключён из assets/img/birthday/mobile/background/birthday-mobile-bg.webp
    - галерея из 22 фото получила размеры по мобильному макету
    - отзывы работают свайпом по логике Corporate Mobile
@@ -1402,13 +1398,13 @@ BIRTHDAY MOBILE CSS
   }
 
   .ip-birthday-mobile{
-    min-height:var(--birthday-mobile-page-height, 2064px) !important;
-    height:var(--birthday-mobile-page-height, 2064px) !important;
+    min-height:var(--birthday-mobile-page-height, 2104px) !important;
+    height:var(--birthday-mobile-page-height, 2104px) !important;
   }
 
   .ip-birthday-mobile-bg{
-    height:2064px !important;
-    min-height:2064px !important;
+    height:2104px !important;
+    min-height:2104px !important;
     background-image:url('../assets/img/birthday/mobile/background/birthday-mobile-bg.webp') !important;
     background-size:390px auto !important;
     background-position:top center !important;
@@ -1416,23 +1412,23 @@ BIRTHDAY MOBILE CSS
   }
 
   .ip-birthday-mobile-content{
-    min-height:2064px !important;
-    height:2064px !important;
+    min-height:2104px !important;
+    height:2104px !important;
   }
 
   .ip-birthday-mobile.has-gallery-opened{
-    min-height:var(--birthday-mobile-page-height, 6102px) !important;
-    height:var(--birthday-mobile-page-height, 6102px) !important;
+    min-height:var(--birthday-mobile-page-height, 6142px) !important;
+    height:var(--birthday-mobile-page-height, 6142px) !important;
   }
 
   .ip-birthday-mobile.has-gallery-opened .ip-birthday-mobile-bg{
-    height:6102px !important;
-    min-height:6102px !important;
+    height:6142px !important;
+    min-height:6142px !important;
   }
 
   .ip-birthday-mobile.has-gallery-opened .ip-birthday-mobile-content{
-    min-height:6102px !important;
-    height:6102px !important;
+    min-height:6142px !important;
+    height:6142px !important;
   }
 
   .ip-birthday-mobile-header{
@@ -1563,20 +1559,20 @@ BIRTHDAY MOBILE CSS
   .ip-birthday-mobile-gallery-item-03{width:111px !important;height:166px !important;}
   .ip-birthday-mobile-gallery-item-04{width:249px !important;height:166px !important;}
   .ip-birthday-mobile-gallery-item-05{width:370px !important;height:247px !important;}
-  .ip-birthday-mobile-gallery-item-06{width:370px !important;height:247px !important;}
-  .ip-birthday-mobile-gallery-item-07{width:370px !important;height:245px !important;}
-  .ip-birthday-mobile-gallery-item-08{width:370px !important;height:247px !important;}
+  .ip-birthday-mobile-gallery-item-06{width:370px !important;height:245px !important;}
+  .ip-birthday-mobile-gallery-item-07{width:370px !important;height:247px !important;}
+  .ip-birthday-mobile-gallery-item-08{width:180px !important;height:270px !important;}
   .ip-birthday-mobile-gallery-item-09{width:180px !important;height:270px !important;}
-  .ip-birthday-mobile-gallery-item-10{width:180px !important;height:270px !important;}
+  .ip-birthday-mobile-gallery-item-10{width:370px !important;height:246px !important;}
   .ip-birthday-mobile-gallery-item-11{width:370px !important;height:246px !important;}
-  .ip-birthday-mobile-gallery-item-12{width:370px !important;height:246px !important;}
-  .ip-birthday-mobile-gallery-item-13{width:249px !important;height:166px !important;}
-  .ip-birthday-mobile-gallery-item-14{width:111px !important;height:166px !important;}
-  .ip-birthday-mobile-gallery-item-15{width:109px !important;height:166px !important;}
-  .ip-birthday-mobile-gallery-item-16{width:251px !important;height:166px !important;}
+  .ip-birthday-mobile-gallery-item-12{width:249px !important;height:166px !important;}
+  .ip-birthday-mobile-gallery-item-13{width:111px !important;height:166px !important;}
+  .ip-birthday-mobile-gallery-item-14{width:109px !important;height:166px !important;}
+  .ip-birthday-mobile-gallery-item-15{width:251px !important;height:166px !important;}
+  .ip-birthday-mobile-gallery-item-16{width:370px !important;height:246px !important;}
   .ip-birthday-mobile-gallery-item-17{width:370px !important;height:246px !important;}
   .ip-birthday-mobile-gallery-item-18{width:370px !important;height:246px !important;}
-  .ip-birthday-mobile-gallery-item-19{width:370px !important;height:246px !important;}
+  .ip-birthday-mobile-gallery-item-19{width:370px !important;height:247px !important;}
   .ip-birthday-mobile-gallery-item-20{width:111px !important;height:166px !important;}
   .ip-birthday-mobile-gallery-item-21{width:249px !important;height:166px !important;}
   .ip-birthday-mobile-gallery-item-22{width:370px !important;height:245px !important;}
@@ -1598,11 +1594,11 @@ BIRTHDAY MOBILE CSS
   }
 
   .ip-birthday-mobile-hint{
-    top:1917px !important;
+    top:1957px !important;
   }
 
   .ip-birthday-mobile.has-gallery-opened .ip-birthday-mobile-hint{
-    top:5865px !important;
+    top:5693px !important;
   }
 
   .ip-birthday-mobile-review{
@@ -1622,4 +1618,27 @@ BIRTHDAY MOBILE CSS
     top:40px !important;
     right:20px !important;
   }
+
+  /* =========================================================
+     BIRTHDAY MOBILE REVIEWS TEXT ALIGNMENT
+
+     Версия: birthday-mobile-css-003-review-hint-spacing
+
+     ИЗМЕНЕНИЯ:
+     - подсказка «Листайте для просмотра» и стрелка опущены на 40px ниже
+     - расстояние между текстом подсказки и стрелкой сохранено
+     - высота закрытой и раскрытой мобильной страницы увеличена на 40px
+     - положение отзывов, галереи, hero-блока, меню и popup не изменялось
+     ========================================================= */
+
+  .ip-birthday-mobile .ip-birthday-mobile-review,
+  .ip-birthday-mobile .ip-birthday-mobile-review-top,
+  .ip-birthday-mobile .ip-birthday-mobile-review-meta,
+  .ip-birthday-mobile .ip-birthday-mobile-review-name,
+  .ip-birthday-mobile .ip-birthday-mobile-review-type,
+  .ip-birthday-mobile .ip-birthday-mobile-review-text,
+  .ip-birthday-mobile .ip-birthday-mobile-review-text strong{
+    text-align:left !important;
+  }
+
 }

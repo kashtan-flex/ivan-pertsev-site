@@ -2,13 +2,13 @@
 ==================================================
 BIRTHDAY MOBILE JS
 
-Версия: birthday-mobile-js-001-base
+Версия: birthday-mobile-js-002-review-hint-spacing
 
 ИЗМЕНЕНИЯ:
 - файл собран на основе стабильного birthday-mobile.js
 - селекторы, CSS-переменные и классы адаптированы под mobile-страницу «Корпоратив»
-- закрытая высота синхронизирована с макетом: 2064px
-- раскрытая высота синхронизирована с макетом: 6102px
+- закрытая высота синхронизирована с макетом: 2104px
+- раскрытая высота синхронизирована с макетом: 6142px
 - сохранены меню, popup, gallery open/close, video poster, lightbox и scrolltop
 ==================================================
 */
@@ -20,8 +20,8 @@ BIRTHDAY MOBILE JS
     mobile:{
       width:390,
       height:700,
-      stageHeightClosed:2064,
-      stageHeightOpened:6102
+      stageHeightClosed:2104,
+      stageHeightOpened:6142
     },
     breakpoint:767
   };

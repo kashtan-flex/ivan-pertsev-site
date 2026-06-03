@@ -2,14 +2,13 @@
 ==================================================
 BIRTHDAY MOBILE HTML
 
-Версия: birthday-mobile-html-001-base
+Версия: birthday-mobile-html-002-gallery-layout-order
 
 ИЗМЕНЕНИЯ:
-- создана мобильная разметка страницы «День рождения» по аналогии с Corporate Mobile
-- подключены hero, видео, Top 100, основной текст, CTA, мобильная галерея из 22 фото и свайп-отзывы
-- мобильная галерея собрана по размерам из макета 390px
-- в мобильной галерее заменена повторяющаяся фотография: позиции 04/05 поменяны местами
-- меню, popup формы, lightbox и scrolltop сохранены по логике проекта
+- файл основан на birthday-mobile-html-001-base
+- порядок фотографий в mobile-галерее приведён к утверждённому макету из 22 слотов
+- слоты 04 и 05 возвращены к прямому соответствию: birthday-gallery-04.webp и birthday-gallery-05.webp
+- hero, видео, Top 100, основной текст, CTA, отзывы, меню, popup, lightbox и scrolltop не изменялись
 ==================================================
 -->
 
@@ -147,7 +146,7 @@ BIRTHDAY MOBILE HTML
           aria-label="Открыть фото 04"
         >
           <img
-            src="./assets/img/birthday/gallery/birthday-gallery-05.webp"
+            src="./assets/img/birthday/gallery/birthday-gallery-04.webp"
             alt="День рождения Иван Перцев — фото 04"
             loading="lazy"
             decoding="async"
@@ -163,7 +162,7 @@ BIRTHDAY MOBILE HTML
           aria-label="Открыть фото 05"
         >
           <img
-            src="./assets/img/birthday/gallery/birthday-gallery-04.webp"
+            src="./assets/img/birthday/gallery/birthday-gallery-05.webp"
             alt="День рождения Иван Перцев — фото 05"
             loading="lazy"
             decoding="async"

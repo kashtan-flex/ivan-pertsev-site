@@ -2,12 +2,12 @@
 ==================================================
 BIRTHDAY PREVIEW HTML
 
-Версия: birthday-preview-001-desktop-base
+Версия: birthday-preview-002-mobile-base
 
 ИЗМЕНЕНИЯ:
 - создан desktop preview страницы «День рождения» на базе approved Birthday loader
 - desktop загружает pages/birthday/birthday.html, birthday.css, birthday-reviews.css и birthday.js
-- mobile пока не подключается: текущий этап — только desktop
+- mobile подключает pages/birthday/birthday-mobile.html, birthday-mobile.css и birthday-mobile.js
 - сохранены общие home.css, popups.css, popups-mobile.css и page-transition.css
 ==================================================
 -->
@@ -73,7 +73,7 @@ BIRTHDAY PREVIEW HTML
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="preload" href="./assets/img/birthday/video/birthday-video-poster.webp" as="image">
-  <link rel="preload" href="./assets/img/birthday/video/birthday-video-poster.webp" as="image">
+  <link rel="preload" href="./assets/img/birthday/mobile/background/birthday-mobile-bg.webp" as="image">
 
   <link rel="stylesheet" href="./css/home.css">
   <link rel="stylesheet" href="./css/popups.css">
@@ -117,10 +117,10 @@ BIRTHDAY PREVIEW HTML
       function getConfig(mode){
         if(mode === 'mobile'){
           return {
-            css:['./css/birthday.css', './css/birthday-reviews.css'],
-            html:'./pages/birthday/birthday.html',
-            js:'./js/birthday.js',
-            error:'Ошибка загрузки страницы День рождения. Проверь путь: pages/birthday/birthday.html'
+            css:['./css/birthday-mobile.css'],
+            html:'./pages/birthday/birthday-mobile.html',
+            js:'./js/birthday-mobile.js',
+            error:'Ошибка загрузки мобильной страницы День рождения. Проверь путь: pages/birthday/birthday-mobile.html'
           };
         }
 
