@@ -1,13 +1,13 @@
 /* =========================================================
    BIRTHDAY CSS
 
-   Версия: birthday-css-001-desktop-base
+   Версия: birthday-css-002-correct-background
 
    ИЗМЕНЕНИЯ:
-   - создан desktop CSS страницы «День рождения» на базе approved Birthday
-   - адаптированы hero, Top 100, CTA, видео, галерея из 22 фото и высоты страницы
-   - удалены визуальные правила партнёрского блока
-   - сохранены меню, popup, lightbox и Safari-safe CTA hover
+   - файл основан на birthday-css-001-desktop-base
+   - фон страницы переключён на assets/img/birthday/background/birthday-bg.webp
+   - ссылки на corporate background удалены из основного фонового слоя
+   - видео, галерея, отзывы, Top 100, CTA, меню и popup не изменялись
    ========================================================= */
 
 .ip-birthday,
@@ -52,7 +52,7 @@
   z-index:1;
   display:none;
   width:1440px;
-  background-image:url('../assets/img/corporate/background/corporate-bg.webp');
+  background-image:url('../assets/img/birthday/background/birthday-bg.webp');
   background-repeat:no-repeat;
   pointer-events:none;
 }
@@ -79,7 +79,7 @@
   width:1440px;
   height:1350px;
   min-height:1350px;
-  background-image:url('../assets/img/corporate/background/corporate-bg.webp');
+  background-image:url('../assets/img/birthday/background/birthday-bg.webp');
   background-size:cover;
   background-position:center top;
   background-repeat:no-repeat;
@@ -1806,7 +1806,7 @@
 /* =========================================================
    BIRTHDAY DESKTOP LAYOUT OVERRIDES
 
-   Версия: birthday-css-001-desktop-base
+   Версия: birthday-css-002-correct-background
 
    ИЗМЕНЕНИЯ:
    - финальная desktop-композиция первого экрана собрана по макету «День рождения»
