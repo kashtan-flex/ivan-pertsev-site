@@ -1,13 +1,13 @@
 /* =========================================================
    BIRTHDAY CSS
 
-   Версия: birthday-css-002-correct-background
+   Версия: birthday-css-003-hero-content-raised
 
    ИЗМЕНЕНИЯ:
-   - файл основан на birthday-css-001-desktop-base
-   - фон страницы переключён на assets/img/birthday/background/birthday-bg.webp
-   - ссылки на corporate background удалены из основного фонового слоя
-   - видео, галерея, отзывы, Top 100, CTA, меню и popup не изменялись
+   - файл основан на birthday-css-002-correct-background
+   - Top 100, основной текст и CTA-кнопки подняты на 15px выше текущего положения
+   - расстояния между Top 100, текстом и CTA-группой сохранены
+   - заголовок, подзаголовок, видео, фон, галерея, отзывы, меню и popup не изменялись
    ========================================================= */
 
 .ip-birthday,
@@ -1806,13 +1806,13 @@
 /* =========================================================
    BIRTHDAY DESKTOP LAYOUT OVERRIDES
 
-   Версия: birthday-css-002-correct-background
+   Версия: birthday-css-003-hero-content-raised
 
    ИЗМЕНЕНИЯ:
-   - финальная desktop-композиция первого экрана собрана по макету «День рождения»
-   - оставлен только Top 100 без партнёрских логотипов
-   - CTA-группа опущена ниже относительно Corporate
-   - галерея из 22 фото разложена по точным размерам пользователя
+   - финальная desktop-композиция первого экрана сохранена по макету «День рождения»
+   - Top 100, основной текст и CTA-кнопки подняты на 15px выше предыдущего положения
+   - расстояния между Top 100, текстом и CTA-группой сохранены
+   - галерея из 22 фото, отзывы, видео, меню и popup не изменялись
    ========================================================= */
 
 .ip-birthday-stage{
@@ -1848,12 +1848,12 @@
 
 .ip-birthday .ip-birthday-top100{
   left:65px !important;
-  top:190px !important;
+  top:175px !important;
 }
 
 .ip-birthday .ip-birthday-text{
   left:60px !important;
-  top:242px !important;
+  top:227px !important;
   width:670px !important;
 }
 
@@ -1871,7 +1871,7 @@
 
 .ip-birthday .ip-birthday-actions{
   left:60px !important;
-  top:635px !important;
+  top:620px !important;
   gap:30px !important;
 }
 
