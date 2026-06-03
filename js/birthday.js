@@ -20,7 +20,7 @@ BIRTHDAY JS
       width:1440,
       heroHeight:800,
       pageHeight:1350,
-      galleryOpenPageHeight:4346
+      galleryOpenPageHeight:4111
     },
     breakpoint:767
   };

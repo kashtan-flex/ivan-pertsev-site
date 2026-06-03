@@ -95,7 +95,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4346px;
+  min-height:4111px;
 }
 
 .ip-birthday.is-gallery-open .ip-birthday-stage::before,
@@ -1822,7 +1822,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4346px;
+  min-height:4111px;
 }
 
 .ip-birthday-left{
@@ -2063,7 +2063,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4346px !important;
+  min-height:4111px !important;
 }
 
 .ip-birthday.is-gallery-open .ip-birthday-stage::before{
