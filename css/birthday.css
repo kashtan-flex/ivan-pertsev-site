@@ -1,13 +1,14 @@
 /* =========================================================
    BIRTHDAY CSS
 
-   Версия: birthday-css-003-hero-content-raised
+   Версия: birthday-css-006-expanded-page-height-header-corrected
 
    ИЗМЕНЕНИЯ:
-   - файл основан на birthday-css-002-correct-background
-   - Top 100, основной текст и CTA-кнопки подняты на 15px выше текущего положения
-   - расстояния между Top 100, текстом и CTA-группой сохранены
-   - заголовок, подзаголовок, видео, фон, галерея, отзывы, меню и popup не изменялись
+   - файл основан на birthday-css-005-expanded-page-height
+   - исправлена шапка файла: версия и список изменений теперь соответствуют текущей итерации
+   - сохранено увеличение раскрытой desktop-страницы до 4346px по высоте
+   - дополнительная высота закрывается тем же фоном birthday-bg.webp без обрезания изображения
+   - положение галереи, отзывов, подсказки, стрелки, hero-блока, видео, меню и popup не изменялось
    ========================================================= */
 
 .ip-birthday,
@@ -94,7 +95,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4045px;
+  min-height:4346px;
 }
 
 .ip-birthday.is-gallery-open .ip-birthday-stage::before,
@@ -1821,7 +1822,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4045px;
+  min-height:4346px;
 }
 
 .ip-birthday-left{
@@ -1884,7 +1885,7 @@
 }
 
 .ip-birthday-gallery{
-  top:800px !important;
+  top:860px !important;
   height:2805px !important;
 }
 
@@ -2030,7 +2031,7 @@
 }
 
 .ip-birthday.is-gallery-open .ip-birthday-reviews{
-  top:3670px !important;
+  top:3555px !important;
 }
 
 .ip-birthday.is-gallery-open.is-gallery-closing .ip-birthday-reviews{
@@ -2042,9 +2043,40 @@
 }
 
 .ip-birthday.is-gallery-open .ip-birthday-review-tools{
-  top:4035px !important;
+  top:3921px !important;
 }
 
 .ip-birthday.is-gallery-open.is-gallery-closing .ip-birthday-review-tools{
   top:1226px !important;
+}
+
+/* =========================================================
+   BIRTHDAY EXPANDED PAGE HEIGHT AND BACKGROUND COVERAGE
+
+   Версия: birthday-css-005-expanded-page-height
+
+   ИЗМЕНЕНИЯ:
+   - раскрытая desktop-страница увеличена до 4346px по высоте
+   - дополнительная высота закрывается тем же birthday background через repeat-y
+   - положение галереи, отзывов, подсказки и стрелки не изменяется
+   ========================================================= */
+
+.ip-birthday.is-gallery-open .ip-birthday-stage,
+.ip-birthday.is-gallery-open .ip-birthday-content{
+  min-height:4346px !important;
+}
+
+.ip-birthday.is-gallery-open .ip-birthday-stage::before{
+  display:block !important;
+  top:1350px !important;
+  bottom:0 !important;
+  width:1440px !important;
+  background-image:url('../assets/img/birthday/background/birthday-bg.webp') !important;
+  background-size:1440px 1350px !important;
+  background-position:center top !important;
+  background-repeat:repeat-y !important;
+}
+
+.ip-birthday.is-gallery-open .ip-birthday-stage::after{
+  display:none !important;
 }
