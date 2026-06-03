@@ -2,13 +2,13 @@
 ==================================================
 BIRTHDAY MOBILE CSS
 
-Версия: birthday-mobile-css-005-review-hint-40px-gap
+Версия: birthday-mobile-css-006-opened-height-sync
 
 ИЗМЕНЕНИЯ:
-- файл основан на birthday-mobile-css-004-gallery-layout-order
-- подсказка «Листайте для просмотра» в раскрытом состоянии поднята до расстояния 40px от нижнего края отзывов
-- положение стрелки, высота страницы, отзывы, галерея, hero-блок, меню и popup не изменялись
-- расстояние между подсказкой и стрелкой будет проверяться следующим шагом отдельно
+- файл основан на birthday-mobile-css-005-review-hint-40px-gap
+- раскрытая высота CSS-контейнеров синхронизирована с JS: 6142px → 5846px
+- стрелка ScrollTop оставлена на базовой approved-логике bottom:50px, как на Corporate Mobile
+- закрытая страница, галерея, отзывы, подсказка, меню, popup и lightbox не изменялись
 ==================================================
 */
 
@@ -1417,18 +1417,18 @@ BIRTHDAY MOBILE CSS
   }
 
   .ip-birthday-mobile.has-gallery-opened{
-    min-height:var(--birthday-mobile-page-height, 6142px) !important;
-    height:var(--birthday-mobile-page-height, 6142px) !important;
+    min-height:var(--birthday-mobile-page-height, 5846px) !important;
+    height:var(--birthday-mobile-page-height, 5846px) !important;
   }
 
   .ip-birthday-mobile.has-gallery-opened .ip-birthday-mobile-bg{
-    height:6142px !important;
-    min-height:6142px !important;
+    height:5846px !important;
+    min-height:5846px !important;
   }
 
   .ip-birthday-mobile.has-gallery-opened .ip-birthday-mobile-content{
-    min-height:6142px !important;
-    height:6142px !important;
+    min-height:5846px !important;
+    height:5846px !important;
   }
 
   .ip-birthday-mobile-header{
