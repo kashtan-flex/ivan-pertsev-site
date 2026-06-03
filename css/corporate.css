@@ -1,28 +1,14 @@
 /* =========================================================
    CORPORATE CSS
 
-   Версия: corporate-css-001-desktop-from-corporate
+   Версия: corporate-css-012-top100-partner-pair-alignment
 
    ИЗМЕНЕНИЯ:
-   - добавлена desktop-галерея Corporate из 20 фотографий
-   - галерея собрана фиксированной композицией по размерам макета
-   - зафиксированы отступы галереи: 11px от краёв и 10px между фото
-   - раскрытая галерея сдвигает отзывы ниже с отступом 60px
-   - основной фон стартовой страницы снова занимает всю базовую высоту страницы без жёсткой обрезки на 800px
-   - дополнительный повторяющийся фон ниже стартовой страницы подключается только при раскрытой галерее
-   - сохранены меню, popup, page transition, видео, отзывы и CTA-кнопки
-   - hover-эффекты оставлены Safari-safe без движения текстового слоя
-   - добавлен gallery lightbox для просмотра фотографий по клику
-   - gallery lightbox переведён в premium fullscreen режим без видимых кнопок закрытия и навигации
-   - оставлен только счётчик фотографий
-   - затемнение и blur gallery lightbox откатаны к предыдущему более мягкому состоянию
-   - убран визуальный внутренний контейнер за фотографией
-   - размер открытой фотографии 88vh / 88vw сохранён
-   - добавлен плавный переход к галерее после нажатия «Смотреть фото»
-   - добавлена staged-анимация открытия/закрытия галереи через движение блока отзывов
-   - добавлена кнопка подъёма вверх под подсказкой отзывов
-   - фон раскрытой страницы разделён на верхний, средний и нижний слои без растягивания изображения
-   - кнопка подъёма вверх привязана к подсказке и выровнена по правому краю слова «просмотра»
+   - файл основан на corporate-css-011-final-alignment-pass
+   - блок Top 100 сдвинут на 5px левее без изменения расстояния между иконкой и подписью
+   - партнёрские логотипы возвращены к утверждённой absolute-сетке из corporate-css-010-reference-text-and-cta
+   - в парах Газпром/Lexus, Яндекс/ITECO и Лукойл/Комбат-Туры верхний логотип отцентрирован относительно нижнего
+   - основной текст, CTA-кнопки, видео, галерея, отзывы, popup и меню не изменялись
    ========================================================= */
 
 .ip-corporate,
@@ -154,7 +140,7 @@
 
 .ip-corporate-top100{
   position:absolute;
-  left:60px;
+  left:70px;
   top:162px;
   z-index:6;
   display:flex;
@@ -1600,4 +1586,148 @@
 .ip-corporate .ip-corporate-partner img{
   max-width:96px;
   max-height:18px;
+}
+
+/* =========================================================
+   CORPORATE TOP100 AND PARTNER PAIRS OVERRIDE
+
+   Версия: corporate-css-012-top100-partner-pair-alignment
+
+   ИЗМЕНЕНИЯ:
+   - Top 100 сдвинут на 5px левее относительно предыдущей версии
+   - партнёрская сетка зафиксирована absolute-координатами и не зависит от grid/flex
+   - Газпром отцентрирован относительно Lexus
+   - Яндекс отцентрирован относительно ITECO
+   - Лукойл отцентрирован относительно Комбат-Туры
+   - текст и CTA-кнопки сохранены в положении версии corporate-css-011-final-alignment-pass
+   ========================================================= */
+
+.ip-corporate .ip-corporate-top100{
+  left:65px !important;
+}
+
+.ip-corporate .ip-corporate-actions{
+  left:70px !important;
+  top:512px !important;
+  gap:30px !important;
+}
+
+.ip-corporate .ip-corporate-partners{
+  position:absolute !important;
+  left:0 !important;
+  top:657px !important;
+  z-index:6 !important;
+  display:block !important;
+  width:791px !important;
+  height:42px !important;
+  margin:0 !important;
+  padding:0 !important;
+  opacity:1 !important;
+  transform:none !important;
+}
+
+.ip-corporate .ip-corporate-partner{
+  position:absolute !important;
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  opacity:.55 !important;
+  line-height:0 !important;
+  transform:none !important;
+}
+
+.ip-corporate .ip-corporate-partner img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+}
+
+/* Верхняя строка */
+.ip-corporate .ip-corporate-partner:nth-child(1){
+  left:0 !important;
+  top:3px !important;
+  width:60px !important;
+  height:11px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(2){
+  left:141px !important;
+  top:0 !important;
+  width:59px !important;
+  height:15px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(3){
+  left:282px !important;
+  top:3px !important;
+  width:88px !important;
+  height:11px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(4){
+  left:453px !important;
+  top:0 !important;
+  width:52px !important;
+  height:15px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(5){
+  left:583px !important;
+  top:1px !important;
+  width:73px !important;
+  height:14px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(6){
+  left:737px !important;
+  top:1px !important;
+  width:51px !important;
+  height:15px !important;
+}
+
+/* Нижняя строка */
+.ip-corporate .ip-corporate-partner:nth-child(7){
+  left:0 !important;
+  top:26px !important;
+  width:59px !important;
+  height:13px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(8){
+  left:125px !important;
+  top:25px !important;
+  width:91px !important;
+  height:15px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(9){
+  left:282px !important;
+  top:27px !important;
+  width:109px !important;
+  height:11px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(10){
+  left:457px !important;
+  top:27px !important;
+  width:44px !important;
+  height:11px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(11){
+  left:568px !important;
+  top:27px !important;
+  width:103px !important;
+  height:11px !important;
+}
+
+.ip-corporate .ip-corporate-partner:nth-child(12){
+  left:737px !important;
+  top:25px !important;
+  width:54px !important;
+  height:15px !important;
 }
