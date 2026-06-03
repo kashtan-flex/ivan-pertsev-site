@@ -2,14 +2,14 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-019-menu-cross-balance-only
+Версия: wedding-mobile-css-021-extend-bottom-background
 
 ИЗМЕНЕНИЯ:
-- файл собран на основе стабильного backup wedding-mobile-css-018-lightbox-open-state
-- изменён только mobile burger/cross меню на странице «Свадьба»
-- размер toggle приведён к единому стандарту Главной и Биографии: 27×27
-- ширина линий burger/cross уменьшена до 27px без изменения логики меню
-- видео, сетка страницы, высоты, галерея, отзывы, popup, lightbox, подсказка, стрелка наверх и анимации не изменялись
+- файл собран на основе wedding-mobile-css-020-align-bottom-hint-to-corporate
+- исправлен обрезанный нижний край background на закрытой мобильной странице «Свадьба»
+- фоновый слой и content-слой закрытого состояния продлены до 2198px
+- внешняя высота закрытой страницы увеличена на 40px с учётом scale, чтобы фон перекрывал нижнюю область
+- положение отзывов, подсказки «Листайте для просмотра», стрелки вверх, галереи, меню, popup, lightbox, типографика и анимации не изменялись
 ==================================================
 */
 
@@ -1043,5 +1043,68 @@ WEDDING MOBILE CSS
     font-size:8px;
     line-height:150%;
     text-decoration:none !important;
+  }
+}
+
+/* =========================================================
+   WEDDING MOBILE BOTTOM HINT ALIGNMENT TO CORPORATE
+
+   Версия: wedding-mobile-css-020-align-bottom-hint-to-corporate
+
+   ИЗМЕНЕНИЯ:
+   - нижняя зона закрытой мобильной страницы «Свадьба» синхронизирована с текущей страницей «Корпоратив»
+   - закрытая высота страницы доведена до 2158px, чтобы расстояние от стрелки вверх до конца страницы совпадало с «Корпоративом»
+   - подсказка «Листайте для просмотра» установлена на top:1990px как на «Корпоративе»
+   - состояние с раскрытой галереей не изменялось
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-wedding-mobile:not(.has-gallery-opened){
+    min-height:calc(var(--wedding-mobile-page-height, 2140px) + (18px * var(--wedding-mobile-scale, 1))) !important;
+    height:calc(var(--wedding-mobile-page-height, 2140px) + (18px * var(--wedding-mobile-scale, 1))) !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-bg{
+    height:2158px !important;
+    min-height:2158px !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-content{
+    height:2158px !important;
+    min-height:2158px !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-hint{
+    top:1990px !important;
+  }
+}
+
+
+/* =========================================================
+   WEDDING MOBILE BOTTOM BACKGROUND EXTENSION
+
+   Версия: wedding-mobile-css-021-extend-bottom-background
+
+   ИЗМЕНЕНИЯ:
+   - продлён закрытый mobile background до 2198px, чтобы убрать обрезанный нижний край
+   - закрытая внешняя высота страницы увеличена ещё на 40px с учётом mobile scale
+   - положение нижних элементов не изменялось
+   - раскрытая галерея не изменялась
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-wedding-mobile:not(.has-gallery-opened){
+    min-height:calc(var(--wedding-mobile-page-height, 2140px) + (58px * var(--wedding-mobile-scale, 1))) !important;
+    height:calc(var(--wedding-mobile-page-height, 2140px) + (58px * var(--wedding-mobile-scale, 1))) !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-bg{
+    height:2198px !important;
+    min-height:2198px !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-content{
+    height:2198px !important;
+    min-height:2198px !important;
   }
 }

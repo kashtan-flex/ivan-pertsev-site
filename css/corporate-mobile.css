@@ -2,15 +2,17 @@
 ==================================================
 CORPORATE MOBILE CSS
 
-Версия: corporate-mobile-css-001-base
+Версия: corporate-mobile-css-002-figma-vertical-spacing
 
 ИЗМЕНЕНИЯ:
-- файл собран на основе стабильной corporate-mobile.css
-- классы, data-селекторы и переменные адаптированы под страницу «Корпоратив»
-- подключён corporate-mobile-bg.webp и корпоративный poster/video
-- настроена закрытая высота 2158px и раскрытая высота 4903px
-- добавлена мобильная сетка из 21 фотографии по размерам макета
-- добавлен блок партнёров в три колонки, тексты, Top 100 и отзывы «Корпоратив»
+- файл основан на corporate-mobile-css-001-base
+- точечно исправлены только вертикальные отступы мобильной страницы после видео
+- блок Top 100 поставлен строго на позицию из Figma
+- отступ Top 100 → основной текст приведён к 20px
+- блок CTA-кнопок поставлен строго на позицию из Figma, расстояние между кнопками 30px
+- блок логотипов партнёров поставлен строго на позицию из Figma
+- блок отзывов поднят на позицию из Figma с отступом 70px от логотипов
+- размеры, начертания, видео, галерея, отзывы, меню и JavaScript не изменялись
 ==================================================
 */
 
@@ -1287,5 +1289,90 @@ CORPORATE MOBILE CSS
   .ip-corporate-mobile .ip-menu-toggle{
     top:40px;
     right:20px;
+  }
+}
+
+/* =========================================================
+   CORPORATE MOBILE FIGMA VERTICAL SPACING
+
+   Версия: corporate-mobile-css-002-figma-vertical-spacing
+
+   ИЗМЕНЕНИЯ:
+   - зафиксированы вертикальные координаты ключевых блоков после видео по Figma
+   - видео → Top 100: 40px
+   - Top 100 → основной текст: 20px
+   - текст → кнопка «Смотреть фото»: 70px по макету
+   - между CTA-кнопками: 30px
+   - CTA → логотипы партнёров: 70px по макету
+   - логотипы партнёров → отзывы: 70px по макету
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-corporate-mobile-about{
+    top:881px !important;
+  }
+
+  .ip-corporate-mobile-top100{
+    margin:0 0 20px !important;
+  }
+
+  .ip-corporate-mobile-actions{
+    top:1220px !important;
+    gap:30px !important;
+  }
+
+  .ip-corporate-mobile-partners{
+    top:1420px !important;
+  }
+
+  .ip-corporate-mobile-reviews{
+    top:1579px !important;
+  }
+}
+
+
+/* =========================================================
+   CORPORATE MOBILE GAP AFTER VIDEO
+
+   Версия: corporate-mobile-css-003-reduce-gap-after-video
+
+   ИЗМЕНЕНИЯ:
+   - поднят единый мобильный контентный блок после видео на 40px
+   - правка начинается с Top 100 и затрагивает только вертикальные координаты следующих блоков
+   - сохранены утверждённые внутренние расстояния между текстом, кнопками, партнёрами, отзывами и подсказкой
+   - видео, меню, типографика, размеры кнопок, размеры логотипов и карточки отзывов не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-corporate-mobile-about{
+    top:841px !important;
+  }
+
+  .ip-corporate-mobile-actions{
+    top:1180px !important;
+  }
+
+  .ip-corporate-mobile-partners{
+    top:1380px !important;
+  }
+
+  .ip-corporate-mobile-gallery{
+    top:1560px !important;
+  }
+
+  .ip-corporate-mobile-reviews{
+    top:1539px !important;
+  }
+
+  .ip-corporate-mobile-hint{
+    top:1990px !important;
+  }
+
+  .ip-corporate-mobile.has-gallery-opened .ip-corporate-mobile-reviews{
+    top:4285px !important;
+  }
+
+  .ip-corporate-mobile.has-gallery-opened .ip-corporate-mobile-hint{
+    top:4725px !important;
   }
 }
