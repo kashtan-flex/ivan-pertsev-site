@@ -1,14 +1,13 @@
 /* =========================================================
    BIRTHDAY CSS
 
-   Версия: birthday-css-006-expanded-page-height-header-corrected
+   Версия: birthday-css-008-top100-text-gap-alignment
 
    ИЗМЕНЕНИЯ:
-   - файл основан на birthday-css-005-expanded-page-height
-   - исправлена шапка файла: версия и список изменений теперь соответствуют текущей итерации
-   - сохранено увеличение раскрытой desktop-страницы до 4346px по высоте
-   - дополнительная высота закрывается тем же фоном birthday-bg.webp без обрезания изображения
-   - положение галереи, отзывов, подсказки, стрелки, hero-блока, видео, меню и popup не изменялось
+   - файл основан на birthday-css-006-expanded-page-height-header-corrected
+   - расстояние между блоком Top 100 и основным текстом приведено к 20px
+   - блок Top 100 на странице «День рождения» опущен на 8px относительно предыдущего положения
+   - основной текст, CTA-кнопки, видео, галерея, отзывы, подсказка, стрелка, меню и popup не изменялись
    ========================================================= */
 
 .ip-birthday,
@@ -95,7 +94,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4111px;
+  min-height:4346px;
 }
 
 .ip-birthday.is-gallery-open .ip-birthday-stage::before,
@@ -1807,12 +1806,12 @@
 /* =========================================================
    BIRTHDAY DESKTOP LAYOUT OVERRIDES
 
-   Версия: birthday-css-003-hero-content-raised
+   Версия: birthday-css-008-top100-text-gap-alignment
 
    ИЗМЕНЕНИЯ:
    - финальная desktop-композиция первого экрана сохранена по макету «День рождения»
-   - Top 100, основной текст и CTA-кнопки подняты на 15px выше предыдущего положения
-   - расстояния между Top 100, текстом и CTA-группой сохранены
+   - расстояние между Top 100 и основным текстом приведено к 20px
+   - основной текст и CTA-кнопки сохранены в предыдущем положении
    - галерея из 22 фото, отзывы, видео, меню и popup не изменялись
    ========================================================= */
 
@@ -1822,7 +1821,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4111px;
+  min-height:4346px;
 }
 
 .ip-birthday-left{
@@ -1849,7 +1848,7 @@
 
 .ip-birthday .ip-birthday-top100{
   left:65px !important;
-  top:175px !important;
+  top:183px !important;
 }
 
 .ip-birthday .ip-birthday-text{
@@ -2063,7 +2062,7 @@
 
 .ip-birthday.is-gallery-open .ip-birthday-stage,
 .ip-birthday.is-gallery-open .ip-birthday-content{
-  min-height:4111px !important;
+  min-height:4346px !important;
 }
 
 .ip-birthday.is-gallery-open .ip-birthday-stage::before{
