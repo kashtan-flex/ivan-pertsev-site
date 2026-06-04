@@ -2,13 +2,16 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-023-restore-kinescope-controls
+Версия: wedding-mobile-css-024-video-geometry-match-birthday-graduation
 
 ИЗМЕНЕНИЯ:
+- mobile-видео приведено к approved-геометрии страниц «День рождения» и «Выпускной» без crop iframe
+- штатные элементы управления Kinescope возвращены за счёт удаления transform/crop-оверрайда
 - файл основан на wedding-mobile-css-022-lower-swipe-hint
-- удалён экспериментальный cover-crop iframe, из-за которого пропадала внутренняя иконка звука Kinescope
-- размеры и позиция video-section/video-wrap/iframe возвращены к безопасной схеме страницы
-- остальные блоки, меню, popup, lightbox, отзывы, подсказка, стрелка, галерея и JS не изменялись
+- mobile iframe Kinescope переведён в cover-crop режим без изменения контейнера страницы
+- ширина iframe увеличена внутри существующего 390px video-wrap, лишнее обрезается overflow:hidden
+- layout страницы, высоты, тексты, кнопки, галерея, отзывы, подсказка, стрелка, меню и JS не изменялись
+- проверено: подсказка руки на Wedding уже использует корректный путь wedding/mobile/icons
 ==================================================
 */
 
@@ -1122,5 +1125,49 @@ WEDDING MOBILE CSS
 @media (max-width:767px){
   .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-hint{
     top:2010px !important;
+  }
+}
+
+
+/* =========================================================
+   WEDDING MOBILE VIDEO GEOMETRY MATCH
+
+   Версия: wedding-mobile-css-024-video-geometry-match-birthday-graduation
+
+   ИЗМЕНЕНИЯ:
+   - удалён неудачный cover-crop iframe, из-за которого исчезали штатные элементы управления Kinescope
+   - mobile video-section приведён к approved-геометрии страниц «День рождения» и «Выпускной»
+   - iframe снова занимает ровно контейнер 390px × 685px без transform/crop, чтобы штатная иконка звука Kinescope оставалась видимой
+   - HTML, JavaScript, меню, текст, галерея, отзывы, подсказка и scrolltop не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-wedding-mobile-video-section{
+    left:0 !important;
+    top:148px !important;
+    width:390px !important;
+    height:685px !important;
+    overflow:hidden !important;
+  }
+
+  .ip-wedding-mobile-video-wrap,
+  .ip-wedding-mobile-video{
+    left:0 !important;
+    top:0 !important;
+    width:390px !important;
+    min-width:0 !important;
+    max-width:390px !important;
+    height:685px !important;
+    min-height:0 !important;
+    max-height:685px !important;
+    transform:translate3d(0,0,0) !important;
+  }
+
+  .ip-wedding-mobile-video-poster{
+    inset:0 !important;
+    width:390px !important;
+    height:685px !important;
+    background-size:cover !important;
+    background-position:center top !important;
   }
 }
