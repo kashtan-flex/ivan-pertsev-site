@@ -1,13 +1,14 @@
 /* =========================================================
    GRADUATION CSS
 
-   Версия: graduation-css-001-desktop-base
+   Версия: graduation-css-002-desktop-menu-system
 
    ИЗМЕНЕНИЯ:
    - создан desktop CSS страницы «Выпускной» на базе approved страницы «День рождения»
    - подключены пути assets/img/graduation для background, video poster и gallery
    - настроена desktop-галерея из 21 фото по точным размерам пользователя
-   - сохранены approved menu, popup, page transition, video, lightbox, CTA и scroll-top
+   - сохранены approved popup, page transition, video, lightbox, CTA и scroll-top
+   - восстановлена полная desktop-система меню внутри graduation.css: скрытое состояние, бургер, панель, соцсети, аккордеоны и открытое состояние
    ========================================================= */
 
 
@@ -2062,4 +2063,354 @@
 
 .ip-graduation.is-gallery-open.is-gallery-closing .ip-graduation-review-tools{
   top:1226px !important;
+}
+
+
+/* =========================================================
+   GRADUATION DESKTOP MENU SYSTEM
+
+   Версия: graduation-css-002-desktop-menu-system
+
+   ИЗМЕНЕНИЯ:
+   - добавлены недостающие базовые стили desktop-меню, которые отвечают за скрытое состояние панели
+   - меню больше не участвует в обычном потоке страницы и не накладывается на контент
+   - восстановлены бургер, крестик, фон панели, появление пунктов меню и раскрытие аккордеонов
+   ========================================================= */
+
+.ip-graduation .ip-menu-toggle{
+  position:absolute !important;
+  top:60px !important;
+  right:100px !important;
+  z-index:120 !important;
+  display:block !important;
+  width:60px !important;
+  height:60px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  outline:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  cursor:pointer !important;
+  appearance:none;
+  -webkit-appearance:none;
+  overflow:visible !important;
+  pointer-events:auto !important;
+  transform:none !important;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.ip-graduation .ip-menu-line{
+  position:absolute !important;
+  left:0 !important;
+  top:50% !important;
+  display:block !important;
+  width:60px !important;
+  height:6px !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  transform-origin:center center !important;
+  transition:transform .42s cubic-bezier(.19,1,.22,1) !important;
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  pointer-events:none !important;
+}
+
+.ip-graduation .ip-menu-line:first-child{
+  transform:translate3d(0,-13px,0) !important;
+}
+
+.ip-graduation .ip-menu-line:last-child{
+  transform:translate3d(0,7px,0) !important;
+}
+
+.ip-graduation .ip-menu-toggle.is-open .ip-menu-line:first-child{
+  transform:translate3d(0,-3px,0) rotate(45deg) !important;
+}
+
+.ip-graduation .ip-menu-toggle.is-open .ip-menu-line:last-child{
+  transform:translate3d(0,-3px,0) rotate(-45deg) !important;
+}
+
+.ip-graduation .ip-menu-panel{
+  position:absolute !important;
+  top:0 !important;
+  right:0 !important;
+  left:auto !important;
+  z-index:110 !important;
+  display:block !important;
+  width:450px !important;
+  height:800px !important;
+  padding:60px 100px 80px 60px !important;
+  margin:0 !important;
+  overflow:hidden !important;
+  background:transparent !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  transform-origin:100% 0 !important;
+  transform:scale(.10) !important;
+  transition:
+    opacity .32s ease,
+    visibility 0s linear .42s,
+    transform .52s cubic-bezier(.19,1,.22,1) !important;
+}
+
+.ip-graduation .ip-menu-panel.is-open{
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  transform:scale(1) !important;
+  transition:
+    opacity .24s ease,
+    visibility 0s linear 0s,
+    transform .58s cubic-bezier(.19,1,.22,1) !important;
+}
+
+.ip-graduation .ip-menu-panel::before,
+.ip-graduation .ip-menu-panel::after{
+  content:'' !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+  display:block !important;
+  pointer-events:none !important;
+}
+
+.ip-graduation .ip-menu-panel::before{
+  background:rgba(0,0,0,.30) !important;
+  -webkit-backdrop-filter:blur(25px) !important;
+  backdrop-filter:blur(25px) !important;
+}
+
+.ip-graduation .ip-menu-panel::after{
+  background-image:url('../assets/img/home/popups/menu-noise.webp') !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
+  opacity:.35 !important;
+  mix-blend-mode:color-burn !important;
+}
+
+@supports not ((backdrop-filter:blur(25px)) or (-webkit-backdrop-filter:blur(25px))){
+  .ip-graduation .ip-menu-panel::before{
+    background:rgba(0,0,0,.72) !important;
+  }
+}
+
+.ip-graduation .ip-menu-inner{
+  position:relative !important;
+  z-index:2 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  width:290px !important;
+  min-height:100% !important;
+  opacity:0 !important;
+  transform:none !important;
+  transition:opacity .24s ease .16s !important;
+}
+
+.ip-graduation .ip-menu-panel.is-open .ip-menu-inner{
+  opacity:1 !important;
+}
+
+.ip-graduation .ip-menu-socials{
+  position:relative !important;
+  z-index:2 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  margin:0 0 40px !important;
+  padding:0 !important;
+}
+
+.ip-graduation .ip-social{
+  position:relative !important;
+  display:block !important;
+  flex:0 0 22px !important;
+  width:22px !important;
+  height:22px !important;
+  opacity:1 !important;
+  text-indent:-9999px !important;
+  overflow:hidden !important;
+  background-repeat:no-repeat !important;
+  background-position:center !important;
+  background-size:contain !important;
+}
+
+.ip-graduation .ip-social.instagram{
+  background-image:url('../assets/icons/instagram.svg') !important;
+}
+
+.ip-graduation .ip-social.telegram{
+  background-image:url('../assets/icons/telegram.svg') !important;
+}
+
+.ip-graduation .ip-social.vk{
+  background-image:url('../assets/icons/vk.svg') !important;
+}
+
+.ip-graduation .ip-menu-list{
+  position:relative !important;
+  z-index:2 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  width:290px !important;
+  gap:20px !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+.ip-graduation .ip-menu-link,
+.ip-graduation .ip-menu-link:link,
+.ip-graduation .ip-menu-link:visited,
+.ip-graduation .ip-menu-link:hover,
+.ip-graduation .ip-menu-link:active,
+.ip-graduation .ip-accordion-button,
+.ip-graduation .ip-accordion-button:hover,
+.ip-graduation .ip-accordion-button:active{
+  position:relative !important;
+  display:block !important;
+  width:auto !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  outline:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:#fff !important;
+  font-family:'Montserrat',Arial,sans-serif !important;
+  font-size:20px !important;
+  line-height:90% !important;
+  font-weight:600 !important;
+  letter-spacing:-.04em !important;
+  text-align:left !important;
+  text-decoration:none !important;
+  cursor:pointer !important;
+  appearance:none;
+  -webkit-appearance:none;
+}
+
+.ip-graduation .ip-accordion{
+  position:relative !important;
+  display:block !important;
+  width:290px !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+.ip-graduation .ip-accordion-button{
+  width:100% !important;
+  min-height:20px !important;
+  padding-right:118px !important;
+}
+
+.ip-graduation .ip-accordion-button::before,
+.ip-graduation .ip-accordion-button::after{
+  content:'' !important;
+  position:absolute !important;
+  top:50% !important;
+  display:block !important;
+  width:14px !important;
+  height:3px !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  opacity:1 !important;
+  pointer-events:none !important;
+  transform-origin:center center !important;
+  transition:
+    transform .35s cubic-bezier(.19,1,.22,1),
+    opacity .35s ease !important;
+}
+
+.ip-graduation .ip-accordion-button::before{
+  right:9px !important;
+  transform:translateY(-50%) rotate(45deg) !important;
+}
+
+.ip-graduation .ip-accordion-button::after{
+  right:0 !important;
+  transform:translateY(-50%) rotate(-45deg) !important;
+}
+
+.ip-graduation .ip-accordion.is-open .ip-accordion-button::before{
+  opacity:.5 !important;
+  transform:translateY(-50%) rotate(-45deg) !important;
+}
+
+.ip-graduation .ip-accordion.is-open .ip-accordion-button::after{
+  opacity:.5 !important;
+  transform:translateY(-50%) rotate(45deg) !important;
+}
+
+.ip-graduation .ip-accordion-content{
+  max-height:0 !important;
+  overflow:hidden !important;
+  transition:max-height .4s ease !important;
+}
+
+.ip-graduation .ip-accordion.is-open .ip-accordion-content{
+  max-height:220px !important;
+}
+
+.ip-graduation .ip-submenu{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:12px !important;
+  padding:16px 0 0 !important;
+  margin:0 !important;
+}
+
+.ip-graduation .ip-submenu a,
+.ip-graduation .ip-submenu a:link,
+.ip-graduation .ip-submenu a:visited,
+.ip-graduation .ip-submenu a:hover,
+.ip-graduation .ip-submenu a:active{
+  display:block !important;
+  color:#69C9FF !important;
+  font-family:'Montserrat',Arial,sans-serif !important;
+  font-size:16px !important;
+  line-height:120% !important;
+  font-weight:400 !important;
+  letter-spacing:-.025em !important;
+  opacity:1 !important;
+  text-decoration:none !important;
+}
+
+.ip-graduation .ip-menu-legal{
+  position:absolute !important;
+  left:60px !important;
+  right:100px !important;
+  bottom:80px !important;
+  z-index:2 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:6px !important;
+  margin:0 !important;
+  padding:0 !important;
+  opacity:0 !important;
+  transition:opacity .24s ease .16s !important;
+}
+
+.ip-graduation .ip-menu-panel.is-open .ip-menu-legal{
+  opacity:1 !important;
+}
+
+.ip-graduation .ip-menu-legal a,
+.ip-graduation .ip-menu-legal a:link,
+.ip-graduation .ip-menu-legal a:visited,
+.ip-graduation .ip-menu-legal a:hover,
+.ip-graduation .ip-menu-legal a:active{
+  display:block !important;
+  color:rgba(255,255,255,.5) !important;
+  font-family:'Montserrat',Arial,sans-serif !important;
+  font-size:8px !important;
+  line-height:150% !important;
+  font-weight:400 !important;
+  letter-spacing:0 !important;
+  text-decoration:none !important;
 }
