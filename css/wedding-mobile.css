@@ -884,7 +884,7 @@ WEDDING MOBILE CSS
   .ip-wedding-mobile .ip-menu-panel::before{
     top:0;
     bottom:auto;
-    height:830px;
+    height:833px;
     background:rgba(0,0,0,.30);
     -webkit-backdrop-filter:blur(18px);
     backdrop-filter:blur(18px);
@@ -893,7 +893,7 @@ WEDDING MOBILE CSS
   .ip-wedding-mobile .ip-menu-panel::after{
     top:0;
     bottom:auto;
-    height:830px;
+    height:833px;
     background-image:url('../assets/img/home/popups/menu-noise.webp');
     background-size:cover;
     background-position:center;
@@ -1114,7 +1114,7 @@ WEDDING MOBILE CSS
 /* =========================================================
    WEDDING MOBILE SWIPE HINT LOWERING
 
-   Версия: wedding-mobile-css-024-main-text-figma-typography
+   Версия: wedding-mobile-css-025-menu-bg-video-bottom-align
 
    ИЗМЕНЕНИЯ:
    - подсказка «Листайте для просмотра» и иконка руки опущены на 20px ниже
@@ -1175,7 +1175,7 @@ WEDDING MOBILE CSS
 /* =========================================================
    WEDDING MOBILE MAIN TEXT FIGMA TYPOGRAPHY
 
-   Версия: wedding-mobile-css-024-main-text-figma-typography
+   Версия: wedding-mobile-css-025-menu-bg-video-bottom-align
 
    ИЗМЕНЕНИЯ:
    - основной текст мобильной страницы «Свадьба» приведён к утверждённой Figma-типографике
@@ -1196,5 +1196,41 @@ WEDDING MOBILE CSS
 
   .ip-wedding-mobile-description strong{
     font-weight:700 !important;
+  }
+}
+
+
+/* =========================================================
+   WEDDING MOBILE CLOSED BOTTOM SPACING BALANCE
+
+   Версия: wedding-mobile-css-026-bottom-spacing-balance
+
+   ИЗМЕНЕНИЯ:
+   - закрытая высота mobile-страницы сокращена до 2148px
+   - убрана лишняя тёмная полоса внизу страницы
+   - фон, content и внешняя высота страницы синхронизированы
+   - подсказка поднята до top:2000px для общего ритма с Birthday/Graduation
+   - стрелка остаётся на расстоянии 50px от нижнего края страницы
+   - расстояния: отзывы → подсказка и подсказка → стрелка приведены к общей стилистике
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-wedding-mobile:not(.has-gallery-opened){
+    min-height:var(--wedding-mobile-page-height, 2148px) !important;
+    height:var(--wedding-mobile-page-height, 2148px) !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-bg{
+    height:2148px !important;
+    min-height:2148px !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-content{
+    height:2148px !important;
+    min-height:2148px !important;
+  }
+
+  .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-hint{
+    top:2000px !important;
   }
 }
