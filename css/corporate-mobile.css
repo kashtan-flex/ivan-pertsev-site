@@ -1419,3 +1419,76 @@ CORPORATE MOBILE CSS
     background-position:center top !important;
   }
 }
+
+
+/* =========================================================
+   CORPORATE MOBILE RESTORE GAP AFTER VIDEO
+
+   Версия: corporate-mobile-css-007-restore-gap-after-video
+
+   ИЗМЕНЕНИЯ:
+   - после выравнивания video-блока с ДР/Выпускным восстановлен отступ между видео и Top 100
+   - все блоки ниже видео опущены на 32px единым сдвигом
+   - расстояния между самими нижними блоками не менялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-corporate-mobile-about{
+    top:873px !important;
+  }
+
+  .ip-corporate-mobile-actions{
+    top:1212px !important;
+  }
+
+  .ip-corporate-mobile-partners{
+    top:1412px !important;
+  }
+
+  .ip-corporate-mobile-gallery{
+    top:1592px !important;
+  }
+
+  .ip-corporate-mobile-reviews{
+    top:1571px !important;
+  }
+
+  .ip-corporate-mobile-hint{
+    top:2022px !important;
+  }
+
+  .ip-corporate-mobile.has-gallery-opened .ip-corporate-mobile-reviews{
+    top:4317px !important;
+  }
+
+  .ip-corporate-mobile.has-gallery-opened .ip-corporate-mobile-hint{
+    top:4757px !important;
+  }
+}
+
+/* =========================================================
+   CORPORATE MOBILE MAIN TEXT TYPOGRAPHY RESTORED
+
+   Версия: corporate-mobile-css-008-main-text-figma-typography-restored
+
+   ИЗМЕНЕНИЯ:
+   - восстановлена утверждённая Figma-типографика основного текста mobile-страницы
+   - применено только к .ip-corporate-mobile-description
+   - desktop, видео, меню, кнопки, галерея, отзывы, подсказка, стрелка и JavaScript не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-corporate-mobile-description{
+    width:354px !important;
+    max-width:354px !important;
+    font-family:'Montserrat',Arial,sans-serif !important;
+    font-size:16px !important;
+    line-height:1 !important;
+    font-weight:400 !important;
+    letter-spacing:-.03em !important;
+  }
+
+  .ip-corporate-mobile-description strong{
+    font-weight:700 !important;
+  }
+}
