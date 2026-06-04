@@ -2,14 +2,13 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-023-video-cover-crop
+Версия: wedding-mobile-css-023-restore-kinescope-controls
 
 ИЗМЕНЕНИЯ:
 - файл основан на wedding-mobile-css-022-lower-swipe-hint
-- mobile iframe Kinescope переведён в cover-crop режим без изменения контейнера страницы
-- ширина iframe увеличена внутри существующего 390px video-wrap, лишнее обрезается overflow:hidden
-- layout страницы, высоты, тексты, кнопки, галерея, отзывы, подсказка, стрелка, меню и JS не изменялись
-- проверено: подсказка руки на Wedding уже использует корректный путь wedding/mobile/icons
+- удалён экспериментальный cover-crop iframe, из-за которого пропадала внутренняя иконка звука Kinescope
+- размеры и позиция video-section/video-wrap/iframe возвращены к безопасной схеме страницы
+- остальные блоки, меню, popup, lightbox, отзывы, подсказка, стрелка, галерея и JS не изменялись
 ==================================================
 */
 
@@ -1123,40 +1122,5 @@ WEDDING MOBILE CSS
 @media (max-width:767px){
   .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-hint{
     top:2010px !important;
-  }
-}
-
-/* =========================================================
-   WEDDING MOBILE VIDEO COVER CROP
-
-   Версия: wedding-mobile-css-023-video-cover-crop
-
-   ИЗМЕНЕНИЯ:
-   - iframe Kinescope увеличен внутри существующего контейнера 390px
-   - боковые/внутренние поля плеера убираются за счёт cover-crop
-   - размеры и позиция самой секции видео не менялись
-   ========================================================= */
-
-@media (max-width:767px){
-  .ip-wedding-mobile-video-section{
-    left:0 !important;
-    width:390px !important;
-    overflow:hidden !important;
-  }
-
-  .ip-wedding-mobile-video-wrap{
-    left:0 !important;
-    width:390px !important;
-    overflow:hidden !important;
-  }
-
-  .ip-wedding-mobile-video{
-    left:50% !important;
-    top:0 !important;
-    width:1184px !important;
-    min-width:1184px !important;
-    max-width:none !important;
-    height:666px !important;
-    transform:translate3d(-50%,0,0) !important;
   }
 }

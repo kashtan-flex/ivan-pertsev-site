@@ -2,14 +2,13 @@
 ==================================================
 CORPORATE MOBILE CSS
 
-Версия: corporate-mobile-css-005-video-cover-crop
+Версия: corporate-mobile-css-005-restore-kinescope-controls
 
 ИЗМЕНЕНИЯ:
 - файл основан на corporate-mobile-css-004-main-text-figma-typography
-- mobile iframe Kinescope переведён в cover-crop режим без изменения контейнера страницы
-- ширина iframe увеличена внутри существующего 390px video-wrap, лишнее обрезается overflow:hidden
-- layout страницы, высоты, тексты, кнопки, галерея, отзывы, подсказка, стрелка, меню и JS не изменялись
-- проверено: HTML подсказки руки всё ещё использует wedding-иконку; путь не менялся без подтверждения наличия corporate-иконки
+- удалён экспериментальный cover-crop iframe, из-за которого пропадала внутренняя иконка звука Kinescope
+- размеры и позиция video-section/video-wrap/iframe возвращены к безопасной схеме страницы
+- остальные блоки, меню, popup, lightbox, отзывы, подсказка, стрелка, галерея и JS не изменялись
 ==================================================
 */
 
@@ -1371,41 +1370,5 @@ CORPORATE MOBILE CSS
 
   .ip-corporate-mobile.has-gallery-opened .ip-corporate-mobile-hint{
     top:4725px !important;
-  }
-}
-
-/* =========================================================
-   CORPORATE MOBILE VIDEO COVER CROP
-
-   Версия: corporate-mobile-css-005-video-cover-crop
-
-   ИЗМЕНЕНИЯ:
-   - iframe Kinescope увеличен внутри существующего контейнера 390px
-   - боковые/внутренние поля плеера убираются за счёт cover-crop
-   - размеры и позиция самой секции видео не менялись
-   ========================================================= */
-
-@media (max-width:767px){
-  .ip-corporate-mobile-video-section{
-    left:0 !important;
-    width:390px !important;
-    overflow:hidden !important;
-  }
-
-  .ip-corporate-mobile-video-wrap{
-    left:0 !important;
-    width:390px !important;
-    height:660px !important;
-    overflow:hidden !important;
-  }
-
-  .ip-corporate-mobile-video{
-    left:50% !important;
-    top:0 !important;
-    width:1174px !important;
-    min-width:1174px !important;
-    max-width:none !important;
-    height:660px !important;
-    transform:translate3d(-50%,0,0) !important;
   }
 }
