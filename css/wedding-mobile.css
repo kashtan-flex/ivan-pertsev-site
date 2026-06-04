@@ -1114,7 +1114,7 @@ WEDDING MOBILE CSS
 /* =========================================================
    WEDDING MOBILE SWIPE HINT LOWERING
 
-   Версия: wedding-mobile-css-022-lower-swipe-hint
+   Версия: wedding-mobile-css-024-main-text-figma-typography
 
    ИЗМЕНЕНИЯ:
    - подсказка «Листайте для просмотра» и иконка руки опущены на 20px ниже
@@ -1169,5 +1169,32 @@ WEDDING MOBILE CSS
     height:685px !important;
     background-size:cover !important;
     background-position:center top !important;
+  }
+}
+
+/* =========================================================
+   WEDDING MOBILE MAIN TEXT FIGMA TYPOGRAPHY
+
+   Версия: wedding-mobile-css-024-main-text-figma-typography
+
+   ИЗМЕНЕНИЯ:
+   - основной текст мобильной страницы «Свадьба» приведён к утверждённой Figma-типографике
+   - применено только к .ip-wedding-mobile-description
+   - desktop, видео, меню, кнопки, галерея, отзывы, подсказка, стрелка и JavaScript не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-wedding-mobile-description{
+    width:354px !important;
+    max-width:354px !important;
+    font-family:'Montserrat',Arial,sans-serif !important;
+    font-size:16px !important;
+    line-height:1 !important;
+    font-weight:400 !important;
+    letter-spacing:-.03em !important;
+  }
+
+  .ip-wedding-mobile-description strong{
+    font-weight:700 !important;
   }
 }
