@@ -2,13 +2,13 @@
 ==================================================
 BIRTHDAY MOBILE CSS
 
-Версия: birthday-mobile-css-007-main-text-figma-typography
+Версия: birthday-mobile-css-007-review-desktop-line-breaks
 
 ИЗМЕНЕНИЯ:
 - файл основан на birthday-mobile-css-006-opened-height-sync
-- основной текст мобильной страницы «День рождения» приведён к утверждённой Figma-настройке
-- применены font-size:16px, line-height:100%, letter-spacing:-3%, width:354px
-- desktop-версия, меню, видео, кнопки, галерея, отзывы, подсказка, стрелка и JavaScript не изменялись
+- добавлен безопасный override для текста мобильных отзывов
+- ручные переносы <br> теперь сохраняются как на desktop, без авто-переноса браузером внутри строки
+- размеры карточек, аватары, отступы, галерея, меню, видео, подсказка, стрелка и JavaScript не изменялись
 ==================================================
 */
 
@@ -1644,22 +1644,20 @@ BIRTHDAY MOBILE CSS
 }
 
 /* =========================================================
-   BIRTHDAY MOBILE MAIN TEXT FIGMA TYPOGRAPHY
+   BIRTHDAY MOBILE REVIEW DESKTOP LINE BREAKS
 
-   Версия: birthday-mobile-css-007-main-text-figma-typography
+   Версия: birthday-mobile-css-007-review-desktop-line-breaks
 
    ИЗМЕНЕНИЯ:
-   - основной текст мобильной страницы «День рождения» приведён к утверждённой Figma-настройке
-   - применены font-size:16px, line-height:100%, letter-spacing:-3%, width:354px
-   - изменение действует только в mobile CSS и не затрагивает desktop-версию
+   - HTML-переносы отзывов уже совпадали с desktop
+   - отключён автоматический перенос внутри строк отзывов на mobile
+   - сохранены только ручные <br>, как в desktop-версии
+   - размеры текста, карточек, аватаров и отступы не изменялись
    ========================================================= */
 
 @media (max-width:767px){
-  .ip-birthday-mobile-description{
-    width:354px !important;
-    font-size:16px !important;
-    line-height:100% !important;
-    font-weight:400 !important;
-    letter-spacing:-.03em !important;
+  .ip-birthday-mobile .ip-birthday-mobile-review-text,
+  .ip-birthday-mobile .ip-birthday-mobile-review-text strong{
+    white-space:nowrap !important;
   }
 }

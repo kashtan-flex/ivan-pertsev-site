@@ -2,12 +2,15 @@
 ==================================================
 WEDDING PREVIEW HTML
 
-Версия: wedding-preview-html-birthday-route-001
+Версия: wedding-preview-html-029-external-mobile-html-route-sync
 
 ИЗМЕНЕНИЯ:
-- пункт меню «День рождение» подключён к ./birthday-preview.html
-- исправлены старые href="#" для перехода на desktop-preview страницы «День рождения»
-- остальная разметка, меню, popup, секции, стили и скрипты не изменялись
+- mobile-режим больше не использует устаревший inline MOBILE_HTML с href="#" для пункта «Выпускной"
+- mobile-режим загружает актуальный файл ./pages/wedding/wedding-mobile.html
+- inline MOBILE_HTML также синхронизирован на случай отката loader
+- пункт «Выпускной» ведёт на ./graduation-preview.html
+- ссылка «Корпоратив» приведена к ./corporate-preview.html
+- CSS, JS, видео, меню-стили, popup, gallery, reviews и layout не изменялись
 ==================================================
 -->
 
@@ -762,7 +765,7 @@ WEDDING MOBILE HTML
                   Свадьба
                 </a>
 
-                <a href="/corporate-preview.html">
+                <a href="./corporate-preview.html">
                   Корпоратив
                 </a>
 
@@ -770,7 +773,7 @@ WEDDING MOBILE HTML
                   День рождение
                 </a>
 
-                <a href="#">
+                <a href="./graduation-preview.html">
                   Выпускной
                 </a>
 
@@ -1128,10 +1131,10 @@ WEDDING MOBILE HTML
             css:[
               './css/wedding-mobile.css'
             ],
-            html:null,
-            inlineHtml:MOBILE_HTML,
+            html:'./pages/wedding/wedding-mobile.html',
+            inlineHtml:null,
             js:'./js/wedding-mobile.js',
-            error:'Ошибка загрузки мобильной страницы Свадьба.'
+            error:'Ошибка загрузки мобильной страницы Свадьба. Проверь путь: pages/wedding/wedding-mobile.html'
           };
         }
 
