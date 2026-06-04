@@ -1,12 +1,14 @@
 /* =========================================================
    GRADUATION CSS
 
-   Версия: graduation-css-004-actions-up-20px
+   Версия: graduation-css-005-expanded-bottom-background-and-reviews-gap
 
    ИЗМЕНЕНИЯ:
-   - файл основан на graduation-css-003-approved-menu-source
-   - CTA-кнопки desktop подняты на 20px вверх: итоговая позиция top:600px
-   - меню, фон, видео, тексты, галерея, отзывы и shared-системы не изменялись
+   - файл основан на graduation-css-004-actions-up-20px
+   - в раскрытом desktop-состоянии восстановлена правильная сборка фона: верхний цельный bg, средняя склейка за фото, нижний цельный bg от низа страницы
+   - отзывы под раскрытой галереей опущены так, чтобы отступ от последнего ряда фото совпадал со страницей «День рождения»
+   - подсказка и стрелка опущены вместе с отзывами без изменения расстояния между ними
+   - меню, видео, тексты, CTA-кнопки, размеры фото, popup и JS не изменялись
    ========================================================= */
 
 
@@ -2057,6 +2059,61 @@
 
 .ip-graduation.is-gallery-open .ip-graduation-review-tools{
   top:3868px !important;
+}
+
+.ip-graduation.is-gallery-open.is-gallery-closing .ip-graduation-review-tools{
+  top:1226px !important;
+}
+
+/* =========================================================
+   GRADUATION EXPANDED DESKTOP BACKGROUND AND REVIEWS GAP
+
+   Версия: graduation-css-005-expanded-bottom-background-and-reviews-gap
+
+   ИЗМЕНЕНИЯ:
+   - раскрытое состояние получает цельный нижний background от низа страницы
+   - повторяющаяся склейка background оставлена только в средней зоне за фотографиями
+   - отзывы под галереей опущены на 50px: отступ от конца фото стал как на странице «День рождения»
+   - подсказка и scroll-top опущены синхронно с отзывами, расстояние между ними не менялось
+   ========================================================= */
+
+.ip-graduation.is-gallery-open .ip-graduation-stage,
+.ip-graduation.is-gallery-open .ip-graduation-content{
+  min-height:4111px !important;
+}
+
+.ip-graduation.is-gallery-open .ip-graduation-stage::before{
+  display:block !important;
+  top:1350px !important;
+  bottom:1350px !important;
+  width:1440px !important;
+  background-image:url('../assets/img/graduation/background/graduation-bg.webp') !important;
+  background-size:1440px 1350px !important;
+  background-position:center top !important;
+  background-repeat:repeat-y !important;
+}
+
+.ip-graduation.is-gallery-open .ip-graduation-stage::after{
+  display:block !important;
+  bottom:0 !important;
+  height:1350px !important;
+  width:1440px !important;
+  background-image:url('../assets/img/graduation/background/graduation-bg.webp') !important;
+  background-size:1440px 1350px !important;
+  background-position:center bottom !important;
+  background-repeat:no-repeat !important;
+}
+
+.ip-graduation.is-gallery-open .ip-graduation-reviews{
+  top:3552px !important;
+}
+
+.ip-graduation.is-gallery-open .ip-graduation-review-tools{
+  top:3918px !important;
+}
+
+.ip-graduation.is-gallery-open.is-gallery-closing .ip-graduation-reviews{
+  top:860px !important;
 }
 
 .ip-graduation.is-gallery-open.is-gallery-closing .ip-graduation-review-tools{
