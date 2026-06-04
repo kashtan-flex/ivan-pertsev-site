@@ -1,14 +1,15 @@
 /* =========================================================
    GRADUATION CSS
 
-   Версия: graduation-css-009-top100-left-align-and-reviews-gap
+   Версия: graduation-css-010-desktop-button-text-rendering
 
    ИЗМЕНЕНИЯ:
-   - файл основан на graduation-css-004-actions-up-20px
-   - в раскрытом desktop-состоянии восстановлена правильная сборка фона: верхний цельный bg, средняя склейка за фото, нижний цельный bg от низа страницы
-   - отзывы под раскрытой галереей опущены так, чтобы отступ от последнего ряда фото совпадал со страницей «День рождения»
-   - подсказка и стрелка опущены вместе с отзывами без изменения расстояния между ними
-   - меню, видео, тексты, CTA-кнопки, размеры фото, popup и JS не изменялись
+   - файл основан на graduation-css-009-top100-left-align-and-reviews-gap
+   - точечно исправлен первичный рендер текста desktop CTA-кнопок
+   - translate3d в кнопках заменён на 2D translate, чтобы убрать первичный blur текста
+   - убран will-change: transform у кнопок, провоцировавший лишний композитный слой
+   - добавлены безопасные настройки сглаживания текста
+   - позиции, размеры, hover-логика, видео, галерея, меню, popup, отзывы и mobile-версия не изменялись
    ========================================================= */
 
 
@@ -240,14 +241,19 @@
   line-height:1;
   font-weight:500;
   letter-spacing:-.03em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+  transform-style:flat;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
   transform:
-    translate3d(var(--button-x),var(--button-y),0)
+    translate(var(--button-x),var(--button-y))
     scale(var(--button-press));
   transition:
     transform .42s cubic-bezier(.19,1,.22,1),
     background .36s ease,
     border-color .36s ease;
-  will-change:transform;
 }
 
 .ip-graduation-button::before{

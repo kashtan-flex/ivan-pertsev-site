@@ -1,13 +1,15 @@
 /* =========================================================
    BIRTHDAY CSS
 
-   Версия: birthday-css-008-top100-text-gap-alignment
+   Версия: birthday-css-009-desktop-button-text-rendering
 
    ИЗМЕНЕНИЯ:
-   - файл основан на birthday-css-006-expanded-page-height-header-corrected
-   - расстояние между блоком Top 100 и основным текстом приведено к 20px
-   - блок Top 100 на странице «День рождения» опущен на 8px относительно предыдущего положения
-   - основной текст, CTA-кнопки, видео, галерея, отзывы, подсказка, стрелка, меню и popup не изменялись
+   - файл основан на birthday-css-008-top100-text-gap-alignment
+   - точечно исправлен первичный рендер текста desktop CTA-кнопок
+   - translate3d в кнопках заменён на 2D translate, чтобы убрать первичный blur текста
+   - убран will-change: transform у кнопок, провоцировавший лишний композитный слой
+   - добавлены безопасные настройки сглаживания текста
+   - позиции, размеры, hover-логика, видео, галерея, меню, popup, отзывы и mobile-версия не изменялись
    ========================================================= */
 
 .ip-birthday,
@@ -238,14 +240,19 @@
   line-height:1;
   font-weight:500;
   letter-spacing:-.03em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+  transform-style:flat;
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
   transform:
-    translate3d(var(--button-x),var(--button-y),0)
+    translate(var(--button-x),var(--button-y))
     scale(var(--button-press));
   transition:
     transform .42s cubic-bezier(.19,1,.22,1),
     background .36s ease,
     border-color .36s ease;
-  will-change:transform;
 }
 
 .ip-birthday-button::before{
