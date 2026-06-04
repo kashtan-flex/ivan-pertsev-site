@@ -2,7 +2,7 @@
 ==================================================
 GRADUATION MOBILE CSS
 
-Версия: graduation-mobile-css-010-review-desktop-line-breaks
+Версия: graduation-mobile-css-011-review-line-breaks-mobile-safe
 
 ИЗМЕНЕНИЯ:
 - файл основан на graduation-mobile-css-001-base
@@ -2037,5 +2037,33 @@ GRADUATION MOBILE CSS
   .ip-graduation-mobile .ip-graduation-mobile-review-text,
   .ip-graduation-mobile .ip-graduation-mobile-review-text strong{
     white-space:nowrap !important;
+  }
+}
+
+
+/* =========================================================
+   GRADUATION MOBILE REVIEW LINE BREAKS MOBILE SAFE
+
+   Версия: graduation-mobile-css-011-review-line-breaks-mobile-safe
+
+   ИЗМЕНЕНИЯ:
+   - усилена mobile-only логика отзывов: браузер не делает автоматические переносы внутри строк
+   - сохраняются только ручные <br>, как в desktop-версии
+   - desktop-версия не затрагивается
+   - размеры карточек, аватары, позиции отзывов, подсказка, стрелка, галерея, меню и JS не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-graduation-mobile .ip-graduation-mobile-review{
+    overflow:visible !important;
+  }
+
+  .ip-graduation-mobile .ip-graduation-mobile-review-text,
+  .ip-graduation-mobile .ip-graduation-mobile-review-text strong{
+    white-space:nowrap !important;
+    word-break:keep-all !important;
+    overflow-wrap:normal !important;
+    hyphens:none !important;
+    -webkit-hyphens:none !important;
   }
 }
