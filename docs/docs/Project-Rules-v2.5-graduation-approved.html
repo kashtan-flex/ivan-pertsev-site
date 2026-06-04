@@ -8,20 +8,23 @@
   ==================================================
   PROJECT RULES HTML
 
-  Версия: Project Rules v2.4 — Birthday approved / Next Graduation
+  Версия: Project Rules v2.5 — Graduation approved
 
   ИЗМЕНЕНИЯ:
-  - документ полностью переписан на базе Project Rules v2.3
-  - удалены устаревшие исторические разделы, дубли и конфликтующие формулировки
-  - зафиксированы approved stable страницы: Главная, Биография, Свадьба, Корпоратив, День рождения
-  - добавлены правила, появившиеся при создании страницы «День рождения»
-  - добавлены правила мобильных галерей, отзывов, подсказки, scroll-top и высот страницы
-  - добавлено правило остановки и анализа после двух неудачных попыток правки
-  - добавлено сообщение для будущей разработки страницы «Выпускной»
+  - документ обновлён на базе Project Rules v2.4
+  - зафиксированы approved stable страницы: Главная, Биография, Свадьба, Корпоратив, День рождения, Выпускной
+  - страница «Выпускной» добавлена как завершённая в desktop и mobile
+  - добавлены правила, появившиеся при доведении страницы «Выпускной» и финальной синхронизации сервисных страниц
+  - зафиксированы правила mobile-типографики основного текста: 16px, line-height 100%, letter-spacing -3%, width 354px
+  - зафиксированы правила отзывов: mobile-переносы должны совпадать с desktop, desktop при этом не трогать
+  - зафиксировано правило desktop CTA-кнопок без первичного блюра текста
+  - зафиксированы правила Kinescope/video: не делать агрессивный iframe-crop, не обрезать UI плеера
+  - зафиксировано правило mobile menu background: фон меню выравнивать по нижнему краю видео
+  - зафиксировано правило проверки preview-loader и inline/mobile loader при неработающих ссылках
   ==================================================
   -->
 
-  <title>Project Rules v2.4 — Иван Перцев Сайт</title>
+  <title>Project Rules v2.5 — Иван Перцев Сайт</title>
 
   <style>
     :root{
@@ -264,12 +267,12 @@
 <body>
 <main>
 
-<h1>Project Rules v2.4 — Иван Перцев Сайт</h1>
+<h1>Project Rules v2.5 — Иван Перцев Сайт</h1>
 
 <div class="hero">
   <strong>DOCUMENT STATUS</strong>
-  Project Rules v2.4 · Дата актуализации: 2026-06-04 · Статус: ACTIVE<br>
-  Этот документ является единым актуальным источником правил проекта после завершения страницы «День рождения».
+  Project Rules v2.5 · Дата актуализации: 2026-06-04 · Статус: ACTIVE<br>
+  Этот документ является единым актуальным источником правил проекта после завершения страниц «День рождения» и «Выпускной» и финальной синхронизации сервисных страниц.
 </div>
 
 <div class="grid">
@@ -280,6 +283,7 @@
     <span class="pill pill-ok">Свадьба</span>
     <span class="pill pill-ok">Корпоратив</span>
     <span class="pill pill-ok">День рождения</span>
+    <span class="pill pill-ok">Выпускной</span>
     <span class="pill pill-ok">Меню</span>
     <span class="pill pill-ok">Popup</span>
     <span class="pill pill-ok">Page Transition</span>
@@ -287,8 +291,8 @@
 
   <div class="card">
     <strong>NEXT DEVELOPMENT</strong>
-    <span class="pill pill-active">Выпускной</span>
-    <p>Следующая страница проекта — «Выпускной». Работать по workflow: сначала desktop, затем backup, затем mobile.</p>
+    <span class="pill pill-active">По запросу</span>
+    <p>Следующую страницу начинать только после получения данных от пользователя. Работать по workflow: сначала desktop, затем backup, затем mobile.</p>
   </div>
 
   <div class="card">
@@ -328,7 +332,8 @@
     <li>Биография / Обо мне;</li>
     <li>Свадьба;</li>
     <li>Корпоратив;</li>
-    <li>День рождения.</li>
+    <li>День рождения;</li>
+    <li>Выпускной.</li>
   </ul>
 </div>
 
@@ -340,7 +345,8 @@
 
 <pre><code>backup/
   backup-stable-after-corporate-fix/
-  ivan-pertsev-site-backup-birthday-approved/</code></pre>
+  ivan-pertsev-site-backup-birthday-approved/
+  ivan-pertsev-site-backup-graduation-approved/</code></pre>
 
 <p>
 В рабочем проекте рекомендуется держать только 1–2 актуальные стабильные точки восстановления. Старые временные backup-папки выносить в архив вне проекта.
@@ -387,7 +393,10 @@ http://localhost:8000/wedding-preview.html
 http://localhost:8000/corporate-preview.html
 
 День рождения:
-http://localhost:8000/birthday-preview.html</code></pre>
+http://localhost:8000/birthday-preview.html
+
+Выпускной:
+http://localhost:8000/graduation-preview.html</code></pre>
 
 <div class="note">
   Localhost — главная production-like среда проверки. GitHub Pages и Tilda не используются для проверки каждой правки.
@@ -468,6 +477,7 @@ assets/
     biography/
     birthday/
     corporate/
+    graduation/
     home/
     popups/
     wedding/
@@ -475,6 +485,7 @@ assets/
 backup/
   backup-stable-after-corporate-fix/
   ivan-pertsev-site-backup-birthday-approved/
+  ivan-pertsev-site-backup-graduation-approved/
 
 css/
   biography.css
@@ -485,6 +496,8 @@ css/
   corporate.css
   corporate-mobile.css
   corporate-reviews.css
+  graduation.css
+  graduation-mobile.css
   home.css
   home-mobile.css
   page-transition.css
@@ -495,7 +508,7 @@ css/
   wedding-mobile.css
 
 docs/
-  Project-Rules-v2.4-birthday-approved-next-graduation.html
+  Project-Rules-v2.5-graduation-approved.html
   archive/
 
 js/
@@ -504,6 +517,8 @@ js/
   birthday-mobile.js
   corporate.js
   corporate-mobile.js
+  graduation.js
+  graduation-mobile.js
   home.js
   page-transition.js
   wedding.js
@@ -518,6 +533,9 @@ pages/
   corporate/
     corporate.html
     corporate-mobile.html
+  graduation/
+    graduation.html
+    graduation-mobile.html
   home/
     home.html
   wedding/
@@ -527,6 +545,7 @@ pages/
 biography-preview.html
 birthday-preview.html
 corporate-preview.html
+graduation-preview.html
 preview.html
 wedding-preview.html
 README.md</code></pre>
@@ -739,12 +758,36 @@ BIRTHDAY MOBILE CSS
   <li>Фон desktop: <code>assets/img/birthday/background/birthday-bg.webp</code>.</li>
 </ul>
 
+<h3>Выпускной</h3>
+
+<div class="success">
+  <strong>СТАТУС:</strong><br>
+  Страница «Выпускной» завершена и утверждена в desktop и mobile.
+</div>
+
+<ul>
+  <li>Entry-point: <code>graduation-preview.html</code>.</li>
+  <li>HTML: <code>pages/graduation/graduation.html</code>, <code>pages/graduation/graduation-mobile.html</code>.</li>
+  <li>CSS: <code>graduation.css</code>, <code>graduation-mobile.css</code>.</li>
+  <li>JS: <code>graduation.js</code>, <code>graduation-mobile.js</code>.</li>
+  <li>Desktop создан по approved-логике страницы «День рождения».</li>
+  <li>Mobile создан по approved-логике страницы «День рождения» и затем синхронизирован с общими mobile-правилами сервисных страниц.</li>
+  <li>Галерея содержит 21 фото.</li>
+  <li>Отзывы содержат 7 карточек.</li>
+  <li>Отзывы на mobile работают свайпом.</li>
+  <li>Текст отзывов на mobile должен совпадать по ручным переносам с desktop-версией.</li>
+  <li>Фон mobile: <code>assets/img/graduation/mobile/background/graduation-mobile-bg.webp</code>.</li>
+  <li>Фон desktop: <code>assets/img/graduation/background/graduation-bg.webp</code>.</li>
+  <li>Video poster: <code>assets/img/graduation/video/graduation-video-poster.webp</code>.</li>
+  <li>Иконка подсказки: <code>assets/img/graduation/mobile/icons/ip-graduation-mobile-hint-icon.svg</code>.</li>
+</ul>
+
 <hr>
 
 <h2 id="service-pages">9. Правила сервисных страниц</h2>
 
 <p>
-Сервисные страницы: «Свадьба», «Корпоратив», «День рождения», «Выпускной», «Музыкальное шоу».
+Сервисные страницы: «Свадьба», «Корпоратив», «День рождения», «Выпускной», «Музыкальное шоу» и следующие страницы проекта.
 </p>
 
 <h3>Workflow новой сервисной страницы</h3>
@@ -810,7 +853,7 @@ BIRTHDAY MOBILE CSS
 
 <hr>
 
-<h2 id="mobile-rules">10. Mobile rules после страницы «День рождения»</h2>
+<h2 id="mobile-rules">10. Mobile rules после страниц «День рождения» и «Выпускной»</h2>
 
 <h3>Mobile gallery</h3>
 
@@ -861,9 +904,30 @@ BIRTHDAY MOBILE CSS
 <h3>Mobile typography</h3>
 
 <ul>
+  <li>Основной текст сервисных mobile-страниц должен соответствовать утверждённым настройкам Figma: <code>font-size:16px</code>, <code>line-height:100%</code>, <code>letter-spacing:-3%</code>, ширина текстового блока <code>354px</code>.</li>
+  <li>Это правило применяется только к mobile CSS и не должно затрагивать desktop-версии.</li>
+  <li>При правке основного текста проверить, что ниже по файлу нет override-блоков, которые возвращают старые значения <code>15px / 1.03 / -0.052em / 350px</code>.</li>
   <li>Не оставлять висящие предлоги, союзы и короткие слова в конце строки.</li>
-  <li>Если desktop и mobile требуют разных переносов, использовать отдельные текстовые блоки.</li>
+  <li>Если desktop и mobile требуют разных переносов, использовать отдельные текстовые блоки или ручные <code>&lt;br&gt;</code> только в нужной версии.</li>
   <li>Не ломать desktop-текст ради mobile-переносов.</li>
+</ul>
+
+<h3>Mobile review line breaks</h3>
+
+<ul>
+  <li>На mobile-версиях «День рождения» и «Выпускной» переносы текста в карточках отзывов должны визуально совпадать с desktop-версией.</li>
+  <li>Если браузер автоматически переносит строки не так, использовать ручные <code>&lt;br&gt;</code> в mobile HTML и CSS-правило, которое сохраняет ручные переносы.</li>
+  <li>Если слово выходит за пределы карточки, сначала править конкретный ручной перенос в HTML, а не менять размеры карточек, аватары или общую геометрию.</li>
+  <li>Desktop-отзывы при таких правках не менять.</li>
+  <li>После любой правки отзывов проверять: закрытое mobile-состояние, раскрытое mobile-состояние, desktop-миниатюры и desktop-popup отзывов.</li>
+</ul>
+
+<h3>Mobile menu background</h3>
+
+<ul>
+  <li>На сервисных mobile-страницах фон меню должен доходить ровно до нижнего края video-блока.</li>
+  <li>Высота фоновых слоёв меню считается как <code>video top + video height</code>.</li>
+  <li>Для страниц с утверждённой mobile-геометрией это правило применяется только к <code>.ip-menu-panel::before</code> и <code>.ip-menu-panel::after</code>; остальные элементы не двигать.</li>
 </ul>
 
 <hr>
@@ -874,7 +938,10 @@ BIRTHDAY MOBILE CSS
   <li>Использовать Kinescope iframe.</li>
   <li>Использовать poster-layer перед видео.</li>
   <li>Autoplay muted loop сохранять там, где это уже реализовано.</li>
-  <li>Не использовать агрессивный overscan iframe без необходимости.</li>
+  <li>Не использовать агрессивный overscan/crop iframe без необходимости.</li>
+  <li>Не увеличивать iframe так, чтобы штатные элементы управления Kinescope уходили за пределы видимой области.</li>
+  <li>Если на видео пропали иконки управления Kinescope, сначала проверить iframe crop/transform/overflow, а не менять Kinescope-ссылку.</li>
+  <li>При унификации video-блоков сначала сравнивать рабочую страницу-эталон и проблемную страницу по CSS-геометрии: section, wrap, poster, iframe.</li>
   <li>Не ломать сетку страницы ради edge-to-edge видео.</li>
   <li>Если видео работает стабильно, не возвращаться к экспериментам без прямого запроса пользователя.</li>
   <li>Для новых страниц обязательно запросить новую Kinescope-ссылку и poster.</li>
@@ -936,6 +1003,15 @@ BIRTHDAY MOBILE CSS
   <li>Safari-safe подход без перерастеризации текста.</li>
 </ul>
 
+<h3>Desktop CTA button rendering</h3>
+
+<ul>
+  <li>На desktop-страницах «Свадьба», «Корпоратив», «День рождения», «Выпускной» текст CTA-кнопок не должен быть размытым при первичном открытии страницы.</li>
+  <li>Если текст становится чётким только после hover, искать причину в transform-композитинге и <code>will-change:transform</code> на кнопке.</li>
+  <li>Для CTA-кнопок использовать безопасный рендеринг текста: без лишнего 3D-композитинга текстового слоя.</li>
+  <li>Исправление блюра CTA должно касаться только desktop CSS кнопок и не менять размеры, позиции, hover-логику, HTML, JS, mobile, меню, галереи и popup.</li>
+</ul>
+
 <hr>
 
 <h2 id="backup">14. Backup policy</h2>
@@ -961,6 +1037,7 @@ biography-preview.html
 wedding-preview.html
 corporate-preview.html
 birthday-preview.html
+graduation-preview.html
 README.md</code></pre>
 
 <h3>Что не копировать</h3>
@@ -994,28 +1071,31 @@ git push</code></pre>
 Clean old backups and create birthday approved restore point
 Create graduation desktop page layout
 Add graduation mobile gallery layout
-Sync graduation mobile opened height containers</code></pre>
+Sync graduation mobile opened height containers
+Finalize graduation page desktop and mobile approved
+Update project rules after graduation approval</code></pre>
 
 <hr>
 
-<h2 id="next">16. Следующая разработка: страница «Выпускной»</h2>
+<h2 id="next">16. Следующая разработка</h2>
 
 <div class="note">
   <strong>СООБЩЕНИЕ ДЛЯ БУДУЩЕЙ РАЗРАБОТКИ:</strong><br>
-  Следующая страница проекта — «Выпускной». Работать строго по Project Rules v2.4.
+  Страницы «Главная», «Биография», «Свадьба», «Корпоратив», «День рождения» и «Выпускной» доведены до эталонного состояния. Следующую страницу начинать только после получения входных данных от пользователя.
 </div>
 
 <h3>Стартовые условия</h3>
 
 <ul>
-  <li>Главная, Биография, Свадьба, Корпоратив и День рождения — approved stable desktop/mobile.</li>
+  <li>Главная, Биография, Свадьба, Корпоратив, День рождения и Выпускной — approved stable desktop/mobile.</li>
   <li>Shared menu/system нельзя ломать.</li>
   <li>Popup нельзя ломать.</li>
   <li>Page transition нельзя ломать.</li>
   <li>Approved страницы не трогать без прямого запроса пользователя.</li>
+  <li>При изменениях на approved-страницах менять только прямо запрошенную область.</li>
 </ul>
 
-<h3>Workflow для «Выпускного»</h3>
+<h3>Workflow для следующей страницы</h3>
 
 <pre><code>1. Перед началом запросить у пользователя только недостающие данные.
 2. Собрать desktop-версию.
@@ -1024,7 +1104,7 @@ Sync graduation mobile opened height containers</code></pre>
 5. После утверждения mobile сделать backup.
 6. Обновить Project Rules при необходимости.</code></pre>
 
-<h3>Что запросить перед началом «Выпускного»</h3>
+<h3>Что запросить перед началом новой сервисной страницы</h3>
 
 <ul>
   <li>заголовок;</li>
@@ -1050,11 +1130,12 @@ Sync graduation mobile opened height containers</code></pre>
 Не писать «остальное без изменений».
 Сначала анализировать файлы.
 Если правка не сработала после двух попыток — остановиться, запросить связанные файлы и найти реальный источник проблемы.
+При проблемах ссылок проверять не только pages/*.html, но и preview-loader / inline MOBILE_HTML.
 JS-файлы отдавать только ZIP-архивом.
 Коммит давать отдельным копируемым code block.</code></pre>
 
 </main>
 
-<!-- Project Rules v2.4 generated 2026-06-04 -->
+<!-- Project Rules v2.5 generated 2026-06-04 -->
 </body>
 </html>
