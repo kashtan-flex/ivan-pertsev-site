@@ -2,43 +2,76 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <!--
   ==================================================
   GRADUATION PREVIEW HTML
 
-  Версия: graduation-preview-html-002-desktop-menu-system
+  Версия: graduation-preview-html-003-approved-menu-source
 
   ИЗМЕНЕНИЯ:
-  - создан preview-файл desktop страницы «Выпускной»
-  - подключены graduation.css, graduation-reviews.css, popups.css и page-transition.css
-  - подключены graduation.js и page-transition.js
-  - подключён graduation.css v002 с восстановленной desktop-системой меню
+  - preview-файл пересобран после анализа approved birthday/home файлов
+  - добавлен полный reset html/body для удаления белой полосы по периметру
+  - подключён css/home.css как approved-источник базовой системы меню
+  - graduation.css оставлен только для layout страницы и page-specific overrides, без самодельного меню v002
+  - сохранены popups.css, page-transition.css, graduation-reviews.css, graduation.js и page-transition.js
   ==================================================
   -->
 
   <title>Выпускной — Иван Перцев</title>
 
-  <link rel="stylesheet" href="./css/page-transition.css">
+  <style>
+    :root{
+      --graduation-vh:1vh;
+    }
+
+    html,
+    body{
+      width:100%;
+      min-height:100%;
+      margin:0;
+      padding:0;
+      background:#050603;
+      overflow:hidden;
+    }
+
+    body{
+      min-height:100vh;
+      min-height:calc(var(--graduation-vh) * 100);
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="preload" href="./assets/img/graduation/video/graduation-video-poster.webp" as="image">
+  <link rel="preload" href="./assets/img/graduation/background/graduation-bg.webp" as="image">
+
+  <link rel="stylesheet" href="./css/home.css">
   <link rel="stylesheet" href="./css/popups.css">
+  <link rel="stylesheet" href="./css/page-transition.css">
   <link rel="stylesheet" href="./css/graduation.css">
   <link rel="stylesheet" href="./css/graduation-reviews.css">
 </head>
 <body>
 
+  <div class="ip-page-transition is-enter" aria-hidden="true"></div>
+
 <!--
 ==================================================
 GRADUATION HTML
 
-Версия: graduation-html-002-desktop-menu-system
+Версия: graduation-html-003-approved-menu-source
 
 ИЗМЕНЕНИЯ:
 - создан desktop HTML страницы «Выпускной» на базе approved страницы «День рождения»
 - добавлены тексты, Kinescope-видео, poster, desktop-фон, галерея из 21 фото и 7 отзывов
 - селекторы, data-атрибуты и пути переведены на graduation
 - меню, popup, page transition, lightbox, scroll-top и логика отзывов сохранены
-- desktop-меню работает через полноценные стили graduation.css v002
+- пункт «Выпускной» в меню ведёт на graduation-preview.html
+- desktop-меню наследует approved-базу из css/home.css
 ==================================================
 -->
 
@@ -1016,7 +1049,7 @@ GRADUATION HTML
 
 </div>
 
-<script src="./js/page-transition.js"></script>
-<script src="./js/graduation.js"></script>
+  <script src="./js/graduation.js"></script>
+  <script src="./js/page-transition.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 ==================================================
 GRADUATION JS
 
-Версия: graduation-js-001-desktop-base
+Версия: graduation-js-003-approved-menu-source
 
 ИЗМЕНЕНИЯ:
 - создан desktop JS страницы «Выпускной» на базе approved страницы «День рождения»
