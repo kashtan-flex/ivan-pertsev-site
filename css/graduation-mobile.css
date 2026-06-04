@@ -2,7 +2,7 @@
 ==================================================
 GRADUATION MOBILE CSS
 
-Версия: graduation-mobile-css-009-main-text-figma-typography
+Версия: graduation-mobile-css-010-review-desktop-line-breaks
 
 ИЗМЕНЕНИЯ:
 - файл основан на graduation-mobile-css-001-base
@@ -14,6 +14,9 @@ GRADUATION MOBILE CSS
 - расстояние между отзывами, подсказкой и стрелкой сохранено
 - раскрытое состояние галереи, меню, popup, lightbox и JS не изменялись
 - основной текст mobile-страницы приведён к настройкам Figma: 16px, line-height 100%, letter-spacing -3%, ширина 354px
+- отключён автоматический перенос внутри строк отзывов на mobile
+- сохранены только ручные <br> внутри отзывов, как в desktop-версии
+- размеры текста, карточек, аватаров, отступы, галерея, подсказка, стрелка, меню и JS не изменялись
 ==================================================
 */
 
@@ -1927,7 +1930,7 @@ GRADUATION MOBILE CSS
 /* =========================================================
    GRADUATION MOBILE OPENED GALLERY GAP BALANCE
 
-   Версия: graduation-mobile-css-009-main-text-figma-typography
+   Версия: graduation-mobile-css-010-review-desktop-line-breaks
 
    ИЗМЕНЕНИЯ:
    - раскрытое состояние: галерея поднята с 1560px до 1408px
@@ -1990,7 +1993,7 @@ GRADUATION MOBILE CSS
 /* =========================================================
    GRADUATION MOBILE MAIN TEXT TYPOGRAPHY
 
-   Версия: graduation-mobile-css-009-main-text-figma-typography
+   Версия: graduation-mobile-css-010-review-desktop-line-breaks
 
    ИЗМЕНЕНИЯ:
    - основной текст мобильной страницы приведён к настройкам Figma
@@ -2016,5 +2019,23 @@ GRADUATION MOBILE CSS
   .ip-graduation-mobile-description strong{
     font-weight:700 !important;
     letter-spacing:-.03em !important;
+  }
+}
+
+/* =========================================================
+   GRADUATION MOBILE REVIEW DESKTOP LINE BREAKS
+
+   Версия: graduation-mobile-css-010-review-desktop-line-breaks
+
+   ИЗМЕНЕНИЯ:
+   - отключён автоматический перенос внутри строк отзывов на mobile
+   - сохранены только ручные <br>, как в desktop-версии
+   - размеры текста, карточек, аватаров и отступы не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-graduation-mobile .ip-graduation-mobile-review-text,
+  .ip-graduation-mobile .ip-graduation-mobile-review-text strong{
+    white-space:nowrap !important;
   }
 }
