@@ -20,7 +20,7 @@ GRADUATION MOBILE JS
       width:390,
       height:700,
       stageHeightClosed:1994,
-      stageHeightOpened:5940
+      stageHeightOpened:5788
     },
     breakpoint:767
   };

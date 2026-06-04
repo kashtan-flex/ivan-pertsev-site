@@ -2,13 +2,15 @@
 ==================================================
 GRADUATION MOBILE CSS
 
-Версия: graduation-mobile-css-003-closed-page-bottom-trim
+Версия: graduation-mobile-css-004-opened-gallery-gap-balance
 
 ИЗМЕНЕНИЯ:
 - файл основан на graduation-mobile-css-001-base
 - в закрытом mobile-состоянии отзывы подняты выше
 - подсказка отзывов поднята вместе с отзывами
-- стрелка scrolltop поднята выше через увеличенный нижний отступ
+- раскрытое состояние: галерея поднята ближе к CTA-кнопкам
+- сохранён отступ 70px от конца галереи до отзывов
+- подсказка и стрелка подняты вместе с галереей без изменения расстояния между ними
 - расстояние между отзывами, подсказкой и стрелкой сохранено
 - раскрытое состояние галереи, меню, popup, lightbox и JS не изменялись
 ==================================================
@@ -1414,18 +1416,18 @@ GRADUATION MOBILE CSS
   }
 
   .ip-graduation-mobile.has-gallery-opened{
-    min-height:var(--graduation-mobile-page-height, 5846px) !important;
-    height:var(--graduation-mobile-page-height, 5846px) !important;
+    min-height:var(--graduation-mobile-page-height, 5788px) !important;
+    height:var(--graduation-mobile-page-height, 5788px) !important;
   }
 
   .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-bg{
-    height:5846px !important;
-    min-height:5846px !important;
+    height:5788px !important;
+    min-height:5788px !important;
   }
 
   .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-content{
-    min-height:5846px !important;
-    height:5846px !important;
+    min-height:5788px !important;
+    height:5788px !important;
   }
 
   .ip-graduation-mobile-header{
@@ -1917,5 +1919,69 @@ GRADUATION MOBILE CSS
   .ip-graduation-mobile:not(.has-gallery-opened) .ip-graduation-mobile-scrolltop{
     top:1920px !important;
     bottom:auto !important;
+  }
+}
+
+
+/* =========================================================
+   GRADUATION MOBILE OPENED GALLERY GAP BALANCE
+
+   Версия: graduation-mobile-css-004-opened-gallery-gap-balance
+
+   ИЗМЕНЕНИЯ:
+   - раскрытое состояние: галерея поднята с 1560px до 1408px
+   - расстояние от нижней CTA-кнопки до начала фото приведено к расстоянию от CTA до отзывов в закрытом состоянии
+   - отзывы подняты вместе с галереей, сохранён отступ 70px от конца фото до отзывов
+   - подсказка и стрелка подняты вместе с фото без изменения расстояния между ними
+   - закрытое состояние страницы не изменялось
+   - JS не изменялся
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-gallery{
+    top:1408px !important;
+  }
+
+  .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-reviews{
+    top:5180px !important;
+  }
+
+  .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-hint{
+    top:5620px !important;
+  }
+
+  .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-scrolltop{
+    top:5714px !important;
+    bottom:auto !important;
+  }
+}
+
+
+/* =========================================================
+   GRADUATION MOBILE OPENED PAGE BOTTOM TRIM
+
+   Версия: graduation-mobile-css-005-opened-bottom-trim
+
+   ИЗМЕНЕНИЯ:
+   - раскрытая высота страницы уменьшена до 5788px
+   - расстояние от нижней точки стрелки до конца раскрытой страницы стало 50px
+   - галерея, отзывы, подсказка и стрелка остались на позициях v004
+   - закрытая версия страницы не изменялась
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-graduation-mobile.has-gallery-opened{
+    min-height:var(--graduation-mobile-page-height, 5788px) !important;
+    height:var(--graduation-mobile-page-height, 5788px) !important;
+  }
+
+  .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-bg{
+    height:5788px !important;
+    min-height:5788px !important;
+  }
+
+  .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-content{
+    min-height:5788px !important;
+    height:5788px !important;
   }
 }
