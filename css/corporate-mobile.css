@@ -1492,3 +1492,22 @@ CORPORATE MOBILE CSS
     font-weight:700 !important;
   }
 }
+
+
+/* =========================================================
+   CORPORATE MOBILE MENU BACKGROUND ALIGN
+
+   Версия: corporate-mobile-css-009-menu-bg-video-bottom-align
+
+   ИЗМЕНЕНИЯ:
+   - фоновые слои mobile-меню выровнены по нижнему краю видеоблока
+   - высота меню-фона установлена 833px: video top 148px + video height 685px
+   - видео, Kinescope, текст, кнопки, галерея, отзывы, подсказка, стрелка и JS не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-corporate-mobile .ip-menu-panel::before,
+  .ip-corporate-mobile .ip-menu-panel::after{
+    height:833px !important;
+  }
+}
