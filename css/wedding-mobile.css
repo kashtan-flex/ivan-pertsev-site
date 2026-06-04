@@ -2,14 +2,14 @@
 ==================================================
 WEDDING MOBILE CSS
 
-Версия: wedding-mobile-css-022-lower-swipe-hint
+Версия: wedding-mobile-css-023-video-cover-crop
 
 ИЗМЕНЕНИЯ:
-- файл собран на основе wedding-mobile-css-021-extend-bottom-background
-- опущена только подсказка «Листайте для просмотра» с иконкой руки на 20px ниже
-- положение стрелки вверх не изменялось
-- нижний background закрытой мобильной страницы сохранён продлённым до 2198px
-- отзывы, галерея, меню, popup, lightbox, типографика, кнопки и анимации не изменялись
+- файл основан на wedding-mobile-css-022-lower-swipe-hint
+- mobile iframe Kinescope переведён в cover-crop режим без изменения контейнера страницы
+- ширина iframe увеличена внутри существующего 390px video-wrap, лишнее обрезается overflow:hidden
+- layout страницы, высоты, тексты, кнопки, галерея, отзывы, подсказка, стрелка, меню и JS не изменялись
+- проверено: подсказка руки на Wedding уже использует корректный путь wedding/mobile/icons
 ==================================================
 */
 
@@ -1123,5 +1123,40 @@ WEDDING MOBILE CSS
 @media (max-width:767px){
   .ip-wedding-mobile:not(.has-gallery-opened) .ip-wedding-mobile-hint{
     top:2010px !important;
+  }
+}
+
+/* =========================================================
+   WEDDING MOBILE VIDEO COVER CROP
+
+   Версия: wedding-mobile-css-023-video-cover-crop
+
+   ИЗМЕНЕНИЯ:
+   - iframe Kinescope увеличен внутри существующего контейнера 390px
+   - боковые/внутренние поля плеера убираются за счёт cover-crop
+   - размеры и позиция самой секции видео не менялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-wedding-mobile-video-section{
+    left:0 !important;
+    width:390px !important;
+    overflow:hidden !important;
+  }
+
+  .ip-wedding-mobile-video-wrap{
+    left:0 !important;
+    width:390px !important;
+    overflow:hidden !important;
+  }
+
+  .ip-wedding-mobile-video{
+    left:50% !important;
+    top:0 !important;
+    width:1184px !important;
+    min-width:1184px !important;
+    max-width:none !important;
+    height:666px !important;
+    transform:translate3d(-50%,0,0) !important;
   }
 }
