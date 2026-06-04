@@ -1,7 +1,7 @@
 /* =========================================================
    GRADUATION CSS
 
-   Версия: graduation-css-005-expanded-bottom-background-and-reviews-gap
+   Версия: graduation-css-009-top100-left-align-and-reviews-gap
 
    ИЗМЕНЕНИЯ:
    - файл основан на graduation-css-004-actions-up-20px
@@ -1975,7 +1975,7 @@
 }
 
 .ip-graduation .ip-graduation-top100{
-  left:70px !important;
+  left:65px !important;
   top:185px !important;
 }
 
@@ -2068,7 +2068,7 @@
 /* =========================================================
    GRADUATION EXPANDED DESKTOP BACKGROUND AND REVIEWS GAP
 
-   Версия: graduation-css-005-expanded-bottom-background-and-reviews-gap
+   Версия: graduation-css-009-top100-left-align-and-reviews-gap
 
    ИЗМЕНЕНИЯ:
    - раскрытое состояние получает цельный нижний background от низа страницы
