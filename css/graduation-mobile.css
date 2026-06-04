@@ -2,7 +2,7 @@
 ==================================================
 GRADUATION MOBILE CSS
 
-Версия: graduation-mobile-css-004-opened-gallery-gap-balance
+Версия: graduation-mobile-css-009-main-text-figma-typography
 
 ИЗМЕНЕНИЯ:
 - файл основан на graduation-mobile-css-001-base
@@ -13,6 +13,7 @@ GRADUATION MOBILE CSS
 - подсказка и стрелка подняты вместе с галереей без изменения расстояния между ними
 - расстояние между отзывами, подсказкой и стрелкой сохранено
 - раскрытое состояние галереи, меню, popup, lightbox и JS не изменялись
+- основной текст mobile-страницы приведён к настройкам Figma: 16px, line-height 100%, letter-spacing -3%, ширина 354px
 ==================================================
 */
 
@@ -1926,7 +1927,7 @@ GRADUATION MOBILE CSS
 /* =========================================================
    GRADUATION MOBILE OPENED GALLERY GAP BALANCE
 
-   Версия: graduation-mobile-css-004-opened-gallery-gap-balance
+   Версия: graduation-mobile-css-009-main-text-figma-typography
 
    ИЗМЕНЕНИЯ:
    - раскрытое состояние: галерея поднята с 1560px до 1408px
@@ -1983,5 +1984,37 @@ GRADUATION MOBILE CSS
   .ip-graduation-mobile.has-gallery-opened .ip-graduation-mobile-content{
     min-height:5788px !important;
     height:5788px !important;
+  }
+}
+
+/* =========================================================
+   GRADUATION MOBILE MAIN TEXT TYPOGRAPHY
+
+   Версия: graduation-mobile-css-009-main-text-figma-typography
+
+   ИЗМЕНЕНИЯ:
+   - основной текст мобильной страницы приведён к настройкам Figma
+   - размер шрифта: 16px
+   - line-height: 100%
+   - letter-spacing: -3%
+   - ширина текстового блока: 354px
+   - позиции блоков, отзывы, подсказка, стрелка, галерея, меню и JS не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-graduation-mobile-description{
+    width:354px !important;
+    margin:0 !important;
+    color:#fff !important;
+    font-family:'Montserrat',Arial,sans-serif !important;
+    font-size:16px !important;
+    line-height:100% !important;
+    font-weight:400 !important;
+    letter-spacing:-.03em !important;
+  }
+
+  .ip-graduation-mobile-description strong{
+    font-weight:700 !important;
+    letter-spacing:-.03em !important;
   }
 }
