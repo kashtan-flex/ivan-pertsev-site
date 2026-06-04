@@ -2,7 +2,7 @@
 ==================================================
 GRADUATION MOBILE CSS
 
-Версия: graduation-mobile-css-011-review-line-breaks-mobile-safe
+Версия: graduation-mobile-css-013-menu-bg-video-bottom-align
 
 ИЗМЕНЕНИЯ:
 - файл основан на graduation-mobile-css-001-base
@@ -14,9 +14,7 @@ GRADUATION MOBILE CSS
 - расстояние между отзывами, подсказкой и стрелкой сохранено
 - раскрытое состояние галереи, меню, popup, lightbox и JS не изменялись
 - основной текст mobile-страницы приведён к настройкам Figma: 16px, line-height 100%, letter-spacing -3%, ширина 354px
-- отключён автоматический перенос внутри строк отзывов на mobile
-- сохранены только ручные <br> внутри отзывов, как в desktop-версии
-- размеры текста, карточек, аватаров, отступы, галерея, подсказка, стрелка, меню и JS не изменялись
+- фоновые слои mobile-меню увеличены до нижнего края видео: 840px
 ==================================================
 */
 
@@ -1930,7 +1928,7 @@ GRADUATION MOBILE CSS
 /* =========================================================
    GRADUATION MOBILE OPENED GALLERY GAP BALANCE
 
-   Версия: graduation-mobile-css-010-review-desktop-line-breaks
+   Версия: graduation-mobile-css-009-main-text-figma-typography
 
    ИЗМЕНЕНИЯ:
    - раскрытое состояние: галерея поднята с 1560px до 1408px
@@ -1993,7 +1991,7 @@ GRADUATION MOBILE CSS
 /* =========================================================
    GRADUATION MOBILE MAIN TEXT TYPOGRAPHY
 
-   Версия: graduation-mobile-css-010-review-desktop-line-breaks
+   Версия: graduation-mobile-css-009-main-text-figma-typography
 
    ИЗМЕНЕНИЯ:
    - основной текст мобильной страницы приведён к настройкам Figma
@@ -2023,47 +2021,19 @@ GRADUATION MOBILE CSS
 }
 
 /* =========================================================
-   GRADUATION MOBILE REVIEW DESKTOP LINE BREAKS
+   GRADUATION MOBILE MENU BACKGROUND VIDEO BOTTOM ALIGN
 
-   Версия: graduation-mobile-css-010-review-desktop-line-breaks
+   Версия: graduation-mobile-css-013-menu-bg-video-bottom-align
 
    ИЗМЕНЕНИЯ:
-   - отключён автоматический перенос внутри строк отзывов на mobile
-   - сохранены только ручные <br>, как в desktop-версии
-   - размеры текста, карточек, аватаров и отступы не изменялись
+   - фоновые слои mobile-меню увеличены до нижнего края видео
+   - расчёт: video top 148px + video height 692px = 840px
+   - видео, Kinescope, основной текст, кнопки, галерея, отзывы, подсказка, стрелка, HTML и JS не изменялись
    ========================================================= */
 
 @media (max-width:767px){
-  .ip-graduation-mobile .ip-graduation-mobile-review-text,
-  .ip-graduation-mobile .ip-graduation-mobile-review-text strong{
-    white-space:nowrap !important;
-  }
-}
-
-
-/* =========================================================
-   GRADUATION MOBILE REVIEW LINE BREAKS MOBILE SAFE
-
-   Версия: graduation-mobile-css-011-review-line-breaks-mobile-safe
-
-   ИЗМЕНЕНИЯ:
-   - усилена mobile-only логика отзывов: браузер не делает автоматические переносы внутри строк
-   - сохраняются только ручные <br>, как в desktop-версии
-   - desktop-версия не затрагивается
-   - размеры карточек, аватары, позиции отзывов, подсказка, стрелка, галерея, меню и JS не изменялись
-   ========================================================= */
-
-@media (max-width:767px){
-  .ip-graduation-mobile .ip-graduation-mobile-review{
-    overflow:visible !important;
-  }
-
-  .ip-graduation-mobile .ip-graduation-mobile-review-text,
-  .ip-graduation-mobile .ip-graduation-mobile-review-text strong{
-    white-space:nowrap !important;
-    word-break:keep-all !important;
-    overflow-wrap:normal !important;
-    hyphens:none !important;
-    -webkit-hyphens:none !important;
+  .ip-graduation-mobile .ip-menu-panel::before,
+  .ip-graduation-mobile .ip-menu-panel::after{
+    height:840px !important;
   }
 }

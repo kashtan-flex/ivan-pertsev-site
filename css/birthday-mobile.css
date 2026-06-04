@@ -2,12 +2,13 @@
 ==================================================
 BIRTHDAY MOBILE CSS
 
-Версия: birthday-mobile-css-007-review-desktop-line-breaks
+Версия: birthday-mobile-css-008-main-text-and-review-line-breaks
 
 ИЗМЕНЕНИЯ:
-- файл основан на birthday-mobile-css-006-opened-height-sync
-- добавлен безопасный override для текста мобильных отзывов
-- ручные переносы <br> теперь сохраняются как на desktop, без авто-переноса браузером внутри строки
+- файл основан на birthday-mobile-css-007-main-text-figma-typography-restored
+- сохранена утверждённая типографика основного текста mobile-страницы: 16px, line-height 100%, letter-spacing -3%, width 354px
+- возвращён безопасный override для текста мобильных отзывов
+- ручные переносы <br> снова сохраняются как на desktop, без авто-переноса браузером внутри строки
 - размеры карточек, аватары, отступы, галерея, меню, видео, подсказка, стрелка и JavaScript не изменялись
 ==================================================
 */
@@ -1622,12 +1623,13 @@ BIRTHDAY MOBILE CSS
   /* =========================================================
      BIRTHDAY MOBILE REVIEWS TEXT ALIGNMENT
 
-     Версия: birthday-mobile-css-003-review-hint-spacing
+     Версия: birthday-mobile-css-007-main-text-figma-typography-restored
 
      ИЗМЕНЕНИЯ:
      - подсказка «Листайте для просмотра» и стрелка опущены на 40px ниже
      - расстояние между текстом подсказки и стрелкой сохранено
      - высота закрытой и раскрытой мобильной страницы увеличена на 40px
+     - восстановлена утверждённая типографика основного текста mobile-страницы: 16px, line-height 100%, letter-spacing -3%, width 354px
      - положение отзывов, галереи, hero-блока, меню и popup не изменялось
      ========================================================= */
 
@@ -1644,15 +1646,35 @@ BIRTHDAY MOBILE CSS
 }
 
 /* =========================================================
-   BIRTHDAY MOBILE REVIEW DESKTOP LINE BREAKS
+   BIRTHDAY MOBILE MAIN TEXT FIGMA TYPOGRAPHY RESTORE
 
-   Версия: birthday-mobile-css-007-review-desktop-line-breaks
+   Версия: birthday-mobile-css-007-main-text-figma-typography-restored
 
    ИЗМЕНЕНИЯ:
-   - HTML-переносы отзывов уже совпадали с desktop
-   - отключён автоматический перенос внутри строк отзывов на mobile
-   - сохранены только ручные <br>, как в desktop-версии
-   - размеры текста, карточек, аватаров и отступы не изменялись
+   - восстановлена утверждённая типографика основного текста mobile-страницы
+   - применено только к .ip-birthday-mobile-description
+   - desktop-версия, видео, кнопки, галерея, отзывы, подсказка, стрелка, меню и JS не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-birthday-mobile-description{
+    width:354px !important;
+    font-size:16px !important;
+    line-height:100% !important;
+    letter-spacing:-.03em !important;
+  }
+}
+
+/* =========================================================
+   BIRTHDAY MOBILE REVIEW DESKTOP LINE BREAKS RESTORE
+
+   Версия: birthday-mobile-css-008-main-text-and-review-line-breaks
+
+   ИЗМЕНЕНИЯ:
+   - возвращён override для mobile-отзывов после восстановления типографики основного текста
+   - автоматический перенос внутри строк отзывов отключён
+   - сохраняются только ручные <br>, как в desktop-версии
+   - desktop, размеры карточек, аватары, отступы, галерея, меню, видео и JS не изменялись
    ========================================================= */
 
 @media (max-width:767px){
