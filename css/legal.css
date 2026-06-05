@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-007-mobile-menu-fixed-higher
+   Версия: legal-css-008-policy-menu-sync-with-cooperation
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -18,6 +18,9 @@
    - desktop получил design-stage 1440px с масштабом от ширины viewport
    - mobile получил design-stage 390px с масштабом как на странице «Сотрудничество»
    - высота страницы теперь рассчитывается через JS по фактической высоте legal-контента
+   - mobile-меню страницы политики синхронизировано с эталонной страницей «Сотрудничество»
+   - burger/cross закреплены относительно viewport без переноса меню в body
+   - desktop-меню и текстовая разметка не изменялись
    - mobile burger поднят к верхней части второй строки заголовка и жёстко зафиксирован относительно viewport
    - контент, переносы текста, меню, popup, scroll-top, desktop и JS не изменялись
    ========================================================= */
@@ -427,9 +430,9 @@ body,
 
   .ip-policy-page .ip-menu-toggle{
     position:fixed !important;
-    top:calc(60px * var(--ip-policy-mobile-scale, 1));
+    top:calc(36px * var(--ip-policy-mobile-scale, 1));
     right:calc(((100vw - (390px * var(--ip-policy-mobile-scale, 1))) / 2) + (20px * var(--ip-policy-mobile-scale, 1)));
-    z-index:80;
+    z-index:10020;
     width:27px;
     height:27px;
     padding:0 !important;
@@ -444,6 +447,8 @@ body,
     box-shadow:none !important;
     filter:none;
     touch-action:manipulation;
+    transform:scale(var(--ip-policy-mobile-scale, 1));
+    transform-origin:top right;
   }
 
   .ip-policy-page .ip-menu-line{
@@ -478,10 +483,10 @@ body,
   }
 
   .ip-policy-page .ip-menu-panel{
-    position:fixed;
+    position:fixed !important;
     top:0;
     right:calc((100vw - (390px * var(--ip-policy-mobile-scale, 1))) / 2);
-    z-index:70;
+    z-index:10010;
     width:390px;
     max-width:none;
     height:700px;
@@ -494,6 +499,10 @@ body,
     touch-action:pan-y;
     transform:scale(var(--ip-policy-mobile-scale, 1));
     transform-origin:top right;
+  }
+
+  .ip-policy-page .ip-menu-panel.is-open{
+    pointer-events:auto;
   }
 
   .ip-policy-page .ip-menu-panel::before{
