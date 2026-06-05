@@ -2,7 +2,7 @@
 ==================================================
 COOPERATION MOBILE CSS
 
-Версия: cooperation-mobile-css-013-menu-legal-scaled-stage
+Версия: cooperation-mobile-css-014-menu-legal-higher
 
 ИЗМЕНЕНИЯ:
 - файл основан на cooperation-mobile-css-001-initial
@@ -15,7 +15,8 @@ COOPERATION MOBILE CSS
 - заголовок и подзаголовок опущены на 5px вниз без изменения расстояния между ними
 - меню приведено к approved-виду mobile-страниц проектов: blue submenu links, approved accordion раскрытие и legal-блок
 - длина фоновых слоёв меню сохранена на всю страницу
-- правовые ссылки mobile-меню подняты в видимую область без изменения длины фоновых слоёв меню
+- правовые ссылки mobile-меню дополнительно подняты выше по визуальному эталону страницы «Свадьба»
+- длина фоновых слоёв меню сохранена на всю страницу
 - popup, desktop, портрет, высота страницы, стрелка и остальные позиции контента не изменялись
 ==================================================
 */
@@ -608,7 +609,7 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile .ip-menu-legal{
     left:40px;
     right:22px;
-    top:638px;
+    top:600px;
     bottom:auto;
     z-index:8;
   }
