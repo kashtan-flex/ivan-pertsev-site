@@ -2,7 +2,7 @@
 ==================================================
 COOPERATION MOBILE JS
 
-Версия: cooperation-mobile-js-004-final-page-length-and-scrolltop
+Версия: cooperation-mobile-js-005-forced-rider-downloads
 
 ИЗМЕНЕНИЯ:
 - файл основан на cooperation-mobile-js-001-initial
@@ -10,6 +10,7 @@ COOPERATION MOBILE JS
 - glow и текст остаются CSS-анимациями при открытии страницы
 - высота mobile-страницы повторно рассчитана по фактическому нижнему краю видимого портрета
 - scroll-top синхронизирован с финальной длиной страницы
+- добавлен принудительный обработчик скачивания PDF-райдеров через fetch/blob для mobile-браузеров
 - menu, accordion, popup, date mask и disabled portfolio link не изменялись
 - desktop JS не изменялся
 ==================================================
@@ -51,6 +52,10 @@ COOPERATION MOBILE JS
 
   var disabledDownloads = Array.prototype.slice.call(
     document.querySelectorAll('.ip-cooperation-mobile-download.is-disabled')
+  );
+
+  var fileDownloadLinks = Array.prototype.slice.call(
+    document.querySelectorAll('[data-cooperation-file-download]')
   );
 
   var scrollTopButton = document.querySelector('.ip-cooperation-mobile-scrolltop');
@@ -488,6 +493,68 @@ COOPERATION MOBILE JS
     });
   }
 
+  function getFileNameFromLink(link, url){
+    var explicitName = link.getAttribute('download');
+
+    if(explicitName){
+      return explicitName;
+    }
+
+    var cleanUrl = url.split('?')[0].split('#')[0];
+    var parts = cleanUrl.split('/');
+
+    return parts[parts.length - 1] || 'download.pdf';
+  }
+
+  function forceFileDownload(link){
+    var href = link.getAttribute('href');
+
+    if(!href || href === '#'){
+      return;
+    }
+
+    var absoluteUrl = new URL(href, window.location.href).href;
+    var fileName = getFileNameFromLink(link, absoluteUrl);
+
+    fetch(absoluteUrl, { cache:'no-store' })
+      .then(function(response){
+        if(!response.ok){
+          throw new Error('download-response-error');
+        }
+
+        return response.blob();
+      })
+      .then(function(blob){
+        var objectUrl = window.URL.createObjectURL(blob);
+        var temporaryLink = document.createElement('a');
+
+        temporaryLink.href = objectUrl;
+        temporaryLink.download = fileName;
+        temporaryLink.style.display = 'none';
+
+        document.body.appendChild(temporaryLink);
+        temporaryLink.click();
+        temporaryLink.remove();
+
+        window.setTimeout(function(){
+          window.URL.revokeObjectURL(objectUrl);
+        }, 1000);
+      })
+      .catch(function(){
+        window.location.href = absoluteUrl;
+      });
+  }
+
+  function setupFileDownloads(){
+    fileDownloadLinks.forEach(function(link){
+      link.addEventListener('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        forceFileDownload(link);
+      }, true);
+    });
+  }
+
   function bindEvents(){
     window.addEventListener('resize', requestScaleUpdate);
 
@@ -512,6 +579,7 @@ COOPERATION MOBILE JS
     setupMenuCloseOnScroll();
     setupDateMask();
     setupDisabledDownloads();
+    setupFileDownloads();
 
     if(scrollTopButton){
       scrollTopButton.addEventListener('click', scrollToTop);

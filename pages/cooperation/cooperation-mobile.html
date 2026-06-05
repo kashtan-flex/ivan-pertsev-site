@@ -2,7 +2,7 @@
 ==================================================
 COOPERATION MOBILE HTML
 
-Версия: cooperation-mobile-html-002-rider-download-links
+Версия: cooperation-mobile-html-003-rider-download-handler
 
 ИЗМЕНЕНИЯ:
 - создана mobile-разметка страницы «Сотрудничество»
@@ -10,6 +10,7 @@ COOPERATION MOBILE HTML
 - добавлены mobile background, glow и portrait-слой
 - сохранены тексты, ссылки на документы и заглушка «Портфолио»
 - добавлена стрелка scroll-top по аналогии с mobile-страницами проектов
+- ссылки райдеров подготовлены для принудительного mobile-download через JS
 - сохранены утверждённые меню и общий popup
 - desktop-разметка не изменялась
 ==================================================
@@ -36,12 +37,12 @@ COOPERATION MOBILE HTML
         <span>Портфолио</span>
       </a>
 
-      <a class="ip-cooperation-mobile-download" href="./docs/cooperation/ivan-pertsev-bytovoy-rider.pdf" download target="_blank" rel="noopener noreferrer">
+      <a class="ip-cooperation-mobile-download" href="./docs/cooperation/ivan-pertsev-bytovoy-rider.pdf" download="ivan-pertsev-bytovoy-rider.pdf" data-cooperation-file-download>
         <span class="ip-cooperation-mobile-dot" aria-hidden="true">·</span>
         <span>Бытовой райдер</span>
       </a>
 
-      <a class="ip-cooperation-mobile-download" href="./docs/cooperation/ivan-pertsev-technical-rider.pdf" download target="_blank" rel="noopener noreferrer">
+      <a class="ip-cooperation-mobile-download" href="./docs/cooperation/ivan-pertsev-technical-rider.pdf" download="ivan-pertsev-technical-rider.pdf" data-cooperation-file-download>
         <span class="ip-cooperation-mobile-dot" aria-hidden="true">·</span>
         <span>Технический райдер</span>
       </a>
