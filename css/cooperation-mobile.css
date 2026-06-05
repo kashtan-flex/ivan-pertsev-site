@@ -2,7 +2,7 @@
 ==================================================
 COOPERATION MOBILE CSS
 
-Версия: cooperation-mobile-css-009-menu-legal-visible
+Версия: cooperation-mobile-css-013-menu-legal-scaled-stage
 
 ИЗМЕНЕНИЯ:
 - файл основан на cooperation-mobile-css-001-initial
@@ -608,8 +608,13 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile .ip-menu-legal{
     left:40px;
     right:22px;
-    top:790px;
+    top:638px;
     bottom:auto;
+    z-index:8;
+  }
+
+  .ip-cooperation-mobile .ip-menu-panel.is-open .ip-menu-legal{
+    pointer-events:auto;
   }
 
   .ip-cooperation-mobile .ip-menu-legal a,
