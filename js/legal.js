@@ -2,12 +2,13 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-001-policy-page
+Версия: legal-js-002-policy-scrolltop
 
 ИЗМЕНЕНИЯ:
 - создан JS для текстовых правовых страниц проекта
 - сохранена логика меню, аккордеонов, popup и маски даты по approved-страницам
 - добавлена обработка data-popup-open="main" для пунктов «Другое», «Написать» и popup-триггеров
+- добавлена работа стрелки наверх
 - остальные страницы сайта не изменялись
 ==================================================
 */
@@ -22,6 +23,7 @@ LEGAL JS
   var popup = document.querySelector('[data-popup="main"]');
   var popupOpenTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-popup-open]'));
   var popupCloseTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-popup-close]'));
+  var scrollTopButton = document.querySelector('.ip-legal-scrolltop');
 
   if(!page || !menuButton || !menuPanel){
     return;
@@ -128,6 +130,14 @@ LEGAL JS
     }
   }
 
+
+  function scrollToTop(){
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
+  }
+
   function setupDateMask(){
     if(!popup){
       return;
@@ -168,6 +178,10 @@ LEGAL JS
   accordions.forEach(setupAccordion);
   setupPopupTriggers();
   setupDateMask();
+
+  if(scrollTopButton){
+    scrollTopButton.addEventListener('click', scrollToTop);
+  }
 
   window.addEventListener('scroll', function(){
     if(menuPanel.classList.contains('is-open')){

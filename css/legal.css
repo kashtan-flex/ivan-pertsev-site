@@ -1,13 +1,17 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-001-policy-page
+   Версия: legal-css-004-policy-menu-legal-color
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
    - добавлена текстовая страница «Политика обработки персональных данных» на фоне policy-bg.webp
    - сохранена утверждённая визуальная система меню через home.css с локальными override только для legal-страниц
-   - добавлена desktop/mobile адаптация текстового контента
+   - desktop-верстка приведена ближе к Figma-макету: 1440px, отступ 100px, ширина текста 1122px
+   - обновлена типографика: заголовок 40px Semibold, разделы 20px Semibold, основной текст 16px Regular
+   - дата и сайт поставлены в правый верхний блок по макету
+   - добавлена стрелка наверх внизу страницы
+   - цвет ссылки «Политика обработки персональных данных» в меню приведён к цвету ссылки «Согласие на обработку персональных данных»
    - остальные страницы сайта не затрагивались
    ========================================================= */
 
@@ -38,7 +42,7 @@ body,
 .ip-policy-page{
   position:relative;
   min-height:100vh;
-  overflow:hidden;
+  overflow:visible;
   background:#050603;
   color:#fff;
   font-family:'Montserrat',Arial,sans-serif;
@@ -59,7 +63,7 @@ body,
   background-image:url('../assets/img/policy/background/policy-bg.webp');
   background-size:cover;
   background-position:center top;
-  background-repeat:no-repeat;
+  background-repeat:repeat-y;
 }
 
 .ip-policy-overlay{
@@ -72,9 +76,9 @@ body,
 .ip-policy-shell{
   position:relative;
   z-index:5;
-  width:min(980px, calc(100vw - 120px));
+  width:min(1240px, calc(100vw - 200px));
   margin:0 auto;
-  padding:118px 0 96px;
+  padding:55px 0 146px;
 }
 
 .ip-legal-page{
@@ -82,29 +86,36 @@ body,
 }
 
 .ip-legal-header{
-  margin:0 0 52px;
+  position:relative;
+  height:212px;
+  margin:0;
 }
 
 .ip-legal-title{
-  width:100%;
-  margin:0 0 26px;
+  width:903px;
+  margin:0;
   color:#fff;
   font-family:'Montserrat',Arial,sans-serif;
-  font-size:42px;
-  line-height:1.04;
+  font-size:40px;
+  line-height:.95;
   font-weight:600;
-  letter-spacing:-.045em;
+  letter-spacing:-.03em;
 }
 
 .ip-legal-meta{
+  position:absolute;
+  right:0;
+  top:128px;
+  width:284px;
   display:flex;
   flex-direction:column;
-  gap:8px;
-  color:rgba(255,255,255,.66);
-  font-size:15px;
-  line-height:1.45;
+  gap:0;
+  color:rgba(255,255,255,.82);
+  font-size:16px;
+  line-height:1.4;
   font-weight:400;
-  letter-spacing:-.015em;
+  letter-spacing:-.02em;
+  text-align:right;
 }
 
 .ip-legal-meta p{
@@ -114,7 +125,8 @@ body,
 .ip-legal-content{
   display:flex;
   flex-direction:column;
-  gap:38px;
+  gap:40px;
+  width:1122px;
 }
 
 .ip-legal-section{
@@ -122,22 +134,22 @@ body,
 }
 
 .ip-legal-section-title{
-  margin:0 0 16px;
+  margin:0 0 20px;
   color:#fff;
-  font-size:24px;
-  line-height:1.18;
+  font-size:20px;
+  line-height:1;
   font-weight:600;
-  letter-spacing:-.035em;
+  letter-spacing:-.03em;
 }
 
 .ip-legal-content p,
 .ip-legal-list{
-  margin:0 0 14px;
-  color:rgba(255,255,255,.78);
+  margin:0 0 20px;
+  color:rgba(255,255,255,.82);
   font-size:16px;
-  line-height:1.58;
+  line-height:1;
   font-weight:400;
-  letter-spacing:-.018em;
+  letter-spacing:-.02em;
 }
 
 .ip-legal-content p:last-child,
@@ -146,11 +158,12 @@ body,
 }
 
 .ip-legal-list{
-  padding-left:22px;
+  padding-left:14px;
+  list-style-position:outside;
 }
 
 .ip-legal-list li{
-  margin:0 0 7px;
+  margin:0;
 }
 
 .ip-legal-content a,
@@ -163,6 +176,42 @@ body,
 .ip-legal-content a:hover,
 .ip-legal-meta a:hover{
   opacity:.75;
+}
+
+
+.ip-legal-scrolltop{
+  position:absolute;
+  right:100px;
+  bottom:146px;
+  z-index:9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:24px;
+  height:24px;
+  padding:0;
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:7px;
+  background:transparent;
+  cursor:pointer;
+  opacity:1;
+  visibility:visible;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  transition:opacity .25s ease;
+}
+
+.ip-legal-scrolltop:hover{
+  opacity:.75;
+}
+
+.ip-legal-scrolltop span{
+  display:block;
+  width:8px;
+  height:8px;
+  border-top:1.5px solid #fff;
+  border-left:1.5px solid #fff;
+  transform:translateY(2px) rotate(45deg);
 }
 
 /* MENU OVERRIDES FOR SCROLLABLE LEGAL PAGE */
@@ -182,9 +231,6 @@ body,
   height:100%;
 }
 
-.ip-policy-page .ip-menu-legal a:first-child{
-  color:rgba(105,201,255,.86) !important;
-}
 
 @media (max-width:767px){
 
@@ -201,14 +247,16 @@ body,
 
   .ip-policy-shell{
     width:calc(100vw - 40px);
-    padding:104px 0 70px;
+    padding:104px 0 96px;
   }
 
   .ip-legal-header{
+    height:auto;
     margin-bottom:38px;
   }
 
   .ip-legal-title{
+    width:100%;
     margin-bottom:20px;
     font-size:30px;
     line-height:1.05;
@@ -216,11 +264,15 @@ body,
   }
 
   .ip-legal-meta{
+    position:static;
+    width:100%;
     font-size:13px;
     line-height:1.42;
+    text-align:left;
   }
 
   .ip-legal-content{
+    width:100%;
     gap:32px;
   }
 
