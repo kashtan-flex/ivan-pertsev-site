@@ -1,13 +1,16 @@
 /* =========================================================
    MUSICAL SHOW REVIEWS CSS
 
-   Версия: musical-show-reviews-css-001-desktop
+   Версия: musical-show-reviews-css-003-review-line-breaks-cleanup
 
    ИЗМЕНЕНИЯ:
    - создан отдельный desktop CSS отзывов для страницы «Музыкальное шоу»
    - геометрия основана на approved project-reviews.css
    - классы переведены на ip-musical-show-review / ip-musical-show-reviews
    - сохранены popup отзывов, hint и Safari-safe hover
+   - убран лишний горизонтальный отступ перед строкой «Спасибо за вечер!»
+   - добавлен служебный класс для строки без нежелательного переноса в отзыве 5
+   - защита финальной строки отзыва 3 сохранена
    ========================================================= */
 
 .ip-musical-show-reviews{
@@ -165,6 +168,15 @@
 .ip-musical-show-review-text strong,
 .ip-musical-show-review-text strong{
   font-weight:600;
+}
+
+.ip-musical-show-review-line{
+  display:block;
+  white-space:nowrap;
+}
+
+.ip-musical-show-review-nowrap{
+  white-space:nowrap;
 }
 
 /* REVIEW POPUP */
