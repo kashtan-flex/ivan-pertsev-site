@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+  ==================================================
+  PROJECT RULES HTML
+
+  Версия: Project Rules v2.5 — Graduation approved
+
+  ИЗМЕНЕНИЯ:
+  - документ обновлён на базе Project Rules v2.4
+  - зафиксированы approved stable страницы: Главная, Биография, Свадьба, Корпоратив, День рождения, Выпускной
+  - страница «Выпускной» добавлена как завершённая в desktop и mobile
+  - добавлены правила, появившиеся при доведении страницы «Выпускной» и финальной синхронизации сервисных страниц
+  - зафиксированы правила mobile-типографики основного текста: 16px, line-height 100%, letter-spacing -3%, width 354px
+  - зафиксированы правила отзывов: mobile-переносы должны совпадать с desktop, desktop при этом не трогать
+  - зафиксировано правило desktop CTA-кнопок без первичного блюра текста
+  - зафиксированы правила Kinescope/video: не делать агрессивный iframe-crop, не обрезать UI плеера
+  - зафиксировано правило mobile menu background: фон меню выравнивать по нижнему краю видео
+  - зафиксировано правило проверки preview-loader и inline/mobile loader при неработающих ссылках
+  ==================================================
+  -->
+
+  <title>Project Rules v2.5 — Иван Перцев Сайт</title>
+
+  <style>
+    :root{
+      --bg:#f5f5f2;
+      --paper:#ffffff;
+      --text:#111111;
+      --muted:#666666;
+      --line:#e5e5df;
+      --soft:#f7f7f4;
+      --ok-bg:#e9f8ec;
+      --ok:#16642b;
+      --warn-bg:#fff7d9;
+      --warn:#8a6300;
+      --danger-bg:#ffe8e8;
+      --danger:#970000;
+      --accent:#111111;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      padding:40px;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,sans-serif;
+      line-height:1.6;
+    }
+
+    main{
+      max-width:1120px;
+      margin:0 auto;
+      padding:56px;
+      border-radius:24px;
+      background:var(--paper);
+      box-shadow:0 18px 48px rgba(0,0,0,.06);
+    }
+
+    h1,
+    h2,
+    h3{
+      line-height:1.2;
+    }
+
+    h1{
+      margin:0 0 18px;
+      font-size:42px;
+      letter-spacing:-.035em;
+    }
+
+    h2{
+      margin:56px 0 20px;
+      font-size:30px;
+      letter-spacing:-.025em;
+    }
+
+    h3{
+      margin:32px 0 14px;
+      font-size:22px;
+      letter-spacing:-.015em;
+    }
+
+    p{
+      margin:12px 0;
+    }
+
+    ul,
+    ol{
+      margin-top:10px;
+      padding-left:24px;
+    }
+
+    li{
+      margin:6px 0;
+    }
+
+    code{
+      padding:2px 6px;
+      border-radius:8px;
+      background:#f1f1ee;
+      font-family:Consolas,Menlo,Monaco,monospace;
+      font-size:.95em;
+    }
+
+    pre{
+      margin:18px 0;
+      padding:18px;
+      overflow:auto;
+      border-radius:14px;
+      background:#f1f1ee;
+      font-family:Consolas,Menlo,Monaco,monospace;
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    pre code{
+      padding:0;
+      border-radius:0;
+      background:transparent;
+    }
+
+    hr{
+      margin:56px 0;
+      border:none;
+      border-top:1px solid var(--line);
+    }
+
+    .hero{
+      margin:30px 0 36px;
+      padding:28px 32px;
+      color:#fff;
+      border-radius:22px;
+      background:linear-gradient(135deg,#111 0%,#2b2b2b 100%);
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+    }
+
+    .hero strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:18px;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin:24px 0;
+    }
+
+    .card{
+      padding:18px 20px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:var(--soft);
+    }
+
+    .card strong{
+      display:block;
+      margin-bottom:8px;
+    }
+
+    .pill{
+      display:inline-block;
+      margin:4px 6px 4px 0;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#f1f1ee;
+      font-size:13px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .pill-ok{
+      background:var(--ok-bg);
+      color:var(--ok);
+    }
+
+    .pill-active{
+      background:var(--warn-bg);
+      color:var(--warn);
+    }
+
+    .pill-danger{
+      background:var(--danger-bg);
+      color:var(--danger);
+    }
+
+    .note,
+    .success,
+    .danger{
+      margin:24px 0;
+      padding:18px 22px;
+      border-radius:14px;
+    }
+
+    .note{
+      background:var(--warn-bg);
+      border-left:4px solid #d7a600;
+    }
+
+    .success{
+      background:var(--ok-bg);
+      border-left:4px solid #2c9b44;
+    }
+
+    .danger{
+      background:var(--danger-bg);
+      border-left:4px solid #d90000;
+    }
+
+    .toc{
+      margin:30px 0 40px;
+      padding:24px 26px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:var(--soft);
+    }
+
+    .toc a{
+      display:inline-block;
+      margin:4px 12px 4px 0;
+      color:var(--text);
+      text-decoration:none;
+      border-bottom:1px solid rgba(0,0,0,.22);
+    }
+
+    .small{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    @media (max-width:900px){
+      body{
+        padding:20px;
+      }
+
+      main{
+        padding:28px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        font-size:32px;
+      }
+
+      h2{
+        font-size:24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<main>
+
+<h1>Project Rules v2.5 — Иван Перцев Сайт</h1>
+
+<div class="hero">
+  <strong>DOCUMENT STATUS</strong>
+  Project Rules v2.5 · Дата актуализации: 2026-06-04 · Статус: ACTIVE<br>
+  Этот документ является единым актуальным источником правил проекта после завершения страниц «День рождения» и «Выпускной» и финальной синхронизации сервисных страниц.
+</div>
+
+<div class="grid">
+  <div class="card">
+    <strong>APPROVED STABLE</strong>
+    <span class="pill pill-ok">Главная</span>
+    <span class="pill pill-ok">Биография</span>
+    <span class="pill pill-ok">Свадьба</span>
+    <span class="pill pill-ok">Корпоратив</span>
+    <span class="pill pill-ok">День рождения</span>
+    <span class="pill pill-ok">Выпускной</span>
+    <span class="pill pill-ok">Меню</span>
+    <span class="pill pill-ok">Popup</span>
+    <span class="pill pill-ok">Page Transition</span>
+  </div>
+
+  <div class="card">
+    <strong>NEXT DEVELOPMENT</strong>
+    <span class="pill pill-active">По запросу</span>
+    <p>Следующую страницу начинать только после получения данных от пользователя. Работать по workflow: сначала desktop, затем backup, затем mobile.</p>
+  </div>
+
+  <div class="card">
+    <strong>КРИТИЧЕСКОЕ ПРАВИЛО</strong>
+    <span class="pill pill-danger">Только полные файлы</span>
+    <p>Без patch, без «найди и замени», без «остальное без изменений», если пользователь прямо не попросил фрагмент.</p>
+  </div>
+</div>
+
+<div class="toc">
+  <strong>Ключевые разделы:</strong><br>
+  <a href="#status">Статус проекта</a>
+  <a href="#workflow">Workflow</a>
+  <a href="#chatgpt">Правила ChatGPT</a>
+  <a href="#structure">Структура</a>
+  <a href="#approved-pages">Approved pages</a>
+  <a href="#service-pages">Сервисные страницы</a>
+  <a href="#mobile-rules">Mobile rules</a>
+  <a href="#backup">Backup</a>
+  <a href="#next">Следующая страница</a>
+</div>
+
+<div class="danger">
+  <strong>ГЛАВНОЕ ПРАВИЛО:</strong><br>
+  ChatGPT всегда отдаёт полный готовый файл или готовый архив для замены. Нельзя отправлять пользователя вручную искать строки, менять куски кода или собирать решение из фрагментов.
+</div>
+
+<hr>
+
+<h2 id="status">1. Текущий статус проекта</h2>
+
+<div class="success">
+  <strong>APPROVED STABLE:</strong><br>
+  На текущий момент завершены и утверждены в desktop и mobile:
+  <ul>
+    <li>Главная;</li>
+    <li>Биография / Обо мне;</li>
+    <li>Свадьба;</li>
+    <li>Корпоратив;</li>
+    <li>День рождения;</li>
+    <li>Выпускной.</li>
+  </ul>
+</div>
+
+<p>
+Утверждённые страницы считаются замороженными. Их нельзя менять без прямого запроса пользователя. Это относится к desktop, mobile, меню, popup, page transition, видео, галереям, отзывам, lightbox, scroll-top, CTA и общей композиции.
+</p>
+
+<h3>Текущая стабильная точка</h3>
+
+<pre><code>backup/
+  backup-stable-after-corporate-fix/
+  ivan-pertsev-site-backup-birthday-approved/
+  ivan-pertsev-site-backup-graduation-approved/</code></pre>
+
+<p>
+В рабочем проекте рекомендуется держать только 1–2 актуальные стабильные точки восстановления. Старые временные backup-папки выносить в архив вне проекта.
+</p>
+
+<hr>
+
+<h2 id="workflow">2. Главный workflow проекта</h2>
+
+<h3>Основная разработка</h3>
+
+<pre><code>VS Code
+↓
+localhost:8000
+↓
+проверка в браузере
+↓
+исправления
+↓
+backup stable-точки при необходимости
+↓
+git commit
+↓
+git push
+↓
+production deploy</code></pre>
+
+<h3>Локальный запуск</h3>
+
+<pre><code>python -m http.server 8000</code></pre>
+
+<h3>Локальные preview-ссылки</h3>
+
+<pre><code>Главная:
+http://localhost:8000/preview.html
+
+Биография:
+http://localhost:8000/biography-preview.html
+
+Свадьба:
+http://localhost:8000/wedding-preview.html
+
+Корпоратив:
+http://localhost:8000/corporate-preview.html
+
+День рождения:
+http://localhost:8000/birthday-preview.html
+
+Выпускной:
+http://localhost:8000/graduation-preview.html</code></pre>
+
+<div class="note">
+  Localhost — главная production-like среда проверки. GitHub Pages и Tilda не используются для проверки каждой правки.
+</div>
+
+<hr>
+
+<h2 id="chatgpt">3. Правила работы ChatGPT</h2>
+
+<h3>По умолчанию ChatGPT обязан</h3>
+
+<ul>
+  <li>сам анализировать предоставленные файлы;</li>
+  <li>сам находить причину ошибки;</li>
+  <li>сам собирать итоговое решение;</li>
+  <li>давать полный готовый файл целиком;</li>
+  <li>для нескольких файлов давать готовый архив с правильной структурой;</li>
+  <li>после проектной правки давать commit message в отдельном копируемом code block.</li>
+</ul>
+
+<h3>Строго запрещено</h3>
+
+<pre><code>Найди строку и замени...
+Добавь это в конец...
+Остальной код без изменений...
+Вот patch...
+Вот только изменённый фрагмент...
+Поменяй вручную 14 мест...
+</code></pre>
+
+<h3>Исключение</h3>
+
+<p>
+Фрагмент можно дать только если пользователь прямо попросил фрагмент, короткую вставку или объяснение без готового файла.
+</p>
+
+<h3>Правило после двух неудачных попыток</h3>
+
+<div class="danger">
+  <strong>Если изменение не сработало после двух попыток, запрещено продолжать угадывать.</strong>
+</div>
+
+<p>В этом случае ChatGPT обязан:</p>
+
+<ul>
+  <li>остановить правки вслепую;</li>
+  <li>запросить все связанные файлы;</li>
+  <li>сравнить рабочую эталонную страницу и проблемную страницу;</li>
+  <li>найти фактический источник управления элементом: CSS, JS, HTML, inline-style или конфликтующие override-блоки;</li>
+  <li>только после анализа дать один готовый комплект.</li>
+</ul>
+
+<h3>Commit style</h3>
+
+<p>Коммит всегда давать в копируемом блоке:</p>
+
+<pre><code>Create graduation desktop page layout</code></pre>
+
+<p>Не использовать:</p>
+
+<pre><code>fix
+fix2
+newfix
+finalfix
+test
+update</code></pre>
+
+<hr>
+
+<h2 id="structure">4. Актуальная структура проекта</h2>
+
+<pre><code>ivan-pertsev-site/
+
+assets/
+  fonts/
+  icons/
+  img/
+    biography/
+    birthday/
+    corporate/
+    graduation/
+    home/
+    popups/
+    wedding/
+
+backup/
+  backup-stable-after-corporate-fix/
+  ivan-pertsev-site-backup-birthday-approved/
+  ivan-pertsev-site-backup-graduation-approved/
+
+css/
+  biography.css
+  biography-mobile.css
+  birthday.css
+  birthday-mobile.css
+  birthday-reviews.css
+  corporate.css
+  corporate-mobile.css
+  corporate-reviews.css
+  graduation.css
+  graduation-mobile.css
+  home.css
+  home-mobile.css
+  page-transition.css
+  popups.css
+  popups-mobile.css
+  project-reviews.css
+  wedding.css
+  wedding-mobile.css
+
+docs/
+  Project-Rules-v2.5-graduation-approved.html
+  archive/
+
+js/
+  biography.js
+  birthday.js
+  birthday-mobile.js
+  corporate.js
+  corporate-mobile.js
+  graduation.js
+  graduation-mobile.js
+  home.js
+  page-transition.js
+  wedding.js
+  wedding-mobile.js
+
+pages/
+  biography/
+    biography.html
+  birthday/
+    birthday.html
+    birthday-mobile.html
+  corporate/
+    corporate.html
+    corporate-mobile.html
+  graduation/
+    graduation.html
+    graduation-mobile.html
+  home/
+    home.html
+  wedding/
+    wedding.html
+    wedding-mobile.html
+
+biography-preview.html
+birthday-preview.html
+corporate-preview.html
+graduation-preview.html
+preview.html
+wedding-preview.html
+README.md</code></pre>
+
+<h3>Что можно оптимизировать позже</h3>
+
+<ul>
+  <li>Перенести старые версии Project Rules в <code>docs/archive/</code>.</li>
+  <li>Перенести preview-файлы в отдельную папку <code>preview/</code> только после завершения всех страниц и проверки путей.</li>
+  <li>Разделить <code>css/</code> и <code>js/</code> на <code>shared/</code> и <code>pages/</code> только после финального релиза.</li>
+</ul>
+
+<div class="danger">
+  До завершения всех сервисных страниц не переносить <code>css</code>, <code>js</code>, <code>pages</code> и <code>assets</code>. Риск сломать относительные пути выше пользы.
+</div>
+
+<hr>
+
+<h2>5. Правила файлов и версий</h2>
+
+<h3>Каждый HTML/CSS/JS файл обязан содержать в начале:</h3>
+
+<pre><code>Версия
+ИЗМЕНЕНИЯ</code></pre>
+
+<h3>Пример CSS-заголовка</h3>
+
+<pre><code>/*
+==================================================
+BIRTHDAY MOBILE CSS
+
+Версия: birthday-mobile-css-006-opened-height-sync
+
+ИЗМЕНЕНИЯ:
+- файл основан на birthday-mobile-css-005-review-hint-40px-gap
+- раскрытая высота CSS-контейнеров синхронизирована с JS
+- закрытая страница, галерея, отзывы, меню и popup не изменялись
+==================================================
+*/</code></pre>
+
+<h3>Правило имён файлов при передаче</h3>
+
+<ul>
+  <li>Для скачивания использовать versioned filename: <code>birthday-mobile-css-006-...</code>.</li>
+  <li>В инструкции всегда указывать, какой проектный файл заменить: <code>css/birthday-mobile.css</code>.</li>
+  <li>JavaScript-файлы для проекта Ивана Перцева всегда отдавать ZIP-архивом.</li>
+  <li>Внутри ZIP JavaScript должен иметь проектное имя файла, например <code>birthday-mobile.js</code>, а не временное имя.</li>
+</ul>
+
+<hr>
+
+<h2>6. Общая архитектура страниц</h2>
+
+<h3>Desktop base</h3>
+
+<pre><code>1440×800</code></pre>
+
+<ul>
+  <li>Desktop-композиция собирается как fixed stage.</li>
+  <li>Масштабирование desktop идёт по высоте viewport.</li>
+  <li>Controlled crop по краям допустим.</li>
+  <li>Desktop и mobile не смешиваются в одном CSS без необходимости.</li>
+</ul>
+
+<h3>Mobile base</h3>
+
+<pre><code>390×700</code></pre>
+
+<ul>
+  <li>Mobile-страницы длинные и скроллятся вертикально, если это сервисная страница.</li>
+  <li>Mobile использует отдельный CSS и отдельный JS там, где уже принята такая архитектура.</li>
+  <li>Масштабирование mobile: <code>scale = Math.max(viewportWidth / 390, viewportHeight / 700)</code>.</li>
+  <li>Высота mobile-страницы может задаваться и CSS, и JS. При правке высоты обязательно проверять оба места.</li>
+</ul>
+
+<div class="danger">
+  Нельзя менять desktop при mobile-правках и нельзя менять mobile при desktop-правках.
+</div>
+
+<hr>
+
+<h2>7. Shared systems</h2>
+
+<h3>Menu</h3>
+
+<div class="success">
+  <strong>МЕНЮ УТВЕРЖДЕНО.</strong><br>
+  Не менять меню без прямого запроса пользователя.
+</div>
+
+<ul>
+  <li>Общее меню переиспользуется на всех страницах.</li>
+  <li>Аккордеоны «Проекты» и «Контакты» должны работать одинаково.</li>
+  <li>Бургер и крестик должны быть симметричными.</li>
+  <li>На мобильных меню закрывается при scroll там, где это уже предусмотрено логикой страницы.</li>
+  <li>Не создавать отдельную новую систему меню для каждой страницы.</li>
+</ul>
+
+<h3>Пункты меню</h3>
+
+<pre><code>Главная
+Биография
+Проекты
+  Свадьба
+  Корпоратив
+  День рождение
+  Выпускной
+  Другое
+Музыкальное шоу
+Сотрудничество
+Контакты
+  +7 920 012 76 24
+  Написать</code></pre>
+
+<h3>Popup</h3>
+
+<div class="success">
+  <strong>POPUP УТВЕРЖДЁН.</strong><br>
+  Не менять popup-анимацию, blur и масштабирование без прямого запроса пользователя.
+</div>
+
+<ul>
+  <li>Popup общий для всех страниц.</li>
+  <li>Файлы: <code>css/popups.css</code> и <code>css/popups-mobile.css</code>.</li>
+  <li>Blur только на backdrop.</li>
+  <li>Popup-card появляется с небольшой задержкой после старта blur.</li>
+  <li>Масштабируется весь popup-card целиком.</li>
+</ul>
+
+<h3>Page transition</h3>
+
+<div class="success">
+  <strong>PAGE TRANSITION УТВЕРЖДЁН.</strong>
+</div>
+
+<ul>
+  <li>Короткий монтажный переход через чёрный экран.</li>
+  <li>Файлы: <code>css/page-transition.css</code>, <code>js/page-transition.js</code>.</li>
+  <li>Blur в page transition не использовать.</li>
+  <li>Внешние ссылки, <code>tel:</code>, <code>mailto:</code>, <code>target="_blank"</code> и popup triggers не перехватывать.</li>
+</ul>
+
+<hr>
+
+<h2 id="approved-pages">8. Approved pages</h2>
+
+<h3>Главная</h3>
+
+<ul>
+  <li>Desktop и mobile утверждены.</li>
+  <li>Entry-point: <code>preview.html</code>.</li>
+  <li>HTML: <code>pages/home/home.html</code>.</li>
+  <li>CSS: <code>home.css</code>, <code>home-mobile.css</code>.</li>
+  <li>JS: <code>home.js</code>.</li>
+</ul>
+
+<h3>Биография / Обо мне</h3>
+
+<ul>
+  <li>Desktop и mobile утверждены.</li>
+  <li>Entry-point: <code>biography-preview.html</code>.</li>
+  <li>HTML: <code>pages/biography/biography.html</code>.</li>
+  <li>CSS: <code>biography.css</code>, <code>biography-mobile.css</code>.</li>
+  <li>JS: <code>biography.js</code>.</li>
+  <li>Desktop-текст и mobile-текст могут быть разделены на отдельные блоки, если переносы отличаются.</li>
+</ul>
+
+<h3>Свадьба</h3>
+
+<ul>
+  <li>Desktop и mobile утверждены.</li>
+  <li>Entry-point: <code>wedding-preview.html</code>.</li>
+  <li>HTML: <code>pages/wedding/wedding.html</code>, <code>pages/wedding/wedding-mobile.html</code>.</li>
+  <li>CSS: <code>wedding.css</code>, <code>wedding-mobile.css</code>.</li>
+  <li>JS: <code>wedding.js</code>, <code>wedding-mobile.js</code>.</li>
+  <li>Видео: Kinescope + poster preload.</li>
+  <li>Не возвращаться к экспериментам со сбросом iframe.</li>
+</ul>
+
+<h3>Корпоратив</h3>
+
+<ul>
+  <li>Desktop и mobile утверждены.</li>
+  <li>Entry-point: <code>corporate-preview.html</code>.</li>
+  <li>HTML: <code>pages/corporate/corporate.html</code>, <code>pages/corporate/corporate-mobile.html</code>.</li>
+  <li>CSS: <code>corporate.css</code>, <code>corporate-mobile.css</code>, <code>corporate-reviews.css</code>.</li>
+  <li>JS: <code>corporate.js</code>, <code>corporate-mobile.js</code>.</li>
+  <li>Corporate Mobile является главным эталоном для mobile-отзывов и подсказки галереи на следующих сервисных страницах.</li>
+</ul>
+
+<h3>День рождения</h3>
+
+<div class="success">
+  <strong>СТАТУС:</strong><br>
+  Страница «День рождения» завершена и утверждена в desktop и mobile.
+</div>
+
+<ul>
+  <li>Entry-point: <code>birthday-preview.html</code>.</li>
+  <li>HTML: <code>pages/birthday/birthday.html</code>, <code>pages/birthday/birthday-mobile.html</code>.</li>
+  <li>CSS: <code>birthday.css</code>, <code>birthday-mobile.css</code>, <code>birthday-reviews.css</code>.</li>
+  <li>JS: <code>birthday.js</code>, <code>birthday-mobile.js</code>.</li>
+  <li>Desktop создан по аналогии с Corporate.</li>
+  <li>Mobile создан по аналогии с Corporate Mobile.</li>
+  <li>Галерея содержит 22 фото.</li>
+  <li>Отзывы содержат 7 карточек.</li>
+  <li>Отзывы на mobile работают свайпом.</li>
+  <li>Текст отзывов на mobile выровнен по левому краю.</li>
+  <li>Фон mobile: <code>assets/img/birthday/mobile/background/birthday-mobile-bg.webp</code>.</li>
+  <li>Фон desktop: <code>assets/img/birthday/background/birthday-bg.webp</code>.</li>
+</ul>
+
+<h3>Выпускной</h3>
+
+<div class="success">
+  <strong>СТАТУС:</strong><br>
+  Страница «Выпускной» завершена и утверждена в desktop и mobile.
+</div>
+
+<ul>
+  <li>Entry-point: <code>graduation-preview.html</code>.</li>
+  <li>HTML: <code>pages/graduation/graduation.html</code>, <code>pages/graduation/graduation-mobile.html</code>.</li>
+  <li>CSS: <code>graduation.css</code>, <code>graduation-mobile.css</code>.</li>
+  <li>JS: <code>graduation.js</code>, <code>graduation-mobile.js</code>.</li>
+  <li>Desktop создан по approved-логике страницы «День рождения».</li>
+  <li>Mobile создан по approved-логике страницы «День рождения» и затем синхронизирован с общими mobile-правилами сервисных страниц.</li>
+  <li>Галерея содержит 21 фото.</li>
+  <li>Отзывы содержат 7 карточек.</li>
+  <li>Отзывы на mobile работают свайпом.</li>
+  <li>Текст отзывов на mobile должен совпадать по ручным переносам с desktop-версией.</li>
+  <li>Фон mobile: <code>assets/img/graduation/mobile/background/graduation-mobile-bg.webp</code>.</li>
+  <li>Фон desktop: <code>assets/img/graduation/background/graduation-bg.webp</code>.</li>
+  <li>Video poster: <code>assets/img/graduation/video/graduation-video-poster.webp</code>.</li>
+  <li>Иконка подсказки: <code>assets/img/graduation/mobile/icons/ip-graduation-mobile-hint-icon.svg</code>.</li>
+</ul>
+
+<hr>
+
+<h2 id="service-pages">9. Правила сервисных страниц</h2>
+
+<p>
+Сервисные страницы: «Свадьба», «Корпоратив», «День рождения», «Выпускной», «Музыкальное шоу» и следующие страницы проекта.
+</p>
+
+<h3>Workflow новой сервисной страницы</h3>
+
+<pre><code>1. Запросить недостающие данные.
+2. Собрать desktop.
+3. Получить утверждение desktop.
+4. Сделать backup.
+5. Собрать mobile.
+6. Получить утверждение mobile.
+7. Сделать backup.
+8. Обновить Project Rules при необходимости.</code></pre>
+
+<h3>Перед началом новой страницы ChatGPT обязан запросить</h3>
+
+<ul>
+  <li>заголовок;</li>
+  <li>подзаголовок;</li>
+  <li>основной текст;</li>
+  <li>CTA-тексты, если они отличаются;</li>
+  <li>Kinescope-ссылку;</li>
+  <li>poster видео;</li>
+  <li>путь к desktop-фону;</li>
+  <li>путь к mobile-фону;</li>
+  <li>количество фотографий;</li>
+  <li>точные размеры/композицию фото для desktop;</li>
+  <li>точные размеры/композицию фото для mobile;</li>
+  <li>путь к галерее;</li>
+  <li>отзывы: имена, подписи, тексты, порядок;</li>
+  <li>аватарки отзывов и путь к ним;</li>
+  <li>нужны ли отдельные CSS для отзывов;</li>
+  <li>макеты или скриншоты для сверки.</li>
+</ul>
+
+<h3>Наследовать от approved страниц</h3>
+
+<ul>
+  <li>общий workflow preview;</li>
+  <li>разделение desktop/mobile CSS;</li>
+  <li>разделение desktop/mobile JS;</li>
+  <li>общее меню;</li>
+  <li>общий popup;</li>
+  <li>общий page transition;</li>
+  <li>Kinescope + poster preload;</li>
+  <li>CTA-логику;</li>
+  <li>логику раскрытия галереи;</li>
+  <li>lightbox фотографий;</li>
+  <li>scroll-top;</li>
+  <li>логику отзывов и popup-отзывов, если они нужны.</li>
+</ul>
+
+<h3>Не наследовать автоматически</h3>
+
+<ul>
+  <li>тексты предыдущих страниц;</li>
+  <li>фотографии предыдущих страниц;</li>
+  <li>отзывы предыдущих страниц;</li>
+  <li>аватарки предыдущих страниц;</li>
+  <li>точную сетку фотографий, если пользователь дал новые размеры;</li>
+  <li>видео предыдущих страниц;</li>
+  <li>фон предыдущих страниц.</li>
+</ul>
+
+<hr>
+
+<h2 id="mobile-rules">10. Mobile rules после страниц «День рождения» и «Выпускной»</h2>
+
+<h3>Mobile gallery</h3>
+
+<ul>
+  <li>Мобильная галерея проектируется отдельно от desktop.</li>
+  <li>Размеры фотографий не подбирать на глаз.</li>
+  <li>Пользователь заранее утверждает размеры каждого слота.</li>
+  <li>Отступ между фотографиями по умолчанию — 10px.</li>
+  <li>Левый/правый отступ от края по умолчанию — 10px.</li>
+  <li>Порядок фотографий фиксируется отдельной схемой слотов.</li>
+  <li>Если фотография меняется местами, проверять не только CSS-размер, но и порядок изображений в HTML.</li>
+</ul>
+
+<h3>Mobile reviews</h3>
+
+<ul>
+  <li>Отзывы отображаются горизонтальным свайпером.</li>
+  <li>Стиль и поведение брать с Corporate Mobile.</li>
+  <li>Текст отзывов выравнивается по левому краю.</li>
+  <li>Popup-отзывы используют approved-логику предыдущих страниц.</li>
+  <li>Если переносы текста в миниатюрах и popup отличаются, править оба места.</li>
+</ul>
+
+<h3>Подсказка галереи и ScrollTop</h3>
+
+<ul>
+  <li>Подсказка «Листайте для просмотра» на mobile располагается после блока отзывов.</li>
+  <li>Расстояние от нижнего края отзывов до подсказки — 40px, если пользователь не указал другое.</li>
+  <li>Расстояние между подсказкой и стрелкой ScrollTop настраивается отдельно.</li>
+  <li>Расстояние от стрелки ScrollTop до нижнего края страницы — 40px, если макет не требует другое.</li>
+  <li>Перед правкой положения стрелки определить, чем она управляется: CSS <code>bottom</code>, CSS <code>top</code>, JS-высотой страницы или конфликтующим override-блоком.</li>
+</ul>
+
+<h3>Высота mobile-страницы</h3>
+
+<div class="danger">
+  <strong>Нельзя менять высоту страницы случайным подбором значений.</strong>
+</div>
+
+<ul>
+  <li>Если высота страницы управляется через JS, проверить <code>stageHeightClosed</code> и <code>stageHeightOpened</code>.</li>
+  <li>Если высота страницы управляется через CSS, проверить <code>height</code>, <code>min-height</code> и CSS-переменные.</li>
+  <li>Если используется scale-переменная, CSS и JS должны быть синхронизированы.</li>
+  <li>Если в файле несколько override-блоков с одинаковыми селекторами, выяснить, какой блок побеждает последним.</li>
+  <li>После изменения высоты проверять закрытое и раскрытое состояние отдельно.</li>
+</ul>
+
+<h3>Mobile typography</h3>
+
+<ul>
+  <li>Основной текст сервисных mobile-страниц должен соответствовать утверждённым настройкам Figma: <code>font-size:16px</code>, <code>line-height:100%</code>, <code>letter-spacing:-3%</code>, ширина текстового блока <code>354px</code>.</li>
+  <li>Это правило применяется только к mobile CSS и не должно затрагивать desktop-версии.</li>
+  <li>При правке основного текста проверить, что ниже по файлу нет override-блоков, которые возвращают старые значения <code>15px / 1.03 / -0.052em / 350px</code>.</li>
+  <li>Не оставлять висящие предлоги, союзы и короткие слова в конце строки.</li>
+  <li>Если desktop и mobile требуют разных переносов, использовать отдельные текстовые блоки или ручные <code>&lt;br&gt;</code> только в нужной версии.</li>
+  <li>Не ломать desktop-текст ради mobile-переносов.</li>
+</ul>
+
+<h3>Mobile review line breaks</h3>
+
+<ul>
+  <li>На mobile-версиях «День рождения» и «Выпускной» переносы текста в карточках отзывов должны визуально совпадать с desktop-версией.</li>
+  <li>Если браузер автоматически переносит строки не так, использовать ручные <code>&lt;br&gt;</code> в mobile HTML и CSS-правило, которое сохраняет ручные переносы.</li>
+  <li>Если слово выходит за пределы карточки, сначала править конкретный ручной перенос в HTML, а не менять размеры карточек, аватары или общую геометрию.</li>
+  <li>Desktop-отзывы при таких правках не менять.</li>
+  <li>После любой правки отзывов проверять: закрытое mobile-состояние, раскрытое mobile-состояние, desktop-миниатюры и desktop-popup отзывов.</li>
+</ul>
+
+<h3>Mobile menu background</h3>
+
+<ul>
+  <li>На сервисных mobile-страницах фон меню должен доходить ровно до нижнего края video-блока.</li>
+  <li>Высота фоновых слоёв меню считается как <code>video top + video height</code>.</li>
+  <li>Для страниц с утверждённой mobile-геометрией это правило применяется только к <code>.ip-menu-panel::before</code> и <code>.ip-menu-panel::after</code>; остальные элементы не двигать.</li>
+</ul>
+
+<hr>
+
+<h2>11. Видео</h2>
+
+<ul>
+  <li>Использовать Kinescope iframe.</li>
+  <li>Использовать poster-layer перед видео.</li>
+  <li>Autoplay muted loop сохранять там, где это уже реализовано.</li>
+  <li>Не использовать агрессивный overscan/crop iframe без необходимости.</li>
+  <li>Не увеличивать iframe так, чтобы штатные элементы управления Kinescope уходили за пределы видимой области.</li>
+  <li>Если на видео пропали иконки управления Kinescope, сначала проверить iframe crop/transform/overflow, а не менять Kinescope-ссылку.</li>
+  <li>При унификации video-блоков сначала сравнивать рабочую страницу-эталон и проблемную страницу по CSS-геометрии: section, wrap, poster, iframe.</li>
+  <li>Не ломать сетку страницы ради edge-to-edge видео.</li>
+  <li>Если видео работает стабильно, не возвращаться к экспериментам без прямого запроса пользователя.</li>
+  <li>Для новых страниц обязательно запросить новую Kinescope-ссылку и poster.</li>
+</ul>
+
+<hr>
+
+<h2>12. Изображения и assets</h2>
+
+<h3>Общее правило</h3>
+
+<p>
+Все изображения лежат локально в <code>assets</code>. Нельзя использовать GitHub raw URLs внутри CSS/HTML/JS в локальной разработке.
+</p>
+
+<h3>Правильно</h3>
+
+<pre><code>../assets/img/birthday/mobile/background/birthday-mobile-bg.webp</code></pre>
+
+<h3>Неправильно</h3>
+
+<pre><code>https://raw.githubusercontent.com/...</code></pre>
+
+<h3>Перед созданием новой страницы</h3>
+
+<ul>
+  <li>запросить точные пути к background desktop/mobile;</li>
+  <li>запросить пути к video poster;</li>
+  <li>запросить путь к gallery;</li>
+  <li>запросить путь к reviews avatars;</li>
+  <li>проверить имена файлов и расширения.</li>
+</ul>
+
+<hr>
+
+<h2>13. Safari-safe animation rules</h2>
+
+<div class="danger">
+  <strong>Все новые анимации и hover-эффекты должны быть Safari-safe.</strong>
+</div>
+
+<h3>Запрещено</h3>
+
+<ul>
+  <li>Анимировать текстовые контейнеры через <code>transform</code>, если рядом используется blur/backdrop-filter.</li>
+  <li>Использовать решения, которые дают заметное дрожание или изменение жирности текста.</li>
+  <li>Добавлять hover-подъём через transform на контейнер с текстом, если это вызывает блюр.</li>
+  <li>Анимировать <code>backdrop-filter</code> без необходимости.</li>
+</ul>
+
+<h3>Предпочтительно</h3>
+
+<ul>
+  <li><code>opacity</code>;</li>
+  <li><code>visibility</code>;</li>
+  <li><code>box-shadow</code>;</li>
+  <li>отдельный декоративный слой;</li>
+  <li>анимация тени вместо движения текстового слоя;</li>
+  <li>Safari-safe подход без перерастеризации текста.</li>
+</ul>
+
+<h3>Desktop CTA button rendering</h3>
+
+<ul>
+  <li>На desktop-страницах «Свадьба», «Корпоратив», «День рождения», «Выпускной» текст CTA-кнопок не должен быть размытым при первичном открытии страницы.</li>
+  <li>Если текст становится чётким только после hover, искать причину в transform-композитинге и <code>will-change:transform</code> на кнопке.</li>
+  <li>Для CTA-кнопок использовать безопасный рендеринг текста: без лишнего 3D-композитинга текстового слоя.</li>
+  <li>Исправление блюра CTA должно касаться только desktop CSS кнопок и не менять размеры, позиции, hover-логику, HTML, JS, mobile, меню, галереи и popup.</li>
+</ul>
+
+<hr>
+
+<h2 id="backup">14. Backup policy</h2>
+
+<h3>Когда делать backup</h3>
+
+<ul>
+  <li>после утверждения desktop новой страницы;</li>
+  <li>после утверждения mobile новой страницы;</li>
+  <li>перед большим рефакторингом;</li>
+  <li>перед production deploy;</li>
+  <li>после завершения крупного этапа проекта.</li>
+</ul>
+
+<h3>Что копировать в backup</h3>
+
+<pre><code>assets
+css
+js
+pages
+preview.html
+biography-preview.html
+wedding-preview.html
+corporate-preview.html
+birthday-preview.html
+graduation-preview.html
+README.md</code></pre>
+
+<h3>Что не копировать</h3>
+
+<pre><code>backup
+.git
+.vscode
+старые архивы
+устаревшие backup-папки</code></pre>
+
+<h3>Правило хранения</h3>
+
+<ul>
+  <li>В рабочем проекте держать не более 1–2 актуальных стабильных backup-папок.</li>
+  <li>Старые backup переносить в архив вне проекта.</li>
+  <li>Не править файлы внутри backup как рабочую версию.</li>
+</ul>
+
+<hr>
+
+<h2>15. Git workflow</h2>
+
+<pre><code>git status
+git add .
+git commit -m "Meaningful commit name"
+git push</code></pre>
+
+<h3>Примеры корректных коммитов</h3>
+
+<pre><code>Finalize birthday page desktop and mobile approved
+Clean old backups and create birthday approved restore point
+Create graduation desktop page layout
+Add graduation mobile gallery layout
+Sync graduation mobile opened height containers
+Finalize graduation page desktop and mobile approved
+Update project rules after graduation approval</code></pre>
+
+<hr>
+
+<h2 id="next">16. Следующая разработка</h2>
+
+<div class="note">
+  <strong>СООБЩЕНИЕ ДЛЯ БУДУЩЕЙ РАЗРАБОТКИ:</strong><br>
+  Страницы «Главная», «Биография», «Свадьба», «Корпоратив», «День рождения» и «Выпускной» доведены до эталонного состояния. Следующую страницу начинать только после получения входных данных от пользователя.
+</div>
+
+<h3>Стартовые условия</h3>
+
+<ul>
+  <li>Главная, Биография, Свадьба, Корпоратив, День рождения и Выпускной — approved stable desktop/mobile.</li>
+  <li>Shared menu/system нельзя ломать.</li>
+  <li>Popup нельзя ломать.</li>
+  <li>Page transition нельзя ломать.</li>
+  <li>Approved страницы не трогать без прямого запроса пользователя.</li>
+  <li>При изменениях на approved-страницах менять только прямо запрошенную область.</li>
+</ul>
+
+<h3>Workflow для следующей страницы</h3>
+
+<pre><code>1. Перед началом запросить у пользователя только недостающие данные.
+2. Собрать desktop-версию.
+3. После утверждения desktop сделать backup.
+4. Потом собрать mobile-версию.
+5. После утверждения mobile сделать backup.
+6. Обновить Project Rules при необходимости.</code></pre>
+
+<h3>Что запросить перед началом новой сервисной страницы</h3>
+
+<ul>
+  <li>заголовок;</li>
+  <li>подзаголовок;</li>
+  <li>основной текст;</li>
+  <li>Kinescope-ссылку;</li>
+  <li>poster видео;</li>
+  <li>путь к desktop-фону;</li>
+  <li>путь к mobile-фону;</li>
+  <li>количество и путь к фотографиям;</li>
+  <li>desktop-размеры и композицию фото;</li>
+  <li>mobile-размеры и композицию фото;</li>
+  <li>отзывы: имена, подписи, тексты;</li>
+  <li>аватарки отзывов;</li>
+  <li>нужны ли отдельные CSS для отзывов;</li>
+  <li>макет или скриншоты для сверки.</li>
+</ul>
+
+<h3>Напоминание для ChatGPT</h3>
+
+<pre><code>Не отправлять пользователя править код руками.
+Не давать patch.
+Не писать «остальное без изменений».
+Сначала анализировать файлы.
+Если правка не сработала после двух попыток — остановиться, запросить связанные файлы и найти реальный источник проблемы.
+При проблемах ссылок проверять не только pages/*.html, но и preview-loader / inline MOBILE_HTML.
+JS-файлы отдавать только ZIP-архивом.
+Коммит давать отдельным копируемым code block.</code></pre>
+
+</main>
+
+<!-- Project Rules v2.5 generated 2026-06-04 -->
+</body>
+</html>
