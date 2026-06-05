@@ -2,12 +2,12 @@
 ==================================================
 MUSICAL SHOW MOBILE JS
 
-Версия: musical-show-mobile-js-001-initial-layout
+Версия: musical-show-mobile-js-002-opened-gallery-spacing-sync
 
 ИЗМЕНЕНИЯ:
-- создан mobile JS страницы «Музыкальное шоу» на базе approved Wedding Mobile
-- обновлены селекторы, CSS-переменные, высоты страницы и lightbox под musical-show
-- сохранены menu, popup, gallery open/close, video poster, lightbox и scrolltop
+- файл основан на musical-show-mobile-js-001-initial-layout
+- раскрытая высота страницы синхронизирована с CSS: 6372px
+- закрытая высота, menu, popup, gallery open/close, video poster, lightbox и scrolltop не изменялись
 ==================================================
 */
 
@@ -19,7 +19,7 @@ MUSICAL SHOW MOBILE JS
       width:390,
       height:700,
       stageHeightClosed:2148,
-      stageHeightOpened:6230
+      stageHeightOpened:6372
     },
     breakpoint:767
   };

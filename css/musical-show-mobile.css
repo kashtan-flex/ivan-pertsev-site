@@ -2,14 +2,17 @@
 ==================================================
 MUSICAL SHOW MOBILE CSS
 
-Версия: musical-show-mobile-css-003-header-2px-up
+Версия: musical-show-mobile-css-004-opened-gallery-spacing-sync
 
 ИЗМЕНЕНИЯ:
 - создан mobile CSS страницы «Музыкальное шоу» на базе approved Wedding Mobile
 - подключены фон musical-show-mobile-bg.webp и poster musical-show-video-poster.webp
 - задана mobile-сетка галереи из 21 фото по размерам пользователя
 - сохранены approved-геометрия award-блока, меню, popup, lightbox, отзывы, подсказка и scrolltop
-- заголовок и подзаголовок подняты на 2px относительно версии 002 без изменения расстояния между ними
+- файл основан на musical-show-mobile-css-003-header-2px-up
+- в раскрытом состоянии синхронизированы отступы: фото → отзывы, отзывы → подсказка, подсказка → стрелка по логике Wedding Mobile
+- раскрытая высота страницы увеличена до 6372px
+- закрытое состояние, галерея, отзывы, меню, popup и desktop не изменялись
 ==================================================
 */
 
@@ -92,18 +95,18 @@ MUSICAL SHOW MOBILE CSS
   }
 
   .ip-musical-show-mobile.has-gallery-opened{
-    min-height:var(--musical-show-mobile-page-height, 6230px);
-    height:var(--musical-show-mobile-page-height, 6230px);
+    min-height:var(--musical-show-mobile-page-height, 6372px);
+    height:var(--musical-show-mobile-page-height, 6372px);
   }
 
   .ip-musical-show-mobile.has-gallery-opened .ip-musical-show-mobile-bg{
-    height:6230px;
-    min-height:6230px;
+    height:6372px;
+    min-height:6372px;
   }
 
   .ip-musical-show-mobile.has-gallery-opened .ip-musical-show-mobile-content{
-    min-height:6230px;
-    height:6230px;
+    min-height:6372px;
+    height:6372px;
   }
 
   /* HERO */
@@ -584,11 +587,11 @@ MUSICAL SHOW MOBILE CSS
   }
 
   .ip-musical-show-mobile.has-gallery-opened .ip-musical-show-mobile-reviews{
-    top:5735px;
+    top:5765px;
   }
 
   .ip-musical-show-mobile.has-gallery-opened .ip-musical-show-mobile-hint{
-    top:6187px;
+    top:6217px;
   }
 
   /* HINT + SCROLLTOP */
