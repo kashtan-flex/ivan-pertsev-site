@@ -1,7 +1,7 @@
 /* =========================================================
    POPUPS MOBILE CSS
 
-   Версия: popups-mobile-003
+   Версия: popups-mobile-004-musical-show-bg
 
    ИЗМЕНЕНИЯ:
    - mobile popup теперь масштабируется как единый макет 350×654
@@ -9,6 +9,8 @@
    - сохранено mobile-изображение popup-mobile-bg.webp
    - сохранена белая кнопка отправки
    - сохранён мягкий active-state при нажатии
+   - добавлен изолированный mobile-фон popup для страницы «Музыкальное шоу» через модификатор .ip-popup--musical-show
+   - размеры, поля, кнопка, анимация и утверждённый mobile popup для остальных страниц не изменялись
    ========================================================= */
 
 @media (max-width:767px){
@@ -121,4 +123,23 @@
   .ip-popup-submit:active{
     transform:translate3d(0,1px,0) scale(.975);
   }
+
+  /*
+  ==================================================
+  MUSICAL SHOW POPUP — MOBILE BACKGROUND
+
+  Назначение:
+  - используется только на странице «Музыкальное шоу»
+  - подключается модификатором .ip-popup--musical-show на корневой popup-элемент
+  - меняет только mobile-фоновое изображение popup-card
+  - не влияет на утверждённый общий popup остальных страниц
+  ==================================================
+  */
+
+  .ip-popup--musical-show .ip-popup-card{
+    background-image:
+      linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
+      url('../assets/img/popups/popup-musical-show-mobile-bg.webp');
+  }
+
 }
