@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-013-policy-menu-bg-cover-5px
+   Версия: legal-css-014-policy-menu-cooperation-animation-sync
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -27,7 +27,10 @@
    - ширина desktop-фона меню синхронизирована с эталонной логикой: 385px со scale от 1440px
    - восстановлены Montserrat, цвета и подчёркивания для submenu, телефона и правовых ссылок в вынесенном desktop-меню
    - при закрытии desktop-меню fixed-layer принудительно скрывает фон и отключает pointer-events
-   - desktop-фон меню расширен только влево на 32px, чтобы перекрывать край текста под меню, без изменения ширины контентной колонки меню
+   - desktop-меню синхронизировано с approved-анимацией home/cooperation: фоновые слои снова выезжают справа через transform
+   - убрано принудительное opacity/visibility скрытие панели, которое ломало плавное появление/закрытие меню
+   - left-bleed фонового слоя оставлен аккуратным: 5px влево, без расширения контентной колонки 385px
+   - сохранён fixed-layer вне transform-контейнера, чтобы burger не скроллился вместе с текстом
    - mobile-разметка и mobile-правила не изменялись
    ========================================================= */
 
@@ -333,17 +336,6 @@ body,
     transform-origin:top right !important;
   }
 
-  .ip-policy-menu-layer .ip-menu-panel:not(.is-open){
-    opacity:0 !important;
-    visibility:hidden !important;
-    pointer-events:none !important;
-  }
-
-  .ip-policy-menu-layer .ip-menu-panel.is-open{
-    opacity:1 !important;
-    visibility:visible !important;
-    pointer-events:auto !important;
-  }
 
   .ip-policy-page .ip-menu-panel::before,
   .ip-policy-page .ip-menu-panel::after{
@@ -365,7 +357,14 @@ body,
     max-width:none !important;
     height:100% !important;
     min-height:100% !important;
-    transform:none !important;
+    transform:translateX(100%) !important;
+    transition:transform .72s cubic-bezier(.19,1,.22,1) !important;
+    will-change:transform;
+  }
+
+  .ip-policy-menu-layer .ip-menu-panel.is-open::before,
+  .ip-policy-menu-layer .ip-menu-panel.is-open::after{
+    transform:translateX(0) !important;
   }
 
   .ip-policy-menu-layer .ip-menu-link,

@@ -2,7 +2,7 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-005-policy-desktop-menu-fixed-layer
+Версия: legal-js-006-policy-menu-scroll-intent-sync
 
 ИЗМЕНЕНИЯ:
 - создан JS для текстовых правовых страниц проекта
@@ -13,6 +13,8 @@ LEGAL JS
 - fixed-layer используется совместно с legal-css-011, где сохранены ширина и типографика эталонного меню
 - при возврате в mobile меню возвращается в исходное место разметки
 - строка «Сайт ИванПерцев.рф / ivanpercev.rf» автоматически превращается в кликабельную ссылку
+- меню закрывается не только по фактическому scroll, но и по wheel/touchmove в capture-режиме
+- сохранён desktop fixed-layer для burger/menu вне transform-контейнера страницы
 - остальные страницы сайта не изменялись
 ==================================================
 */
@@ -199,6 +201,12 @@ LEGAL JS
     });
   }
 
+  function closeMenuOnScrollIntent(){
+    if(menuPanel.classList.contains('is-open')){
+      closeMenu();
+    }
+  }
+
   function toggleMenu(event){
     if(event){
       event.preventDefault();
@@ -359,9 +367,7 @@ LEGAL JS
     scrollTopButton.addEventListener('click', scrollToTop);
   }
 
-  window.addEventListener('scroll', function(){
-    if(menuPanel.classList.contains('is-open')){
-      closeMenu();
-    }
-  }, { passive:true });
+  window.addEventListener('scroll', closeMenuOnScrollIntent, { passive:true });
+  window.addEventListener('wheel', closeMenuOnScrollIntent, { passive:true, capture:true });
+  window.addEventListener('touchmove', closeMenuOnScrollIntent, { passive:true, capture:true });
 })();
