@@ -2,13 +2,15 @@
 ==================================================
 COOPERATION MOBILE JS
 
-Версия: cooperation-mobile-js-002-scroll-portrait-reveal
+Версия: cooperation-mobile-js-004-final-page-length-and-scrolltop
 
 ИЗМЕНЕНИЯ:
 - файл основан на cooperation-mobile-js-001-initial
 - добавлен показ portrait только после начала скролла mobile-страницы
 - glow и текст остаются CSS-анимациями при открытии страницы
-- menu, accordion, popup, date mask, disabled portfolio link и scroll-top не изменялись
+- высота mobile-страницы повторно рассчитана по фактическому нижнему краю видимого портрета
+- scroll-top синхронизирован с финальной длиной страницы
+- menu, accordion, popup, date mask и disabled portfolio link не изменялись
 - desktop JS не изменялся
 ==================================================
 */
@@ -20,7 +22,7 @@ COOPERATION MOBILE JS
     mobile:{
       width:390,
       height:700,
-      stageHeight:1250
+      stageHeight:1030
     },
     breakpoint:767
   };

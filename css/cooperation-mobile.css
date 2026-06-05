@@ -2,14 +2,17 @@
 ==================================================
 COOPERATION MOBILE CSS
 
-Версия: cooperation-mobile-css-002-scroll-portrait-reveal
+Версия: cooperation-mobile-css-006-menu-sync
 
 ИЗМЕНЕНИЯ:
 - файл основан на cooperation-mobile-css-001-initial
 - изменена логика появления portrait на mobile
 - glow появляется первым, затем текстовый слой, а portrait появляется только после начала скролла страницы
 - появление portrait выполнено через opacity без автоматического запуска при открытии страницы
-- меню, popup, scroll-top, desktop и позиции элементов не изменялись
+- типографика mobile-строк «Портфолио», «Бытовой райдер» и «Технический райдер» приведена к Figma: Montserrat Regular 20px, line-height 130%, letter-spacing -3%
+- сохранена текущая позиция блока скачивания и естественная ширина строк
+- меню синхронизировано с approved mobile-страницами проектов: burger/cross 27px, стрелки аккордеонов исправлены, фон меню растянут до конца mobile-страницы
+- popup, desktop, портрет, высота страницы, стрелка и позиции контента не изменялись
 ==================================================
 */
 
@@ -51,8 +54,8 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile{
     position:relative;
     width:100%;
-    min-height:var(--cooperation-mobile-page-height, 1250px);
-    height:var(--cooperation-mobile-page-height, 1250px);
+    min-height:var(--cooperation-mobile-page-height, 1030px);
+    height:var(--cooperation-mobile-page-height, 1030px);
     overflow:visible;
     background:#050603;
     color:#fff;
@@ -68,8 +71,8 @@ COOPERATION MOBILE CSS
     left:50%;
     top:0;
     width:390px;
-    height:1250px;
-    min-height:1250px;
+    height:1030px;
+    min-height:1030px;
     background-size:390px auto;
     background-position:top center;
     background-repeat:repeat-y;
@@ -98,8 +101,8 @@ COOPERATION MOBILE CSS
     top:0;
     z-index:3;
     width:390px;
-    min-height:1250px;
-    height:1250px;
+    min-height:1030px;
+    height:1030px;
     padding:0;
     overflow:hidden;
     transform:translate3d(-50%,0,0) scale(var(--cooperation-mobile-scale,1));
@@ -166,8 +169,8 @@ COOPERATION MOBILE CSS
     width:max-content;
     color:#fff;
     font-family:'Montserrat',Arial,sans-serif;
-    font-size:21px;
-    line-height:1.15;
+    font-size:20px;
+    line-height:1.3;
     font-weight:400;
     letter-spacing:-.03em;
     text-decoration:none !important;
@@ -323,7 +326,7 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile-scrolltop{
     position:absolute;
     right:34px;
-    bottom:40px;
+    bottom:84px;
     z-index:8;
     display:flex;
     align-items:center;
@@ -385,7 +388,7 @@ COOPERATION MOBILE CSS
     top:40px;
     right:20px;
     z-index:80;
-    width:34px;
+    width:27px;
     height:27px;
     padding:0 !important;
     margin:0 !important;
@@ -405,7 +408,7 @@ COOPERATION MOBILE CSS
     position:absolute;
     left:0;
     top:50%;
-    width:34px;
+    width:27px;
     height:3px;
     border-radius:10px;
     background:#fff;
@@ -439,7 +442,7 @@ COOPERATION MOBILE CSS
     z-index:70;
     width:390px;
     max-width:none;
-    height:765px;
+    height:1030px;
     padding:40px 22px 45px 40px;
     overflow:visible;
     background:transparent;
@@ -451,7 +454,7 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile .ip-menu-panel::before{
     top:0;
     bottom:auto;
-    height:765px;
+    height:1030px;
     background:rgba(0,0,0,.30);
     -webkit-backdrop-filter:blur(18px);
     backdrop-filter:blur(18px);
@@ -460,7 +463,7 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile .ip-menu-panel::after{
     top:0;
     bottom:auto;
-    height:765px;
+    height:1030px;
     background-image:url('../assets/img/home/popups/menu-noise.webp');
     background-size:cover;
     background-position:center;
@@ -549,21 +552,23 @@ COOPERATION MOBILE CSS
   }
 
   .ip-cooperation-mobile .ip-accordion-button::before{
-    right:2px;
-    transform:translate3d(0,-50%,0) rotate(45deg);
+    right:9px;
+    transform:translateY(-50%) rotate(45deg);
   }
 
   .ip-cooperation-mobile .ip-accordion-button::after{
-    right:11px;
-    transform:translate3d(0,-50%,0) rotate(-45deg);
+    right:0;
+    transform:translateY(-50%) rotate(-45deg);
   }
 
   .ip-cooperation-mobile .ip-accordion.is-open .ip-accordion-button::before{
-    transform:translate3d(0,-50%,0) rotate(-45deg);
+    opacity:.5;
+    transform:translateY(-50%) rotate(-45deg);
   }
 
   .ip-cooperation-mobile .ip-accordion.is-open .ip-accordion-button::after{
-    transform:translate3d(0,-50%,0) rotate(45deg);
+    opacity:.5;
+    transform:translateY(-50%) rotate(45deg);
   }
 
   .ip-cooperation-mobile .ip-accordion-content{
@@ -601,7 +606,7 @@ COOPERATION MOBILE CSS
 
   .ip-cooperation-mobile .ip-menu-legal{
     left:40px;
-    bottom:40px;
+    bottom:84px;
     gap:8px;
     width:300px;
   }
