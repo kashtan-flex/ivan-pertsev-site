@@ -1,15 +1,14 @@
 /* =========================================================
    MUSICAL SHOW CSS
 
-   Версия: musical-show-css-002-gallery-offset-sync
+   Версия: musical-show-css-005-awards-sync-with-wedding
 
    ИЗМЕНЕНИЯ:
-   - файл основан на musical-show-css-001-desktop
-   - desktop gallery выровнена по approved-логике страницы «Свадьба»
-   - левый отступ gallery возвращён на 11px, ширина сохранена 1418px
-   - верхний отступ gallery возвращён на 860px, чтобы появился зазор после video-блока
-   - позиции отзывов и подсказки в раскрытом состоянии синхронизированы с новым положением gallery
-   - mobile CSS не создавался и не изменялся
+   - файл основан на musical-show-css-004-effective-main-text-lower-20px
+   - award-блок desktop синхронизирован со страницей «Свадьба»
+   - добавлены рабочие селекторы для фактических классов HTML: ip-musical-show-award-wedding и ip-musical-show-award-text-wedding
+   - восстановлен отступ 30px между логотипом Wedding Awards и текстом «Лучший свадебный ведущий»
+   - остальные блоки страницы, галерея, отзывы, popup, видео и mobile не изменялись
    ========================================================= */
 
 .ip-musical-show,
@@ -141,7 +140,7 @@
 .ip-musical-show-text{
   position:absolute;
   left:60px;
-  top:175px;
+  top:195px;
   width:658px;
 }
 
@@ -316,7 +315,8 @@
   align-items:center;
 }
 
-.ip-musical-show-award-musical-show{
+.ip-musical-show-award-musical-show,
+.ip-musical-show-award-wedding{
   gap:30px;
 }
 
@@ -373,7 +373,8 @@
   opacity:.70;
 }
 
-.ip-musical-show-award-text-musical-show{
+.ip-musical-show-award-text-musical-show,
+.ip-musical-show-award-text-wedding{
   width:220px;
 }
 
@@ -1433,7 +1434,7 @@
 /* =========================================================
    MUSICAL SHOW DESKTOP LAYOUT OVERRIDES
 
-   Версия: musical-show-css-002-gallery-offset-sync
+   Версия: musical-show-css-004-effective-main-text-lower-20px
 
    ИЗМЕНЕНИЯ:
    - gallery в раскрытом состоянии поставлена на left:11px и top:860px
@@ -1481,7 +1482,7 @@
 
 .ip-musical-show-text{
   left:70px;
-  top:157px;
+  top:177px;
   width:650px;
 }
 
