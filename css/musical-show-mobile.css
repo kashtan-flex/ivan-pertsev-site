@@ -2,13 +2,14 @@
 ==================================================
 MUSICAL SHOW MOBILE CSS
 
-Версия: musical-show-mobile-css-001-initial-layout
+Версия: musical-show-mobile-css-003-header-2px-up
 
 ИЗМЕНЕНИЯ:
 - создан mobile CSS страницы «Музыкальное шоу» на базе approved Wedding Mobile
 - подключены фон musical-show-mobile-bg.webp и poster musical-show-video-poster.webp
 - задана mobile-сетка галереи из 21 фото по размерам пользователя
 - сохранены approved-геометрия award-блока, меню, popup, lightbox, отзывы, подсказка и scrolltop
+- заголовок и подзаголовок подняты на 2px относительно версии 002 без изменения расстояния между ними
 ==================================================
 */
 
@@ -110,7 +111,7 @@ MUSICAL SHOW MOBILE CSS
   .ip-musical-show-mobile-header{
     position:absolute;
     left:20px;
-    top:32px;
+    top:37px;
     z-index:5;
     width:350px;
     margin:0;
