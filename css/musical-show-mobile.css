@@ -2,17 +2,13 @@
 ==================================================
 MUSICAL SHOW MOBILE CSS
 
-Версия: musical-show-mobile-css-004-opened-gallery-spacing-sync
+Версия: musical-show-mobile-css-006-menu-bg-video-edge
 
 ИЗМЕНЕНИЯ:
-- создан mobile CSS страницы «Музыкальное шоу» на базе approved Wedding Mobile
-- подключены фон musical-show-mobile-bg.webp и poster musical-show-video-poster.webp
-- задана mobile-сетка галереи из 21 фото по размерам пользователя
-- сохранены approved-геометрия award-блока, меню, popup, lightbox, отзывы, подсказка и scrolltop
-- файл основан на musical-show-mobile-css-003-header-2px-up
-- в раскрытом состоянии синхронизированы отступы: фото → отзывы, отзывы → подсказка, подсказка → стрелка по логике Wedding Mobile
-- раскрытая высота страницы увеличена до 6372px
-- закрытое состояние, галерея, отзывы, меню, popup и desktop не изменялись
+- файл основан на musical-show-mobile-css-004-opened-gallery-spacing-sync
+- фоновые слои mobile-меню продлены до нижнего края video-блока
+- высота .ip-menu-panel::before и .ip-menu-panel::after синхронизирована с video top 148px + video height 685px = 833px
+- положение меню, заголовка, видео, текста, кнопок, award-блока, галереи, отзывов, подсказки, стрелки, popup, desktop и JavaScript не изменялись
 ==================================================
 */
 
@@ -1248,7 +1244,7 @@ MUSICAL SHOW MOBILE CSS
 
   .ip-musical-show-mobile .ip-menu-panel::before,
   .ip-musical-show-mobile .ip-menu-panel::after{
-    height:830px;
+    height:833px;
   }
 
 }
