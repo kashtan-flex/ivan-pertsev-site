@@ -2,7 +2,7 @@
 ==================================================
 POLICY PREVIEW HTML
 
-Версия: policy-preview-html-003-policy-mobile-layout
+Версия: policy-preview-html-004-legal-cache-bust
 
 ИЗМЕНЕНИЯ:
 - создан preview страницы «Политика обработки персональных данных»
@@ -12,6 +12,7 @@ POLICY PREVIEW HTML
 - добавлен preload для фона policy-bg.webp
 - подключены обновлённые legal.css/legal.js для макета политики
 - ссылки на политику в остальных страницах сайта пока не вшивались
+- legal.css и legal.js подключены с cache-bust параметрами для гарантированной проверки новой версии
 ==================================================
 -->
 
@@ -47,7 +48,7 @@ POLICY PREVIEW HTML
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
-  <link rel="stylesheet" href="./css/legal.css">
+  <link rel="stylesheet" href="./css/legal.css?v=016-policy-menu-final-clean-sync">
 </head>
 
 <body>
@@ -64,7 +65,7 @@ POLICY PREVIEW HTML
         document.getElementById('ip-policy-root').innerHTML = html;
 
         var pageScript = document.createElement('script');
-        pageScript.src = './js/legal.js';
+        pageScript.src = './js/legal.js?v=008-policy-menu-final-clean-sync';
         document.body.appendChild(pageScript);
 
         var transitionScript = document.createElement('script');

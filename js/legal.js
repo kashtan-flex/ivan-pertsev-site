@@ -2,19 +2,16 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-006-policy-menu-scroll-intent-sync
+Версия: legal-js-008-policy-menu-final-clean-sync
 
 ИЗМЕНЕНИЯ:
-- создан JS для текстовых правовых страниц проекта
-- сохранена логика меню, аккордеонов, popup и маски даты по approved-страницам
-- добавлена обработка data-popup-open="main" для пунктов «Другое», «Написать» и popup-триггеров
-- добавлена работа стрелки наверх
-- desktop burger/menu выносится в отдельный fixed-слой вне transform-контейнера страницы
-- fixed-layer используется совместно с legal-css-011, где сохранены ширина и типографика эталонного меню
-- при возврате в mobile меню возвращается в исходное место разметки
-- строка «Сайт ИванПерцев.рф / ivanpercev.rf» автоматически превращается в кликабельную ссылку
-- меню закрывается не только по фактическому scroll, но и по wheel/touchmove в capture-режиме
-- сохранён desktop fixed-layer для burger/menu вне transform-контейнера страницы
+- файл очищен от неудачной desktop fixed-layer архитектуры меню
+- burger/menu больше не переносятся JS-ом в body или отдельный layer
+- сохранена простая approved-логика меню по аналогии с cooperation.js: добавление/удаление класса is-open
+- меню закрывается при scroll, wheel, touchmove и Escape
+- сохранены аккордеоны, popup, маска даты и стрелка наверх
+- масштабирование legal-страницы сохранено через CSS-переменные
+- ссылка сайта не подменяется, если она уже вшита в policy.html как a[href]
 - остальные страницы сайта не изменялись
 ==================================================
 */
@@ -32,11 +29,6 @@ LEGAL JS
   var scrollTopButton = document.querySelector('.ip-legal-scrolltop');
   var shell = document.querySelector('.ip-policy-shell');
   var resizeFrame = null;
-  var menuLayer = null;
-  var menuButtonOriginalParent = menuButton ? menuButton.parentNode : null;
-  var menuButtonOriginalNext = menuButton ? menuButton.nextSibling : null;
-  var menuPanelOriginalParent = menuPanel ? menuPanel.parentNode : null;
-  var menuPanelOriginalNext = menuPanel ? menuPanel.nextSibling : null;
 
   var DESIGN = {
     desktop:{ width:1440 },
@@ -60,62 +52,6 @@ LEGAL JS
     return window.innerHeight;
   }
 
-  function getMenuLayer(){
-    if(menuLayer && menuLayer.parentNode){
-      return menuLayer;
-    }
-
-    menuLayer = document.querySelector('.ip-policy-menu-layer');
-
-    if(menuLayer){
-      return menuLayer;
-    }
-
-    menuLayer = document.createElement('div');
-    menuLayer.className = 'ip-policy-menu-layer';
-    menuLayer.setAttribute('aria-hidden', 'false');
-    document.body.appendChild(menuLayer);
-
-    return menuLayer;
-  }
-
-  function insertBeforeOriginal(parent, node, nextSibling){
-    if(!parent || !node){
-      return;
-    }
-
-    if(nextSibling && nextSibling.parentNode === parent){
-      parent.insertBefore(node, nextSibling);
-      return;
-    }
-
-    parent.appendChild(node);
-  }
-
-  function syncMenuFixedLayer(){
-    if(isMobile()){
-      insertBeforeOriginal(menuButtonOriginalParent, menuButton, menuButtonOriginalNext);
-      insertBeforeOriginal(menuPanelOriginalParent, menuPanel, menuPanelOriginalNext);
-
-      if(menuLayer){
-        menuLayer.style.display = 'none';
-      }
-
-      return;
-    }
-
-    var layer = getMenuLayer();
-    layer.style.display = 'block';
-
-    if(menuButton.parentNode !== layer){
-      layer.appendChild(menuButton);
-    }
-
-    if(menuPanel.parentNode !== layer){
-      layer.appendChild(menuPanel);
-    }
-  }
-
   function setupLegalSiteLinks(){
     var meta = document.querySelector('.ip-legal-meta');
 
@@ -123,26 +59,20 @@ LEGAL JS
       return;
     }
 
-    var targets = Array.prototype.slice.call(meta.querySelectorAll('.ip-legal-site, p, span, div'));
+    var siteLine = meta.querySelector('.ip-legal-site');
 
-    if(meta.textContent && /иван\s*перцев\.рф|ivan\s*percev\.rf/i.test(meta.textContent)){
-      targets.push(meta);
+    if(!siteLine || siteLine.querySelector('a')){
+      return;
     }
 
-    targets.forEach(function(target){
-      if(!target || target.querySelector('a')){
-        return;
-      }
+    var html = siteLine.innerHTML;
 
-      var html = target.innerHTML;
+    if(!/иван\s*перцев\.рф|ivan\s*percev\.rf/i.test(html)){
+      return;
+    }
 
-      if(!/иван\s*перцев\.рф|ivan\s*percev\.rf/i.test(html)){
-        return;
-      }
-
-      target.innerHTML = html.replace(/(Иван\s*Перцев\.рф|иван\s*перцев\.рф|ivan\s*percev\.rf)/ig, function(match){
-        return '<a href="https://ivanpercev.rf/" target="_blank" rel="noopener noreferrer">' + match + '</a>';
-      });
+    siteLine.innerHTML = html.replace(/(Иван\s*Перцев\.рф|иван\s*перцев\.рф|ivan\s*percev\.rf)/ig, function(match){
+      return '<a href="https://иванперцев.рф" target="_blank" rel="noopener noreferrer">' + match + '</a>';
     });
   }
 
@@ -169,8 +99,6 @@ LEGAL JS
       document.documentElement.style.setProperty('--ip-policy-desktop-scale', scale.toFixed(5));
       document.documentElement.style.removeProperty('--ip-policy-mobile-scale');
     }
-
-    syncMenuFixedLayer();
 
     var pageHeight = Math.ceil(shell.scrollHeight * scale);
 
@@ -292,7 +220,6 @@ LEGAL JS
       }
     }
   }
-
 
   function scrollToTop(){
     window.scrollTo({
