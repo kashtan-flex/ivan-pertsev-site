@@ -2,7 +2,7 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-002-policy-scrolltop
+Версия: legal-js-003-policy-scale-sync
 
 ИЗМЕНЕНИЯ:
 - создан JS для текстовых правовых страниц проекта
@@ -24,9 +24,66 @@ LEGAL JS
   var popupOpenTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-popup-open]'));
   var popupCloseTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-popup-close]'));
   var scrollTopButton = document.querySelector('.ip-legal-scrolltop');
+  var shell = document.querySelector('.ip-policy-shell');
+  var resizeFrame = null;
+
+  var DESIGN = {
+    desktop:{ width:1440 },
+    mobile:{ width:390, height:700 },
+    breakpoint:767
+  };
 
   if(!page || !menuButton || !menuPanel){
     return;
+  }
+
+  function isMobile(){
+    return window.innerWidth <= DESIGN.breakpoint;
+  }
+
+  function getViewportHeight(){
+    if(window.visualViewport && window.visualViewport.height){
+      return window.visualViewport.height;
+    }
+
+    return window.innerHeight;
+  }
+
+  function updatePolicyScale(){
+    if(!shell){
+      return;
+    }
+
+    var viewportWidth = window.innerWidth;
+    var viewportHeight = getViewportHeight();
+    var scale = 1;
+
+    if(isMobile()){
+      scale = Math.max(
+        viewportWidth / DESIGN.mobile.width,
+        viewportHeight / DESIGN.mobile.height
+      );
+
+      document.documentElement.style.setProperty('--ip-policy-mobile-scale', scale.toFixed(5));
+      document.documentElement.style.removeProperty('--ip-policy-desktop-scale');
+    } else {
+      scale = viewportWidth / DESIGN.desktop.width;
+
+      document.documentElement.style.setProperty('--ip-policy-desktop-scale', scale.toFixed(5));
+      document.documentElement.style.removeProperty('--ip-policy-mobile-scale');
+    }
+
+    var pageHeight = Math.ceil(shell.scrollHeight * scale);
+
+    document.documentElement.style.setProperty('--ip-policy-page-height', pageHeight + 'px');
+  }
+
+  function requestPolicyScaleUpdate(){
+    if(resizeFrame){
+      window.cancelAnimationFrame(resizeFrame);
+    }
+
+    resizeFrame = window.requestAnimationFrame(updatePolicyScale);
   }
 
   function openMenu(){
@@ -94,6 +151,7 @@ LEGAL JS
     popup.setAttribute('aria-hidden', 'true');
     document.documentElement.classList.remove('ip-popup-lock');
     document.body.classList.remove('ip-popup-lock');
+    updatePolicyScale();
   }
 
   function setupPopupTriggers(){
@@ -173,6 +231,26 @@ LEGAL JS
       dateInput.value = formatted;
     });
   }
+
+  updatePolicyScale();
+
+  window.addEventListener('resize', requestPolicyScaleUpdate, { passive:true });
+
+  window.addEventListener('orientationchange', function(){
+    window.setTimeout(updatePolicyScale, 250);
+  }, { passive:true });
+
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', requestPolicyScaleUpdate, { passive:true });
+  }
+
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(updatePolicyScale).catch(function(){
+      return null;
+    });
+  }
+
+  window.setTimeout(updatePolicyScale, 250);
 
   menuButton.addEventListener('click', toggleMenu);
   accordions.forEach(setupAccordion);
