@@ -2,7 +2,7 @@
 ==================================================
 COOPERATION MOBILE CSS
 
-Версия: cooperation-mobile-css-006-menu-sync
+Версия: cooperation-mobile-css-007-header-lower
 
 ИЗМЕНЕНИЯ:
 - файл основан на cooperation-mobile-css-001-initial
@@ -12,7 +12,8 @@ COOPERATION MOBILE CSS
 - типографика mobile-строк «Портфолио», «Бытовой райдер» и «Технический райдер» приведена к Figma: Montserrat Regular 20px, line-height 130%, letter-spacing -3%
 - сохранена текущая позиция блока скачивания и естественная ширина строк
 - меню синхронизировано с approved mobile-страницами проектов: burger/cross 27px, стрелки аккордеонов исправлены, фон меню растянут до конца mobile-страницы
-- popup, desktop, портрет, высота страницы, стрелка и позиции контента не изменялись
+- заголовок и подзаголовок опущены на 5px вниз без изменения расстояния между ними
+- popup, desktop, портрет, высота страницы, стрелка и остальные позиции контента не изменялись
 ==================================================
 */
 
@@ -123,7 +124,7 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile-header{
     position:absolute;
     left:21px;
-    top:34px;
+    top:39px;
     z-index:5;
     width:350px;
     margin:0;
