@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-008-policy-menu-sync-with-cooperation
+   Версия: legal-css-013-policy-menu-bg-cover-5px
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -22,7 +22,13 @@
    - burger/cross закреплены относительно viewport без переноса меню в body
    - desktop-меню и текстовая разметка не изменялись
    - mobile burger поднят к верхней части второй строки заголовка и жёстко зафиксирован относительно viewport
-   - контент, переносы текста, меню, popup, scroll-top, desktop и JS не изменялись
+   - desktop-стрелка поднята до уровня нижней части финального текста
+   - добавлен отдельный desktop fixed-layer для меню после переноса JS-ом из transform-контейнера
+   - ширина desktop-фона меню синхронизирована с эталонной логикой: 385px со scale от 1440px
+   - восстановлены Montserrat, цвета и подчёркивания для submenu, телефона и правовых ссылок в вынесенном desktop-меню
+   - при закрытии desktop-меню fixed-layer принудительно скрывает фон и отключает pointer-events
+   - desktop-фон меню расширен только влево на 32px, чтобы перекрывать край текста под меню, без изменения ширины контентной колонки меню
+   - mobile-разметка и mobile-правила не изменялись
    ========================================================= */
 
 html,
@@ -204,7 +210,7 @@ body,
 .ip-legal-scrolltop{
   position:absolute;
   right:100px;
-  bottom:146px;
+  bottom:168px;
   z-index:9;
   display:flex;
   align-items:center;
@@ -236,37 +242,176 @@ body,
   transform:translateY(2px) rotate(45deg);
 }
 
+/* DESKTOP MENU FIXED LAYER
+   JS выносит burger/menu в этот слой только на desktop.
+   Это убирает конфликт position:fixed с transform у .ip-policy-shell,
+   но сохраняет утверждённую геометрию меню: 385px и scale от макета 1440px.
+*/
+
+.ip-policy-menu-layer{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  width:100%;
+  height:0;
+  overflow:visible;
+  pointer-events:none;
+  background:transparent;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+}
+
+.ip-policy-menu-layer,
+.ip-policy-menu-layer *{
+  box-sizing:border-box;
+  font-family:'Montserrat',Arial,sans-serif;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+.ip-policy-menu-layer a,
+.ip-policy-menu-layer a:link,
+.ip-policy-menu-layer a:visited,
+.ip-policy-menu-layer a:hover,
+.ip-policy-menu-layer a:active,
+.ip-policy-menu-layer button{
+  text-decoration:none !important;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.ip-policy-menu-layer .ip-menu-toggle{
+  pointer-events:auto;
+}
+
+.ip-policy-menu-layer .ip-menu-panel.is-open{
+  pointer-events:auto;
+}
+
 /* MENU OVERRIDES FOR SCROLLABLE LEGAL PAGE */
 
-.ip-policy-page .ip-menu-toggle{
+.ip-policy-page .ip-menu-toggle,
+.ip-policy-menu-layer .ip-menu-toggle{
   position:fixed;
 }
 
-.ip-policy-page .ip-menu-panel{
+.ip-policy-page .ip-menu-panel,
+.ip-policy-menu-layer .ip-menu-panel{
   position:fixed;
   height:100vh;
   min-height:800px;
 }
 
 .ip-policy-page .ip-menu-panel::before,
-.ip-policy-page .ip-menu-panel::after{
+.ip-policy-page .ip-menu-panel::after,
+.ip-policy-menu-layer .ip-menu-panel::before,
+.ip-policy-menu-layer .ip-menu-panel::after{
   height:100%;
 }
 
 /* SCALE SYNC WITH PROJECT PAGES */
 @media (min-width:768px){
-  .ip-policy-page .ip-menu-toggle{
+  .ip-policy-page .ip-menu-toggle,
+  .ip-policy-menu-layer .ip-menu-toggle{
     top:calc(60px * var(--ip-policy-desktop-scale, 1));
     right:calc(((100vw - (1440px * var(--ip-policy-desktop-scale, 1))) / 2) + (100px * var(--ip-policy-desktop-scale, 1)));
   }
 
-  .ip-policy-page .ip-menu-panel{
-    right:calc((100vw - (1440px * var(--ip-policy-desktop-scale, 1))) / 2);
-    width:385px;
-    height:800px;
-    min-height:800px;
-    transform:scale(var(--ip-policy-desktop-scale, 1));
-    transform-origin:top right;
+  .ip-policy-page .ip-menu-panel,
+  .ip-policy-menu-layer .ip-menu-panel{
+    top:0 !important;
+    right:calc((100vw - (1440px * var(--ip-policy-desktop-scale, 1))) / 2) !important;
+    left:auto !important;
+    width:385px !important;
+    max-width:385px !important;
+    height:800px !important;
+    min-height:800px !important;
+    overflow:hidden !important;
+    transform:scale(var(--ip-policy-desktop-scale, 1)) !important;
+    transform-origin:top right !important;
+  }
+
+  .ip-policy-menu-layer .ip-menu-panel:not(.is-open){
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+
+  .ip-policy-menu-layer .ip-menu-panel.is-open{
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+  }
+
+  .ip-policy-page .ip-menu-panel::before,
+  .ip-policy-page .ip-menu-panel::after{
+    inset:0 !important;
+    width:100% !important;
+    max-width:none !important;
+    height:100% !important;
+    min-height:100% !important;
+    transform:none !important;
+  }
+
+  .ip-policy-menu-layer .ip-menu-panel::before,
+  .ip-policy-menu-layer .ip-menu-panel::after{
+    top:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    left:-5px !important;
+    width:calc(100% + 5px) !important;
+    max-width:none !important;
+    height:100% !important;
+    min-height:100% !important;
+    transform:none !important;
+  }
+
+  .ip-policy-menu-layer .ip-menu-link,
+  .ip-policy-menu-layer .ip-menu-link:link,
+  .ip-policy-menu-layer .ip-menu-link:visited,
+  .ip-policy-menu-layer .ip-menu-link:hover,
+  .ip-policy-menu-layer .ip-menu-link:active,
+  .ip-policy-menu-layer .ip-accordion-button,
+  .ip-policy-menu-layer .ip-accordion-button:hover,
+  .ip-policy-menu-layer .ip-accordion-button:active{
+    color:#fff !important;
+    font-family:'Montserrat',Arial,sans-serif !important;
+    font-size:20px !important;
+    line-height:90% !important;
+    font-weight:600 !important;
+    letter-spacing:-.04em !important;
+    text-decoration:none !important;
+  }
+
+  .ip-policy-menu-layer .ip-submenu a,
+  .ip-policy-menu-layer .ip-submenu a:link,
+  .ip-policy-menu-layer .ip-submenu a:visited,
+  .ip-policy-menu-layer .ip-submenu a:hover,
+  .ip-policy-menu-layer .ip-submenu a:active{
+    color:#69C9FF !important;
+    font-family:'Montserrat',Arial,sans-serif !important;
+    font-size:16px !important;
+    line-height:120% !important;
+    font-weight:400 !important;
+    letter-spacing:-.025em !important;
+    text-decoration:none !important;
+    opacity:1 !important;
+  }
+
+  .ip-policy-menu-layer .ip-menu-legal a,
+  .ip-policy-menu-layer .ip-menu-legal a:link,
+  .ip-policy-menu-layer .ip-menu-legal a:visited,
+  .ip-policy-menu-layer .ip-menu-legal a:hover,
+  .ip-policy-menu-layer .ip-menu-legal a:active{
+    color:rgba(255,255,255,.5) !important;
+    font-family:'Montserrat',Arial,sans-serif !important;
+    font-size:8px !important;
+    line-height:150% !important;
+    font-weight:400 !important;
+    letter-spacing:-.02em !important;
+    text-decoration:none !important;
   }
 }
 
