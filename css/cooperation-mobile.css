@@ -2,7 +2,7 @@
 ==================================================
 COOPERATION MOBILE CSS
 
-Версия: cooperation-mobile-css-007-header-lower
+Версия: cooperation-mobile-css-009-menu-legal-visible
 
 ИЗМЕНЕНИЯ:
 - файл основан на cooperation-mobile-css-001-initial
@@ -13,6 +13,9 @@ COOPERATION MOBILE CSS
 - сохранена текущая позиция блока скачивания и естественная ширина строк
 - меню синхронизировано с approved mobile-страницами проектов: burger/cross 27px, стрелки аккордеонов исправлены, фон меню растянут до конца mobile-страницы
 - заголовок и подзаголовок опущены на 5px вниз без изменения расстояния между ними
+- меню приведено к approved-виду mobile-страниц проектов: blue submenu links, approved accordion раскрытие и legal-блок
+- длина фоновых слоёв меню сохранена на всю страницу
+- правовые ссылки mobile-меню подняты в видимую область без изменения длины фоновых слоёв меню
 - popup, desktop, портрет, высота страницы, стрелка и остальные позиции контента не изменялись
 ==================================================
 */
@@ -573,22 +576,18 @@ COOPERATION MOBILE CSS
   }
 
   .ip-cooperation-mobile .ip-accordion-content{
-    display:grid;
-    grid-template-rows:0fr;
+    max-height:0;
     overflow:hidden;
-    transition:grid-template-rows .42s cubic-bezier(.19,1,.22,1);
+    transition:max-height .4s ease;
   }
 
   .ip-cooperation-mobile .ip-accordion.is-open .ip-accordion-content{
-    grid-template-rows:1fr;
+    max-height:220px;
   }
 
   .ip-cooperation-mobile .ip-submenu{
-    min-height:0;
-    padding:14px 0 0;
-    display:flex;
-    flex-direction:column;
     gap:12px;
+    padding-top:16px;
   }
 
   .ip-cooperation-mobile .ip-submenu a,
@@ -596,20 +595,21 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile .ip-submenu a:visited,
   .ip-cooperation-mobile .ip-submenu a:hover,
   .ip-cooperation-mobile .ip-submenu a:active{
-    color:#fff !important;
+    color:#69C9FF !important;
     font-family:'Montserrat',Arial,sans-serif;
-    font-size:15px;
-    line-height:100%;
+    font-size:16px;
+    line-height:120%;
     font-weight:400;
-    letter-spacing:-.04em;
+    letter-spacing:-.025em;
+    opacity:1;
     text-decoration:none !important;
   }
 
   .ip-cooperation-mobile .ip-menu-legal{
     left:40px;
-    bottom:84px;
-    gap:8px;
-    width:300px;
+    right:22px;
+    top:790px;
+    bottom:auto;
   }
 
   .ip-cooperation-mobile .ip-menu-legal a,
@@ -617,12 +617,9 @@ COOPERATION MOBILE CSS
   .ip-cooperation-mobile .ip-menu-legal a:visited,
   .ip-cooperation-mobile .ip-menu-legal a:hover,
   .ip-cooperation-mobile .ip-menu-legal a:active{
-    color:rgba(255,255,255,.45) !important;
-    font-family:'Montserrat',Arial,sans-serif;
-    font-size:10px;
-    line-height:120%;
-    font-weight:400;
-    letter-spacing:-.03em;
+    color:rgba(255,255,255,.5) !important;
+    font-size:8px;
+    line-height:150%;
     text-decoration:none !important;
   }
 
