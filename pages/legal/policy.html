@@ -1,0 +1,304 @@
+<!--
+==================================================
+POLICY HTML
+
+Версия: policy-html-002-page-layout
+
+ИЗМЕНЕНИЯ:
+- на базе policy-html-markup-001 создана полноценная страница проекта
+- добавлены фон, утверждённое меню, общий popup и page transition compatibility
+- сохранена semantic-разметка политики: заголовок, дата, сайт, разделы, абзацы, списки и ссылки
+- ссылки на политику в остальных страницах сайта пока не вшивались
+==================================================
+-->
+
+<section class="ip-policy-page" data-legal-page>
+  <div class="ip-policy-bg" aria-hidden="true"></div>
+  <div class="ip-policy-overlay" aria-hidden="true"></div>
+
+    <button class="ip-menu-toggle" type="button" aria-label="Открыть меню">
+      <span class="ip-menu-line"></span>
+      <span class="ip-menu-line"></span>
+    </button>
+
+    <nav class="ip-menu-panel" aria-label="Главное меню">
+
+      <div class="ip-menu-inner">
+
+        <div class="ip-menu-socials">
+          <a class="ip-social instagram" href="https://www.instagram.com/ivan_pertsev?igsh=cmp1dGRsaHZzOTV1" target="_blank" rel="noopener noreferrer" aria-label="Instagram"></a>
+          <a class="ip-social telegram" href="https://t.me/ivan_pertsev" target="_blank" rel="noopener noreferrer" aria-label="Telegram"></a>
+          <a class="ip-social vk" href="https://vk.com/ivan_pertsev" target="_blank" rel="noopener noreferrer" aria-label="VK"></a>
+        </div>
+
+        <div class="ip-menu-list">
+
+          <a class="ip-menu-link" href="./preview.html">Главная</a>
+          <a class="ip-menu-link" href="./biography-preview.html">Биография</a>
+
+          <div class="ip-accordion">
+            <button class="ip-accordion-button" type="button">Проекты</button>
+
+            <div class="ip-accordion-content">
+              <div class="ip-submenu">
+                <a href="./wedding-preview.html">Свадьба</a>
+                <a href="./corporate-preview.html">Корпоратив</a>
+                <a href="./birthday-preview.html">День рождение</a>
+                <a href="./graduation-preview.html">Выпускной</a>
+                <a href="#" data-popup-open="main">Другое</a>
+              </div>
+            </div>
+          </div>
+
+          <a class="ip-menu-link" href="./musical-show-preview.html">Музыкальное шоу</a>
+          <a class="ip-menu-link" href="./cooperation-preview.html">Сотрудничество</a>
+
+          <div class="ip-accordion">
+            <button class="ip-accordion-button" type="button">Контакты</button>
+
+            <div class="ip-accordion-content">
+              <div class="ip-submenu">
+                <a href="tel:+79200127624">+7 920 012 76 24</a>
+                <a href="#" data-popup-open="main">Написать</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="ip-menu-legal">
+        <a href="./policy-preview.html">Политика обработки персональных данных</a>
+        <a href="#">Согласие на обработку персональных данных</a>
+      </div>
+
+    </nav>
+
+  <div class="ip-policy-shell">
+<section class="ip-legal-page ip-legal-page--policy" aria-labelledby="ip-policy-title">
+  <header class="ip-legal-header">
+    <h1 class="ip-legal-title" id="ip-policy-title">Политика обработки персональных данных</h1>
+
+    <div class="ip-legal-meta" aria-label="Информация о документе">
+      <p class="ip-legal-date">Дата публикации: 06 мая 2026 года</p>
+      <p class="ip-legal-site">
+        Сайт:
+        <a href="https://иванперцев.рф" target="_blank" rel="noopener noreferrer">иванперцев.рф</a>
+      </p>
+    </div>
+  </header>
+
+  <main class="ip-legal-content">
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-1">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-1">1. Общие положения</h2>
+
+      <p>Настоящая Политика определяет порядок обработки и защиты персональных данных пользователей сайта <a href="https://иванперцев.рф" target="_blank" rel="noopener noreferrer">иванперцев.рф</a>.</p>
+
+      <p>
+        Оператор персональных данных: Индивидуальный предприниматель Перцев Иван Сергеевич,<br>
+        ИНН: 3330778864,<br>
+        ОГРНИП: 32452750145649.
+      </p>
+
+      <p>Оператор обрабатывает персональные данные в соответствии с Федеральным законом от 27.07.2006 №152-ФЗ «О персональных данных».</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-2">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-2">2. Какие персональные данные обрабатываются</h2>
+
+      <p>Через форму обратной связи на сайте Оператор обрабатывает:</p>
+
+      <ul class="ip-legal-list">
+        <li>имя;</li>
+        <li>номер телефона;</li>
+        <li>дату мероприятия.</li>
+      </ul>
+
+      <p>Также пользователь может самостоятельно сообщить дополнительные сведения при дальнейшем общении с Оператором.</p>
+
+      <p>Сайт не собирает персональные данные для рекламных рассылок, ретаргетинга, маркетинговой аналитики и поведенческой рекламы.</p>
+
+      <p>Сайт не использует сервисы веб-аналитики и рекламные пиксели, если они фактически не подключены.</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-3">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-3">3. Цели обработки персональных данных</h2>
+
+      <p>Персональные данные обрабатываются только для следующих целей:</p>
+
+      <ul class="ip-legal-list">
+        <li>получение заявки от пользователя;</li>
+        <li>связь с пользователем по указанному номеру телефона;</li>
+        <li>уточнение даты, формата и деталей мероприятия;</li>
+        <li>подготовка предложения по услугам ведущего мероприятий;</li>
+        <li>согласование условий сотрудничества;</li>
+        <li>заключение и исполнение договора, если пользователь принимает предложение Оператора.</li>
+      </ul>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-4">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-4">4. Правовое основание обработки</h2>
+
+      <p>Правовым основанием обработки персональных данных служит согласие пользователя на обработку персональных данных.</p>
+
+      <p>Если после обращения пользователь заключает договор с Оператором, обработка также может выполняться для заключения и исполнения договора.</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-5">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-5">5. Как обрабатываются персональные данные</h2>
+
+      <p>Оператор может совершать с персональными данными следующие действия:</p>
+
+      <ul class="ip-legal-list">
+        <li>сбор;</li>
+        <li>запись;</li>
+        <li>хранение;</li>
+        <li>уточнение;</li>
+        <li>использование;</li>
+        <li>передача в рамках технической доставки заявки;</li>
+        <li>блокирование;</li>
+        <li>удаление;</li>
+        <li>уничтожение.</li>
+      </ul>
+
+      <p>Обработка может выполняться с использованием средств автоматизации и без их использования.</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-6">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-6">6. Передача данных через электронную почту</h2>
+
+      <p>После отправки формы обратной связи данные пользователя могут поступить владельцу сайта на электронную почту.</p>
+
+      <p>Передаются только данные, которые пользователь указал в форме: имя, номер телефона и дата мероприятия.</p>
+
+      <p>Электронная почта используется как канал доставки заявки владельцу сайта. Данные не передаются через электронную почту для рекламных рассылок, массовых сообщений, ретаргетинга или продажи третьим лицам.</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-7">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-7">7. Передача данных третьим лицам</h2>
+
+      <p>Оператор не продает персональные данные пользователей и не передает их третьим лицам для самостоятельного использования.</p>
+
+      <p>Передача персональных данных возможна только:</p>
+
+      <ul class="ip-legal-list">
+        <li>сервисам, которые технически обеспечивают работу сайта, формы обратной связи и доставку заявки;</li>
+        <li>лицам, которые помогают Оператору отвечать на заявку или исполнить договор;</li>
+        <li>государственным органам, если такая обязанность предусмотрена законом.</li>
+      </ul>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-8">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-8">8. Срок хранения персональных данных</h2>
+
+      <p>Персональные данные хранятся до достижения цели обработки.</p>
+
+      <p>Если заявка не привела к заключению договора, данные могут храниться в течение срока, необходимого для обработки обращения и деловой переписки.</p>
+
+      <p>Если с пользователем заключен договор, данные могут храниться в течение сроков, предусмотренных законодательством РФ для договорных, бухгалтерских и налоговых документов.</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-9">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-9">9. Отзыв согласия</h2>
+
+      <p>Пользователь может отозвать согласие на обработку персональных данных.</p>
+
+      <p>Для отзыва согласия пользователь может направить обращение Оператору по контактам, указанным на сайте.</p>
+
+      <p>После получения отзыва Оператор прекращает обработку персональных данных, кроме случаев, когда дальнейшая обработка допускается законом.</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-10">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-10">10. Права пользователя</h2>
+
+      <p>Пользователь вправе:</p>
+
+      <ul class="ip-legal-list">
+        <li>получать информацию об обработке своих персональных данных;</li>
+        <li>требовать уточнения персональных данных;</li>
+        <li>требовать блокирования или удаления персональных данных;</li>
+        <li>отзывать согласие на обработку персональных данных;</li>
+        <li>направлять Оператору запросы по вопросам обработки персональных данных.</li>
+      </ul>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-11">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-11">11. Защита персональных данных</h2>
+
+      <p>Оператор принимает необходимые меры для защиты персональных данных от неправомерного доступа, изменения, раскрытия, уничтожения и иных неправомерных действий.</p>
+
+      <p>Доступ к персональным данным имеют только Оператор и лица, которым такие данные нужны для обработки заявки или исполнения договора.</p>
+    </section>
+
+    <section class="ip-legal-section" aria-labelledby="ip-policy-section-12">
+      <h2 class="ip-legal-section-title" id="ip-policy-section-12">12. Изменение Политики</h2>
+
+      <p>Оператор может изменять настоящую Политику.</p>
+
+      <p>Актуальная редакция Политики размещается на сайте <a href="https://иванперцев.рф" target="_blank" rel="noopener noreferrer">иванперцев.рф</a>.</p>
+    </section>
+  </main>
+</section>
+
+  </div>
+</section>
+
+<div class="ip-popup" data-popup="main" aria-hidden="true">
+
+  <div class="ip-popup-backdrop" data-popup-close></div>
+
+  <div
+    class="ip-popup-card"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Форма связи"
+  >
+
+    <form
+      class="ip-popup-form"
+      data-form-email="ya@ivanpertsev.ru"
+    >
+
+      <div class="ip-popup-heading">
+        <div class="ip-popup-name">Иван Перцев</div>
+
+        <div class="ip-popup-text">
+          <strong>Заполните форму,</strong>
+          <span>и в ближайшее время</span>
+          <span>я с Вами свяжусь.</span>
+        </div>
+      </div>
+
+      <div class="ip-popup-fields">
+        <input type="text" name="name" placeholder="Имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <input type="text" name="date" placeholder="Дата" inputmode="numeric" maxlength="10" autocomplete="off" required>
+      </div>
+
+      <label class="ip-popup-policy">
+        <input type="checkbox" checked required>
+        <span class="ip-popup-checkbox"></span>
+
+        <span class="ip-popup-policy-text">
+          <span class="ip-popup-policy-line">Согласен(а) на обработку данных в соответствии</span>
+
+          <span class="ip-popup-policy-link-line">
+            <span class="ip-popup-policy-preposition">с</span>
+
+            <a href="./policy-preview.html" target="_blank">
+              Политикой обработки персональных данных.
+            </a>
+          </span>
+        </span>
+      </label>
+
+      <button class="ip-popup-submit" type="submit">
+        Отправить
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

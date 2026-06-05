@@ -1,0 +1,324 @@
+/* =========================================================
+   LEGAL CSS — POLICY PAGE
+
+   Версия: legal-css-001-policy-page
+
+   ИЗМЕНЕНИЯ:
+   - создан общий CSS для правовых страниц проекта
+   - добавлена текстовая страница «Политика обработки персональных данных» на фоне policy-bg.webp
+   - сохранена утверждённая визуальная система меню через home.css с локальными override только для legal-страниц
+   - добавлена desktop/mobile адаптация текстового контента
+   - остальные страницы сайта не затрагивались
+   ========================================================= */
+
+html,
+body,
+#allrecords,
+#ip-policy-root{
+  width:100%;
+  min-height:100%;
+  height:auto;
+  margin:0;
+  padding:0;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+  background:#050603 !important;
+}
+
+.ip-policy-page,
+.ip-policy-page *{
+  box-sizing:border-box;
+}
+
+.ip-policy-page a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.ip-policy-page{
+  position:relative;
+  min-height:100vh;
+  overflow:hidden;
+  background:#050603;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+}
+
+.ip-policy-bg,
+.ip-policy-overlay{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+.ip-policy-bg{
+  z-index:0;
+  background-image:url('../assets/img/policy/background/policy-bg.webp');
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+}
+
+.ip-policy-overlay{
+  z-index:1;
+  background:
+    linear-gradient(180deg, rgba(5,6,3,.16) 0%, rgba(5,6,3,.54) 100%),
+    rgba(0,0,0,.08);
+}
+
+.ip-policy-shell{
+  position:relative;
+  z-index:5;
+  width:min(980px, calc(100vw - 120px));
+  margin:0 auto;
+  padding:118px 0 96px;
+}
+
+.ip-legal-page{
+  width:100%;
+}
+
+.ip-legal-header{
+  margin:0 0 52px;
+}
+
+.ip-legal-title{
+  width:100%;
+  margin:0 0 26px;
+  color:#fff;
+  font-family:'Montserrat',Arial,sans-serif;
+  font-size:42px;
+  line-height:1.04;
+  font-weight:600;
+  letter-spacing:-.045em;
+}
+
+.ip-legal-meta{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  color:rgba(255,255,255,.66);
+  font-size:15px;
+  line-height:1.45;
+  font-weight:400;
+  letter-spacing:-.015em;
+}
+
+.ip-legal-meta p{
+  margin:0;
+}
+
+.ip-legal-content{
+  display:flex;
+  flex-direction:column;
+  gap:38px;
+}
+
+.ip-legal-section{
+  width:100%;
+}
+
+.ip-legal-section-title{
+  margin:0 0 16px;
+  color:#fff;
+  font-size:24px;
+  line-height:1.18;
+  font-weight:600;
+  letter-spacing:-.035em;
+}
+
+.ip-legal-content p,
+.ip-legal-list{
+  margin:0 0 14px;
+  color:rgba(255,255,255,.78);
+  font-size:16px;
+  line-height:1.58;
+  font-weight:400;
+  letter-spacing:-.018em;
+}
+
+.ip-legal-content p:last-child,
+.ip-legal-list:last-child{
+  margin-bottom:0;
+}
+
+.ip-legal-list{
+  padding-left:22px;
+}
+
+.ip-legal-list li{
+  margin:0 0 7px;
+}
+
+.ip-legal-content a,
+.ip-legal-meta a{
+  color:#69C9FF !important;
+  text-decoration:none !important;
+  transition:opacity .25s ease;
+}
+
+.ip-legal-content a:hover,
+.ip-legal-meta a:hover{
+  opacity:.75;
+}
+
+/* MENU OVERRIDES FOR SCROLLABLE LEGAL PAGE */
+
+.ip-policy-page .ip-menu-toggle{
+  position:fixed;
+}
+
+.ip-policy-page .ip-menu-panel{
+  position:fixed;
+  height:100vh;
+  min-height:800px;
+}
+
+.ip-policy-page .ip-menu-panel::before,
+.ip-policy-page .ip-menu-panel::after{
+  height:100%;
+}
+
+.ip-policy-page .ip-menu-legal a:first-child{
+  color:rgba(105,201,255,.86) !important;
+}
+
+@media (max-width:767px){
+
+  .ip-policy-bg{
+    background-size:cover;
+    background-position:center top;
+  }
+
+  .ip-policy-overlay{
+    background:
+      linear-gradient(180deg, rgba(5,6,3,.12) 0%, rgba(5,6,3,.64) 100%),
+      rgba(0,0,0,.14);
+  }
+
+  .ip-policy-shell{
+    width:calc(100vw - 40px);
+    padding:104px 0 70px;
+  }
+
+  .ip-legal-header{
+    margin-bottom:38px;
+  }
+
+  .ip-legal-title{
+    margin-bottom:20px;
+    font-size:30px;
+    line-height:1.05;
+    letter-spacing:-.045em;
+  }
+
+  .ip-legal-meta{
+    font-size:13px;
+    line-height:1.42;
+  }
+
+  .ip-legal-content{
+    gap:32px;
+  }
+
+  .ip-legal-section-title{
+    margin-bottom:13px;
+    font-size:21px;
+    line-height:1.18;
+  }
+
+  .ip-legal-content p,
+  .ip-legal-list{
+    font-size:15px;
+    line-height:1.52;
+    letter-spacing:-.018em;
+  }
+
+  .ip-legal-list{
+    padding-left:20px;
+  }
+
+  .ip-policy-page .ip-menu-toggle{
+    top:40px;
+    right:20px;
+    width:27px;
+    height:27px;
+  }
+
+  .ip-policy-page .ip-menu-panel{
+    width:390px;
+    max-width:100vw;
+    height:100vh;
+    min-height:700px;
+    padding:40px 22px 45px 40px;
+  }
+
+  .ip-policy-page .ip-menu-panel::before,
+  .ip-policy-page .ip-menu-panel::after{
+    height:100%;
+  }
+
+  .ip-policy-page .ip-menu-socials{
+    gap:10px;
+    margin-bottom:50px;
+  }
+
+  .ip-policy-page .ip-menu-list{
+    width:328px;
+    gap:20px;
+  }
+
+  .ip-policy-page .ip-menu-link,
+  .ip-policy-page .ip-menu-link:link,
+  .ip-policy-page .ip-menu-link:visited,
+  .ip-policy-page .ip-menu-link:hover,
+  .ip-policy-page .ip-menu-link:active,
+  .ip-policy-page .ip-accordion-button,
+  .ip-policy-page .ip-accordion-button:hover,
+  .ip-policy-page .ip-accordion-button:active{
+    font-size:20px;
+    line-height:90%;
+    font-weight:600;
+    letter-spacing:-.04em;
+  }
+
+  .ip-policy-page .ip-accordion.is-open .ip-accordion-content{
+    max-height:220px;
+  }
+
+  .ip-policy-page .ip-submenu{
+    gap:12px;
+    padding-top:16px;
+  }
+
+  .ip-policy-page .ip-submenu a,
+  .ip-policy-page .ip-submenu a:link,
+  .ip-policy-page .ip-submenu a:visited,
+  .ip-policy-page .ip-submenu a:hover,
+  .ip-policy-page .ip-submenu a:active{
+    color:#69C9FF !important;
+    font-size:16px;
+    line-height:120%;
+    font-weight:400;
+    letter-spacing:-.025em;
+  }
+
+  .ip-policy-page .ip-menu-legal{
+    left:40px;
+    right:22px;
+    bottom:42px;
+    z-index:8;
+  }
+
+  .ip-policy-page .ip-menu-legal a,
+  .ip-policy-page .ip-menu-legal a:link,
+  .ip-policy-page .ip-menu-legal a:visited,
+  .ip-policy-page .ip-menu-legal a:hover,
+  .ip-policy-page .ip-menu-legal a:active{
+    font-size:8px;
+    line-height:150%;
+  }
+}
