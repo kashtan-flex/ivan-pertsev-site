@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-024-policy-large-monitor-approved-scale
+   Версия: legal-css-026-policy-menu-blur-content-shift
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -28,6 +28,10 @@
    - фон меню расширен влево на 48px и по высоте синхронизирован с viewport
    - approved-анимация menu сохранена: фон выезжает справа через transform
    - mobile-разметка и mobile-правила не изменялись
+   - восстановлен blur фона desktop-меню после обрезки правого края stage
+   - убран clip-path у fixed-stage, так как он мог отключать backdrop-filter в браузере
+   - пункты меню, соцсети и правовые ссылки на desktop сдвинуты на 30px влево
+   - бургер, масштабирование, JS и mobile-часть не изменялись
    ========================================================= */
 
 html,
@@ -265,7 +269,7 @@ body,
     z-index:10000;
     width:1440px;
     height:var(--ip-policy-menu-stage-height, 800px);
-    overflow:visible;
+    overflow:hidden;
     pointer-events:none;
     transform:translate3d(-50%,-50%,0) scale(var(--ip-policy-menu-stage-scale, 1));
     transform-origin:center center;
@@ -350,7 +354,7 @@ body,
     max-width:385px !important;
     height:800px !important;
     min-height:800px !important;
-    padding:60px 100px 80px 60px !important;
+    padding:60px 100px 80px 30px !important;
     overflow:visible !important;
     transform:none !important;
     transform-origin:top right !important;
