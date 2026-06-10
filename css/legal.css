@@ -1,13 +1,13 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-044-policy-menu-toggle-arrow-2px-left
+   Версия: legal-css-045-policy-scrolltop-burger-align
 
    ИЗМЕНЕНИЯ:
-   - файл основан на legal-css-042-policy-menu-toggle-approved-align
-   - desktop burger/cross аккуратно возвращён на 4px левее относительно предыдущей версии
-   - крестик выравнен ближе к правой линии стрелок аккордеонов «Проекты» и «Контакты»
-   - исправлена только позиция desktop .ip-menu-toggle, без изменения текста, фона меню, размеров меню, blur, scrolltop, mobile и JavaScript
+   - файл основан на legal-css-044-policy-menu-toggle-arrow-2px-left
+   - desktop-стрелка «наверх» выровнена по правой линии текущего desktop burger/cross
+   - изменена только позиция .ip-legal-scrolltop на desktop
+   - burger/cross, фон меню, размеры меню, blur, текст политики, mobile и JavaScript не менялись
    ========================================================= */
 
 html,
@@ -188,7 +188,7 @@ body,
 
 .ip-legal-scrolltop{
   position:absolute;
-  right:calc(((100vw - (1240px * var(--ip-policy-desktop-scale, 1))) / 2) + (100px * var(--ip-policy-desktop-scale, 1)));
+  right:calc(((100vw - (1440px * var(--ip-policy-menu-stage-scale, 1))) / 2) + (90px * var(--ip-policy-menu-stage-scale, 1)));
   bottom:calc(146px * var(--ip-policy-desktop-scale, 1));
   z-index:9;
   display:flex;
