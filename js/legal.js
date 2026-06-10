@@ -2,7 +2,7 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-032-restore-approved-desktop-menu
+Версия: legal-js-058-desktop-menu-scroll-close
 
 ИЗМЕНЕНИЯ:
 - файл основан на legal-js-030-mobile-real-bottom-trim
@@ -10,7 +10,9 @@ LEGAL JS
 - mobile-only: нижняя геометрия страницы из версии 030 сохранена без изменений
 - mobile-only: закрытие меню при скролле переведено на approved-логику Wedding Mobile: touchstart/touchmove с порогом движения, wheel и scroll без capture
 - mobile-only: добавлен промежуточный класс is-closing, чтобы меню не исчезало мгновенно, а плавно уезжало по CSS-анимации
-- файл включён в комплект 057 как откат к рабочей логике 055; код логики меню не изменялся
+- desktop-only: закрытие меню при scroll/wheel возвращено к мгновенному поведению без is-closing-задержки
+- desktop-only: добавлено отслеживание scroll не только на window, но и на page/document, чтобы меню не оставалось открытым при прокрутке страницы
+- mobile-логика, mobile-анимация, нижняя геометрия и CSS не изменялись
 ==================================================
 */
 
@@ -243,10 +245,27 @@ LEGAL JS
     menuPanel.style.pointerEvents = 'auto';
   }
 
-  function closeMenu(){
+  function finishMenuClose(){
+    menuPanel.classList.remove('is-open');
+    menuPanel.classList.remove('is-closing');
+    menuPanel.style.pointerEvents = 'none';
+
+    if(menuStage){
+      menuStage.classList.remove('is-open');
+      menuStage.classList.remove('is-closing');
+    }
+
+    accordions.forEach(function(accordion){
+      accordion.classList.remove('is-open');
+    });
+  }
+
+  function closeMenu(options){
     if(!menuPanel.classList.contains('is-open')){
       return;
     }
+
+    var shouldCloseImmediately = Boolean(options && options.immediate) || !isMobile();
 
     if(menuCloseTimer){
       window.clearTimeout(menuCloseTimer);
@@ -254,8 +273,14 @@ LEGAL JS
     }
 
     menuButton.classList.remove('is-open');
-    menuPanel.classList.add('is-closing');
     menuPanel.style.pointerEvents = 'none';
+
+    if(shouldCloseImmediately){
+      finishMenuClose();
+      return;
+    }
+
+    menuPanel.classList.add('is-closing');
 
     if(menuStage){
       menuStage.classList.add('is-closing');
@@ -263,17 +288,7 @@ LEGAL JS
     }
 
     menuCloseTimer = window.setTimeout(function(){
-      menuPanel.classList.remove('is-open');
-      menuPanel.classList.remove('is-closing');
-
-      if(menuStage){
-        menuStage.classList.remove('is-closing');
-      }
-
-      accordions.forEach(function(accordion){
-        accordion.classList.remove('is-open');
-      });
-
+      finishMenuClose();
       menuCloseTimer = null;
     }, 760);
   }
@@ -409,49 +424,70 @@ LEGAL JS
 
   function closeMenuOnUserScroll(){
     if(menuPanel && menuPanel.classList.contains('is-open')){
-      closeMenu();
+      closeMenu({ immediate: !isMobile() });
     }
   }
 
+  function getCurrentScrollTop(){
+    return Math.max(
+      window.pageYOffset || 0,
+      document.documentElement.scrollTop || 0,
+      document.body ? document.body.scrollTop || 0 : 0,
+      page ? page.scrollTop || 0 : 0
+    );
+  }
+
+  function handleScrollForMenuClose(){
+    var currentScrollTop = getCurrentScrollTop();
+
+    if(isMobile()){
+      if(Math.abs(currentScrollTop - lastScrollTopForMenuClose) > 2){
+        closeMenuOnUserScroll();
+      }
+    } else {
+      closeMenuOnUserScroll();
+    }
+
+    lastScrollTopForMenuClose = currentScrollTop <= 0
+      ? 0
+      : currentScrollTop;
+  }
+
+  var lastScrollTopForMenuClose = 0;
+
   function setupMenuCloseOnScroll(){
-    var lastScrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      0;
+    lastScrollTopForMenuClose = getCurrentScrollTop();
 
     window.addEventListener(
       'scroll',
-      function(){
-        var currentScrollTop =
-          window.pageYOffset ||
-          document.documentElement.scrollTop ||
-          0;
-
-        if(isMobile()){
-          if(Math.abs(currentScrollTop - lastScrollTop) > 2){
-            closeMenuOnUserScroll();
-          }
-        } else {
-          closeMenuOnUserScroll();
-        }
-
-        lastScrollTop = currentScrollTop <= 0
-          ? 0
-          : currentScrollTop;
-      },
-      { passive:true }
+      handleScrollForMenuClose,
+      { passive:true, capture:true }
     );
+
+    document.addEventListener(
+      'scroll',
+      handleScrollForMenuClose,
+      { passive:true, capture:true }
+    );
+
+    if(page){
+      page.addEventListener(
+        'scroll',
+        handleScrollForMenuClose,
+        { passive:true }
+      );
+    }
 
     window.addEventListener(
       'wheel',
       function(event){
-        if(menuPanel && menuPanel.contains(event.target)){
+        if(isMobile() && menuPanel && menuPanel.contains(event.target)){
           return;
         }
 
         closeMenuOnUserScroll();
       },
-      { passive:true }
+      { passive:true, capture:true }
     );
 
     window.addEventListener(
