@@ -1,11 +1,10 @@
 /*
-  Версия: home-js-074-date-validation-clean-comment
+  Версия: home-js-075-strict-date-prefix-validation
 
   ИЗМЕНЕНИЯ:
-- popup date: единая логика ввода ДД.ММ.ГГГГ и проверка реальной календарной даты без изменения дизайна, меню и остальной логики
-  - старая маска "__.__.____" на главной больше не используется
-  - цифры автоматически форматируются в ДД.ММ.ГГГГ
-  - нельзя ввести лишние символы
+- popup date: усилена единая логика ввода ДД.ММ.ГГГГ без изменения дизайна, меню и остальной логики
+  - запрещены заведомо невозможные части даты уже во время ввода
+  - нельзя набрать месяц больше 12, день больше 31 и год вне диапазона 1900–2099
   - проверяется существование календарной даты
   - сохранена логика меню, аккордеонов и попапа
 */
@@ -155,6 +154,66 @@
         checkedDate.getDate() === day;
     }
 
+    var lastValidDigits = getDigits(dateInput.value);
+
+    function isValidDatePrefix(digits){
+      if(!digits.length){
+        return true;
+      }
+
+      var firstDayDigit = parseInt(digits.charAt(0), 10);
+
+      if(digits.length >= 1 && (firstDayDigit < 0 || firstDayDigit > 3)){
+        return false;
+      }
+
+      if(digits.length >= 2){
+        var day = parseInt(digits.substring(0, 2), 10);
+
+        if(day < 1 || day > 31){
+          return false;
+        }
+      }
+
+      if(digits.length >= 3){
+        var firstMonthDigit = parseInt(digits.charAt(2), 10);
+
+        if(firstMonthDigit < 0 || firstMonthDigit > 1){
+          return false;
+        }
+      }
+
+      if(digits.length >= 4){
+        var month = parseInt(digits.substring(2, 4), 10);
+
+        if(month < 1 || month > 12){
+          return false;
+        }
+      }
+
+      if(digits.length >= 5){
+        var firstYearDigit = parseInt(digits.charAt(4), 10);
+
+        if(firstYearDigit !== 1 && firstYearDigit !== 2){
+          return false;
+        }
+      }
+
+      if(digits.length >= 6){
+        var firstTwoYearDigits = digits.substring(4, 6);
+
+        if(firstTwoYearDigits !== '19' && firstTwoYearDigits !== '20'){
+          return false;
+        }
+      }
+
+      if(digits.length === 8 && !isRealDate(formatDateValue(digits))){
+        return false;
+      }
+
+      return true;
+    }
+
     function updateValidity(){
       var digits = getDigits(dateInput.value);
 
@@ -163,7 +222,12 @@
         return true;
       }
 
-      if(!isRealDate(dateInput.value)){
+      if(!isValidDatePrefix(digits)){
+        dateInput.setCustomValidity(errorText);
+        return false;
+      }
+
+      if(digits.length === 8 && !isRealDate(formatDateValue(digits))){
         dateInput.setCustomValidity(errorText);
         return false;
       }
@@ -174,6 +238,13 @@
 
     function updateDateValue(){
       var digits = getDigits(dateInput.value);
+
+      if(!isValidDatePrefix(digits)){
+        digits = lastValidDigits;
+      }else{
+        lastValidDigits = digits;
+      }
+
       dateInput.value = formatDateValue(digits);
       updateValidity();
     }
