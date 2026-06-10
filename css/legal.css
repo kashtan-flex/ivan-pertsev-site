@@ -1371,3 +1371,28 @@ body,
     transform:translate3d(0,5px,0) !important;
   }
 }
+
+
+/* =========================================================
+   POLICY MOBILE HEADER SITE LINK CLICK AREA
+
+   Версия: legal-css-061-policy-header-site-link-click-area
+
+   ИЗМЕНЕНИЯ:
+   - mobile-only: исправлена причина, из-за которой верхняя ссылка «иванперцев.рф» визуально была ссылкой, но не нажималась
+   - закрытая панель mobile-меню больше не перехватывает касания своим внутренним слоем поверх шапки политики
+   - открытое меню, desktop-меню, desktop-геометрия, стрелка, нижняя геометрия и текст политики не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-policy-page > .ip-menu-panel:not(.is-open),
+  .ip-policy-page > .ip-menu-panel:not(.is-open) *{
+    pointer-events:none !important;
+  }
+
+  .ip-legal-meta,
+  .ip-legal-site,
+  .ip-legal-site a{
+    pointer-events:auto !important;
+  }
+}
