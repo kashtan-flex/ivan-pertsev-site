@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-019-policy-menu-bg-phrase-cover
+   Версия: legal-css-021-policy-menu-panel-width-cover
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -247,6 +247,9 @@ body,
    - саму panel не трансформируем, чтобы не ломать approved-анимацию ::before/::after;
    - фон меню расширен влево до начала строки «Дата публикации…» на desktop;
    - фон меню увеличен вниз, чтобы перекрывать нижнюю часть viewport при открытом меню;
+   - вместо расширения псевдоэлементов увеличена фактическая desktop-панель меню влево на 72px;
+   - контент меню компенсирован padding-left, поэтому пункты, крестик и бургер остаются на approved-позициях;
+   - фон меню теперь реально перекрывает фразу «Дата публикации…», потому что расширяется сама panel, а не обрезаемый ::before/::after;
    - позиция burger/fixed-stage, JS, mobile-часть, типографика и анимация меню не изменялись.
 */
 
@@ -299,11 +302,11 @@ body,
     left:auto !important;
     bottom:auto !important;
     z-index:40 !important;
-    width:385px !important;
-    max-width:385px !important;
+    width:457px !important;
+    max-width:457px !important;
     height:800px !important;
     min-height:800px !important;
-    padding:60px 100px 80px 60px !important;
+    padding:60px 100px 80px 132px !important;
     overflow:hidden !important;
     transform:none !important;
     transform-origin:top right !important;
@@ -315,16 +318,22 @@ body,
     pointer-events:auto !important;
   }
 
+  /*
+    Важно: фон теперь расширяется не псевдоэлементом, а самой panel.
+    Это надёжнее: approved-анимация ::before/::after остаётся внутри panel и не обрезается.
+  */
   .ip-policy-menu-stage .ip-menu-panel::before,
   .ip-policy-menu-stage .ip-menu-panel::after{
-    top:0 !important;
-    right:0 !important;
-    bottom:auto !important;
-    left:-72px !important;
-    width:calc(100% + 72px) !important;
-    height:calc(100% + 160px) !important;
-    min-height:calc(100% + 160px) !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
     max-width:none !important;
+  }
+
+  .ip-policy-menu-stage .ip-menu-legal{
+    left:132px !important;
+    right:100px !important;
   }
 }
 
