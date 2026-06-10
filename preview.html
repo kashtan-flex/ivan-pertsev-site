@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--
-    Версия: preview-006
+    Версия: preview-007-home-js-cache-buster
 
     ИЗМЕНЕНИЯ:
-    - добавлен статичный transition overlay до загрузки контента
-    - стабилизирован переход с главной на биографию
-    - сохранена главная страница как основной preview
-    - меню не изменялось
+    - добавлен cache-buster для js/home.js при локальной проверке
+    - устранён риск загрузки старой версии скрипта главной страницы
+    - меню, HTML главной и стили не изменялись
   -->
 
   <title>Preview — Иван Перцев</title>
@@ -59,7 +58,7 @@
         document.getElementById('ip-home-root').innerHTML = html;
 
         var script = document.createElement('script');
-        script.src = './js/home.js';
+        script.src = './js/home.js?v=' + Date.now();
         document.body.appendChild(script);
 
         var transitionScript = document.createElement('script');
