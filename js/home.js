@@ -1,7 +1,8 @@
 /*
-  Версия: home-js-075-strict-date-prefix-validation
+  Версия: home-js-075-strict-date-prefix-validation-strict-date-v034
 
   ИЗМЕНЕНИЯ:
+- popup date: добавлена строгая проверка реальной даты ДД.ММ.ГГГГ без изменения меню, дизайна и остальной логики
 - popup date: усилена единая логика ввода ДД.ММ.ГГГГ без изменения дизайна, меню и остальной логики
   - запрещены заведомо невозможные части даты уже во время ввода
   - нельзя набрать месяц больше 12, день больше 31 и год вне диапазона 1900–2099
@@ -245,6 +246,12 @@
         lastValidDigits = digits;
       }
 
+      if(isValidDatePrefix(digits)){
+        lastValidDigits = digits;
+      }else{
+        digits = lastValidDigits;
+      }
+
       dateInput.value = formatDateValue(digits);
       updateValidity();
     }
@@ -263,6 +270,12 @@
       var clipboard = event.clipboardData || window.clipboardData;
       var pastedText = clipboard ? clipboard.getData('text') : '';
       var digits = getDigits(pastedText);
+
+      if(isValidDatePrefix(digits)){
+        lastValidDigits = digits;
+      }else{
+        digits = lastValidDigits;
+      }
 
       dateInput.value = formatDateValue(digits);
       updateValidity();

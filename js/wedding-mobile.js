@@ -2,7 +2,7 @@
 ==================================================
 WEDDING MOBILE JS
 
-Версия: wedding-mobile-js-014-closed-bottom-spacing-balance-date-validation
+Версия: wedding-mobile-js-014-closed-bottom-spacing-balance-date-validation-strict-date-v034
 
 ИЗМЕНЕНИЯ:
 - popup date: единая маска ДД.ММ.ГГГГ и проверка реальной календарной даты без изменения дизайна, меню и остальной логики
@@ -608,6 +608,66 @@ WEDDING MOBILE JS
         checkedDate.getDate() === day;
     }
 
+    var lastValidDigits = getDigits(dateInput.value);
+
+    function isValidDatePrefix(digits){
+      if(!digits.length){
+        return true;
+      }
+
+      var firstDayDigit = parseInt(digits.charAt(0), 10);
+
+      if(digits.length >= 1 && (firstDayDigit < 0 || firstDayDigit > 3)){
+        return false;
+      }
+
+      if(digits.length >= 2){
+        var day = parseInt(digits.substring(0, 2), 10);
+
+        if(day < 1 || day > 31){
+          return false;
+        }
+      }
+
+      if(digits.length >= 3){
+        var firstMonthDigit = parseInt(digits.charAt(2), 10);
+
+        if(firstMonthDigit < 0 || firstMonthDigit > 1){
+          return false;
+        }
+      }
+
+      if(digits.length >= 4){
+        var month = parseInt(digits.substring(2, 4), 10);
+
+        if(month < 1 || month > 12){
+          return false;
+        }
+      }
+
+      if(digits.length >= 5){
+        var firstYearDigit = parseInt(digits.charAt(4), 10);
+
+        if(firstYearDigit !== 1 && firstYearDigit !== 2){
+          return false;
+        }
+      }
+
+      if(digits.length >= 6){
+        var firstTwoYearDigits = digits.substring(4, 6);
+
+        if(firstTwoYearDigits !== '19' && firstTwoYearDigits !== '20'){
+          return false;
+        }
+      }
+
+      if(digits.length === 8 && !isRealDate(formatDateValue(digits))){
+        return false;
+      }
+
+      return true;
+    }
+
     function updateValidity(){
       var digits = getDigits(dateInput.value);
 
@@ -616,7 +676,12 @@ WEDDING MOBILE JS
         return true;
       }
 
-      if(!isRealDate(dateInput.value)){
+      if(!isValidDatePrefix(digits)){
+        dateInput.setCustomValidity(errorText);
+        return false;
+      }
+
+      if(digits.length === 8 && !isRealDate(formatDateValue(digits))){
         dateInput.setCustomValidity(errorText);
         return false;
       }
@@ -627,6 +692,19 @@ WEDDING MOBILE JS
 
     function updateDateValue(){
       var digits = getDigits(dateInput.value);
+
+      if(!isValidDatePrefix(digits)){
+        digits = lastValidDigits;
+      }else{
+        lastValidDigits = digits;
+      }
+
+      if(isValidDatePrefix(digits)){
+        lastValidDigits = digits;
+      }else{
+        digits = lastValidDigits;
+      }
+
       dateInput.value = formatDateValue(digits);
       updateValidity();
     }
@@ -645,6 +723,12 @@ WEDDING MOBILE JS
       var clipboard = event.clipboardData || window.clipboardData;
       var pastedText = clipboard ? clipboard.getData('text') : '';
       var digits = getDigits(pastedText);
+
+      if(isValidDatePrefix(digits)){
+        lastValidDigits = digits;
+      }else{
+        digits = lastValidDigits;
+      }
 
       dateInput.value = formatDateValue(digits);
       updateValidity();

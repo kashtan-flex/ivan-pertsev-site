@@ -67,7 +67,7 @@ CONSENT PREVIEW HTML
         document.getElementById('ip-policy-root').innerHTML = html;
 
         var pageScript = document.createElement('script');
-        pageScript.src = './js/legal.js?v=058-desktop-menu-scroll-close';
+        pageScript.src = './js/legal.js?v=' + Date.now();
         document.body.appendChild(pageScript);
 
         var transitionScript = document.createElement('script');
