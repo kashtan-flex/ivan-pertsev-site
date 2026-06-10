@@ -2,16 +2,16 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-008-policy-menu-final-clean-sync
+Версия: legal-js-009-policy-burger-viewport-lock
 
 ИЗМЕНЕНИЯ:
-- файл очищен от неудачной desktop fixed-layer архитектуры меню
-- burger/menu больше не переносятся JS-ом в body или отдельный layer
-- сохранена простая approved-логика меню по аналогии с cooperation.js: добавление/удаление класса is-open
-- меню закрывается при scroll, wheel, touchmove и Escape
-- сохранены аккордеоны, popup, маска даты и стрелка наверх
-- масштабирование legal-страницы сохранено через CSS-переменные
-- ссылка сайта не подменяется, если она уже вшита в policy.html как a[href]
+- создан JS для текстовых правовых страниц проекта
+- сохранена логика меню, аккордеонов, popup и маски даты по approved-страницам
+- добавлена обработка data-popup-open="main" для пунктов «Другое», «Написать» и popup-триггеров
+- добавлена работа стрелки наверх
+- desktop burger/menu жёстко синхронизированы с viewport через CSS-переменные и inline important styles
+- закрытие меню при scroll/wheel/touchmove сохранено как на approved-страницах
+- DOM меню не переносится и approved-анимация не ломается
 - остальные страницы сайта не изменялись
 ==================================================
 */
@@ -31,7 +31,7 @@ LEGAL JS
   var resizeFrame = null;
 
   var DESIGN = {
-    desktop:{ width:1440 },
+    desktop:{ width:1440, height:800 },
     mobile:{ width:390, height:700 },
     breakpoint:767
   };
@@ -52,28 +52,87 @@ LEGAL JS
     return window.innerHeight;
   }
 
-  function setupLegalSiteLinks(){
-    var meta = document.querySelector('.ip-legal-meta');
+  function getDesktopMenuScale(){
+    var viewportWidth = window.innerWidth;
+    var viewportHeight = getViewportHeight();
 
-    if(!meta){
+    return Math.min(
+      viewportWidth / DESIGN.desktop.width,
+      viewportHeight / DESIGN.desktop.height
+    );
+  }
+
+  function applyPolicyMenuViewportLock(){
+    if(isMobile()){
+      menuButton.style.removeProperty('position');
+      menuButton.style.removeProperty('top');
+      menuButton.style.removeProperty('right');
+      menuButton.style.removeProperty('left');
+      menuButton.style.removeProperty('bottom');
+      menuButton.style.removeProperty('z-index');
+      menuButton.style.removeProperty('transform');
+      menuButton.style.removeProperty('transform-origin');
+
+      menuPanel.style.removeProperty('position');
+      menuPanel.style.removeProperty('top');
+      menuPanel.style.removeProperty('right');
+      menuPanel.style.removeProperty('left');
+      menuPanel.style.removeProperty('bottom');
+      menuPanel.style.removeProperty('z-index');
+      menuPanel.style.removeProperty('width');
+      menuPanel.style.removeProperty('height');
+      menuPanel.style.removeProperty('min-height');
+      menuPanel.style.removeProperty('max-width');
+      menuPanel.style.removeProperty('padding');
+      menuPanel.style.removeProperty('overflow');
+      menuPanel.style.removeProperty('transform');
+      menuPanel.style.removeProperty('transform-origin');
+
+      document.documentElement.style.removeProperty('--ip-policy-menu-scale');
+      document.documentElement.style.removeProperty('--ip-policy-menu-top');
+      document.documentElement.style.removeProperty('--ip-policy-menu-right');
+      document.documentElement.style.removeProperty('--ip-policy-menu-panel-top');
+      document.documentElement.style.removeProperty('--ip-policy-menu-panel-right');
       return;
     }
 
-    var siteLine = meta.querySelector('.ip-legal-site');
+    var viewportWidth = window.innerWidth;
+    var viewportHeight = getViewportHeight();
+    var scale = getDesktopMenuScale();
+    var stageLeft = Math.max(0, (viewportWidth - (DESIGN.desktop.width * scale)) / 2);
+    var stageTop = Math.max(0, (viewportHeight - (DESIGN.desktop.height * scale)) / 2);
+    var menuTop = stageTop + (60 * scale);
+    var menuRight = stageLeft + (100 * scale);
 
-    if(!siteLine || siteLine.querySelector('a')){
-      return;
-    }
+    document.documentElement.style.setProperty('--ip-policy-menu-scale', scale.toFixed(5));
+    document.documentElement.style.setProperty('--ip-policy-menu-top', menuTop.toFixed(2) + 'px');
+    document.documentElement.style.setProperty('--ip-policy-menu-right', menuRight.toFixed(2) + 'px');
+    document.documentElement.style.setProperty('--ip-policy-menu-panel-top', stageTop.toFixed(2) + 'px');
+    document.documentElement.style.setProperty('--ip-policy-menu-panel-right', stageLeft.toFixed(2) + 'px');
 
-    var html = siteLine.innerHTML;
+    menuButton.style.setProperty('position', 'fixed', 'important');
+    menuButton.style.setProperty('top', menuTop.toFixed(2) + 'px', 'important');
+    menuButton.style.setProperty('right', menuRight.toFixed(2) + 'px', 'important');
+    menuButton.style.setProperty('left', 'auto', 'important');
+    menuButton.style.setProperty('bottom', 'auto', 'important');
+    menuButton.style.setProperty('z-index', '10050', 'important');
+    menuButton.style.setProperty('transform', 'scale(' + scale.toFixed(5) + ')', 'important');
+    menuButton.style.setProperty('transform-origin', 'top right', 'important');
 
-    if(!/иван\s*перцев\.рф|ivan\s*percev\.rf/i.test(html)){
-      return;
-    }
-
-    siteLine.innerHTML = html.replace(/(Иван\s*Перцев\.рф|иван\s*перцев\.рф|ivan\s*percev\.rf)/ig, function(match){
-      return '<a href="https://иванперцев.рф" target="_blank" rel="noopener noreferrer">' + match + '</a>';
-    });
+    menuPanel.style.setProperty('position', 'fixed', 'important');
+    menuPanel.style.setProperty('top', stageTop.toFixed(2) + 'px', 'important');
+    menuPanel.style.setProperty('right', stageLeft.toFixed(2) + 'px', 'important');
+    menuPanel.style.setProperty('left', 'auto', 'important');
+    menuPanel.style.setProperty('bottom', 'auto', 'important');
+    menuPanel.style.setProperty('z-index', '10040', 'important');
+    menuPanel.style.setProperty('width', '385px', 'important');
+    menuPanel.style.setProperty('height', '800px', 'important');
+    menuPanel.style.setProperty('min-height', '800px', 'important');
+    menuPanel.style.setProperty('max-width', '385px', 'important');
+    menuPanel.style.setProperty('padding', '60px 100px 80px 60px', 'important');
+    menuPanel.style.setProperty('overflow', 'hidden', 'important');
+    menuPanel.style.setProperty('transform', 'scale(' + scale.toFixed(5) + ')', 'important');
+    menuPanel.style.setProperty('transform-origin', 'top right', 'important');
   }
 
   function updatePolicyScale(){
@@ -99,6 +158,8 @@ LEGAL JS
       document.documentElement.style.setProperty('--ip-policy-desktop-scale', scale.toFixed(5));
       document.documentElement.style.removeProperty('--ip-policy-mobile-scale');
     }
+
+    applyPolicyMenuViewportLock();
 
     var pageHeight = Math.ceil(shell.scrollHeight * scale);
 
@@ -127,12 +188,6 @@ LEGAL JS
     accordions.forEach(function(accordion){
       accordion.classList.remove('is-open');
     });
-  }
-
-  function closeMenuOnScrollIntent(){
-    if(menuPanel.classList.contains('is-open')){
-      closeMenu();
-    }
   }
 
   function toggleMenu(event){
@@ -221,6 +276,7 @@ LEGAL JS
     }
   }
 
+
   function scrollToTop(){
     window.scrollTo({
       top:0,
@@ -264,7 +320,6 @@ LEGAL JS
     });
   }
 
-  setupLegalSiteLinks();
   updatePolicyScale();
 
   window.addEventListener('resize', requestPolicyScaleUpdate, { passive:true });
@@ -292,6 +347,12 @@ LEGAL JS
 
   if(scrollTopButton){
     scrollTopButton.addEventListener('click', scrollToTop);
+  }
+
+  function closeMenuOnScrollIntent(){
+    if(menuPanel.classList.contains('is-open')){
+      closeMenu();
+    }
   }
 
   window.addEventListener('scroll', closeMenuOnScrollIntent, { passive:true });

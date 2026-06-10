@@ -1,18 +1,28 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-016-policy-menu-final-clean-sync
+   Версия: legal-css-008-policy-menu-sync-with-cooperation
 
    ИЗМЕНЕНИЯ:
-   - файл очищен от неудачной desktop fixed-layer архитектуры меню
-   - desktop burger/menu больше не переносятся JS-ом в отдельный слой
-   - desktop burger закреплён через position:fixed относительно viewport
-   - desktop menu использует approved-анимацию home/cooperation: фоновые слои ::before/::after плавно выезжают справа через transform
-   - фон desktop-меню расширен только на 5px влево, чтобы перекрыть тонкий край текста под меню
-   - ширина контентной колонки меню сохранена 385px, пункты меню и типографика сохранены
-   - закрытие меню при scroll/wheel/touchmove выполняется через legal.js
-   - ссылка сайта уже вшита в policy.html и дополнительно не подменяется CSS
-   - mobile-разметка и mobile-правила не изменялись
+   - создан общий CSS для правовых страниц проекта
+   - добавлена текстовая страница «Политика обработки персональных данных» на фоне policy-bg.webp
+   - сохранена утверждённая визуальная система меню через home.css с локальными override только для legal-страниц
+   - desktop-верстка приведена ближе к Figma-макету: 1440px, отступ 100px, ширина текста 1122px
+   - обновлена типографика: заголовок 40px Semibold, разделы 20px Semibold, основной текст 16px Regular
+   - дата и сайт поставлены в правый верхний блок по макету
+   - добавлена стрелка наверх внизу страницы
+   - цвет ссылки «Политика обработки персональных данных» в меню приведён к цвету ссылки «Согласие на обработку персональных данных»
+   - остальные страницы сайта не затрагивались
+   - добавлена mobile-верстка по Figma-макету: отдельный фон, позиции, типографика и переносы
+   - desktop и mobile масштабирование синхронизированы с логикой страниц проекта
+   - desktop получил design-stage 1440px с масштабом от ширины viewport
+   - mobile получил design-stage 390px с масштабом как на странице «Сотрудничество»
+   - высота страницы теперь рассчитывается через JS по фактической высоте legal-контента
+   - mobile-меню страницы политики синхронизировано с эталонной страницей «Сотрудничество»
+   - burger/cross закреплены относительно viewport без переноса меню в body
+   - desktop-меню и текстовая разметка не изменялись
+   - mobile burger поднят к верхней части второй строки заголовка и жёстко зафиксирован относительно viewport
+   - контент, переносы текста, меню, popup, scroll-top, desktop и JS не изменялись
    ========================================================= */
 
 html,
@@ -194,7 +204,7 @@ body,
 .ip-legal-scrolltop{
   position:absolute;
   right:100px;
-  bottom:168px;
+  bottom:146px;
   z-index:9;
   display:flex;
   align-items:center;
@@ -226,54 +236,60 @@ body,
   transform:translateY(2px) rotate(45deg);
 }
 
-/* DESKTOP MENU — APPROVED HOME/COOPERATION SYNC
-   Меню остаётся в исходной разметке policy.html.
-   Никакого переноса в body/fixed-layer: только fixed-позиция
-   для scrollable legal page и сохранение approved-анимации.
+/* POLICY DESKTOP MENU — VIEWPORT LOCK
+
+   Назначение:
+   - desktop burger/menu остаются в исходной разметке policy.html;
+   - burger и menu-panel жёстко фиксируются относительно viewport;
+   - координаты и scale задаёт legal.js через CSS-переменные;
+   - approved-анимация menu из home.css сохраняется: фоновые слои
+     ::before/::after продолжают выезжать справа через transform;
+   - фон меню расширен только на 5px влево, чтобы перекрыть край буквы под меню.
 */
 
-.ip-policy-page .ip-menu-toggle{
-  position:fixed !important;
-  z-index:10020;
-}
-
-.ip-policy-page .ip-menu-panel{
-  position:fixed !important;
-  z-index:10010;
-  pointer-events:none;
-  background:transparent;
-  overflow:hidden;
-}
-
-.ip-policy-page .ip-menu-panel.is-open{
-  pointer-events:auto;
-}
-
-.ip-policy-page .ip-menu-panel::before,
-.ip-policy-page .ip-menu-panel::after{
-  height:100%;
+:root{
+  --ip-policy-menu-scale:1;
+  --ip-policy-menu-top:60px;
+  --ip-policy-menu-right:100px;
+  --ip-policy-menu-panel-top:0px;
+  --ip-policy-menu-panel-right:0px;
 }
 
 @media (min-width:768px){
   .ip-policy-page .ip-menu-toggle{
-    top:calc(60px * var(--ip-policy-desktop-scale, 1));
-    right:calc(((100vw - (1440px * var(--ip-policy-desktop-scale, 1))) / 2) + (100px * var(--ip-policy-desktop-scale, 1)));
-    width:27px;
-    height:27px;
-    transform:none !important;
+    position:fixed !important;
+    top:var(--ip-policy-menu-top) !important;
+    right:var(--ip-policy-menu-right) !important;
+    left:auto !important;
+    bottom:auto !important;
+    z-index:10050 !important;
+    width:27px !important;
+    height:27px !important;
+    transform:scale(var(--ip-policy-menu-scale)) !important;
+    transform-origin:top right !important;
+    pointer-events:auto !important;
   }
 
   .ip-policy-page .ip-menu-panel{
-    top:0 !important;
-    right:calc((100vw - (1440px * var(--ip-policy-desktop-scale, 1))) / 2) !important;
+    position:fixed !important;
+    top:var(--ip-policy-menu-panel-top) !important;
+    right:var(--ip-policy-menu-panel-right) !important;
     left:auto !important;
+    bottom:auto !important;
+    z-index:10040 !important;
     width:385px !important;
     max-width:385px !important;
     height:800px !important;
     min-height:800px !important;
     padding:60px 100px 80px 60px !important;
-    transform:scale(var(--ip-policy-desktop-scale, 1)) !important;
+    overflow:hidden !important;
+    transform:scale(var(--ip-policy-menu-scale)) !important;
     transform-origin:top right !important;
+    background:transparent !important;
+  }
+
+  .ip-policy-page .ip-menu-panel.is-open{
+    pointer-events:auto !important;
   }
 
   .ip-policy-page .ip-menu-panel::before,
@@ -285,67 +301,7 @@ body,
     width:calc(100% + 5px) !important;
     height:100% !important;
     min-height:100% !important;
-  }
-
-  .ip-policy-page .ip-menu-panel::before{
-    background:rgba(0,0,0,.30);
-    -webkit-backdrop-filter:blur(18px);
-    backdrop-filter:blur(18px);
-  }
-
-  .ip-policy-page .ip-menu-panel::after{
-    background-image:url('../assets/img/home/popups/menu-noise.webp');
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    opacity:.35;
-    mix-blend-mode:normal;
-  }
-
-  .ip-policy-page .ip-menu-link,
-  .ip-policy-page .ip-menu-link:link,
-  .ip-policy-page .ip-menu-link:visited,
-  .ip-policy-page .ip-menu-link:hover,
-  .ip-policy-page .ip-menu-link:active,
-  .ip-policy-page .ip-accordion-button,
-  .ip-policy-page .ip-accordion-button:hover,
-  .ip-policy-page .ip-accordion-button:active{
-    color:#fff !important;
-    font-family:'Montserrat',Arial,sans-serif !important;
-    font-size:20px !important;
-    line-height:90% !important;
-    font-weight:600 !important;
-    letter-spacing:-.04em !important;
-    text-decoration:none !important;
-  }
-
-  .ip-policy-page .ip-submenu a,
-  .ip-policy-page .ip-submenu a:link,
-  .ip-policy-page .ip-submenu a:visited,
-  .ip-policy-page .ip-submenu a:hover,
-  .ip-policy-page .ip-submenu a:active{
-    color:#69C9FF !important;
-    font-family:'Montserrat',Arial,sans-serif !important;
-    font-size:16px !important;
-    line-height:120% !important;
-    font-weight:400 !important;
-    letter-spacing:-.025em !important;
-    text-decoration:none !important;
-    opacity:1;
-  }
-
-  .ip-policy-page .ip-menu-legal a,
-  .ip-policy-page .ip-menu-legal a:link,
-  .ip-policy-page .ip-menu-legal a:visited,
-  .ip-policy-page .ip-menu-legal a:hover,
-  .ip-policy-page .ip-menu-legal a:active{
-    color:rgba(255,255,255,.5) !important;
-    font-family:'Montserrat',Arial,sans-serif !important;
-    font-size:8px !important;
-    line-height:150% !important;
-    font-weight:400 !important;
-    letter-spacing:-.02em !important;
-    text-decoration:none !important;
+    max-width:none !important;
   }
 }
 
