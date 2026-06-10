@@ -2,16 +2,15 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-028-mobile-page-bottom-gap-sync
+Версия: legal-js-032-restore-approved-desktop-menu
 
 ИЗМЕНЕНИЯ:
-- файл основан на legal-js-025-policy-mobile-wedding-menu-logic
-- восстановлена desktop-логика из рабочей версии: burger остаётся в верхней legal-композиции, panel переносится в desktop menu-stage
-- mobile-логика из версии 049 сохранена: original burger/panel остаются внутри policy.html
-- desktop-положение burger/cross больше не меняется mobile-правкой
-- добавлено mobile-only закрытие меню сразу при touchmove/wheel/scroll без влияния на desktop
-- mobile-only: высота страницы и положение стрелки рассчитываются от нижнего края текста
-- desktop-логика, desktop-меню и desktop-геометрия не изменялись
+- файл основан на legal-js-030-mobile-real-bottom-trim
+- desktop-логика, desktop-меню, burger/cross, фон меню, текст политики, масштабирование desktop и геометрия desktop не изменялись
+- mobile-only: нижняя геометрия страницы из версии 030 сохранена без изменений
+- mobile-only: закрытие меню при скролле переведено на approved-логику Wedding Mobile: touchstart/touchmove с порогом движения, wheel и scroll без capture
+- mobile-only: добавлен промежуточный класс is-closing, чтобы меню не исчезало мгновенно, а плавно уезжало по CSS-анимации
+- файл включён в комплект 057 как откат к рабочей логике 055; код логики меню не изменялся
 ==================================================
 */
 
@@ -29,6 +28,9 @@ LEGAL JS
   var shell = document.querySelector('.ip-policy-shell');
   var resizeFrame = null;
   var menuStage = null;
+  var menuCloseTimer = null;
+  var touchStartY = null;
+  var touchStartedInsideMenu = false;
 
   var menuButtonOriginalParent = menuButton ? menuButton.parentNode : null;
   var menuButtonOriginalNext = menuButton ? menuButton.nextSibling : null;
@@ -149,16 +151,20 @@ LEGAL JS
   function syncMobilePageBottom(scale){
     var pageBottomGap = 50;
     var contentToButtonGap = 50;
-    var buttonHeight = scrollTopButton ? scrollTopButton.offsetHeight : 24;
-    var shellPaddingBottom = getNumericStyleValue(shell, 'padding-bottom');
-    var contentBottom = Math.ceil(Math.max(0, shell.scrollHeight - shellPaddingBottom) * scale);
+    var baseButtonHeight = scrollTopButton ? scrollTopButton.offsetHeight : 24;
+    var visualButtonHeight = baseButtonHeight * scale;
+    var legalPage = shell.querySelector('.ip-legal-page');
+    var contentBottom = legalPage
+      ? Math.ceil((legalPage.offsetTop + legalPage.offsetHeight) * scale)
+      : Math.ceil(Math.max(0, shell.scrollHeight - getNumericStyleValue(shell, 'padding-bottom')) * scale);
     var buttonTop = contentBottom + contentToButtonGap;
     var pageHeight = Math.max(
       getViewportHeight(),
-      buttonTop + buttonHeight + pageBottomGap
+      buttonTop + visualButtonHeight + pageBottomGap
     );
 
     document.documentElement.style.setProperty('--ip-policy-page-height', Math.ceil(pageHeight) + 'px');
+    document.documentElement.style.setProperty('--ip-policy-bg-height', Math.ceil(pageHeight / scale) + 'px');
 
     if(scrollTopButton){
       scrollTopButton.style.top = Math.ceil(buttonTop) + 'px';
@@ -200,6 +206,7 @@ LEGAL JS
 
     document.documentElement.style.setProperty('--ip-policy-desktop-scale', scale.toFixed(5));
     document.documentElement.style.removeProperty('--ip-policy-mobile-scale');
+    document.documentElement.style.removeProperty('--ip-policy-bg-height');
 
     syncPolicyMenuStage();
     resetDesktopScrollTopPosition();
@@ -219,10 +226,17 @@ LEGAL JS
   }
 
   function openMenu(){
+    if(menuCloseTimer){
+      window.clearTimeout(menuCloseTimer);
+      menuCloseTimer = null;
+    }
+
+    menuPanel.classList.remove('is-closing');
     menuButton.classList.add('is-open');
     menuPanel.classList.add('is-open');
 
     if(menuStage){
+      menuStage.classList.remove('is-closing');
       menuStage.classList.add('is-open');
     }
 
@@ -230,18 +244,38 @@ LEGAL JS
   }
 
   function closeMenu(){
+    if(!menuPanel.classList.contains('is-open')){
+      return;
+    }
+
+    if(menuCloseTimer){
+      window.clearTimeout(menuCloseTimer);
+      menuCloseTimer = null;
+    }
+
     menuButton.classList.remove('is-open');
-    menuPanel.classList.remove('is-open');
+    menuPanel.classList.add('is-closing');
+    menuPanel.style.pointerEvents = 'none';
 
     if(menuStage){
+      menuStage.classList.add('is-closing');
       menuStage.classList.remove('is-open');
     }
 
-    menuPanel.style.pointerEvents = 'none';
+    menuCloseTimer = window.setTimeout(function(){
+      menuPanel.classList.remove('is-open');
+      menuPanel.classList.remove('is-closing');
 
-    accordions.forEach(function(accordion){
-      accordion.classList.remove('is-open');
-    });
+      if(menuStage){
+        menuStage.classList.remove('is-closing');
+      }
+
+      accordions.forEach(function(accordion){
+        accordion.classList.remove('is-open');
+      });
+
+      menuCloseTimer = null;
+    }, 760);
   }
 
   function toggleMenu(event){
@@ -373,27 +407,99 @@ LEGAL JS
     });
   }
 
-  function closeMenuOnScrollIntent(event){
-    if(isMobile()){
-      if(menuPanel.classList.contains('is-open')){
-        closeMenu();
-      }
-
-      return;
-    }
-
-    if(
-      event &&
-      menuPanel &&
-      menuPanel.contains(event.target) &&
-      event.type !== 'scroll'
-    ){
-      return;
-    }
-
-    if(menuPanel.classList.contains('is-open')){
+  function closeMenuOnUserScroll(){
+    if(menuPanel && menuPanel.classList.contains('is-open')){
       closeMenu();
     }
+  }
+
+  function setupMenuCloseOnScroll(){
+    var lastScrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      0;
+
+    window.addEventListener(
+      'scroll',
+      function(){
+        var currentScrollTop =
+          window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          0;
+
+        if(isMobile()){
+          if(Math.abs(currentScrollTop - lastScrollTop) > 2){
+            closeMenuOnUserScroll();
+          }
+        } else {
+          closeMenuOnUserScroll();
+        }
+
+        lastScrollTop = currentScrollTop <= 0
+          ? 0
+          : currentScrollTop;
+      },
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'wheel',
+      function(event){
+        if(menuPanel && menuPanel.contains(event.target)){
+          return;
+        }
+
+        closeMenuOnUserScroll();
+      },
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'touchstart',
+      function(event){
+        var touch = event.touches && event.touches[0];
+
+        if(!touch){
+          return;
+        }
+
+        touchStartY = touch.clientY;
+        touchStartedInsideMenu = Boolean(
+          menuPanel &&
+          menuPanel.contains(event.target)
+        );
+      },
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'touchmove',
+      function(event){
+        var touch = event.touches && event.touches[0];
+
+        if(!isMobile() || !touch || touchStartY === null){
+          return;
+        }
+
+        if(touchStartedInsideMenu){
+          return;
+        }
+
+        if(Math.abs(touch.clientY - touchStartY) > 10){
+          closeMenuOnUserScroll();
+        }
+      },
+      { passive:true }
+    );
+
+    window.addEventListener(
+      'touchend',
+      function(){
+        touchStartY = null;
+        touchStartedInsideMenu = false;
+      },
+      { passive:true }
+    );
   }
 
   updatePolicyScale();
@@ -425,7 +531,5 @@ LEGAL JS
     scrollTopButton.addEventListener('click', scrollToTop);
   }
 
-  window.addEventListener('scroll', closeMenuOnScrollIntent, { passive:true });
-  window.addEventListener('wheel', closeMenuOnScrollIntent, { passive:true, capture:true });
-  window.addEventListener('touchmove', closeMenuOnScrollIntent, { passive:true, capture:true });
+  setupMenuCloseOnScroll();
 })();

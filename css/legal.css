@@ -1,13 +1,17 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-052-mobile-scrolltop-bottom-50px
+   Версия: legal-css-057-restore-approved-desktop-mobile-header-link
 
    ИЗМЕНЕНИЯ:
-   - файл основан на legal-css-050-restore-desktop-menu-after-mobile
-   - изменено только mobile-положение стрелки наверх
-   - расстояние от нижнего края mobile-стрелки до нижнего края страницы установлено 50px
-   - desktop, меню, burger/cross, фон, текст политики и JavaScript не менялись
+   - файл основан на legal-css-052-mobile-scrolltop-bottom-50px
+   - desktop-стили, desktop-меню, burger/cross, фон меню, текст политики, масштабирование desktop и геометрия desktop не изменялись
+   - mobile-only: стрелка наверх приведена к approved-виду страницы «Свадьба»
+   - mobile-only: стрелка масштабируется через --ip-policy-mobile-scale, чтобы визуально не была маленькой на высоких экранах
+   - mobile-only: позиция стрелки по правому краю синхронизирована с проектными mobile-страницами
+   - mobile-only: добавлен финальный слой для нижней геометрии, который перебивает старые mobile-override блоки внутри этого файла
+   - откат базы CSS к рабочей версии 055, чтобы вернуть утверждённое desktop-меню
+   - mobile-only: заголовок политики и meta-блок опущены на 5px без изменения desktop и меню
    ========================================================= */
 
 html,
@@ -1244,5 +1248,126 @@ body,
     font-size:8px !important;
     line-height:150% !important;
     text-decoration:none !important;
+  }
+}
+
+/* =========================================================
+   POLICY MOBILE BOTTOM GEOMETRY — APPROVED PROJECT ARROW
+
+   Версия: legal-css-054-mobile-real-bottom-trim
+
+   ИЗМЕНЕНИЯ:
+   - mobile-only: финальная геометрия нижней стрелки сохранена
+   - mobile-only: .ip-policy-page обрезает overflow от масштабированных absolute-слоёв, чтобы не появлялся пустой хвост после стрелки
+   - mobile-only: .ip-policy-bg получает отдельную немасштабированную высоту через --ip-policy-bg-height
+   - desktop, меню, burger/cross и текст политики не затрагиваются
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-policy-page{
+    overflow:hidden !important;
+  }
+
+  .ip-policy-bg{
+    height:var(--ip-policy-bg-height, var(--ip-policy-page-height, 100vh)) !important;
+    min-height:var(--ip-policy-bg-height, var(--ip-policy-page-height, 100vh)) !important;
+  }
+
+  .ip-legal-scrolltop{
+    position:absolute !important;
+    right:calc(((100vw - (390px * var(--ip-policy-mobile-scale, 1))) / 2) + (34px * var(--ip-policy-mobile-scale, 1))) !important;
+    bottom:50px;
+    z-index:9 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:24px !important;
+    height:24px !important;
+    padding:0 !important;
+    border:1px solid rgba(255,255,255,.9) !important;
+    border-radius:7px !important;
+    background:transparent !important;
+    cursor:pointer !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+    transform:scale(var(--ip-policy-mobile-scale, 1)) !important;
+    transform-origin:center center !important;
+    -webkit-transform:scale(var(--ip-policy-mobile-scale, 1)) !important;
+    -webkit-transform-origin:center center !important;
+    -webkit-tap-highlight-color:transparent !important;
+    touch-action:manipulation !important;
+  }
+
+  .ip-legal-scrolltop span{
+    display:block !important;
+    width:8px !important;
+    height:8px !important;
+    border-top:1.5px solid #fff !important;
+    border-left:1.5px solid #fff !important;
+    transform:translateY(2px) rotate(45deg) !important;
+    -webkit-transform:translateY(2px) rotate(45deg) !important;
+  }
+}
+
+
+/* =========================================================
+   POLICY MOBILE MENU SCROLL CLOSE ANIMATION
+
+   Версия: legal-css-057-restore-approved-desktop-mobile-header-link
+
+   ИЗМЕНЕНИЯ:
+   - mobile-only: добавлена промежуточная фаза is-closing для плавного закрытия меню при скролле
+   - mobile-only: фон меню уезжает вправо даже пока панель технически остаётся is-open
+   - mobile-only: содержимое меню мягко затухает, чтобы на смартфоне не было резкого исчезновения
+   - desktop, desktop-меню, нижняя геометрия страницы и текст политики не изменяются
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-policy-page > .ip-menu-panel.is-open.is-closing::before,
+  .ip-policy-page > .ip-menu-panel.is-open.is-closing::after{
+    transform:translateX(100%) !important;
+  }
+
+  .ip-policy-page > .ip-menu-panel .ip-menu-inner{
+    opacity:1 !important;
+    transform:translate3d(0,0,0) !important;
+    transition:
+      opacity .34s cubic-bezier(.19,1,.22,1),
+      transform .42s cubic-bezier(.19,1,.22,1) !important;
+    will-change:opacity,transform !important;
+  }
+
+  .ip-policy-page > .ip-menu-panel.is-closing .ip-menu-inner{
+    opacity:0 !important;
+    transform:translate3d(18px,0,0) !important;
+    pointer-events:none !important;
+  }
+
+  .ip-policy-page > .ip-menu-panel.is-closing .ip-social,
+  .ip-policy-page > .ip-menu-panel.is-closing .ip-menu-list > *,
+  .ip-policy-page > .ip-menu-panel.is-closing .ip-menu-legal{
+    animation-play-state:paused !important;
+    pointer-events:none !important;
+  }
+}
+
+
+
+/* =========================================================
+   POLICY MOBILE HEADER POSITION
+
+   Версия: legal-css-057-restore-approved-desktop-mobile-header-link
+
+   ИЗМЕНЕНИЯ:
+   - mobile-only: заголовок «Политика обработки персональных данных» опущен на 5px
+   - mobile-only: дата публикации и строка сайта опущены вместе с заголовком на 5px
+   - расстояние между датой публикации и строкой сайта сохранено
+   - desktop, меню, burger/cross, стрелка наверх, нижняя геометрия и основной текст политики не изменялись
+   ========================================================= */
+
+@media (max-width:767px){
+  .ip-legal-header{
+    transform:translate3d(0,5px,0) !important;
   }
 }
