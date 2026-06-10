@@ -2,9 +2,10 @@
 ==================================================
 GRADUATION JS
 
-Версия: graduation-js-003-approved-menu-source
+Версия: graduation-js-003-approved-menu-source-date-validation
 
 ИЗМЕНЕНИЯ:
+- popup date: единая маска ДД.ММ.ГГГГ и проверка реальной календарной даты без изменения дизайна, меню и остальной логики
 - создан desktop JS страницы «Выпускной» на базе approved страницы «День рождения»
 - селекторы, переменные и data-атрибуты переведены на graduation
 - высота раскрытой desktop-галереи синхронизирована с новой сеткой из 21 фото
@@ -827,39 +828,138 @@ GRADUATION JS
   }
 
   function setupDateMask(){
-    if(!popup){
+    var activePopup = document.querySelector('[data-popup="main"]');
+
+    if(!activePopup){
       return;
     }
 
-    var dateInput = popup.querySelector('input[name="date"]');
+    var dateInput =
+      activePopup.querySelector('input[name="date"]') ||
+      activePopup.querySelector('.ip-popup-fields input:nth-child(3)');
 
     if(!dateInput){
       return;
     }
 
-    dateInput.addEventListener('input', function(){
-      var value = dateInput.value.replace(/\D/g, '');
+    var form = dateInput.form || activePopup.querySelector('form');
+    var errorText = 'Введите корректную дату в формате ДД.ММ.ГГГГ';
 
-      if(value.length > 8){
-        value = value.slice(0, 8);
-      }
+    function getDigits(value){
+      return String(value || '').replace(/\D/g, '').slice(0, 8);
+    }
 
+    function formatDateValue(digits){
       var formatted = '';
 
-      if(value.length > 0){
-        formatted += value.substring(0, 2);
+      if(digits.length > 0){
+        formatted += digits.substring(0, 2);
       }
 
-      if(value.length >= 3){
-        formatted += '.' + value.substring(2, 4);
+      if(digits.length >= 3){
+        formatted += '.' + digits.substring(2, 4);
       }
 
-      if(value.length >= 5){
-        formatted += '.' + value.substring(4, 8);
+      if(digits.length >= 5){
+        formatted += '.' + digits.substring(4, 8);
       }
 
-      dateInput.value = formatted;
+      return formatted;
+    }
+
+    function isCompleteDate(value){
+      return /^\d{2}\.\d{2}\.\d{4}$/.test(value);
+    }
+
+    function isRealDate(value){
+      if(!isCompleteDate(value)){
+        return false;
+      }
+
+      var parts = value.split('.');
+      var day = parseInt(parts[0], 10);
+      var month = parseInt(parts[1], 10);
+      var year = parseInt(parts[2], 10);
+
+      if(year < 1900 || year > 2099){
+        return false;
+      }
+
+      if(month < 1 || month > 12){
+        return false;
+      }
+
+      if(day < 1 || day > 31){
+        return false;
+      }
+
+      var checkedDate = new Date(year, month - 1, day);
+
+      return checkedDate.getFullYear() === year &&
+        checkedDate.getMonth() === month - 1 &&
+        checkedDate.getDate() === day;
+    }
+
+    function updateValidity(){
+      var digits = getDigits(dateInput.value);
+
+      if(!digits.length){
+        dateInput.setCustomValidity('');
+        return true;
+      }
+
+      if(!isRealDate(dateInput.value)){
+        dateInput.setCustomValidity(errorText);
+        return false;
+      }
+
+      dateInput.setCustomValidity('');
+      return true;
+    }
+
+    function updateDateValue(){
+      var digits = getDigits(dateInput.value);
+      dateInput.value = formatDateValue(digits);
+      updateValidity();
+    }
+
+    dateInput.setAttribute('type', 'text');
+    dateInput.setAttribute('placeholder', 'Дата');
+    dateInput.setAttribute('inputmode', 'numeric');
+    dateInput.setAttribute('maxlength', '10');
+    dateInput.setAttribute('autocomplete', 'off');
+
+    dateInput.addEventListener('input', updateDateValue);
+
+    dateInput.addEventListener('paste', function(event){
+      event.preventDefault();
+
+      var clipboard = event.clipboardData || window.clipboardData;
+      var pastedText = clipboard ? clipboard.getData('text') : '';
+      var digits = getDigits(pastedText);
+
+      dateInput.value = formatDateValue(digits);
+      updateValidity();
     });
+
+    dateInput.addEventListener('blur', function(){
+      updateDateValue();
+    });
+
+    if(form && !form.hasAttribute('data-ip-date-validation')){
+      form.setAttribute('data-ip-date-validation', 'true');
+
+      form.addEventListener(
+        'submit',
+        function(event){
+          if(!updateValidity()){
+            event.preventDefault();
+            dateInput.reportValidity();
+          }
+        },
+        true
+      );
+    }
   }
 
   function closeMenuOnUserScroll(){

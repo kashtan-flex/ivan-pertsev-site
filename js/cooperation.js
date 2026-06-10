@@ -2,9 +2,10 @@
 ==================================================
 COOPERATION JS
 
-Версия: cooperation-js-001-desktop
+Версия: cooperation-js-001-desktop-date-validation
 
 ИЗМЕНЕНИЯ:
+- popup date: единая маска ДД.ММ.ГГГГ и проверка реальной календарной даты без изменения дизайна, меню и остальной логики
 - создан desktop JS страницы «Сотрудничество» на базе логики главной страницы
 - сохранено масштабирование fixed stage 1440×800
 - сохранена логика меню, аккордеонов, popup и маски даты
@@ -89,48 +90,99 @@ COOPERATION JS
   }
 
   function setupDateMask(){
-    if(!mainPopup){
+    var activePopup = document.querySelector('[data-popup="main"]');
+
+    if(!activePopup){
       return;
     }
 
-    const dateInput =
-      mainPopup.querySelector('input[name="date"]') ||
-      mainPopup.querySelector('.ip-popup-fields input:nth-child(3)');
+    var dateInput =
+      activePopup.querySelector('input[name="date"]') ||
+      activePopup.querySelector('.ip-popup-fields input:nth-child(3)');
 
     if(!dateInput){
       return;
     }
 
-    const mask = '__.__.____';
+    var form = dateInput.form || activePopup.querySelector('form');
+    var errorText = 'Введите корректную дату в формате ДД.ММ.ГГГГ';
 
     function getDigits(value){
-      return value.replace(/\D/g, '').slice(0, 8);
+      return String(value || '').replace(/\D/g, '').slice(0, 8);
     }
 
-    function buildMaskedValue(digits){
-      const chars = mask.split('');
-      const digitPositions = [0, 1, 3, 4, 6, 7, 8, 9];
+    function formatDateValue(digits){
+      var formatted = '';
 
-      digits.split('').forEach(function(digit, index){
-        chars[digitPositions[index]] = digit;
-      });
+      if(digits.length > 0){
+        formatted += digits.substring(0, 2);
+      }
 
-      return chars.join('');
+      if(digits.length >= 3){
+        formatted += '.' + digits.substring(2, 4);
+      }
+
+      if(digits.length >= 5){
+        formatted += '.' + digits.substring(4, 8);
+      }
+
+      return formatted;
     }
 
-    function setCaretToNextSlot(){
-      const firstEmptyIndex = dateInput.value.indexOf('_');
-      const caretPosition = firstEmptyIndex === -1 ? dateInput.value.length : firstEmptyIndex;
-
-      requestAnimationFrame(function(){
-        dateInput.setSelectionRange(caretPosition, caretPosition);
-      });
+    function isCompleteDate(value){
+      return /^\d{2}\.\d{2}\.\d{4}$/.test(value);
     }
 
-    function updateMaskedValue(){
-      const digits = getDigits(dateInput.value);
-      dateInput.value = buildMaskedValue(digits);
-      setCaretToNextSlot();
+    function isRealDate(value){
+      if(!isCompleteDate(value)){
+        return false;
+      }
+
+      var parts = value.split('.');
+      var day = parseInt(parts[0], 10);
+      var month = parseInt(parts[1], 10);
+      var year = parseInt(parts[2], 10);
+
+      if(year < 1900 || year > 2099){
+        return false;
+      }
+
+      if(month < 1 || month > 12){
+        return false;
+      }
+
+      if(day < 1 || day > 31){
+        return false;
+      }
+
+      var checkedDate = new Date(year, month - 1, day);
+
+      return checkedDate.getFullYear() === year &&
+        checkedDate.getMonth() === month - 1 &&
+        checkedDate.getDate() === day;
+    }
+
+    function updateValidity(){
+      var digits = getDigits(dateInput.value);
+
+      if(!digits.length){
+        dateInput.setCustomValidity('');
+        return true;
+      }
+
+      if(!isRealDate(dateInput.value)){
+        dateInput.setCustomValidity(errorText);
+        return false;
+      }
+
+      dateInput.setCustomValidity('');
+      return true;
+    }
+
+    function updateDateValue(){
+      var digits = getDigits(dateInput.value);
+      dateInput.value = formatDateValue(digits);
+      updateValidity();
     }
 
     dateInput.setAttribute('type', 'text');
@@ -139,54 +191,37 @@ COOPERATION JS
     dateInput.setAttribute('maxlength', '10');
     dateInput.setAttribute('autocomplete', 'off');
 
-    dateInput.addEventListener('focus', function(){
-      if(!getDigits(dateInput.value)){
-        dateInput.value = mask;
-      }
-
-      setCaretToNextSlot();
-    });
-
-    dateInput.addEventListener('click', setCaretToNextSlot);
-
-    dateInput.addEventListener('keydown', function(event){
-      const allowedKeys = [
-        'Backspace',
-        'Delete',
-        'Tab',
-        'ArrowLeft',
-        'ArrowRight',
-        'Home',
-        'End'
-      ];
-
-      if(allowedKeys.includes(event.key)){
-        return;
-      }
-
-      if(!/^\d$/.test(event.key)){
-        event.preventDefault();
-      }
-    });
-
-    dateInput.addEventListener('input', updateMaskedValue);
+    dateInput.addEventListener('input', updateDateValue);
 
     dateInput.addEventListener('paste', function(event){
       event.preventDefault();
 
-      const pastedText = (event.clipboardData || window.clipboardData).getData('text');
-      const digits = getDigits(pastedText);
+      var clipboard = event.clipboardData || window.clipboardData;
+      var pastedText = clipboard ? clipboard.getData('text') : '';
+      var digits = getDigits(pastedText);
 
-      dateInput.value = buildMaskedValue(digits);
-      setCaretToNextSlot();
+      dateInput.value = formatDateValue(digits);
+      updateValidity();
     });
 
     dateInput.addEventListener('blur', function(){
-      if(!getDigits(dateInput.value)){
-        dateInput.value = '';
-        dateInput.setAttribute('placeholder', 'Дата');
-      }
+      updateDateValue();
     });
+
+    if(form && !form.hasAttribute('data-ip-date-validation')){
+      form.setAttribute('data-ip-date-validation', 'true');
+
+      form.addEventListener(
+        'submit',
+        function(event){
+          if(!updateValidity()){
+            event.preventDefault();
+            dateInput.reportValidity();
+          }
+        },
+        true
+      );
+    }
   }
 
   function setupPopupTriggers(){
