@@ -2,13 +2,13 @@
 ==================================================
 POLICY PREVIEW HTML
 
-Версия: policy-preview-html-012-policy-scrolltop-burger-align
+Версия: policy-preview-html-014-mobile-close-menu-on-scroll-start
 
 ИЗМЕНЕНИЯ:
-- файл основан на policy-preview-html-011-policy-menu-toggle-arrow-2px-left
-- сохранены подключение legal-страницы, popup, page-transition и общий порядок CSS/JS
-- обновлён cache-bust legal.css под выравнивание desktop-стрелки «наверх» по линии burger/cross
-- legal.js, burger/cross, фон меню, текст политики, mobile и поведение меню не менялись
+- файл основан на policy-preview-html-012-policy-scrolltop-burger-align
+- desktop-подключения и desktop-геометрия не изменялись
+- desktop-подключения и desktop-геометрия не изменялись
+- обновлён cache-bust только legal.js для mobile-only закрытия меню при начале скролла
 ==================================================
 -->
 
@@ -44,7 +44,7 @@ POLICY PREVIEW HTML
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
-  <link rel="stylesheet" href="./css/legal.css?v=045-policy-scrolltop-burger-align">
+  <link rel="stylesheet" href="./css/legal.css?v=049-policy-mobile-wedding-menu-logic">
 </head>
 
 <body>
@@ -61,7 +61,7 @@ POLICY PREVIEW HTML
         document.getElementById('ip-policy-root').innerHTML = html;
 
         var pageScript = document.createElement('script');
-        pageScript.src = './js/legal.js?v=024-policy-menu-scrolls-with-title-from-031';
+        pageScript.src = './js/legal.js?v=027-mobile-close-menu-on-scroll-start';
         document.body.appendChild(pageScript);
 
         var transitionScript = document.createElement('script');

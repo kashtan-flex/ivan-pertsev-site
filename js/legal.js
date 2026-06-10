@@ -2,14 +2,14 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-024-policy-menu-scrolls-with-title-from-031
+Версия: legal-js-027-mobile-close-menu-on-scroll-start
 
 ИЗМЕНЕНИЯ:
-- файл основан на визуально корректной версии legal-js-017-policy-body-portal-fixed
-- burger больше не переносится во fixed-stage и остаётся в верхней legal-композиции страницы
-- panel меню по-прежнему переносится во fixed-stage, чтобы сохранить фон, blur и перекрытие текста как в версии 031
-- при scroll меню закрывается, а burger уезжает вверх вместе с заголовком политики
-- логика popup, аккордеонов, маски даты, scale и scrolltop сохранена
+- файл основан на legal-js-025-policy-mobile-wedding-menu-logic
+- восстановлена desktop-логика из рабочей версии: burger остаётся в верхней legal-композиции, panel переносится в desktop menu-stage
+- mobile-логика из версии 049 сохранена: original burger/panel остаются внутри policy.html
+- desktop-положение burger/cross больше не меняется mobile-правкой
+- добавлено mobile-only закрытие меню сразу при touchmove/wheel/scroll без влияния на desktop
 ==================================================
 */
 
@@ -95,23 +95,31 @@ LEGAL JS
   }
 
   function syncPolicyMenuStage(){
+    if(isMobile()){
+      insertBack(menuButtonOriginalParent, menuButton, menuButtonOriginalNext);
+      insertBack(menuPanelOriginalParent, menuPanel, menuPanelOriginalNext);
+
+      if(menuStage){
+        menuStage.classList.remove('is-open');
+        menuStage.style.display = 'none';
+      }
+
+      document.documentElement.style.removeProperty('--ip-policy-menu-stage-scale');
+      document.documentElement.style.removeProperty('--ip-policy-menu-stage-height');
+      return;
+    }
+
     var stage = getMenuStage();
+    var scale = getDesktopScale();
+    var stageHeight = Math.max(
+      DESIGN.desktop.height,
+      Math.ceil(getViewportHeight() / scale)
+    );
 
     stage.style.display = 'block';
 
-    if(isMobile()){
-      document.documentElement.style.removeProperty('--ip-policy-menu-stage-scale');
-      document.documentElement.style.removeProperty('--ip-policy-menu-stage-height');
-    } else {
-      var scale = getDesktopScale();
-      var stageHeight = Math.max(
-        DESIGN.desktop.height,
-        Math.ceil(getViewportHeight() / scale)
-      );
-
-      document.documentElement.style.setProperty('--ip-policy-menu-stage-scale', scale.toFixed(5));
-      document.documentElement.style.setProperty('--ip-policy-menu-stage-height', stageHeight + 'px');
-    }
+    document.documentElement.style.setProperty('--ip-policy-menu-stage-scale', scale.toFixed(5));
+    document.documentElement.style.setProperty('--ip-policy-menu-stage-height', stageHeight + 'px');
 
     if(menuButtonOriginalParent && menuButton.parentNode !== menuButtonOriginalParent){
       insertBack(menuButtonOriginalParent, menuButton, menuButtonOriginalNext);
@@ -316,6 +324,14 @@ LEGAL JS
   }
 
   function closeMenuOnScrollIntent(event){
+    if(isMobile()){
+      if(menuPanel.classList.contains('is-open')){
+        closeMenu();
+      }
+
+      return;
+    }
+
     if(
       event &&
       menuPanel &&
