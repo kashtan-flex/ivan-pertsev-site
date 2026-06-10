@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-008-policy-menu-sync-with-cooperation
+   Версия: legal-css-019-policy-menu-bg-phrase-cover
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -22,7 +22,9 @@
    - burger/cross закреплены относительно viewport без переноса меню в body
    - desktop-меню и текстовая разметка не изменялись
    - mobile burger поднят к верхней части второй строки заголовка и жёстко зафиксирован относительно viewport
-   - контент, переносы текста, меню, popup, scroll-top, desktop и JS не изменялись
+   - desktop burger/menu вынесены в fixed stage 1440×800 по логике страницы «Сотрудничество»
+   - approved-анимация menu сохранена: фоновые слои ::before/::after продолжают выезжать справа
+   - фон меню расширен только на 5px влево
    ========================================================= */
 
 html,
@@ -236,71 +238,92 @@ body,
   transform:translateY(2px) rotate(45deg);
 }
 
-/* POLICY DESKTOP MENU — VIEWPORT LOCK
+/* POLICY DESKTOP MENU — FIXED STAGE SYNC
 
    Назначение:
-   - desktop burger/menu остаются в исходной разметке policy.html;
-   - burger и menu-panel жёстко фиксируются относительно viewport;
-   - координаты и scale задаёт legal.js через CSS-переменные;
-   - approved-анимация menu из home.css сохраняется: фоновые слои
-     ::before/::after продолжают выезжать справа через transform;
-   - фон меню расширен только на 5px влево, чтобы перекрыть край буквы под меню.
+   - на desktop legal.js переносит burger/menu в отдельный fixed stage 1440×800;
+   - stage масштабируется по логике страницы «Сотрудничество»: min(width/1440, height/800);
+   - внутри stage меню использует approved-геометрию home.css/cooperation: burger top 60/right 100, panel 385×800 справа;
+   - саму panel не трансформируем, чтобы не ломать approved-анимацию ::before/::after;
+   - фон меню расширен влево до начала строки «Дата публикации…» на desktop;
+   - фон меню увеличен вниз, чтобы перекрывать нижнюю часть viewport при открытом меню;
+   - позиция burger/fixed-stage, JS, mobile-часть, типографика и анимация меню не изменялись.
 */
 
 :root{
-  --ip-policy-menu-scale:1;
-  --ip-policy-menu-top:60px;
-  --ip-policy-menu-right:100px;
-  --ip-policy-menu-panel-top:0px;
-  --ip-policy-menu-panel-right:0px;
+  --ip-policy-menu-stage-scale:1;
 }
 
 @media (min-width:768px){
-  .ip-policy-page .ip-menu-toggle{
-    position:fixed !important;
-    top:var(--ip-policy-menu-top) !important;
-    right:var(--ip-policy-menu-right) !important;
+  .ip-policy-menu-stage{
+    position:fixed;
+    left:50%;
+    top:50%;
+    z-index:10000;
+    width:1440px;
+    height:800px;
+    overflow:visible;
+    pointer-events:none;
+    transform:translate3d(-50%,-50%,0) scale(var(--ip-policy-menu-stage-scale, 1));
+    transform-origin:center center;
+    color:#fff;
+    font-family:'Montserrat',Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:geometricPrecision;
+  }
+
+  .ip-policy-menu-stage,
+  .ip-policy-menu-stage *{
+    box-sizing:border-box;
+  }
+
+  .ip-policy-menu-stage .ip-menu-toggle{
+    position:absolute !important;
+    top:60px !important;
+    right:100px !important;
     left:auto !important;
     bottom:auto !important;
-    z-index:10050 !important;
+    z-index:50 !important;
     width:27px !important;
     height:27px !important;
-    transform:scale(var(--ip-policy-menu-scale)) !important;
-    transform-origin:top right !important;
+    transform:none !important;
+    transform-origin:center center !important;
     pointer-events:auto !important;
   }
 
-  .ip-policy-page .ip-menu-panel{
-    position:fixed !important;
-    top:var(--ip-policy-menu-panel-top) !important;
-    right:var(--ip-policy-menu-panel-right) !important;
+  .ip-policy-menu-stage .ip-menu-panel{
+    position:absolute !important;
+    top:0 !important;
+    right:0 !important;
     left:auto !important;
     bottom:auto !important;
-    z-index:10040 !important;
+    z-index:40 !important;
     width:385px !important;
     max-width:385px !important;
     height:800px !important;
     min-height:800px !important;
     padding:60px 100px 80px 60px !important;
     overflow:hidden !important;
-    transform:scale(var(--ip-policy-menu-scale)) !important;
+    transform:none !important;
     transform-origin:top right !important;
     background:transparent !important;
+    pointer-events:none !important;
   }
 
-  .ip-policy-page .ip-menu-panel.is-open{
+  .ip-policy-menu-stage .ip-menu-panel.is-open{
     pointer-events:auto !important;
   }
 
-  .ip-policy-page .ip-menu-panel::before,
-  .ip-policy-page .ip-menu-panel::after{
+  .ip-policy-menu-stage .ip-menu-panel::before,
+  .ip-policy-menu-stage .ip-menu-panel::after{
     top:0 !important;
     right:0 !important;
-    bottom:0 !important;
-    left:-5px !important;
-    width:calc(100% + 5px) !important;
-    height:100% !important;
-    min-height:100% !important;
+    bottom:auto !important;
+    left:-72px !important;
+    width:calc(100% + 72px) !important;
+    height:calc(100% + 160px) !important;
+    min-height:calc(100% + 160px) !important;
     max-width:none !important;
   }
 }
