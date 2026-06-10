@@ -2,16 +2,17 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-010-policy-menu-fixed-stage-sync
+Версия: legal-js-011-policy-menu-project-bg-plate
 
 ИЗМЕНЕНИЯ:
 - создан JS для текстовых правовых страниц проекта
 - сохранена логика меню, аккордеонов, popup и маски даты по approved-страницам
 - добавлена обработка data-popup-open="main" для пунктов «Другое», «Написать» и popup-триггеров
 - добавлена работа стрелки наверх
-- desktop burger/menu переносятся в fixed stage 1440×800 по логике страницы «Сотрудничество»
+- desktop burger/menu переносятся в fixed stage 1440×800 по логике approved-страниц
+- добавлена отдельная background-plate для desktop-фона меню без влияния на пункты и burger
+- высота background-plate синхронизируется с фактической высотой viewport
 - закрытие меню при scroll/wheel/touchmove сохранено как на approved-страницах
-- approved-анимация меню сохраняется, потому что panel не трансформируется отдельно
 - остальные страницы сайта не изменялись
 ==================================================
 */
@@ -30,6 +31,7 @@ LEGAL JS
   var shell = document.querySelector('.ip-policy-shell');
   var resizeFrame = null;
   var menuStage = null;
+  var menuBackground = null;
   var menuButtonOriginalParent = menuButton ? menuButton.parentNode : null;
   var menuButtonOriginalNext = menuButton ? menuButton.nextSibling : null;
   var menuPanelOriginalParent = menuPanel ? menuPanel.parentNode : null;
@@ -86,6 +88,24 @@ LEGAL JS
     return menuStage;
   }
 
+  function getMenuBackground(){
+    if(menuBackground && menuBackground.parentNode){
+      return menuBackground;
+    }
+
+    menuBackground = document.querySelector('.ip-policy-menu-bg');
+
+    if(menuBackground){
+      return menuBackground;
+    }
+
+    menuBackground = document.createElement('div');
+    menuBackground.className = 'ip-policy-menu-bg';
+    menuBackground.setAttribute('aria-hidden', 'true');
+
+    return menuBackground;
+  }
+
   function insertBack(parent, node, nextSibling){
     if(!parent || !node){
       return;
@@ -109,14 +129,27 @@ LEGAL JS
       }
 
       document.documentElement.style.removeProperty('--ip-policy-menu-stage-scale');
+      document.documentElement.style.removeProperty('--ip-policy-menu-stage-height');
+
+      if(menuBackground){
+        menuBackground.classList.remove('is-open');
+      }
+
       return;
     }
 
     var stage = getMenuStage();
+    var background = getMenuBackground();
     var scale = getDesktopMenuScale();
+    var stageHeight = Math.max(DESIGN.desktop.height, Math.ceil(getViewportHeight() / scale));
 
     stage.style.display = 'block';
     document.documentElement.style.setProperty('--ip-policy-menu-stage-scale', scale.toFixed(5));
+    document.documentElement.style.setProperty('--ip-policy-menu-stage-height', stageHeight + 'px');
+
+    if(background.parentNode !== stage){
+      stage.insertBefore(background, stage.firstChild);
+    }
 
     if(menuButton.parentNode !== stage){
       stage.appendChild(menuButton);
@@ -169,12 +202,22 @@ LEGAL JS
   function openMenu(){
     menuButton.classList.add('is-open');
     menuPanel.classList.add('is-open');
+
+    if(menuBackground){
+      menuBackground.classList.add('is-open');
+    }
+
     menuPanel.style.pointerEvents = 'auto';
   }
 
   function closeMenu(){
     menuButton.classList.remove('is-open');
     menuPanel.classList.remove('is-open');
+
+    if(menuBackground){
+      menuBackground.classList.remove('is-open');
+    }
+
     menuPanel.style.pointerEvents = 'none';
 
     accordions.forEach(function(accordion){
