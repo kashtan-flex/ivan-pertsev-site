@@ -2,15 +2,14 @@
 ==================================================
 POLICY PREVIEW HTML
 
-Версия: policy-preview-html-005-policy-large-monitor-cache-bust
+Версия: policy-preview-html-006-policy-menu-stage-clean-fixed
 
 ИЗМЕНЕНИЯ:
 - создан preview страницы «Политика обработки персональных данных»
 - подключена текстовая страница pages/legal/policy.html
 - подключены home.css для утверждённой системы меню, popups.css, popups-mobile.css, page-transition.css и legal.css
 - подключены legal.js и page-transition.js
-- добавлен preload для фона policy-bg.webp
-- подключены обновлённые legal.css/legal.js для макета политики
+- обновлены cache-bust версии legal.css/legal.js под clean fixed menu stage
 - ссылки на политику в остальных страницах сайта пока не вшивались
 ==================================================
 -->
@@ -47,7 +46,7 @@ POLICY PREVIEW HTML
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
-  <link rel="stylesheet" href="./css/legal.css?v=024-policy-large-monitor-approved-scale">
+  <link rel="stylesheet" href="./css/legal.css?v=030-policy-menu-stage-clean-fixed">
 </head>
 
 <body>
@@ -64,7 +63,7 @@ POLICY PREVIEW HTML
         document.getElementById('ip-policy-root').innerHTML = html;
 
         var pageScript = document.createElement('script');
-        pageScript.src = './js/legal.js?v=013-policy-large-monitor-approved-scale';
+        pageScript.src = './js/legal.js?v=016-policy-menu-stage-clean-fixed';
         document.body.appendChild(pageScript);
 
         var transitionScript = document.createElement('script');

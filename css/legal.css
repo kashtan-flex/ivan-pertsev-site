@@ -1,35 +1,15 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-029-policy-burger-fixed-layer-arrows-align
+   Версия: legal-css-030-policy-menu-stage-clean-fixed
 
    ИЗМЕНЕНИЯ:
-   - создан общий CSS для правовых страниц проекта
-   - добавлена текстовая страница «Политика обработки персональных данных» на фоне policy-bg.webp
-   - сохранена утверждённая визуальная система меню через home.css с локальными override только для legal-страниц
-   - desktop-верстка приведена ближе к Figma-макету: 1440px, отступ 100px, ширина текста 1122px
-   - обновлена типографика: заголовок 40px Semibold, разделы 20px Semibold, основной текст 16px Regular
-   - дата и сайт поставлены в правый верхний блок по макету
-   - добавлена стрелка наверх внизу страницы
-   - цвет ссылки «Политика обработки персональных данных» в меню приведён к цвету ссылки «Согласие на обработку персональных данных»
-   - остальные страницы сайта не затрагивались
-   - добавлена mobile-верстка по Figma-макету: отдельный фон, позиции, типографика и переносы
-   - desktop и mobile масштабирование синхронизированы с логикой страниц проекта
-   - desktop получил design-stage 1440px с масштабом от ширины viewport
-   - mobile получил design-stage 390px с масштабом как на странице «Сотрудничество»
-   - высота страницы теперь рассчитывается через JS по фактической высоте legal-контента
-   - mobile-меню страницы политики синхронизировано с эталонной страницей «Сотрудничество»
-   - burger/cross закреплены относительно viewport без переноса меню в body
-   - desktop-меню и текстовая разметка не изменялись
-   - mobile burger поднят к верхней части второй строки заголовка и жёстко зафиксирован относительно viewport
-   - desktop масштабирование страницы политики переведено на approved-логику fixed-stage: min(width/1440, height/800)
-   - desktop burger/menu сохранены в fixed stage 1440×800 по логике страницы «Сотрудничество»
-   - фон меню перенесён на pseudo-слои fixed-stage, чтобы ширина не зависела от .ip-menu-panel
-   - фон меню расширен влево на 48px и по высоте синхронизирован с viewport
-   - approved-анимация menu сохранена: фон выезжает справа через transform
-   - burger/cross вынесен в отдельный fixed-layer вне stage, чтобы не скроллился вместе со страницей
-   - стрелки аккордеонов desktop возвращены на approved-линию правого края меню/крестика
-   - фон меню, масштабирование, blur, высота и mobile не изменялись
+   - сохранены текущие размеры, высота, blur и фон меню страницы политики
+   - desktop-меню переведено на один fixed-stage 1440×800 без отдельного burger-layer и без clone-бургера
+   - оригинальные burger и panel на desktop перемещаются в один fixed-stage и не зависят от прокрутки страницы
+   - mobile burger/panel оставлены fixed относительно viewport, чтобы бургер и крестик не скроллились вместе с текстом
+   - стрелки аккордеонов «Проекты» и «Контакты» явно выровнены по правой линии меню/крестика
+   - масштабирование и внешний вид текстовой страницы политики сохранены
    ========================================================= */
 
 html,
@@ -243,14 +223,14 @@ body,
   transform:translateY(2px) rotate(45deg);
 }
 
-/* POLICY DESKTOP MENU — APPROVED SCALE + STAGE BACKGROUND
+/* POLICY DESKTOP MENU — CLEAN FIXED STAGE WITHOUT BURGER CLONE
 
    Назначение:
-   - desktop-страница политики переводится на ту же scale-логику, что и approved fixed-stage страницы;
-   - burger/menu живут в отдельном fixed stage 1440×800;
-   - фон меню рисуется pseudo-слоями самого fixed stage, а не panel/background-plate;
-   - поэтому фон можно расширить влево и вниз без зависимости от overflow .ip-menu-panel;
-   - пункты меню остаются в approved-геометрии 385×800 и не двигаются.
+   - меню политики живёт в одном fixed-stage 1440×800, как отдельный слой интерфейса;
+   - burger и panel — оригинальные элементы, без clone-бургера и без отдельного burger-layer;
+   - stage масштабируется по approved-логике min(viewportWidth / 1440, viewportHeight / 800);
+   - фон меню сохраняет текущую ширину, высоту, blur и шум;
+   - стрелки аккордеонов выровнены по правой линии внутренней сетки меню.
 */
 
 :root{
@@ -263,14 +243,14 @@ body,
   .ip-policy-menu-stage{
     position:fixed;
     left:50%;
-    top:50%;
+    top:0;
     z-index:10000;
     width:1440px;
     height:var(--ip-policy-menu-stage-height, 800px);
     overflow:visible;
     pointer-events:none;
-    transform:translate3d(-50%,-50%,0) scale(var(--ip-policy-menu-stage-scale, 1));
-    transform-origin:center center;
+    transform:translate3d(-50%,0,0) scale(var(--ip-policy-menu-stage-scale, 1));
+    transform-origin:top center;
     color:#fff;
     font-family:'Montserrat',Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -327,31 +307,6 @@ body,
     }
   }
 
-  .ip-policy-burger-layer{
-    position:fixed;
-    inset:0;
-    z-index:10030;
-    width:100%;
-    height:0;
-    overflow:visible;
-    pointer-events:none;
-    background:transparent;
-  }
-
-  .ip-policy-burger-layer .ip-menu-toggle{
-    position:fixed !important;
-    top:var(--ip-policy-burger-top, 60px) !important;
-    right:var(--ip-policy-burger-right, 100px) !important;
-    left:auto !important;
-    bottom:auto !important;
-    z-index:10031 !important;
-    width:27px !important;
-    height:27px !important;
-    transform:scale(var(--ip-policy-menu-stage-scale, 1)) !important;
-    transform-origin:top right !important;
-    pointer-events:auto !important;
-  }
-
   .ip-policy-menu-stage .ip-menu-toggle{
     position:absolute !important;
     top:60px !important;
@@ -361,9 +316,21 @@ body,
     z-index:50 !important;
     width:27px !important;
     height:27px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:none !important;
+    outline:none !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
     transform:none !important;
     transform-origin:center center !important;
     pointer-events:auto !important;
+    cursor:pointer;
+    overflow:visible;
+    appearance:none;
+    -webkit-appearance:none;
+    touch-action:manipulation;
   }
 
   .ip-policy-menu-stage .ip-menu-panel{
@@ -379,10 +346,15 @@ body,
     min-height:800px !important;
     padding:60px 100px 80px 30px !important;
     overflow:visible !important;
+    background:transparent !important;
     transform:none !important;
     transform-origin:top right !important;
-    background:transparent !important;
+    opacity:0;
+    visibility:hidden;
     pointer-events:none !important;
+    transition:
+      opacity .28s ease .18s,
+      visibility 0s linear .46s;
   }
 
   .ip-policy-menu-stage .ip-menu-panel::before,
@@ -392,7 +364,12 @@ body,
   }
 
   .ip-policy-menu-stage .ip-menu-panel.is-open{
+    opacity:1;
+    visibility:visible;
     pointer-events:auto !important;
+    transition:
+      opacity .34s ease .16s,
+      visibility 0s linear 0s;
   }
 
   .ip-policy-menu-stage .ip-menu-socials{
@@ -408,12 +385,48 @@ body,
     right:100px !important;
   }
 
+  .ip-policy-menu-stage .ip-accordion-button{
+    position:relative;
+    width:100%;
+    padding-right:34px !important;
+  }
+
+  .ip-policy-menu-stage .ip-accordion-button::before,
+  .ip-policy-menu-stage .ip-accordion-button::after{
+    content:'';
+    position:absolute;
+    top:50%;
+    display:block;
+    width:14px;
+    height:3px;
+    border-radius:10px;
+    background:#fff;
+    opacity:1;
+    pointer-events:none;
+    transform-origin:center center;
+    transition:
+      transform .35s cubic-bezier(.19,1,.22,1),
+      opacity .35s ease;
+  }
+
   .ip-policy-menu-stage .ip-accordion-button::before{
     right:9px !important;
+    transform:translateY(-50%) rotate(45deg);
   }
 
   .ip-policy-menu-stage .ip-accordion-button::after{
     right:0 !important;
+    transform:translateY(-50%) rotate(-45deg);
+  }
+
+  .ip-policy-menu-stage .ip-accordion.is-open .ip-accordion-button::before{
+    opacity:.5;
+    transform:translateY(-50%) rotate(-45deg);
+  }
+
+  .ip-policy-menu-stage .ip-accordion.is-open .ip-accordion-button::after{
+    opacity:.5;
+    transform:translateY(-50%) rotate(45deg);
   }
 }
 
@@ -644,12 +657,26 @@ body,
     -webkit-backdrop-filter:none;
     backdrop-filter:none;
     touch-action:pan-y;
-    transform:scale(var(--ip-policy-mobile-scale, 1));
+    transform:translateX(100%) scale(var(--ip-policy-mobile-scale, 1));
     transform-origin:top right;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:
+      transform .72s cubic-bezier(.19,1,.22,1),
+      opacity .28s ease .18s,
+      visibility 0s linear .72s;
   }
 
   .ip-policy-page .ip-menu-panel.is-open{
+    transform:translateX(0) scale(var(--ip-policy-mobile-scale, 1));
+    opacity:1;
+    visibility:visible;
     pointer-events:auto;
+    transition:
+      transform .72s cubic-bezier(.19,1,.22,1),
+      opacity .34s ease .16s,
+      visibility 0s linear 0s;
   }
 
   .ip-policy-page .ip-menu-panel::before{
@@ -715,6 +742,45 @@ body,
     justify-content:flex-start;
     padding-right:34px;
     touch-action:manipulation;
+  }
+
+  .ip-policy-page .ip-accordion-button::before,
+  .ip-policy-page .ip-accordion-button::after{
+    content:'';
+    position:absolute;
+    top:50%;
+    display:block;
+    width:14px;
+    height:3px;
+    border-radius:10px;
+    background:#fff;
+    opacity:1;
+    pointer-events:none;
+    transform-origin:center center;
+    transition:
+      transform .35s cubic-bezier(.19,1,.22,1),
+      opacity .35s ease;
+    will-change:transform,opacity;
+  }
+
+  .ip-policy-page .ip-accordion-button::before{
+    right:9px;
+    transform:translateY(-50%) rotate(45deg);
+  }
+
+  .ip-policy-page .ip-accordion-button::after{
+    right:0;
+    transform:translateY(-50%) rotate(-45deg);
+  }
+
+  .ip-policy-page .ip-accordion.is-open .ip-accordion-button::before{
+    opacity:.5;
+    transform:translateY(-50%) rotate(-45deg);
+  }
+
+  .ip-policy-page .ip-accordion.is-open .ip-accordion-button::after{
+    opacity:.5;
+    transform:translateY(-50%) rotate(45deg);
   }
 
   .ip-policy-page .ip-accordion-content{
