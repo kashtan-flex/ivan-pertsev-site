@@ -2,7 +2,7 @@
 ==================================================
 CONSENT HTML
 
-Версия: consent-html-003-mobile-text-line-breaks
+Версия: consent-html-004-scrolltop-arrow
 
 ИЗМЕНЕНИЯ:
 - создана страница «Согласие на обработку персональных данных» на базе утверждённой страницы политики
@@ -11,6 +11,7 @@ CONSENT HTML
 - legal-меню оставлено в той же структуре; ссылка на политику ведёт на ./policy-preview.html, ссылка на согласие ведёт на ./consent-preview.html
 - механика меню, burger/cross, desktop-версия, CSS-структура и JS-логика не изменялись
 - mobile-only: добавлены точечные переносы отмеченных слов в тексте согласия без влияния на desktop
+- добавлена стрелка наверх как на утверждённой странице политики; меню, CSS и JS не изменялись
 ==================================================
 -->
 
@@ -165,6 +166,12 @@ CONSENT HTML
     </section>
   </main>
 </section>
+
+  </div>
+
+  <button class="ip-legal-scrolltop" type="button" aria-label="Наверх">
+    <span aria-hidden="true"></span>
+  </button>
 </section>
 
 <div class="ip-popup" data-popup="main" aria-hidden="true">

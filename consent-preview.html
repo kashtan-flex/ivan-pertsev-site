@@ -2,7 +2,7 @@
 ==================================================
 CONSENT PREVIEW HTML
 
-Версия: consent-preview-html-004-desktop-text-block-up
+Версия: consent-preview-html-005-scrolltop-arrow
 
 ИЗМЕНЕНИЯ:
 - создан preview для страницы «Согласие на обработку персональных данных» на базе утверждённого policy-preview.html
@@ -13,6 +13,8 @@ CONSENT PREVIEW HTML
 - CSS, JS, меню, desktop-версия и общая геометрия не изменялись
 - обновлена query-версия legal.css для desktop-only подъёма текстового блока согласия
 - JS, меню, mobile-текст и consent.html не изменялись
+- обновлена query-версия consent.html после добавления стрелки наверх
+- CSS, JS, меню и desktop/mobile-текст не изменялись
 ==================================================
 -->
 
@@ -57,7 +59,7 @@ CONSENT PREVIEW HTML
   <div id="ip-policy-root"></div>
 
   <script>
-    fetch('./pages/legal/consent.html?v=003-mobile-text-line-breaks')
+    fetch('./pages/legal/consent.html?v=004-scrolltop-arrow')
       .then(function(response){
         return response.text();
       })
