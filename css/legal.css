@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-062-mobile-text-linebreaks-only
+   Версия: legal-css-063-consent-page-support
 
    ИЗМЕНЕНИЯ:
    - файл основан на legal-css-052-mobile-scrolltop-bottom-50px
@@ -14,6 +14,8 @@
    - mobile-only: заголовок политики и meta-блок опущены на 5px без изменения desktop и меню
    - mobile-only: добавлены точечные переносы отмеченных слов в тексте политики через .ip-legal-mobile-break
    - desktop, меню, burger/cross, стрелка, фон меню, нижняя геометрия и JS не изменялись
+   - добавлена поддержка страницы согласия без изменения утверждённой legal-геометрии
+   - добавлен служебный visually-hidden заголовок для вводного блока согласия
    ========================================================= */
 
 html,
@@ -191,6 +193,18 @@ body,
   opacity:.75;
 }
 
+
+.ip-legal-section-title--visually-hidden{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+  border:0;
+}
 
 .ip-legal-mobile-break{
   display:none;
@@ -1321,7 +1335,7 @@ body,
 /* =========================================================
    POLICY MOBILE MENU SCROLL CLOSE ANIMATION
 
-   Версия: legal-css-062-mobile-text-linebreaks-only
+   Версия: legal-css-063-consent-page-support
 
    ИЗМЕНЕНИЯ:
    - mobile-only: добавлена промежуточная фаза is-closing для плавного закрытия меню при скролле
@@ -1364,7 +1378,7 @@ body,
 /* =========================================================
    POLICY MOBILE HEADER POSITION
 
-   Версия: legal-css-062-mobile-text-linebreaks-only
+   Версия: legal-css-063-consent-page-support
 
    ИЗМЕНЕНИЯ:
    - mobile-only: заголовок «Политика обработки персональных данных» опущен на 5px
