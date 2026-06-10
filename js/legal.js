@@ -2,14 +2,14 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-013-policy-large-monitor-approved-scale
+Версия: legal-js-012-policy-approved-scale-menu-stage
 
 ИЗМЕНЕНИЯ:
 - создан JS для текстовых правовых страниц проекта
 - сохранена логика меню, аккордеонов, popup и маски даты по approved-страницам
 - добавлена обработка data-popup-open="main" для пунктов «Другое», «Написать» и popup-триггеров
 - добавлена работа стрелки наверх
-- desktop масштабирование страницы политики закреплено по approved-логике fixed-stage: min(width/1440, height/800)
+- desktop масштабирование страницы политики переведено на approved-логику fixed-stage: min(width/1440, height/800)
 - desktop burger/menu переносятся в fixed stage 1440×800 по логике approved-страниц
 - фон меню теперь управляется pseudo-слоями fixed-stage через класс is-open
 - высота fixed-stage синхронизируется с фактической высотой viewport

@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-026-policy-menu-blur-content-shift
+   Версия: legal-css-027-policy-menu-fixed-stage-micro-align
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -15,23 +15,19 @@
    - остальные страницы сайта не затрагивались
    - добавлена mobile-верстка по Figma-макету: отдельный фон, позиции, типографика и переносы
    - desktop и mobile масштабирование синхронизированы с логикой страниц проекта
-   - desktop policy больше не масштабируется только по ширине viewport; используется approved scale min(width/1440, height/800)
+   - desktop получил design-stage 1440px с масштабом от ширины viewport
    - mobile получил design-stage 390px с масштабом как на странице «Сотрудничество»
    - высота страницы теперь рассчитывается через JS по фактической высоте legal-контента
    - mobile-меню страницы политики синхронизировано с эталонной страницей «Сотрудничество»
    - burger/cross закреплены относительно viewport без переноса меню в body
    - desktop-меню и текстовая разметка не изменялись
    - mobile burger поднят к верхней части второй строки заголовка и жёстко зафиксирован относительно viewport
-   - desktop масштабирование страницы политики закреплено по approved-логике fixed-stage: min(width/1440, height/800)
+   - desktop масштабирование страницы политики переведено на approved-логику fixed-stage: min(width/1440, height/800)
    - desktop burger/menu сохранены в fixed stage 1440×800 по логике страницы «Сотрудничество»
    - фон меню перенесён на pseudo-слои fixed-stage, чтобы ширина не зависела от .ip-menu-panel
    - фон меню расширен влево на 48px и по высоте синхронизирован с viewport
    - approved-анимация menu сохранена: фон выезжает справа через transform
    - mobile-разметка и mobile-правила не изменялись
-   - восстановлен blur фона desktop-меню после обрезки правого края stage
-   - убран clip-path у fixed-stage, так как он мог отключать backdrop-filter в браузере
-   - пункты меню, соцсети и правовые ссылки на desktop сдвинуты на 30px влево
-   - бургер, масштабирование, JS и mobile-часть не изменялись
    ========================================================= */
 
 html,
@@ -269,7 +265,7 @@ body,
     z-index:10000;
     width:1440px;
     height:var(--ip-policy-menu-stage-height, 800px);
-    overflow:hidden;
+    overflow:visible;
     pointer-events:none;
     transform:translate3d(-50%,-50%,0) scale(var(--ip-policy-menu-stage-scale, 1));
     transform-origin:center center;
@@ -370,6 +366,27 @@ body,
 
   .ip-policy-menu-stage .ip-menu-panel.is-open{
     pointer-events:auto !important;
+  }
+
+  .ip-policy-menu-stage .ip-menu-socials{
+    margin-left:0 !important;
+  }
+
+  .ip-policy-menu-stage .ip-menu-list{
+    width:255px !important;
+  }
+
+  .ip-policy-menu-stage .ip-menu-legal{
+    left:30px !important;
+    right:100px !important;
+  }
+
+  .ip-policy-menu-stage .ip-accordion-button::before{
+    right:39px !important;
+  }
+
+  .ip-policy-menu-stage .ip-accordion-button::after{
+    right:30px !important;
   }
 }
 
