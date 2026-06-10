@@ -2,10 +2,11 @@
    IVAN PERTSEV — HOME PAGE
    FILE: css/home-mobile.css
 
-   Версия: home-mobile-029-subtitle-5px-up
+   Версия: home-mobile-030-subtitle-3px-up
 
    ИЗМЕНЕНИЯ:
-   - мобильный подзаголовок «Ведущий · музыкант» поднят на 5px выше
+   - мобильный подзаголовок «Ведущий · музыкант» поднят ещё на 3px выше
+   - изменена только позиция подзаголовка в mobile-версии
    - анимация появления подзаголовка сохранена без изменений
    - mobile menu cross balance сохранён
    - desktop версия не изменялась
@@ -120,7 +121,7 @@
 
   .ip-home-subtitle-wrap{
     left:0;
-    top:113px;
+    top:110px;
     width:215px;
     height:24px;
     overflow:hidden;
