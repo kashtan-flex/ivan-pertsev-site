@@ -1,13 +1,13 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-050-restore-desktop-menu-after-mobile
+   Версия: legal-css-052-mobile-scrolltop-bottom-50px
 
    ИЗМЕНЕНИЯ:
-   - файл основан на legal-css-049-policy-mobile-wedding-menu-logic
-   - desktop CSS оставлен в геометрии утверждённой версии: меню, burger/cross, фон, стрелка наверх и текст не менялись
-   - mobile CSS из версии 049 сохранён для дальнейшей настройки мобильного меню
-   - восстановительная правка: desktop не должен зависеть от mobile-эксперимента в JS
+   - файл основан на legal-css-050-restore-desktop-menu-after-mobile
+   - изменено только mobile-положение стрелки наверх
+   - расстояние от нижнего края mobile-стрелки до нижнего края страницы установлено 50px
+   - desktop, меню, burger/cross, фон, текст политики и JavaScript не менялись
    ========================================================= */
 
 html,
@@ -660,7 +660,7 @@ body,
   .ip-legal-scrolltop{
     position:absolute;
     right:20px;
-    bottom:34px;
+    bottom:50px;
     z-index:9;
     width:24px;
     height:24px;
@@ -1246,4 +1246,3 @@ body,
     text-decoration:none !important;
   }
 }
-
