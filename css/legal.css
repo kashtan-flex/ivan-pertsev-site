@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-063-consent-page-support
+   Версия: legal-css-064-consent-desktop-text-adjustments
 
    ИЗМЕНЕНИЯ:
    - файл основан на legal-css-052-mobile-scrolltop-bottom-50px
@@ -16,6 +16,8 @@
    - desktop, меню, burger/cross, стрелка, фон меню, нижняя геометрия и JS не изменялись
    - добавлена поддержка страницы согласия без изменения утверждённой legal-геометрии
    - добавлен служебный visually-hidden заголовок для вводного блока согласия
+   - desktop-only: заголовок страницы согласия выведен в одну строку без изменения mobile
+   - desktop-only: в пункте 4 согласия слово «как» перенесено на новую строку без изменения mobile
    ========================================================= */
 
 html,
@@ -264,6 +266,11 @@ body,
 }
 
 @media (min-width:768px){
+  .ip-legal-page--consent .ip-legal-title{
+    width:1122px;
+    white-space:nowrap;
+  }
+
   .ip-policy-menu-stage{
     position:fixed;
     top:0;
@@ -627,6 +634,10 @@ body,
     display:block;
     width:100%;
     white-space:nowrap;
+  }
+
+  .ip-legal-desktop-break{
+    display:none;
   }
 
   .ip-legal-content{

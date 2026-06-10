@@ -2,13 +2,15 @@
 ==================================================
 CONSENT PREVIEW HTML
 
-Версия: consent-preview-html-001-initial-from-approved-policy
+Версия: consent-preview-html-003-mobile-text-line-breaks
 
 ИЗМЕНЕНИЯ:
 - создан preview для страницы «Согласие на обработку персональных данных» на базе утверждённого policy-preview.html
 - сохранены те же подключения CSS, popup, page transition и legal.js
 - fetch переключён с pages/legal/policy.html на pages/legal/consent.html
 - desktop/mobile-геометрия, меню и JS-логика не изменялись
+- обновлена query-версия consent.html для mobile-only переносов текста согласия
+- CSS, JS, меню, desktop-версия и общая геометрия не изменялись
 ==================================================
 -->
 
@@ -44,7 +46,7 @@ CONSENT PREVIEW HTML
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
-  <link rel="stylesheet" href="./css/legal.css?v=062-mobile-text-linebreaks-only">
+  <link rel="stylesheet" href="./css/legal.css?v=064-consent-desktop-text-adjustments">
 </head>
 
 <body>
@@ -53,7 +55,7 @@ CONSENT PREVIEW HTML
   <div id="ip-policy-root"></div>
 
   <script>
-    fetch('./pages/legal/consent.html?v=001-initial-from-approved-policy')
+    fetch('./pages/legal/consent.html?v=003-mobile-text-line-breaks')
       .then(function(response){
         return response.text();
       })
