@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-057-restore-approved-desktop-mobile-header-link
+   Версия: legal-css-062-mobile-text-linebreaks-only
 
    ИЗМЕНЕНИЯ:
    - файл основан на legal-css-052-mobile-scrolltop-bottom-50px
@@ -12,6 +12,8 @@
    - mobile-only: добавлен финальный слой для нижней геометрии, который перебивает старые mobile-override блоки внутри этого файла
    - откат базы CSS к рабочей версии 055, чтобы вернуть утверждённое desktop-меню
    - mobile-only: заголовок политики и meta-блок опущены на 5px без изменения desktop и меню
+   - mobile-only: добавлены точечные переносы отмеченных слов в тексте политики через .ip-legal-mobile-break
+   - desktop, меню, burger/cross, стрелка, фон меню, нижняя геометрия и JS не изменялись
    ========================================================= */
 
 html,
@@ -187,6 +189,11 @@ body,
 .ip-legal-content a:hover,
 .ip-legal-meta a:hover{
   opacity:.75;
+}
+
+
+.ip-legal-mobile-break{
+  display:none;
 }
 
 
@@ -1314,7 +1321,7 @@ body,
 /* =========================================================
    POLICY MOBILE MENU SCROLL CLOSE ANIMATION
 
-   Версия: legal-css-057-restore-approved-desktop-mobile-header-link
+   Версия: legal-css-062-mobile-text-linebreaks-only
 
    ИЗМЕНЕНИЯ:
    - mobile-only: добавлена промежуточная фаза is-closing для плавного закрытия меню при скролле
@@ -1357,7 +1364,7 @@ body,
 /* =========================================================
    POLICY MOBILE HEADER POSITION
 
-   Версия: legal-css-057-restore-approved-desktop-mobile-header-link
+   Версия: legal-css-062-mobile-text-linebreaks-only
 
    ИЗМЕНЕНИЯ:
    - mobile-only: заголовок «Политика обработки персональных данных» опущен на 5px
@@ -1396,3 +1403,18 @@ body,
     pointer-events:auto !important;
   }
 }
+
+/* =========================================================
+   MOBILE-ONLY TEXT LINE BREAKS — VERSION 062
+   Desktop не затрагивается: на desktop .ip-legal-mobile-break скрыт.
+   ========================================================= */
+@media (max-width:767px){
+  .ip-legal-mobile-break{
+    display:block;
+    width:100%;
+    height:0;
+    font-size:0;
+    line-height:0;
+  }
+}
+

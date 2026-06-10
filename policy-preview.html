@@ -2,7 +2,7 @@
 ==================================================
 POLICY PREVIEW HTML
 
-Версия: policy-preview-html-022-header-site-link-click-area
+Версия: policy-preview-html-023-mobile-text-linebreaks-only
 
 ИЗМЕНЕНИЯ:
 - файл основан на policy-preview-html-016-mobile-real-bottom-trim
@@ -13,6 +13,7 @@ POLICY PREVIEW HTML
 - css/legal.css получил cache-bust v=061, чтобы локальный preview точно подтянул исправление кликабельности верхней ссылки
 - desktop-разметка, desktop-подключения и desktop-геометрия не изменялись
 - нижняя геометрия страницы, размер стрелки и approved-логика меню из версии 055 сохранены
+- cache-bust обновлён до v=062 для проверки mobile-only переносов отмеченных слов
 ==================================================
 -->
 
@@ -48,7 +49,7 @@ POLICY PREVIEW HTML
   <link rel="stylesheet" href="./css/popups.css">
   <link rel="stylesheet" href="./css/popups-mobile.css">
   <link rel="stylesheet" href="./css/page-transition.css">
-  <link rel="stylesheet" href="./css/legal.css?v=061-header-site-link-click-area">
+  <link rel="stylesheet" href="./css/legal.css?v=062-mobile-text-linebreaks-only">
 </head>
 
 <body>
@@ -57,7 +58,7 @@ POLICY PREVIEW HTML
   <div id="ip-policy-root"></div>
 
   <script>
-    fetch('./pages/legal/policy.html?v=061-header-site-link-click-area')
+    fetch('./pages/legal/policy.html?v=062-mobile-text-linebreaks-only')
       .then(function(response){
         return response.text();
       })
