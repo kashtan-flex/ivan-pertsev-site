@@ -2,7 +2,7 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-012-policy-approved-scale-menu-stage
+Версия: legal-js-014-policy-burger-body-lock-accordion-align
 
 ИЗМЕНЕНИЯ:
 - создан JS для текстовых правовых страниц проекта
@@ -14,6 +14,8 @@ LEGAL JS
 - фон меню теперь управляется pseudo-слоями fixed-stage через класс is-open
 - высота fixed-stage синхронизируется с фактической высотой viewport
 - закрытие меню при scroll/wheel/touchmove сохранено как на approved-страницах
+- desktop burger/cross вынесен в отдельный fixed viewport-layer вне transform-stage, чтобы не скроллился вместе со страницей
+- panel/menu-stage и фон меню оставлены в approved fixed-stage логике
 - остальные страницы сайта не изменялись
 ==================================================
 */
@@ -32,6 +34,7 @@ LEGAL JS
   var shell = document.querySelector('.ip-policy-shell');
   var resizeFrame = null;
   var menuStage = null;
+  var menuButtonLayer = null;
   var menuButtonOriginalParent = menuButton ? menuButton.parentNode : null;
   var menuButtonOriginalNext = menuButton ? menuButton.nextSibling : null;
   var menuPanelOriginalParent = menuPanel ? menuPanel.parentNode : null;
@@ -88,6 +91,39 @@ LEGAL JS
     return menuStage;
   }
 
+  function getMenuButtonLayer(){
+    if(menuButtonLayer && menuButtonLayer.parentNode){
+      return menuButtonLayer;
+    }
+
+    menuButtonLayer = document.querySelector('.ip-policy-menu-button-layer');
+
+    if(menuButtonLayer){
+      return menuButtonLayer;
+    }
+
+    menuButtonLayer = document.createElement('div');
+    menuButtonLayer.className = 'ip-policy-menu-button-layer';
+    menuButtonLayer.setAttribute('aria-hidden', 'false');
+    document.body.appendChild(menuButtonLayer);
+
+    return menuButtonLayer;
+  }
+
+  function updateMenuButtonViewportPosition(scale){
+    var viewportWidth = window.innerWidth;
+    var viewportHeight = getViewportHeight();
+    var stageWidth = DESIGN.desktop.width * scale;
+    var stageHeight = DESIGN.desktop.height * scale;
+    var stageLeft = (viewportWidth - stageWidth) / 2;
+    var stageTop = (viewportHeight - stageHeight) / 2;
+    var buttonTop = stageTop + (60 * scale);
+    var buttonRight = Math.max(0, stageLeft + (100 * scale));
+
+    document.documentElement.style.setProperty('--ip-policy-menu-button-top', buttonTop.toFixed(3) + 'px');
+    document.documentElement.style.setProperty('--ip-policy-menu-button-right', buttonRight.toFixed(3) + 'px');
+  }
+
   function insertBack(parent, node, nextSibling){
     if(!parent || !node){
       return;
@@ -111,21 +147,31 @@ LEGAL JS
         menuStage.style.display = 'none';
       }
 
+      if(menuButtonLayer){
+        menuButtonLayer.style.display = 'none';
+      }
+
       document.documentElement.style.removeProperty('--ip-policy-menu-stage-scale');
       document.documentElement.style.removeProperty('--ip-policy-menu-stage-height');
+      document.documentElement.style.removeProperty('--ip-policy-menu-button-top');
+      document.documentElement.style.removeProperty('--ip-policy-menu-button-right');
       return;
     }
 
     var stage = getMenuStage();
+    var buttonLayer = getMenuButtonLayer();
     var scale = getDesktopMenuScale();
     var stageHeight = Math.max(DESIGN.desktop.height, Math.ceil(getViewportHeight() / scale));
 
     stage.style.display = 'block';
+    buttonLayer.style.display = 'block';
+
     document.documentElement.style.setProperty('--ip-policy-menu-stage-scale', scale.toFixed(5));
     document.documentElement.style.setProperty('--ip-policy-menu-stage-height', stageHeight + 'px');
+    updateMenuButtonViewportPosition(scale);
 
-    if(menuButton.parentNode !== stage){
-      stage.appendChild(menuButton);
+    if(menuButton.parentNode !== buttonLayer){
+      buttonLayer.appendChild(menuButton);
     }
 
     if(menuPanel.parentNode !== stage){
