@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-022-policy-menu-project-bg-plate
+   Версия: legal-css-023-policy-approved-scale-menu-stage
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -22,9 +22,12 @@
    - burger/cross закреплены относительно viewport без переноса меню в body
    - desktop-меню и текстовая разметка не изменялись
    - mobile burger поднят к верхней части второй строки заголовка и жёстко зафиксирован относительно viewport
-   - desktop burger/menu вынесены в fixed stage 1440×800 по логике страницы «Сотрудничество»
-   - approved-анимация menu сохранена: фоновые слои ::before/::after продолжают выезжать справа
-   - фон меню расширен только на 5px влево
+   - desktop масштабирование страницы политики переведено на approved-логику fixed-stage: min(width/1440, height/800)
+   - desktop burger/menu сохранены в fixed stage 1440×800 по логике страницы «Сотрудничество»
+   - фон меню перенесён на pseudo-слои fixed-stage, чтобы ширина не зависела от .ip-menu-panel
+   - фон меню расширен влево на 48px и по высоте синхронизирован с viewport
+   - approved-анимация menu сохранена: фон выезжает справа через transform
+   - mobile-разметка и mobile-правила не изменялись
    ========================================================= */
 
 html,
@@ -238,21 +241,20 @@ body,
   transform:translateY(2px) rotate(45deg);
 }
 
-/* POLICY DESKTOP MENU — PROJECT PAGE SYNC WITH BACKGROUND PLATE
+/* POLICY DESKTOP MENU — APPROVED SCALE + STAGE BACKGROUND
 
    Назначение:
-   - на desktop legal.js переносит burger/menu в fixed stage 1440×800 по логике approved-страниц;
-   - burger и пункты меню остаются в approved-геометрии: top 60/right 100, panel 385×800 справа;
-   - фон меню вынесен в отдельную подложку .ip-policy-menu-bg, чтобы ширина фона не обрезалась panel overflow;
-   - подложка повторяет approved-анимацию menu: transform translateX(100%) → translateX(0);
-   - фон расширен влево на 40px относительно стандартной ширины 385px;
-   - высота фоновой подложки синхронизируется с viewport через JS.
+   - desktop-страница политики переводится на ту же scale-логику, что и approved fixed-stage страницы;
+   - burger/menu живут в отдельном fixed stage 1440×800;
+   - фон меню рисуется pseudo-слоями самого fixed stage, а не panel/background-plate;
+   - поэтому фон можно расширить влево и вниз без зависимости от overflow .ip-menu-panel;
+   - пункты меню остаются в approved-геометрии 385×800 и не двигаются.
 */
 
 :root{
   --ip-policy-menu-stage-scale:1;
   --ip-policy-menu-stage-height:800px;
-  --ip-policy-menu-bg-bleed-left:40px;
+  --ip-policy-menu-bg-bleed-left:48px;
 }
 
 @media (min-width:768px){
@@ -279,44 +281,36 @@ body,
     box-sizing:border-box;
   }
 
-  .ip-policy-menu-stage .ip-policy-menu-bg{
+  .ip-policy-menu-stage::before,
+  .ip-policy-menu-stage::after{
+    content:'';
     position:absolute;
     top:0;
     right:0;
+    bottom:auto;
+    left:auto;
     z-index:39;
-    width:calc(385px + var(--ip-policy-menu-bg-bleed-left, 40px));
+    width:calc(385px + var(--ip-policy-menu-bg-bleed-left, 48px));
     height:var(--ip-policy-menu-stage-height, 800px);
     min-height:800px;
-    overflow:hidden;
-    pointer-events:none;
-    background:transparent;
-  }
-
-  .ip-policy-menu-stage .ip-policy-menu-bg::before,
-  .ip-policy-menu-stage .ip-policy-menu-bg::after{
-    content:'';
-    position:absolute;
-    inset:0;
     pointer-events:none;
     transform:translateX(100%);
     transition:transform .72s cubic-bezier(.19,1,.22,1);
     will-change:transform;
   }
 
-  .ip-policy-menu-stage .ip-policy-menu-bg.is-open::before,
-  .ip-policy-menu-stage .ip-policy-menu-bg.is-open::after{
+  .ip-policy-menu-stage.is-open::before,
+  .ip-policy-menu-stage.is-open::after{
     transform:translateX(0);
   }
 
-  .ip-policy-menu-stage .ip-policy-menu-bg::before{
-    z-index:0;
+  .ip-policy-menu-stage::before{
     background:rgba(0,0,0,.30);
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
   }
 
-  .ip-policy-menu-stage .ip-policy-menu-bg::after{
-    z-index:1;
+  .ip-policy-menu-stage::after{
     background-image:url('../assets/img/home/popups/menu-noise.webp');
     background-size:cover;
     background-position:center;
@@ -326,7 +320,7 @@ body,
   }
 
   @supports not ((backdrop-filter:blur(18px)) or (-webkit-backdrop-filter:blur(18px))){
-    .ip-policy-menu-stage .ip-policy-menu-bg::before{
+    .ip-policy-menu-stage::before{
       background:rgba(0,0,0,.62);
     }
   }
