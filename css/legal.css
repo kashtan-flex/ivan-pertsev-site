@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-028-policy-burger-body-lock-accordion-align
+   Версия: legal-css-029-policy-burger-fixed-layer-arrows-align
 
    ИЗМЕНЕНИЯ:
    - создан общий CSS для правовых страниц проекта
@@ -27,10 +27,9 @@
    - фон меню перенесён на pseudo-слои fixed-stage, чтобы ширина не зависела от .ip-menu-panel
    - фон меню расширен влево на 48px и по высоте синхронизирован с viewport
    - approved-анимация menu сохранена: фон выезжает справа через transform
-   - mobile-разметка и mobile-правила не изменялись
-   - desktop burger/cross вынесен в отдельный fixed viewport-layer вне transform-stage, чтобы не скроллился вместе со страницей
-   - стрелки аккордеонов desktop возвращены к right:0/9 для выравнивания с правым краем крестика
-   - фон меню, масштабирование страницы, blur, mobile и текстовая часть не изменялись
+   - burger/cross вынесен в отдельный fixed-layer вне stage, чтобы не скроллился вместе со страницей
+   - стрелки аккордеонов desktop возвращены на approved-линию правого края меню/крестика
+   - фон меню, масштабирование, blur, высота и mobile не изменялись
    ========================================================= */
 
 html,
@@ -258,8 +257,6 @@ body,
   --ip-policy-menu-stage-scale:1;
   --ip-policy-menu-stage-height:800px;
   --ip-policy-menu-bg-bleed-left:48px;
-  --ip-policy-menu-button-top:60px;
-  --ip-policy-menu-button-right:100px;
 }
 
 @media (min-width:768px){
@@ -284,53 +281,6 @@ body,
   .ip-policy-menu-stage,
   .ip-policy-menu-stage *{
     box-sizing:border-box;
-  }
-
-  .ip-policy-menu-button-layer{
-    position:fixed;
-    inset:0;
-    z-index:10020;
-    width:100%;
-    height:0;
-    overflow:visible;
-    pointer-events:none;
-    background:transparent;
-  }
-
-  .ip-policy-menu-button-layer .ip-menu-toggle{
-    position:fixed !important;
-    top:var(--ip-policy-menu-button-top, 60px) !important;
-    right:var(--ip-policy-menu-button-right, 100px) !important;
-    left:auto !important;
-    bottom:auto !important;
-    z-index:10021 !important;
-    width:calc(27px * var(--ip-policy-menu-stage-scale, 1)) !important;
-    height:calc(27px * var(--ip-policy-menu-stage-scale, 1)) !important;
-    transform:none !important;
-    transform-origin:center center !important;
-    pointer-events:auto !important;
-  }
-
-  .ip-policy-menu-button-layer .ip-menu-line{
-    width:calc(27px * var(--ip-policy-menu-stage-scale, 1)) !important;
-    height:calc(3px * var(--ip-policy-menu-stage-scale, 1)) !important;
-    border-radius:calc(10px * var(--ip-policy-menu-stage-scale, 1)) !important;
-  }
-
-  .ip-policy-menu-button-layer .ip-menu-line:first-child{
-    transform:translateY(calc(-50% - (5.5px * var(--ip-policy-menu-stage-scale, 1)))) !important;
-  }
-
-  .ip-policy-menu-button-layer .ip-menu-line:last-child{
-    transform:translateY(calc(-50% + (5.5px * var(--ip-policy-menu-stage-scale, 1)))) !important;
-  }
-
-  .ip-policy-menu-button-layer .ip-menu-toggle.is-open .ip-menu-line:first-child{
-    transform:translateY(-50%) rotate(45deg) !important;
-  }
-
-  .ip-policy-menu-button-layer .ip-menu-toggle.is-open .ip-menu-line:last-child{
-    transform:translateY(-50%) rotate(-45deg) !important;
   }
 
   .ip-policy-menu-stage::before,
@@ -375,6 +325,31 @@ body,
     .ip-policy-menu-stage::before{
       background:rgba(0,0,0,.62);
     }
+  }
+
+  .ip-policy-burger-layer{
+    position:fixed;
+    inset:0;
+    z-index:10030;
+    width:100%;
+    height:0;
+    overflow:visible;
+    pointer-events:none;
+    background:transparent;
+  }
+
+  .ip-policy-burger-layer .ip-menu-toggle{
+    position:fixed !important;
+    top:var(--ip-policy-burger-top, 60px) !important;
+    right:var(--ip-policy-burger-right, 100px) !important;
+    left:auto !important;
+    bottom:auto !important;
+    z-index:10031 !important;
+    width:27px !important;
+    height:27px !important;
+    transform:scale(var(--ip-policy-menu-stage-scale, 1)) !important;
+    transform-origin:top right !important;
+    pointer-events:auto !important;
   }
 
   .ip-policy-menu-stage .ip-menu-toggle{

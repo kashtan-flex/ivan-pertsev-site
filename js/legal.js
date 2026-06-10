@@ -2,7 +2,7 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-014-policy-burger-body-lock-accordion-align
+Версия: legal-js-015-policy-burger-fixed-layer-arrows-align
 
 ИЗМЕНЕНИЯ:
 - создан JS для текстовых правовых страниц проекта
@@ -10,12 +10,11 @@ LEGAL JS
 - добавлена обработка data-popup-open="main" для пунктов «Другое», «Написать» и popup-триггеров
 - добавлена работа стрелки наверх
 - desktop масштабирование страницы политики переведено на approved-логику fixed-stage: min(width/1440, height/800)
-- desktop burger/menu переносятся в fixed stage 1440×800 по логике approved-страниц
+- desktop menu остаётся в fixed stage 1440×800, а burger/cross выносится в отдельный fixed viewport-layer
 - фон меню теперь управляется pseudo-слоями fixed-stage через класс is-open
 - высота fixed-stage синхронизируется с фактической высотой viewport
 - закрытие меню при scroll/wheel/touchmove сохранено как на approved-страницах
-- desktop burger/cross вынесен в отдельный fixed viewport-layer вне transform-stage, чтобы не скроллился вместе со страницей
-- panel/menu-stage и фон меню оставлены в approved fixed-stage логике
+- координаты burger/cross рассчитываются от approved stage и не зависят от scroll
 - остальные страницы сайта не изменялись
 ==================================================
 */
@@ -34,7 +33,7 @@ LEGAL JS
   var shell = document.querySelector('.ip-policy-shell');
   var resizeFrame = null;
   var menuStage = null;
-  var menuButtonLayer = null;
+  var burgerLayer = null;
   var menuButtonOriginalParent = menuButton ? menuButton.parentNode : null;
   var menuButtonOriginalNext = menuButton ? menuButton.nextSibling : null;
   var menuPanelOriginalParent = menuPanel ? menuPanel.parentNode : null;
@@ -91,37 +90,23 @@ LEGAL JS
     return menuStage;
   }
 
-  function getMenuButtonLayer(){
-    if(menuButtonLayer && menuButtonLayer.parentNode){
-      return menuButtonLayer;
+  function getBurgerLayer(){
+    if(burgerLayer && burgerLayer.parentNode){
+      return burgerLayer;
     }
 
-    menuButtonLayer = document.querySelector('.ip-policy-menu-button-layer');
+    burgerLayer = document.querySelector('.ip-policy-burger-layer');
 
-    if(menuButtonLayer){
-      return menuButtonLayer;
+    if(burgerLayer){
+      return burgerLayer;
     }
 
-    menuButtonLayer = document.createElement('div');
-    menuButtonLayer.className = 'ip-policy-menu-button-layer';
-    menuButtonLayer.setAttribute('aria-hidden', 'false');
-    document.body.appendChild(menuButtonLayer);
+    burgerLayer = document.createElement('div');
+    burgerLayer.className = 'ip-policy-burger-layer';
+    burgerLayer.setAttribute('aria-hidden', 'false');
+    document.body.appendChild(burgerLayer);
 
-    return menuButtonLayer;
-  }
-
-  function updateMenuButtonViewportPosition(scale){
-    var viewportWidth = window.innerWidth;
-    var viewportHeight = getViewportHeight();
-    var stageWidth = DESIGN.desktop.width * scale;
-    var stageHeight = DESIGN.desktop.height * scale;
-    var stageLeft = (viewportWidth - stageWidth) / 2;
-    var stageTop = (viewportHeight - stageHeight) / 2;
-    var buttonTop = stageTop + (60 * scale);
-    var buttonRight = Math.max(0, stageLeft + (100 * scale));
-
-    document.documentElement.style.setProperty('--ip-policy-menu-button-top', buttonTop.toFixed(3) + 'px');
-    document.documentElement.style.setProperty('--ip-policy-menu-button-right', buttonRight.toFixed(3) + 'px');
+    return burgerLayer;
   }
 
   function insertBack(parent, node, nextSibling){
@@ -147,35 +132,42 @@ LEGAL JS
         menuStage.style.display = 'none';
       }
 
-      if(menuButtonLayer){
-        menuButtonLayer.style.display = 'none';
+      if(burgerLayer){
+        burgerLayer.style.display = 'none';
       }
 
       document.documentElement.style.removeProperty('--ip-policy-menu-stage-scale');
       document.documentElement.style.removeProperty('--ip-policy-menu-stage-height');
-      document.documentElement.style.removeProperty('--ip-policy-menu-button-top');
-      document.documentElement.style.removeProperty('--ip-policy-menu-button-right');
+      document.documentElement.style.removeProperty('--ip-policy-burger-top');
+      document.documentElement.style.removeProperty('--ip-policy-burger-right');
       return;
     }
 
     var stage = getMenuStage();
-    var buttonLayer = getMenuButtonLayer();
+    var layer = getBurgerLayer();
     var scale = getDesktopMenuScale();
-    var stageHeight = Math.max(DESIGN.desktop.height, Math.ceil(getViewportHeight() / scale));
+    var viewportWidth = window.innerWidth;
+    var viewportHeight = getViewportHeight();
+    var stageHeight = Math.max(DESIGN.desktop.height, Math.ceil(viewportHeight / scale));
+    var stageLeft = (viewportWidth - (DESIGN.desktop.width * scale)) / 2;
+    var stageTop = (viewportHeight - (stageHeight * scale)) / 2;
+    var burgerTop = stageTop + (60 * scale);
+    var burgerRight = stageLeft + (100 * scale);
 
     stage.style.display = 'block';
-    buttonLayer.style.display = 'block';
+    layer.style.display = 'block';
 
     document.documentElement.style.setProperty('--ip-policy-menu-stage-scale', scale.toFixed(5));
     document.documentElement.style.setProperty('--ip-policy-menu-stage-height', stageHeight + 'px');
-    updateMenuButtonViewportPosition(scale);
-
-    if(menuButton.parentNode !== buttonLayer){
-      buttonLayer.appendChild(menuButton);
-    }
+    document.documentElement.style.setProperty('--ip-policy-burger-top', burgerTop.toFixed(2) + 'px');
+    document.documentElement.style.setProperty('--ip-policy-burger-right', burgerRight.toFixed(2) + 'px');
 
     if(menuPanel.parentNode !== stage){
       stage.appendChild(menuPanel);
+    }
+
+    if(menuButton.parentNode !== layer){
+      layer.appendChild(menuButton);
     }
   }
 
