@@ -1,11 +1,12 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-042-policy-menu-toggle-approved-align
+   Версия: legal-css-044-policy-menu-toggle-arrow-2px-left
 
    ИЗМЕНЕНИЯ:
-   - файл основан на legal-css-041-policy-scrolltop-scaled-edge-align
-   - desktop burger/cross сдвинут вправо в approved-геометрию меню относительно раскрытых стрелок аккордеонов
+   - файл основан на legal-css-042-policy-menu-toggle-approved-align
+   - desktop burger/cross аккуратно возвращён на 4px левее относительно предыдущей версии
+   - крестик выравнен ближе к правой линии стрелок аккордеонов «Проекты» и «Контакты»
    - исправлена только позиция desktop .ip-menu-toggle, без изменения текста, фона меню, размеров меню, blur, scrolltop, mobile и JavaScript
    ========================================================= */
 
@@ -325,7 +326,7 @@ body,
   .ip-policy-page > .ip-menu-toggle{
     position:absolute !important;
     top:calc(60px * var(--ip-policy-menu-stage-scale, 1)) !important;
-    right:calc(((100vw - (1440px * var(--ip-policy-menu-stage-scale, 1))) / 2) + (84px * var(--ip-policy-menu-stage-scale, 1))) !important;
+    right:calc(((100vw - (1440px * var(--ip-policy-menu-stage-scale, 1))) / 2) + (90px * var(--ip-policy-menu-stage-scale, 1))) !important;
     left:auto !important;
     bottom:auto !important;
     z-index:10050 !important;
@@ -387,7 +388,7 @@ body,
   .ip-policy-menu-stage .ip-menu-toggle{
     position:fixed !important;
     top:calc(60px * var(--ip-policy-menu-stage-scale, 1)) !important;
-    right:calc(((100vw - (1440px * var(--ip-policy-menu-stage-scale, 1))) / 2) + (84px * var(--ip-policy-menu-stage-scale, 1))) !important;
+    right:calc(((100vw - (1440px * var(--ip-policy-menu-stage-scale, 1))) / 2) + (90px * var(--ip-policy-menu-stage-scale, 1))) !important;
     left:auto !important;
     bottom:auto !important;
     z-index:50 !important;
