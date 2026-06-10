@@ -2,7 +2,7 @@
 ==================================================
 LEGAL JS
 
-Версия: legal-js-027-mobile-close-menu-on-scroll-start
+Версия: legal-js-028-mobile-page-bottom-gap-sync
 
 ИЗМЕНЕНИЯ:
 - файл основан на legal-js-025-policy-mobile-wedding-menu-logic
@@ -10,6 +10,8 @@ LEGAL JS
 - mobile-логика из версии 049 сохранена: original burger/panel остаются внутри policy.html
 - desktop-положение burger/cross больше не меняется mobile-правкой
 - добавлено mobile-only закрытие меню сразу при touchmove/wheel/scroll без влияния на desktop
+- mobile-only: высота страницы и положение стрелки рассчитываются от нижнего края текста
+- desktop-логика, desktop-меню и desktop-геометрия не изменялись
 ==================================================
 */
 
@@ -130,6 +132,49 @@ LEGAL JS
     }
   }
 
+  function getNumericStyleValue(element, property){
+    if(!element){
+      return 0;
+    }
+
+    var value = parseFloat(window.getComputedStyle(element).getPropertyValue(property));
+
+    if(Number.isNaN(value)){
+      return 0;
+    }
+
+    return value;
+  }
+
+  function syncMobilePageBottom(scale){
+    var pageBottomGap = 50;
+    var contentToButtonGap = 50;
+    var buttonHeight = scrollTopButton ? scrollTopButton.offsetHeight : 24;
+    var shellPaddingBottom = getNumericStyleValue(shell, 'padding-bottom');
+    var contentBottom = Math.ceil(Math.max(0, shell.scrollHeight - shellPaddingBottom) * scale);
+    var buttonTop = contentBottom + contentToButtonGap;
+    var pageHeight = Math.max(
+      getViewportHeight(),
+      buttonTop + buttonHeight + pageBottomGap
+    );
+
+    document.documentElement.style.setProperty('--ip-policy-page-height', Math.ceil(pageHeight) + 'px');
+
+    if(scrollTopButton){
+      scrollTopButton.style.top = Math.ceil(buttonTop) + 'px';
+      scrollTopButton.style.bottom = 'auto';
+    }
+  }
+
+  function resetDesktopScrollTopPosition(){
+    if(!scrollTopButton){
+      return;
+    }
+
+    scrollTopButton.style.removeProperty('top');
+    scrollTopButton.style.removeProperty('bottom');
+  }
+
   function updatePolicyScale(){
     if(!shell){
       return;
@@ -145,14 +190,19 @@ LEGAL JS
 
       document.documentElement.style.setProperty('--ip-policy-mobile-scale', scale.toFixed(5));
       document.documentElement.style.removeProperty('--ip-policy-desktop-scale');
-    } else {
-      scale = getDesktopScale();
 
-      document.documentElement.style.setProperty('--ip-policy-desktop-scale', scale.toFixed(5));
-      document.documentElement.style.removeProperty('--ip-policy-mobile-scale');
+      syncPolicyMenuStage();
+      syncMobilePageBottom(scale);
+      return;
     }
 
+    scale = getDesktopScale();
+
+    document.documentElement.style.setProperty('--ip-policy-desktop-scale', scale.toFixed(5));
+    document.documentElement.style.removeProperty('--ip-policy-mobile-scale');
+
     syncPolicyMenuStage();
+    resetDesktopScrollTopPosition();
 
     document.documentElement.style.setProperty(
       '--ip-policy-page-height',
