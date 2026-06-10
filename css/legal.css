@@ -1,7 +1,7 @@
 /* =========================================================
    LEGAL CSS — POLICY PAGE
 
-   Версия: legal-css-038-policy-menu-scrolls-with-title-from-031
+   Версия: legal-css-039-policy-menu-closed-bg-hidden-wide
 
    ИЗМЕНЕНИЯ:
    - файл основан на визуально корректной версии legal-css-031-policy-body-portal-fixed
@@ -275,13 +275,23 @@ body,
     min-height:100vh;
     pointer-events:none;
     transform:translateX(100%);
-    transition:transform .72s cubic-bezier(.19,1,.22,1);
-    will-change:transform;
+    opacity:0;
+    visibility:hidden;
+    transition:
+      transform .72s cubic-bezier(.19,1,.22,1),
+      opacity .22s ease,
+      visibility 0s linear .72s;
+    will-change:transform, opacity;
   }
 
   .ip-policy-menu-stage.is-open::before,
   .ip-policy-menu-stage.is-open::after{
     transform:translateX(0);
+    visibility:visible;
+    transition:
+      transform .72s cubic-bezier(.19,1,.22,1),
+      opacity .18s ease,
+      visibility 0s linear 0s;
   }
 
   .ip-policy-menu-stage::before{
@@ -290,13 +300,20 @@ body,
     -webkit-backdrop-filter:blur(18px);
   }
 
+  .ip-policy-menu-stage.is-open::before{
+    opacity:1;
+  }
+
   .ip-policy-menu-stage::after{
     background-image:url('../assets/img/home/popups/menu-noise.webp');
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
-    opacity:.35;
     mix-blend-mode:normal;
+  }
+
+  .ip-policy-menu-stage.is-open::after{
+    opacity:.35;
   }
 
   @supports not ((backdrop-filter:blur(18px)) or (-webkit-backdrop-filter:blur(18px))){
